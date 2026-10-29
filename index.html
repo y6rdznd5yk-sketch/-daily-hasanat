@@ -227,6 +227,40 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 .adj{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
 .adj label{font-size:.72rem;color:var(--muted)}
 .adj input{width:100%;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:.95rem;text-align:center;margin-top:2px}
+.rk{display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;color:var(--ink);background:linear-gradient(135deg,var(--gold-soft),var(--card));border:1px solid var(--gold);border-radius:16px;padding:12px;margin:12px 0 0}
+.rk-i{font-size:2.4rem;line-height:1}
+.rk-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.rk-t b{font-size:1.15rem;color:var(--gold)}
+.rk-t small{font-size:.72rem;color:var(--muted)}
+.rk-t .bar{margin:4px 0 2px;display:block}
+.rk-g{color:var(--ink) !important}
+.rk-a{font-size:1.4rem;color:var(--gold)}
+#missions{margin-top:10px}
+.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.mh span{color:var(--accent);font-weight:700;font-size:.85rem}
+.mi{display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px solid var(--line);font-size:.88rem}
+.mi i{font-style:normal;width:18px;color:var(--muted)}
+.mi small{margin-left:auto;color:var(--gold);font-weight:600;font-size:.72rem}
+.mi.on{color:var(--muted)}
+.mi.on i{color:var(--accent);font-weight:700}
+.hl{background:var(--gold-soft);border-radius:12px;padding:12px;margin:8px 0}
+.hl small{display:block;color:var(--gold);font-weight:700;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em}
+.hl b{display:block;font-size:1.05rem;margin:2px 0 4px}
+.hl p{margin:.4em 0}
+.hli{border-top:1px solid var(--line);padding:6px 0;margin:0}
+.hli summary{font-size:.88rem;color:var(--ink)}
+.hli.on summary{color:var(--accent)}
+.hli p{margin:.4em 0;font-size:.85rem}
+.pr{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px;opacity:.6}
+.pr.on{opacity:1}
+.pr.cur{border:2px solid var(--gold)}
+.pr-h{display:flex;gap:10px;align-items:center}
+.pr-h span{font-size:2rem}
+.pr-h small{display:block;color:var(--muted);font-size:.75rem}
+.pr-g{display:flex;flex-wrap:wrap;gap:4px;margin:8px 0 0}
+.pr-g span{font-size:.75rem;padding:2px 8px;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
+.pr-g span.ok{border-color:var(--accent);color:var(--accent)}
+.pr p{font-size:.85rem;margin:.6em 0 0}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -243,6 +277,8 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
   <!-- HEUTE -->
   <section class="page on" id="p-today">
     <div id="intro"></div>
+    <div id="rank"></div>
+    <div class="card" id="missions"></div>
     <div class="stats">
       <div class="stat g"><b id="s-has">0</b><span>Hasanat (min.)*</span></div>
       <div class="stat r"><b id="s-rizq">0</b><span>Rizq-Taten</span></div>
@@ -292,6 +328,8 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
   <!-- WISSEN -->
   <section class="page" id="p-info">
     <button class="gbtn" data-guide="1" style="margin-top:12px">📖 Gebets-Anleitung: Rak’at, Adhan &amp; Iqama, Schritt für Schritt</button>
+    <h2>📚 Wissens-Pfad</h2>
+    <div class="card" id="hpath"></div>
     <h2>Meine Du’as</h2>
     <div class="card" id="duas"></div>
     <h2>Wann Du’a besonders erhört wird</h2>
@@ -350,7 +388,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <select class="btn" id="set-theme"><option value="auto">Design: automatisch</option><option value="light">Design: hell</option><option value="dark">Design: dunkel</option></select>
     <select class="btn" id="set-font"><option value="n">Schrift: normal</option><option value="l">Schrift: groß</option><option value="xl">Schrift: sehr groß</option></select>
     <label class="card" style="display:flex;justify-content:space-between;align-items:center">Arabische Schrift anzeigen <input type="checkbox" id="b-ar" style="width:22px;height:22px"></label>
-    <p class="sub" style="text-align:center">App-Version 11 (29.10.2026)</p>
+    <p class="sub" style="text-align:center">App-Version 12 (29.10.2026)</p>
     <h2>Quran-Schätzung</h2>
     <div class="card"><p>Der Mushaf hat ca. 320.000 Buchstaben auf 604 Seiten ≈ 530 Buchstaben/Seite. Pro Buchstabe 1 Hasana ×10 (Tirmidhi 2910) ⇒ ca. <b>5.300 Hasanat pro Seite</b>. Das ist eine grobe Schätzung.</p></div>
   </section>
@@ -401,6 +439,12 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
   <div class="wrap">
     <div class="sheet-h"><h3>📖 Gebets-Anleitung</h3><button class="x" id="guide-close" aria-label="schließen">✕</button></div>
     <div id="guide-body"></div>
+  </div>
+</div>
+<div class="sheet" id="path" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>🎮 → 👑 Vom Playboy zum Prayerboy</h3><button class="x" id="path-close" aria-label="schließen">✕</button></div>
+    <div id="path-body"></div>
   </div>
 </div>
 <script src="prayer.js"></script>
@@ -641,8 +685,8 @@ function deedHasanat(d, c){
   if (d.bonus && c >= d.target) h += d.bonus;
   return h;
 }
-let SC = {};
-const clearStats = () => { SC = {}; };
+let SC = {}, XC = {};
+const clearStats = () => { SC = {}; XC = {}; };
 function dayStats(k){
   if (k < today) return SC[k] || (SC[k] = dayStatsRaw(k));
   return dayStatsRaw(k);
@@ -784,7 +828,7 @@ function renderQuick(){
     </div>`;
   }).join('');
 }
-function render(){ renderStats(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); }
+function render(){ renderStats(); renderMissions(); renderRank(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); }
 
 // ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
 const SPECIAL = [
@@ -1255,6 +1299,8 @@ function lifetime(){
   L.fard5 = Object.values(db.days).filter(x => (x.fard || 0) >= 5).length;
   L.jamaa5 = Object.values(db.days).filter(x => (x.jamaa || 0) >= 5).length;
   L.names = Object.keys(db.names || {}).length;
+  L.hadith = Object.keys(db.hadith || {}).length;
+  L.qiyam = Object.values(db.days).filter(x => (x.qiyam || 0) >= 1).length;
   L.best = bestStreak();
   return L;
 }
@@ -1284,6 +1330,7 @@ const BADGES = [
 db.badges = db.badges || {};
 function checkBadges(L){
   L = L || lifetime();
+  updateRank(L);
   const fresh = BADGES.filter(([id, , , , ok]) => !db.badges[id] && ok(L));
   if (!fresh.length) return L;
   for (const [id] of fresh) db.badges[id] = today;
@@ -1470,7 +1517,7 @@ $('#fc').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   if (b.id === 'fc-close') { $('#fc').hidden = true; document.body.style.overflow = ''; renderNames(); }
   else if (b.id === 'fc-show') { fc.shown = true; renderFc(); }
-  else if (b.id === 'fc-ok') { db.names[fc.i] = today; save(); buzz(15); if (Object.keys(db.names).length === 99) toast('Alle 99 Namen gelernt – MashaAllah 🌟'); nextCard(); }
+  else if (b.id === 'fc-ok') { db.names[fc.i] = today; const xd = db.days[today] = db.days[today] || {}; xd.nl = (xd.nl || 0) + 1; save(); renderMissions(); buzz(15); if (Object.keys(db.names).length === 99) toast('Alle 99 Namen gelernt – MashaAllah 🌟'); nextCard(); }
   else if (b.id === 'fc-again') nextCard();
 });
 
@@ -1641,6 +1688,160 @@ function openGuide(){
 }
 $('#guide').addEventListener('click', e => { if (e.target.closest('#guide-close')) { $('#guide').hidden = true; document.body.style.overflow = ''; } });
 
+// ---------- Wissens-Pfad: Die 40 Hadith von an-Nawawi ----------
+const NAWAWI = [
+  ['Die Absicht', '„Die Taten werden nur nach den Absichten beurteilt, und jedem Menschen steht nur das zu, was er beabsichtigt hat …“', 'Bukhari 1, Muslim 1907'],
+  ['Islam, Iman, Ihsan (Hadith Jibril)', 'Jibril fragte nach dem Islam (die fünf Säulen), dem Iman (an Allah, Seine Engel, Bücher, Gesandten, den Jüngsten Tag und die Vorherbestimmung – das Gute wie das Schlechte) und dem Ihsan: „Dass du Allah dienst, als ob du Ihn sähest; und wenn du Ihn nicht siehst, so sieht Er dich.“', 'Muslim 8'],
+  ['Die fünf Säulen', '„Der Islam ist auf fünf gebaut: dem Bezeugen, dass es keinen Gott außer Allah gibt und Muhammad Sein Gesandter ist, dem Gebet, der Zakat, der Hadsch und dem Fasten im Ramadan.“', 'Bukhari 8, Muslim 16'],
+  ['Die Erschaffung & das Ende', 'Der Mensch wird im Mutterleib erschaffen; dann wird ein Engel gesandt, der die Seele einhaucht und seine Versorgung, Lebenszeit, Taten und sein Schicksal aufschreibt. … Es zählt, womit die Taten enden.', 'Bukhari 3208, Muslim 2643'],
+  ['Keine Neuerungen in der Religion', '„Wer in diese unsere Angelegenheit (die Religion) etwas einführt, das nicht dazugehört, wird zurückgewiesen.“', 'Bukhari 2697, Muslim 1718'],
+  ['Halal, Haram & das Herz', '„Das Erlaubte ist klar und das Verbotene ist klar, und dazwischen liegen zweifelhafte Dinge … Wer sich vor dem Zweifelhaften hütet, schützt seine Religion und Ehre … Im Körper ist ein Stück Fleisch: ist es gesund, ist der ganze Körper gesund … das ist das Herz.“', 'Bukhari 52, Muslim 1599'],
+  ['Die Religion ist Aufrichtigkeit', '„Die Religion ist Nasiha (Aufrichtigkeit, guter Rat).“ – Für wen? „Für Allah, Sein Buch, Seinen Gesandten, die Führer der Muslime und ihre Allgemeinheit.“', 'Muslim 55'],
+  ['Die Unantastbarkeit des Muslims', '„Mir wurde befohlen, gegen die Menschen zu kämpfen, bis sie bezeugen …, das Gebet verrichten und die Zakat entrichten; tun sie das, sind ihr Blut und Vermögen vor mir geschützt …“ – Die Gelehrten beziehen dies auf die damaligen kriegführenden Gegner, nicht auf Zwang zum Glauben („Es gibt keinen Zwang in der Religion“, Quran 2:256).', 'Bukhari 25, Muslim 22'],
+  ['Tu, was du kannst', '„Was ich euch verboten habe, das meidet; und was ich euch befohlen habe, das tut, so viel ihr könnt.“', 'Bukhari 7288, Muslim 1337'],
+  ['Halal essen – erhört werden', '„Allah ist gut und nimmt nur Gutes an …“ – Ein Mann reist lange, zerzaust, hebt die Hände zum Himmel: „O Herr!“ – doch sein Essen, Trinken und seine Kleidung sind haram: Wie soll er erhört werden?', 'Muslim 1015'],
+  ['Lass das Zweifelhafte', '„Lass, was dich zweifeln lässt, für das, was dich nicht zweifeln lässt.“', 'Tirmidhi 2518, an-Nasa’i 5711 – sahih'],
+  ['Was dich nichts angeht', '„Zum guten Islam eines Menschen gehört, dass er lässt, was ihn nichts angeht.“', 'Tirmidhi 2317 – hasan'],
+  ['Liebe für deinen Bruder', '„Keiner von euch glaubt (vollkommen), bis er für seinen Bruder liebt, was er für sich selbst liebt.“', 'Bukhari 13, Muslim 45'],
+  ['Der Schutz des Lebens', 'Das Blut eines Muslims ist nur in drei Fällen erlaubt, die das islamische Recht nennt. – Es geht um Urteile eines rechtmäßigen Gerichts, nicht um Handlungen Einzelner; der Hadith zeigt vor allem, wie unantastbar ein Menschenleben ist.', 'Bukhari 6878, Muslim 1676'],
+  ['Gutes sagen oder schweigen', '„Wer an Allah und den Jüngsten Tag glaubt, soll Gutes sagen oder schweigen; … soll seinen Nachbarn ehren; … soll seinen Gast ehren.“', 'Bukhari 6018, Muslim 47'],
+  ['Werde nicht zornig', 'Ein Mann bat: „Rate mir.“ Er sagte: „Werde nicht zornig.“ Der Mann fragte mehrmals – und jedes Mal: „Werde nicht zornig.“', 'Bukhari 6116'],
+  ['Ihsan in allem', '„Allah hat Ihsan (Vortrefflichkeit) in allem vorgeschrieben …“ – sogar beim Schlachten: das Messer schärfen und das Tier schonen.', 'Muslim 1955'],
+  ['Taqwa & guter Charakter', '„Fürchte Allah, wo immer du bist; lass auf eine schlechte Tat eine gute folgen, die sie auslöscht; und begegne den Menschen mit gutem Charakter.“', 'Tirmidhi 1987 – hasan'],
+  ['Achte auf Allah', '„Achte auf Allah, so achtet Er auf dich … Wenn du bittest, so bitte Allah; wenn du Hilfe suchst, so suche sie bei Allah. Wisse: Wenn sich alle versammelten, um dir zu nützen, könnten sie dir nur mit dem nützen, was Allah für dich bestimmt hat …“', 'Tirmidhi 2516 – hasan sahih'],
+  ['Schamgefühl', '„Zu dem, was die Menschen aus den Worten des frühen Prophetentums erreicht hat: Wenn du dich nicht schämst, dann tu, was du willst.“', 'Bukhari 3483'],
+  ['Glaube & Standhaftigkeit', '„Sag: Ich glaube an Allah – und dann sei standhaft.“', 'Muslim 38'],
+  ['Der Weg ins Paradies', 'Ein Mann fragte: Wenn ich die Pflichtgebete bete, im Ramadan faste, das Erlaubte für erlaubt und das Verbotene für verboten halte und nichts hinzufüge – komme ich ins Paradies? „Ja.“', 'Muslim 15'],
+  ['Reinheit ist der halbe Glaube', '„Die Reinheit ist die Hälfte des Glaubens. Alhamdulillah füllt die Waage … Das Gebet ist Licht, die Sadaqa ist ein Beweis, die Geduld ist Helligkeit, und der Quran ist ein Argument für oder gegen dich.“', 'Muslim 223'],
+  ['Allah verbietet Unrecht', 'Hadith Qudsi: „O Meine Diener, Ich habe Mir selbst das Unrecht verboten und es auch unter euch verboten – so tut einander kein Unrecht … Bittet Mich um Rechtleitung, so leite Ich euch …“', 'Muslim 2577'],
+  ['Jeder Dhikr ist Sadaqa', 'Die Armen klagten, die Reichen hätten allen Lohn. Er sagte: „Jedes SubhanAllah ist eine Sadaqa, jedes Allahu akbar, jedes Alhamdulillah, jedes La ilaha illallah ist eine Sadaqa; das Gute gebieten ist Sadaqa …“', 'Muslim 1006'],
+  ['Sadaqa für jedes Gelenk', '„Für jedes Gelenk des Menschen ist jeden Tag eine Sadaqa fällig: Gerecht zwischen zwei Menschen schlichten ist Sadaqa … das gute Wort ist Sadaqa, jeder Schritt zum Gebet ist Sadaqa, und Schädliches vom Weg räumen ist Sadaqa.“', 'Bukhari 2989, Muslim 1009'],
+  ['Was ist Sünde?', '„Rechtschaffenheit ist guter Charakter, und Sünde ist, was in deiner Brust nagt und von dem du nicht willst, dass die Leute es erfahren.“', 'Muslim 2553'],
+  ['Halte an der Sunnah fest', '„… Haltet an meiner Sunnah fest und an der Sunnah der rechtgeleiteten Kalifen nach mir – beißt mit den Backenzähnen darauf – und hütet euch vor neu erfundenen Dingen (in der Religion).“', 'Abu Dawud 4607, Tirmidhi 2676 – hasan sahih'],
+  ['Hüte deine Zunge', 'Mu’adh fragte nach einer Tat, die ins Paradies führt: Allah dienen, beten, Zakat, fasten, Hadsch … „Soll ich dir sagen, was all das zusammenhält? Halte dies zurück“ – und er zeigte auf seine Zunge.', 'Tirmidhi 2616 – hasan sahih'],
+  ['Pflichten & Grenzen', '„Allah hat Pflichten auferlegt – vernachlässigt sie nicht; Grenzen gesetzt – überschreitet sie nicht; Dinge verboten – verletzt sie nicht; und über Dinge geschwiegen – aus Barmherzigkeit, nicht aus Vergessen –, so forscht nicht danach.“', 'ad-Daraqutni – hasan (an-Nawawi), andere stufen es schwächer ein'],
+  ['Wahre Enthaltsamkeit', '„Sei enthaltsam gegenüber der Welt, so liebt dich Allah; und sei enthaltsam gegenüber dem, was die Menschen besitzen, so lieben dich die Menschen.“', 'Ibn Majah 4102 – hasan (an-Nawawi), umstritten'],
+  ['Kein Schaden', '„Kein Schaden und keine Schadenszufügung.“', 'Ibn Majah 2341 – hasan'],
+  ['Beweis & Eid', '„Würde man den Menschen nach ihren bloßen Ansprüchen geben, würden manche das Blut und Vermögen anderer beanspruchen; doch der Beweis obliegt dem Kläger und der Eid dem, der leugnet.“', 'al-Bayhaqi – hasan; Kern in Bukhari 4552, Muslim 1711'],
+  ['Das Schlechte ändern', '„Wer von euch etwas Schlechtes sieht, soll es mit seiner Hand ändern; kann er das nicht, mit seiner Zunge; kann er das nicht, mit seinem Herzen – und das ist der schwächste Glaube.“', 'Muslim 49'],
+  ['Brüderlichkeit', '„Beneidet einander nicht, hasst einander nicht, wendet euch nicht voneinander ab … seid Diener Allahs, Brüder. Der Muslim ist der Bruder des Muslims … Die Taqwa ist hier“ – und er zeigte dreimal auf seine Brust.', 'Muslim 2564'],
+  ['Hilf deinem Bruder', '„Wer einem Gläubigen eine Not dieser Welt nimmt, dem nimmt Allah eine Not am Tag der Auferstehung … Allah hilft dem Diener, solange der Diener seinem Bruder hilft. Wer einen Weg geht, um Wissen zu suchen, dem erleichtert Allah einen Weg ins Paradies.“', 'Muslim 2699'],
+  ['Allah vervielfacht', '„Wer eine gute Tat beabsichtigt und sie nicht tut, dem schreibt Allah eine volle gute Tat; tut er sie, schreibt Er sie zehnfach bis siebenhundertfach und vielfach mehr …“', 'Bukhari 6491, Muslim 131'],
+  ['Die Nähe zu Allah', 'Hadith Qudsi: „… Mein Diener nähert sich Mir mit nichts, das Mir lieber ist, als mit dem, was Ich ihm zur Pflicht gemacht habe; und er nähert sich Mir weiter mit freiwilligen Taten, bis Ich ihn liebe …“', 'Bukhari 6502'],
+  ['Irrtum & Zwang vergeben', '„Allah hat meiner Umma Irrtum, Vergessen und das, wozu sie gezwungen wird, vergeben.“', 'Ibn Majah 2045 – hasan (an-Nawawi)'],
+  ['Wie ein Reisender', '„Sei in dieser Welt, als wärst du ein Fremder oder ein Reisender.“ – Ibn Umar: „Wenn du den Abend erreichst, erwarte nicht den Morgen; nutze deine Gesundheit vor deiner Krankheit und dein Leben vor deinem Tod.“', 'Bukhari 6416'],
+  ['Die Neigung folgt der Offenbarung', '„Keiner von euch glaubt (vollkommen), bis seine Neigung dem folgt, womit ich gekommen bin.“', 'Kitab al-Hujja – hasan sahih (an-Nawawi); viele Gelehrte stufen es als schwach ein'],
+  ['Die Weite der Vergebung', 'Hadith Qudsi: „O Sohn Adams, solange du Mich anrufst und auf Mich hoffst, vergebe Ich dir … Kämest du zu Mir mit Sünden fast so groß wie die Erde und begegnetest Mir, ohne Mir etwas beizugesellen, käme Ich dir mit ebenso viel Vergebung entgegen.“', 'Tirmidhi 3540 – hasan'],
+];
+db.hadith = db.hadith || {};
+let hpathList = false;
+function renderHPath(){
+  const n = Object.keys(db.hadith).length, next = NAWAWI.findIndex((_, i) => !db.hadith[i]);
+  const cur = next < 0 ? null : NAWAWI[next];
+  $('#hpath').innerHTML = `<p>Lerne Schritt für Schritt die <b>40 Hadith von Imam an-Nawawi</b> – seit Jahrhunderten der klassische erste Schritt für jeden Schüler des Wissens.</p>
+    <p>Gelernt: <b>${n} von ${NAWAWI.length}</b></p><div class="bar"><i style="width:${n / NAWAWI.length * 100}%;background:var(--gold)"></i></div>
+    ${cur ? `<div class="hl"><small>Lektion ${next + 1}</small><b>${esc(cur[0])}</b><p>${esc(cur[1])}</p><span class="gref">${esc(cur[2])}</span>
+      <p class="sub">Lies ihn dreimal, versuche den Kern auswendig zu sagen und überlege, wie du ihn heute umsetzt.</p>
+      <button class="btn p" data-hl="${next}">Gelernt ✓ (+20 XP)</button></div>`
+      : '<div class="hl"><b>🎉 Alle 42 Hadith gelernt – MashaAllah!</b><p>Nächster Schritt: Erklärung (Scharh) bei einem Lehrer lesen, z. B. von Ibn Rajab oder Ibn Daqiq al-‘Id.</p></div>'}
+    <button class="btn" data-hlist="1">${hpathList ? 'Liste schließen' : 'Alle Lektionen anzeigen'}</button>
+    ${hpathList ? NAWAWI.map(([t, txt, r], i) => `<details class="hli ${db.hadith[i] ? 'on' : ''}"><summary>${i + 1}. ${esc(t)}${db.hadith[i] ? ' ✓' : ''}</summary><p>${esc(txt)}</p><span class="gref">${esc(r)}</span></details>`).join('') : ''}`;
+}
+
+// ---------- Tagesmissionen ----------
+const sumKeys = (x, ks) => ks.reduce((a, k) => a + (x[k] || 0), 0);
+const MISSIONS = [
+  ['Bete alle 5 Gebete', x => (x.fard || 0) >= 5],
+  ['Bete mind. 2 Gebete in Jama’a', x => (x.jamaa || 0) >= 2],
+  ['Morgen-Adhkar komplett', x => adhCount(x, 'm') === adhItems('m').length],
+  ['Abend-Adhkar komplett', x => adhCount(x, 'e') === adhItems('e').length],
+  ['Schlaf-Adhkar komplett', x => adhCount(x, 's') === adhItems('s').length],
+  ['100× Salawat auf den Propheten ﷺ', x => sumKeys(x, ['q:q_salawat', 'salawat', 's_jsalawat']) >= 100],
+  ['100× Istighfar', x => sumKeys(x, ['q:q_istighfar', 'istighfar']) >= 100],
+  ['100× SubhanAllah (= 1000 Hasanat)', x => sumKeys(x, ['q:q_subhan', 'subhan100']) >= 100],
+  ['Lies mind. 2 Seiten Quran', x => (x.quran || 0) >= 2],
+  ['Bete Duha', x => (x.duha || 0) >= 1],
+  ['Bete Nachtgebet / Witr', x => (x.qiyam || 0) >= 1],
+  ['Gib Sadaqa (egal wie wenig)', x => (x.sadaqa || 0) >= 1],
+  ['Ruf einen Verwandten an', x => (x.rahim || 0) >= 1],
+  ['Lerne 1 Hadith im Wissens-Pfad', x => (x.hl || 0) >= 1],
+  ['Bete die 12 Rawatib', x => (x.rawatib || 0) >= 12],
+  ['Sag den Dhikr der Juwayriya', x => (x['q:juwayriya'] || 0) >= 1],
+  ['Lerne 3 Namen Allahs', x => (x.nl || 0) >= 3],
+];
+function missionsFor(k){
+  // deterministisch pro Tag: jeden Tag drei andere Missionen
+  let seed = Math.floor(new Date(k + 'T12:00') / 864e5);
+  const idx = [...MISSIONS.keys()], out = [];
+  while (out.length < 3) { seed = (seed * 9301 + 49297) % 233280; out.push(idx.splice(seed % idx.length, 1)[0]); }
+  return out.map(i => MISSIONS[i]);
+}
+function renderMissions(){
+  const x = day(today), ms = missionsFor(today), n = ms.filter(([, ok]) => ok(x)).length;
+  $('#missions').innerHTML = `<div class="mh"><b>🎯 Tagesmissionen</b><span>${n}/3${n === 3 ? ' · +70 XP ✓' : ''}</span></div>`
+    + ms.map(([t, ok]) => `<div class="mi ${ok(x) ? 'on' : ''}"><i>${ok(x) ? '✓' : '○'}</i>${esc(t)}<small>+15 XP</small></div>`).join('')
+    + `<p class="sub" style="margin:6px 0 0">Alle drei geschafft = +25 XP Bonus. Morgen gibt es neue.</p>`;
+}
+
+// ---------- XP & Ränge: vom Playboy zum Prayerboy ----------
+function dayXPRaw(k){
+  const x = day(k), s = dayStats(k), m = missionsFor(k).filter(([, ok]) => ok(x)).length;
+  return s.done * 10 + Math.floor(s.taps / 10) + (x.jamaa || 0) * 5 + ((x.fard || 0) >= 5 ? 20 : 0) + m * 15 + (m === 3 ? 25 : 0);
+}
+const dayXP = k => k < today ? (XC[k] ?? (XC[k] = dayXPRaw(k))) : dayXPRaw(k);
+const totalXP = () => Object.keys(db.days).reduce((a, k) => a + dayXP(k), 0) + Object.keys(db.hadith).length * 20 + Object.keys(db.names).length * 5;
+const RANKS = [
+  {icon:'🎮', name:'Playboy', xp:0, gates:[], quote:'„Sag: O Meine Diener, die ihr gegen euch selbst maßlos gewesen seid, verzweifelt nicht an Allahs Barmherzigkeit. Allah vergibt alle Sünden.“', ref:'Quran 39:53'},
+  {icon:'🌱', name:'Neuanfang', xp:100, gates:[], quote:'„Allah freut sich über die Reue Seines Dieners mehr als einer von euch, der sein verlorenes Kamel in der Wüste wiederfindet.“', ref:'Bukhari 6309, Muslim 2747'},
+  {icon:'🕌', name:'Beter', xp:500, gates:[['3 Tage alle 5 Gebete', L => L.fard5, 3]], quote:'„Die fünf Gebete … sühnen, was zwischen ihnen ist, solange keine großen Sünden begangen werden.“', ref:'Muslim 233'},
+  {icon:'📿', name:'Dhakir', xp:1500, gates:[['7 Tage alle 5 Gebete', L => L.fard5, 7], ['7 Tage Morgen- & Abend-Adhkar', L => L.adh, 7]], quote:'„Wahrlich, im Gedenken Allahs finden die Herzen Ruhe.“', ref:'Quran 13:28'},
+  {icon:'📖', name:'Talib al-‘Ilm', xp:3000, gates:[['10 Hadith im Wissens-Pfad', L => L.hadith, 10], ['20 Namen Allahs gelernt', L => L.names, 20]], quote:'„Wer einen Weg geht, um Wissen zu suchen, dem erleichtert Allah einen Weg ins Paradies.“', ref:'Muslim 2699'},
+  {icon:'🌙', name:'Qa’im al-Layl', xp:6000, gates:[['10 Nächte Nachtgebet/Witr', L => L.qiyam, 10], ['21 Tage alle 5 Gebete', L => L.fard5, 21]], quote:'„Das beste Gebet nach dem Pflichtgebet ist das Gebet in der Nacht.“', ref:'Muslim 1163'},
+  {icon:'💎', name:'Muhsin', xp:12000, gates:[['30 Tage Serie', L => L.best, 30], ['25 Hadith gelernt', L => L.hadith, 25], ['50 Namen gelernt', L => L.names, 50]], quote:'Ihsan: „Dass du Allah dienst, als ob du Ihn sähest; und wenn du Ihn nicht siehst, so sieht Er dich.“', ref:'Muslim 8'},
+  {icon:'👑', name:'Prayerboy', xp:25000, gates:[['40 Tage alle 5 Gebete', L => L.fard5, 40], ['Alle 42 Hadith gelernt', L => L.hadith, 42], ['Alle 99 Namen gelernt', L => L.names, 99], ['Eine Khatm (604 Seiten)', L => L.pages, 604]], quote:'„Mein Diener nähert sich Mir weiter mit freiwilligen Taten, bis Ich ihn liebe …“', ref:'Bukhari 6502'},
+];
+let lastL = null;
+function rankIndex(L, xp){
+  let r = 0;
+  for (let i = 1; i < RANKS.length; i++) {
+    if (xp >= RANKS[i].xp && RANKS[i].gates.every(([, f, n]) => f(L) >= n)) r = i; else break;
+  }
+  return r;
+}
+function updateRank(L){
+  lastL = L;
+  const r = rankIndex(L, totalXP());
+  if (db.rank == null) { db.rank = r; save(); }
+  else if (r > db.rank) {
+    db.rank = r; save();
+    setTimeout(() => { toast(`🎉 Rang-Aufstieg: ${RANKS[r].icon} ${RANKS[r].name}!`); buzz([40,60,40,60,80]); }, 1200);
+  }
+  renderRank();
+}
+function renderRank(){
+  if (!lastL) return;
+  const xp = totalXP(), r = Math.max(db.rank || 0, rankIndex(lastL, xp)), R = RANKS[r], N = RANKS[r + 1];
+  const pct = N ? Math.min(100, (xp - R.xp) / (N.xp - R.xp) * 100) : 100;
+  $('#rank').innerHTML = `<button class="rk" data-path="1">
+    <span class="rk-i">${R.icon}</span>
+    <span class="rk-t"><small>Rang ${r + 1} von ${RANKS.length}</small><b>${R.name}</b>
+      <span class="bar"><i style="width:${pct}%;background:var(--gold)"></i></span>
+      <small>${fmt(xp)} XP${N ? ` · nächster Rang ${N.icon} ${N.name} ab ${fmt(N.xp)} XP` : ' · höchster Rang erreicht'}</small>
+      ${N && N.gates.length ? `<small class="rk-g">${N.gates.map(([t, f, n]) => `${f(lastL) >= n ? '✓' : '○'} ${t} (${Math.min(f(lastL), n)}/${n})`).join(' · ')}</small>` : ''}
+    </span><span class="rk-a">›</span></button>`;
+}
+function openPath(){
+  const xp = totalXP(), r = Math.max(db.rank || 0, lastL ? rankIndex(lastL, xp) : 0);
+  $('#path-body').innerHTML = `<p class="sub">XP bekommst du für erledigte Schritte (10), Dhikr (1 je 10×), Gebete in Jama’a (+5), alle 5 Gebete (+20), Tagesmissionen (+15, alle drei +25), gelernte Hadith (+20) und Namen Allahs (+5). Für jeden Rang brauchst du die XP <b>und</b> echte Gewohnheiten.</p>`
+    + RANKS.map((R, i) => `<div class="pr ${i <= r ? 'on' : ''} ${i === r ? 'cur' : ''}">
+      <div class="pr-h"><span>${R.icon}</span><div><b>${i + 1}. ${R.name}</b><small>${fmt(R.xp)} XP${i === r ? ' · du bist hier' : i < r ? ' · geschafft ✓' : ''}</small></div></div>
+      ${R.gates.length ? `<div class="pr-g">${R.gates.map(([t, f, n]) => `<span class="${lastL && f(lastL) >= n ? 'ok' : ''}">${lastL && f(lastL) >= n ? '✓' : '○'} ${t}</span>`).join('')}</div>` : ''}
+      <p>${esc(R.quote)} <span class="gref">${esc(R.ref)}</span></p></div>`).join('')
+    + `<p class="sub" style="margin-top:12px"><b>Ehrlich gesagt:</b> Ein echter Sheikh bzw. Gelehrter wird man durch jahrelanges Lernen bei Lehrern – Arabisch, Quran, Hadith, Fiqh. Die Ränge hier sind eine Motivationshilfe für Gewohnheiten und Grundwissen; ob Taten angenommen werden, weiß nur Allah. Bleib bescheiden: „Wer sich für Allah demütig zeigt, den erhöht Allah.“ (Muslim 2588)</p>`;
+  $('#path').hidden = false; $('#path').scrollTop = 0;
+}
+$('#path').addEventListener('click', e => { if (e.target.closest('#path-close')) $('#path').hidden = true; });
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -1676,13 +1877,20 @@ document.addEventListener('click', e => {
   else if (b.dataset.adh) { seg = b.dataset.adh; segPicked = true; showPage('quick'); }
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
+  else if (b.dataset.path) openPath();
+  else if (b.dataset.hlist) { hpathList = !hpathList; renderHPath(); }
+  else if (b.dataset.hl) {
+    db.hadith[+b.dataset.hl] = today;
+    const xd = db.days[today] = db.days[today] || {}; xd.hl = (xd.hl || 0) + 1;
+    save(); renderHPath(); render(); buzz(15); toast('Hadith gelernt – +20 XP');
+  }
   else if (b.dataset.cat) { const c = db.settings.collapsed = db.settings.collapsed || {}; c[b.dataset.cat] = !c[b.dataset.cat]; save(); renderList(); }
   else if (b.dataset.backup) $('#b-export').click();
   else if (b.dataset.guide) openGuide();
   else if (b.dataset.intro) { db.seenIntro = true; save(); renderIntro(); }
   else if (b.dataset.fc) { $('#fc').hidden = false; document.body.style.overflow = 'hidden'; nextCard(); }
   else if (b.dataset.nl) { namesOpen = !namesOpen; renderNames(); }
-  else if (b.dataset.nm) { const i = b.dataset.nm; if (db.names[i]) delete db.names[i]; else db.names[i] = today; save(); renderNames(); }
+  else if (b.dataset.nm) { const i = b.dataset.nm; if (db.names[i]) delete db.names[i]; else { db.names[i] = today; const xd = db.days[today] = db.days[today] || {}; xd.nl = (xd.nl || 0) + 1; } save(); renderNames(); renderMissions(); }
   else if (b.dataset.cdel) { if (confirm('Eigenen Dhikr löschen?')) { db.custom = db.custom.filter(c => c.id !== b.dataset.cdel); save(); syncCustom(); renderQuick(); } }
   else if (b.dataset.cal) { calOff += +b.dataset.cal; renderCal(); }
   else if (b.dataset.khatm) {
@@ -1723,10 +1931,12 @@ $('#b-import').onchange = async e => {
     if (data.badges) db.badges = {...data.badges, ...db.badges};
     if (data.khatm && !db.khatm) db.khatm = data.khatm;
     if (data.names) db.names = {...data.names, ...db.names};
+    if (data.hadith) db.hadith = {...data.hadith, ...db.hadith};
+    if (data.rank != null) db.rank = Math.max(db.rank || 0, data.rank);
     if (Array.isArray(data.custom)) { db.custom = [...db.custom, ...data.custom.filter(e => !db.custom.some(o => o.id === e.id))]; syncCustom(); }
     db.seenIntro = true;
     for (const k in DI) delete DI[k]; clearStats();
-    save(); render(); renderSettings(); renderNames(); renderDuas(); toast('Backup importiert');
+    save(); render(); renderSettings(); renderNames(); renderDuas(); renderHPath(); checkBadges(); toast('Backup importiert');
   } catch(_) { toast('Ungültige Datei'); }
 };
 $('#b-ar').checked = showAr;
@@ -1769,7 +1979,7 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
 }
 
 applyTheme(); applyFont(); renderChips(); renderInfo(); render(); renderSettings(); renderSeg(); renderDuas();
-renderCustomForm(); renderEvents(); renderNames(); renderZakat(); renderRamadan();
+renderCustomForm(); renderEvents(); renderNames(); renderZakat(); renderRamadan(); renderHPath(); checkBadges();
 </script>
 </body>
 </html>
