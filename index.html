@@ -228,7 +228,10 @@ td:last-child{color:var(--gold);font-weight:600;text-align:right}
 .cath span{flex:1;text-align:left}
 .cath small{font-size:.75rem;color:var(--accent);letter-spacing:0;text-transform:none}
 .cath i{font-style:normal;font-size:.9rem;width:14px}
-.adj{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.adj{display:grid;grid-template-columns:1fr;gap:4px;margin-top:8px}
+.adjr{display:flex;align-items:center;gap:8px}
+.adjr span{flex:1;font-size:.9rem}
+.adjr b{min-width:64px;text-align:center;font-variant-numeric:tabular-nums;font-size:.9rem}
 .adj label{font-size:.72rem;color:var(--muted)}
 .adj input{width:100%;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:.95rem;text-align:center;margin-top:2px}
 .rk{display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;color:var(--ink);background:linear-gradient(135deg,var(--gold-soft),var(--card));border:1px solid var(--gold);border-radius:16px;padding:12px;margin:12px 0 0}
@@ -489,14 +492,16 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 19 (29.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 20 (29.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
     <div class="mp" data-m="zakat" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>💰 Zakat-Rechner</h2><div class="card" id="zakat"></div></div>
     <div class="mp" data-m="pset" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📍 Standort &amp; Berechnung</h2>
     <button class="btn p" data-loc="1">📍 Aktuellen Standort verwenden</button>
-    <div class="inp"><input id="set-lat" inputmode="decimal" placeholder="Breite (z. B. 52.52)"><input id="set-lng" inputmode="decimal" placeholder="Länge (z. B. 13.40)"></div>
+    <select class="btn" id="set-city"></select>
+    <p class="sub" style="margin:-2px 0 8px">… oder Koordinaten selbst eingeben:</p>
+    <div class="inp"><input id="set-lat" inputmode="text" autocomplete="off" placeholder="Breite (z. B. 52.52)"><input id="set-lng" inputmode="text" autocomplete="off" placeholder="Länge (z. B. 13.40)"></div>
     <button class="btn" id="set-save">Koordinaten speichern</button>
     <select class="btn" id="set-method">
       <option value="diyanet">Diyanet (Türkei)</option><option value="mwl">Muslim World League</option>
@@ -869,7 +874,11 @@ function deedHasanat(d, c){
   return h;
 }
 let SC = {}, XC = {};
-const clearStats = () => { SC = {}; XC = {}; };
+const clearStats = () => { SC = {}; XC = {}; if (db) delete db._pc; };
+// gespeicherte Summen vergangener Tage: {k: heute, v: Formel-Version, n: Anzahl Tage, xp, streak}
+const PC_VER = 3;
+const pastN = () => { let n = 0; for (const k in db.days) if (k < today) n++; return n; };
+const pastCache = () => { const c = db._pc; return c && c.k === today && c.v === PC_VER && c.n === pastN() ? c : null; };
 function dayStats(k){
   if (k < today) return SC[k] || (SC[k] = dayStatsRaw(k));
   return dayStatsRaw(k);
@@ -878,23 +887,32 @@ function dayStatsRaw(k){
   if (k === today && typeof updateQuranTarget === 'function') updateQuranTarget();
   // Heute zählt dein aktuelles Programm; vergangene Tage zählen alles, was du erledigt hast
   const x = day(k), list = k === today ? deedsFor(k) : [...specialsFor(k), ...DEEDS]; let has = 0, done = 0, rizq = 0;
+  let bonus = 0;
   for (const d of list){
     const c = d.calc ? d.calc(x) : (x[d.id] || 0);
     has += deedHasanat(d, c);
-    if (c >= d.target){ done++; if (d.rizq) rizq++; }
+    if (c < d.target) continue;
+    if (d.cat === 'Heute besonders') bonus++;   // freiwillige Extras: XP ja, Pflicht für „Tag komplett“ nein
+    else { done++; if (d.rizq) rizq++; }
   }
+  const core = list.filter(d => d.cat !== 'Heute besonders');
   let taps = 0;
   for (const q of QUICK){ const c = x['q:'+q.id] || 0; taps += c; has += c * q.per; }
   for (const key in x) if (key.startsWith('a:') || key.startsWith('d:')) { taps += x[key]; has += x[key] * 10; }
-  const total = k === today ? list.length : (x._t || list.length);
-  return {has, done, rizq, taps, total, rizqTotal:list.filter(d => d.rizq).length};
+  const total = k === today ? core.length : (x._t || core.length);
+  return {has, done, bonus, rizq, taps, total, rizqTotal:core.filter(d => d.rizq).length};
 }
-const active = k => { const s = dayStats(k); return s.done > 0 || s.taps > 0; };
+// ein Tag zählt für die Serie, sobald irgendetwas getan wurde – auch ein einzelnes Gebet oder eine Quran-Seite
+const active = k => { const s = dayStats(k), x = day(k); return s.done > 0 || s.bonus > 0 || s.taps > 0 || (x.fard || 0) > 0 || (x.quran || 0) > 0; };
 function streak(){
-  let n = 0; const d = new Date();
-  if (!active(dkey(d))) d.setDate(d.getDate()-1); // heute zählt erst ab der ersten Tat
-  while (active(dkey(d))) { n++; d.setDate(d.getDate()-1); }
-  return n;
+  // Serie bis gestern ist für heute fest – einmal rechnen, dann merken
+  let c = pastCache(), base = c && c.streak != null ? c.streak : null;
+  if (base === null) {
+    base = 0; const d = new Date(); d.setDate(d.getDate() - 1);
+    while (active(dkey(d))) { base++; d.setDate(d.getDate() - 1); }
+    c = db._pc = pastCache() || {k:today, v:PC_VER, n:pastN()}; c.streak = base;
+  }
+  return base + (active(today) ? 1 : 0);   // heute zählt erst ab der ersten Tat
 }
 function bestStreak(){
   const ks = Object.keys(db.days).filter(active).sort(); let best = 0, cur = 0, prev = null;
@@ -961,8 +979,10 @@ function renderList(){
   }
   for (const c of cats) {
     const n = c.list.filter(isDone).length, all = n === c.list.length;
-    html += `<h2><button class="cath" data-cat="${esc(c.name)}"><span>${c.name}</span><small>${n}/${c.list.length}${all ? ' ✓' : ''}</small><i>${isCollapsed(c.name) ? '▸' : '▾'}</i></button></h2>`;
+    const isB = c.name === 'Heute besonders';
+    html += `<h2><button class="cath" data-cat="${esc(c.name)}"><span>${isB ? '⭐ Bonus heute' : c.name}</span><small>${n}/${c.list.length}${all ? ' ✓' : ''}</small><i>${isCollapsed(c.name) ? '▸' : '▾'}</i></button></h2>`;
     if (!editMode && isCollapsed(c.name)) continue;
+    if (isB && !editMode) html += '<p class="sub" style="margin:-4px 0 8px">Freiwillige Extras für heute – geben XP, sind aber kein Muss für „Tag komplett“.</p>';
     if (editMode) { html += c.list.map(card).join(''); continue; }
     html += c.list.filter(d => !isDone(d)).map(card).join('');
     const doneL = c.list.filter(isDone);
@@ -1142,7 +1162,7 @@ function locate(){
 }
 function renderAdj(){
   const a = db.settings.adj || {};
-  $('#set-adj').innerHTML = Object.keys(PNAMES).map(k => `<label>${PNAMES[k]}<input type="number" inputmode="numeric" data-adj="${k}" value="${a[k] || ''}" placeholder="0"></label>`).join('');
+  $('#set-adj').innerHTML = Object.keys(PNAMES).map(k => { const v = a[k] || 0; return `<div class="adjr"><span>${PNAMES[k]}</span><button class="x" data-adjs="${k}:-1" aria-label="${PNAMES[k]} eine Minute früher">−</button><b>${v > 0 ? '+' : ''}${v} Min</b><button class="x" data-adjs="${k}:1" aria-label="${PNAMES[k]} eine Minute später">+</button></div>`; }).join('');
 }
 document.addEventListener('change', e => {
   const k = e.target.dataset && e.target.dataset.adj; if (!k) return;
@@ -1152,7 +1172,7 @@ document.addEventListener('change', e => {
   save(); render(); toast(`${PNAMES[k]} angepasst`);
 });
 function renderSettings(){
-  renderAdj();
+  renderAdj(); if ($('#set-city')) renderCities();
   $('#set-hijri').value = String(db.settings.hijriAdj || 0);
   $('#set-haptic').checked = db.settings.haptic !== false;
   const s = db.settings;
@@ -1661,13 +1681,13 @@ function upcoming(){
   return out.sort((a, b) => a.n - b.n);
 }
 function renderEvents(){
-  $('#events').innerHTML = upcoming().map(e => `<div class="li"><span>${esc(e.name)}<br><small class="sub">${new Date(e.k + 'T12:00').toLocaleDateString('de-DE', {weekday:'short', day:'numeric', month:'long', year:'numeric'})}</small></span><b>${e.n === 1 ? 'morgen' : `in ${e.n} Tagen`}</b></div>`).join('')
+  $('#events').innerHTML = upcomingCached().map(e => `<div class="li"><span>${esc(e.name)}<br><small class="sub">${new Date(e.k + 'T12:00').toLocaleDateString('de-DE', {weekday:'short', day:'numeric', month:'long', year:'numeric'})}</small></span><b>${e.n === 1 ? 'morgen' : `in ${e.n} Tagen`}</b></div>`).join('')
     + '<p class="sub">Nach dem Umm-al-Qura-Kalender; je nach Mondsichtung in deiner Gemeinde ±1 Tag.</p>';
 }
 function renderRamadan(){
   const h = hijri(new Date()), el = $('#ramadan');
   if (h.hm === 9) { el.textContent = `🌙 Ramadan Tag ${h.hd} – Ramadan Mubarak`; return; }
-  const r = upcoming().find(e => e.idx === 2);
+  const r = upcomingCached().find(e => e.idx === 2);
   el.textContent = r && r.n <= 120 ? `🌙 Ramadan in ${r.n} Tagen (ca. ${new Date(r.k + 'T12:00').toLocaleDateString('de-DE', {day:'numeric', month:'long'})})` : '';
 }
 
@@ -1988,10 +2008,17 @@ function missionsFor(k){
 function dayXPRaw(k){
   const x = day(k), s = dayStats(k), m = missionsFor(k).filter(([, ok]) => ok(x)).length;
   // Sofort-Feedback: jedes Gebet und jede Quran-Seite zählt einzeln
-  return s.done * 10 + Math.floor(s.taps / 10) + (x.fard || 0) * 10 + (x.jamaa || 0) * 5 + ((x.fard || 0) >= 5 ? 20 : 0) + (x.quran || 0) * 5 + m * 15 + (m === 3 ? 25 : 0);
+  return (s.done + (s.bonus || 0)) * 10 + Math.floor(s.taps / 10) + (x.fard || 0) * 10 + (x.jamaa || 0) * 5 + ((x.fard || 0) >= 5 ? 20 : 0) + (x.quran || 0) * 5 + m * 15 + (m === 3 ? 25 : 0);
 }
 const dayXP = k => k < today ? (XC[k] ?? (XC[k] = dayXPRaw(k))) : dayXPRaw(k);
-const totalXP = () => Object.keys(db.days).reduce((a, k) => a + dayXP(k), 0) + Object.keys(db.hadith).length * 20 + Object.keys(db.names).length * 5;
+function totalXP(){
+  let c = pastCache(), past = c && c.xp != null ? c.xp : null;
+  if (past === null) {
+    past = Object.keys(db.days).filter(k => k < today).reduce((a, k) => a + dayXP(k), 0);
+    c = db._pc = pastCache() || {k:today, v:PC_VER, n:pastN()}; c.xp = past;
+  }
+  return past + (db.days[today] ? dayXP(today) : 0) + Object.keys(db.hadith).length * 20 + Object.keys(db.names).length * 5;
+}
 const RANKS = [
   {icon:'🎮', name:'Playboy', xp:0, gates:[], quote:'„Sag: O Meine Diener, die ihr gegen euch selbst maßlos gewesen seid, verzweifelt nicht an Allahs Barmherzigkeit. Allah vergibt alle Sünden.“', ref:'Quran 39:53'},
   {icon:'🌱', name:'Neuanfang', xp:100, gates:[], quote:'„Allah freut sich über die Reue Seines Dieners mehr als einer von euch, der sein verlorenes Kamel in der Wüste wiederfindet.“', ref:'Bukhari 6309, Muslim 2747'},
@@ -2021,15 +2048,14 @@ function updateRank(L){
   renderRank();
 }
 function renderRank(){
-  if (!lastL) return;
-  const xp = totalXP(), r = Math.max(db.rank || 0, rankIndex(lastL, xp)), R = RANKS[r], N = RANKS[r + 1];
+  const xp = totalXP(), r = lastL ? Math.max(db.rank || 0, rankIndex(lastL, xp)) : (db.rank || 0), R = RANKS[r], N = RANKS[r + 1];
   const pct = N ? Math.min(100, (xp - R.xp) / (N.xp - R.xp) * 100) : 100;
   $('#rank').innerHTML = `<button class="rk" data-path="1">
     <span class="rk-i">${R.icon}</span>
     <span class="rk-t"><small>Rang ${r + 1} von ${RANKS.length}</small><b>${R.name}</b>
       <span class="bar"><i style="width:${pct}%;background:var(--gold)"></i></span>
       <small>${fmt(xp)} XP${N ? ` · nächster Rang ${N.icon} ${N.name} ab ${fmt(N.xp)} XP` : ' · höchster Rang erreicht'}</small>
-      ${N && N.gates.length ? `<small class="rk-g">${N.gates.map(([t, f, n]) => `${f(lastL) >= n ? '✓' : '○'} ${t} (${Math.min(f(lastL), n)}/${n})`).join(' · ')}</small>` : ''}
+      ${lastL && N && N.gates.length ? `<small class="rk-g">${N.gates.map(([t, f, n]) => `${f(lastL) >= n ? '✓' : '○'} ${t} (${Math.min(f(lastL), n)}/${n})`).join(' · ')}</small>` : ''}
     </span><span class="rk-a">›</span></button>`;
 }
 function openPath(){
@@ -2536,6 +2562,27 @@ function celebrate(){
   }, 1000);
 }
 
+
+// ---------- Städteauswahl (offline, ohne Koordinaten-Eintippen) ----------
+const CITIES = {
+  'Deutschland': [['Aachen',50.776,6.084],['Augsburg',48.371,10.898],['Berlin',52.520,13.405],['Bielefeld',52.021,8.532],['Bochum',51.482,7.216],['Bonn',50.737,7.098],['Braunschweig',52.269,10.521],['Bremen',53.079,8.802],['Dortmund',51.514,7.468],['Dresden',51.050,13.738],['Duisburg',51.435,6.763],['Düsseldorf',51.228,6.774],['Erfurt',50.978,11.029],['Essen',51.456,7.012],['Frankfurt am Main',50.110,8.682],['Freiburg',47.999,7.842],['Gelsenkirchen',51.518,7.086],['Hagen',51.367,7.463],['Hamburg',53.551,9.994],['Hamm',51.681,7.816],['Hannover',52.376,9.732],['Heilbronn',49.142,9.219],['Karlsruhe',49.007,8.404],['Kassel',51.312,9.480],['Kiel',54.323,10.123],['Köln',50.938,6.960],['Krefeld',51.339,6.586],['Leipzig',51.340,12.375],['Ludwigshafen',49.477,8.445],['Magdeburg',52.131,11.640],['Mainz',49.993,8.247],['Mannheim',49.487,8.466],['Mönchengladbach',51.180,6.442],['München',48.137,11.575],['Münster',51.961,7.626],['Nürnberg',49.452,11.077],['Oberhausen',51.496,6.864],['Offenbach',50.100,8.766],['Osnabrück',52.279,8.047],['Pforzheim',48.892,8.695],['Regensburg',49.013,12.102],['Rostock',54.092,12.099],['Saarbrücken',49.240,6.997],['Stuttgart',48.776,9.183],['Ulm',48.401,9.988],['Wiesbaden',50.078,8.240],['Wuppertal',51.256,7.151]],
+  'Österreich': [['Graz',47.070,15.439],['Innsbruck',47.269,11.404],['Linz',48.306,14.286],['Salzburg',47.809,13.055],['Wien',48.208,16.373]],
+  'Schweiz': [['Basel',47.560,7.589],['Bern',46.948,7.447],['Genf',46.204,6.143],['Zürich',47.377,8.541]],
+  'Türkei': [['Adana',37.000,35.321],['Afyonkarahisar',38.757,30.538],['Aksaray',38.369,34.037],['Amasya',40.653,35.833],['Ankara',39.934,32.860],['Antalya',36.897,30.713],['Bursa',40.188,29.061],['Çorum',40.550,34.955],['Denizli',37.783,29.095],['Diyarbakır',37.914,40.230],['Erzurum',39.905,41.268],['Eskişehir',39.766,30.526],['Gaziantep',37.066,37.383],['Giresun',40.912,38.390],['İstanbul',41.008,28.978],['İzmir',38.423,27.143],['Kahramanmaraş',37.585,36.937],['Kayseri',38.720,35.487],['Kocaeli',40.766,29.917],['Konya',37.871,32.484],['Kütahya',39.420,29.983],['Malatya',38.355,38.309],['Mersin',36.812,34.641],['Ordu',40.986,37.879],['Rize',41.025,40.517],['Sakarya',40.774,30.394],['Samsun',41.279,36.336],['Sivas',39.750,37.015],['Şanlıurfa',37.159,38.797],['Tokat',40.314,36.554],['Trabzon',41.003,39.717],['Uşak',38.682,29.408],['Van',38.501,43.373],['Yozgat',39.818,34.815]],
+  'Europa & Welt': [['Amsterdam',52.370,4.895],['Brüssel',50.850,4.352],['Casablanca',33.573,-7.590],['Dubai',25.205,55.271],['Kairo',30.044,31.236],['Kopenhagen',55.676,12.568],['London',51.507,-0.128],['Medina',24.467,39.611],['Mekka',21.4225,39.8262],['Paris',48.857,2.352],['Prishtina',42.663,21.166],['Rotterdam',51.924,4.478],['Sarajevo',43.856,18.413],['Skopje',41.998,21.425],['Stockholm',59.329,18.069],['Straßburg',48.573,7.752],['Tirana',41.328,19.819]],
+};
+function renderCities(){
+  const cur = db.settings.place;
+  $('#set-city').innerHTML = '<option value="">🏙️ Stadt auswählen …</option>' + Object.entries(CITIES).map(([land, list]) =>
+    `<optgroup label="${land}">${list.map(([n, la, lo]) => `<option value="${la},${lo},${esc(n)}" ${cur === n ? 'selected' : ''}>${esc(n)}</option>`).join('')}</optgroup>`).join('');
+}
+document.addEventListener('change', e => {
+  if (e.target.id !== 'set-city' || !e.target.value) return;
+  const [la, lo, ...n] = e.target.value.split(',');
+  Object.assign(db.settings, {lat:+la, lng:+lo, place:n.join(',')}); save(); render(); renderSettings(); renderCities();
+  toast(`📍 ${n.join(',')} – Gebetszeiten aktiv ✓`);
+});
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -2572,6 +2619,11 @@ document.addEventListener('click', e => {
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
+  else if (b.dataset.adjs) {
+    const [k, d] = b.dataset.adjs.split(':'), a = db.settings.adj = db.settings.adj || {};
+    a[k] = Math.max(-60, Math.min(60, (a[k] || 0) + +d)); if (!a[k]) delete a[k];
+    save(); renderAdj(); render(); buzz(5);
+  }
   else if (b.dataset.preset) setPreset(b.dataset.preset);
   else if (b.dataset.snap) {
     if (!confirm('Den Stand vom ' + new Date(b.dataset.snap + 'T12:00').toLocaleDateString('de-DE') + ' wiederherstellen? Der aktuelle Stand wird ersetzt.')) return;
@@ -2713,8 +2765,12 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
 }
 
 if (!db.settings.preset && !Object.keys(db.days).length) setPreset('starter', true);
-applyTheme(); applyFont(); renderChips(); renderInfo(); render(); renderSettings(); renderSeg(); renderDuas();
-renderCustomForm(); renderEvents(); renderNames(); renderZakat(); renderRamadan(); renderHPath(); checkBadges(); renderDuaCollection(); renderTiles();
+applyTheme(); applyFont(); renderChips(); render(); renderRamadan();
+// Was beim Start nicht sichtbar ist, erst nach dem ersten Bild vorbereiten
+setTimeout(() => {
+  renderInfo(); renderSettings(); renderSeg(); renderDuas(); renderCustomForm(); renderEvents(); renderNames();
+  renderZakat(); renderHPath(); renderDuaCollection(); renderTiles(); checkBadges();
+}, 30);
 </script>
 </body>
 </html>
