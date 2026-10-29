@@ -390,6 +390,25 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
 .rf{display:block;text-decoration:none;color:var(--ink);border-top:1px solid var(--line);padding:7px 0}
 .rf b{display:block;font-size:.88rem;color:var(--accent)}
 .rf small{display:block;color:var(--muted);font-size:.72rem;line-height:1.35}
+.segc.c4{grid-template-columns:repeat(4,1fr)}
+.vs{display:flex;height:10px;border-radius:6px;overflow:hidden;background:var(--line);margin-top:8px}
+.vs i:first-child{background:var(--accent)}
+.vs i:last-child{background:var(--gold)}
+.cmp{font-size:.85rem}
+.cmp th{font-size:.75rem;color:var(--muted);text-align:left;padding:4px}
+.cmp td,.cmp td:last-child{color:var(--ink);font-weight:500;text-align:left}
+.cmp td:nth-child(2){color:var(--accent);font-weight:700}
+.cmp td:nth-child(3){color:var(--gold);font-weight:700}
+.chal{background:var(--gold-soft);border-radius:12px;padding:12px;margin:6px 0}
+.chal b{display:block}
+.chal small{display:block;color:var(--muted);font-size:.78rem;margin:2px 0 6px}
+.chal p{margin:.3em 0}
+.chal-o{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding:8px 0}
+.chal-o>span{font-size:1.4rem}
+.chal-o div{flex:1;min-width:0}
+.chal-o b{display:block;font-size:.88rem}
+.chal-o small{color:var(--muted);font-size:.74rem}
+#coopcard{margin-top:10px}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -409,6 +428,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <div id="helpbanner"></div>
     <div id="rank"></div>
     <div class="card" id="missions"></div>
+    <div class="card" id="coopcard" hidden></div>
     <div class="card" id="ramcard" hidden></div>
     <div class="nw" id="now" hidden></div>
     <div class="tm" id="tomorrow" hidden></div>
@@ -453,10 +473,11 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
   <!-- VERLAUF -->
   <section class="page" id="p-hist">
     <div class="ptitle"><b>🏆 Fortschritt</b><span>Rang, Statistik und deine Tagebücher</span></div>
-    <div class="segc c3" id="hseg">
-      <button class="sg on" data-hs="rank"><span>🏆</span>Rang</button><button class="sg" data-hs="over"><span>📊</span>Statistik</button><button class="sg" data-hs="badges"><span>🏅</span>Abzeichen</button><button class="sg" data-hs="quran"><span>📖</span>Quran</button><button class="sg" data-hs="sadaqa"><span>🤲</span>Sadaqa</button><button class="sg" data-hs="qada"><span>🔁</span>Nachholen</button>
+    <div class="segc c4" id="hseg">
+      <button class="sg on" data-hs="rank"><span>🏆</span>Rang</button><button class="sg" data-hs="coop"><span>👥</span>Zusammen</button><button class="sg" data-hs="over"><span>📊</span>Statistik</button><button class="sg" data-hs="badges"><span>🏅</span>Abzeichen</button><button class="sg" data-hs="quran"><span>📖</span>Quran</button><button class="sg" data-hs="sadaqa"><span>🤲</span>Sadaqa</button><button class="sg" data-hs="qada"><span>🔁</span>Nachholen</button>
     </div>
     <div class="hpn" data-h="rank"><div id="rank2"></div><div id="pathinline"></div></div>
+    <div class="hpn" data-h="coop" hidden><h2>👥 Zusammen</h2><div class="card" id="coop"></div></div>
     <div class="hpn" data-h="over" hidden>
       <h2>Letzte 14 Tage · erledigte Schritte</h2>
       <div class="hist" id="hist"></div>
@@ -497,7 +518,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 21 (29.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 22 (29.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -1056,7 +1077,7 @@ function renderQuick(){
     </div>`;
   }).join('');
 }
-function render(){ renderStats(); renderPrayersTop(); renderHelpBanner(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); renderRamadanCard(); }
+function render(){ renderStats(); renderCoopCard(); renderPrayersTop(); renderHelpBanner(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); renderRamadanCard(); }
 
 // ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
 const SPECIAL = [
@@ -2489,6 +2510,7 @@ function showK(k){
   $('#scroller').scrollTop = 0;
 }
 function showH(h){
+  if (h === 'coop') renderCoop();
   if (h === 'rank') $('#pathinline').innerHTML = pathHTML();
   document.querySelectorAll('#hseg .sg').forEach(c => c.classList.toggle('on', c.dataset.hs === h));
   document.querySelectorAll('.hpn').forEach(el => { el.hidden = el.dataset.h !== h; });
@@ -2618,6 +2640,114 @@ function renderRefs(){
       `<a class="rf" href="${e.url}" target="_blank" rel="noopener"><b>${esc(e.label.replace(g + ' ', ''))} ↗</b><small>${esc([...e.uses].slice(0, 3).join(' · '))}${e.uses.size > 3 ? ` · +${e.uses.size - 3}` : ''}</small></a>`).join('')).join('');
 }
 
+// ---------- 👥 Zusammen: Stand per Code teilen, vergleichen, Challenges ----------
+const weekStart = (k => { const d = new Date(k + 'T12:00'); d.setDate(d.getDate() - (d.getDay() + 6) % 7); return dkey(d); });
+const addDays = (k, n) => { const d = new Date(k + 'T12:00'); d.setDate(d.getDate() + n); return dkey(d); };
+const METRICS = {
+  prayers: x => x.fard || 0,
+  salawat: x => sumKeys(x, ['q:q_salawat', 'salawat', 's_jsalawat']),
+  quran: x => x.quran || 0,
+  morning: x => adhCount(x, 'm') === adhItems('m').length ? 1 : 0,
+  hadith: x => x.hl || 0,
+};
+const CHALLENGES = {
+  prayers:{icon:'🕌', title:'Alle Gebete der Woche', metric:'prayers', target:35, unit:'Gebete'},
+  salawat:{icon:'💚', title:'500 Salawat pro Person', metric:'salawat', target:500, unit:'Salawat'},
+  quran:{icon:'📖', title:'20 Seiten Quran pro Person', metric:'quran', target:20, unit:'Seiten'},
+  morning:{icon:'🌅', title:'Jeden Tag Morgen-Adhkar', metric:'morning', target:7, unit:'Tage'},
+  hadith:{icon:'🎓', title:'5 Hadith zusammen lernen (je Person)', metric:'hadith', target:5, unit:'Hadith'},
+};
+function metricSum(metric, from, days){
+  let v = 0;
+  for (let i = 0; i < days; i++) { const k = addDays(from, i); if (k > today) break; v += METRICS[metric](day(k)); }
+  return v;
+}
+const weekXP = () => { let v = 0; const ws = weekStart(today); for (let i = 0; i < 7; i++) { const k = addDays(ws, i); if (k > today) break; v += dayXP(k); } return v; };
+function myStatus(){
+  const ch = db.challenge;
+  return {v:1, n:(db.settings.name || 'Ich').slice(0, 20), d:today, xp:totalXP(), wx:weekXP(), ws:weekStart(today), r:db.rank || 0, s:streak(),
+    h:Object.keys(db.hadith).length, nm:Object.keys(db.names).length, td:dayStats(today).done, tt:dayStats(today).total,
+    ch:ch ? {id:ch.id, st:ch.start, m:ch.mode, val:metricSum(CHALLENGES[ch.id].metric, ch.start, 7)} : null};
+}
+const b64e = o => btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const b64d = t => JSON.parse(decodeURIComponent(escape(atob(t.replace(/-/g, '+').replace(/_/g, '/')))));
+async function shareStatus(){
+  if (!db.settings.name) { toast('Bitte zuerst deinen Namen eintragen'); $('#co-name').focus(); return; }
+  const st = myStatus(), code = 'DH1:' + b64e(st);
+  const text = `🕌 Daily Hasanat – Stand von ${st.n}\n⭐ ${fmt(st.wx)} XP diese Woche · 🔥 ${st.s} Tage Serie · ✅ heute ${st.td}/${st.tt}\n\nIn der App unter 🏆 Fortschritt → 👥 Zusammen einfügen:\n${code}`;
+  try { if (navigator.share) { await navigator.share({text}); return; } } catch(e) { if (e && e.name === 'AbortError') return; }
+  try { await navigator.clipboard.writeText(text); toast('Kopiert – jetzt in WhatsApp einfügen'); } catch(e) { prompt('Diesen Text kopieren und senden:', text); }
+}
+function importStatus(text){
+  const m = String(text || '').match(/DH1:([A-Za-z0-9_-]+)/);
+  if (!m) return toast('Kein gültiger Code gefunden');
+  try {
+    const p = b64d(m[1]); if (p.v !== 1) throw 0;
+    db.partner = {...p, got:today}; save(); renderCoop(); renderCoopCard(); buzz(20);
+    toast(`👥 Stand von ${p.n} übernommen`);
+  } catch(e) { toast('Code ist beschädigt – bitte nochmal kopieren'); }
+}
+function startChallenge(id, mode){
+  db.challenge = {id, mode, start:weekStart(today)}; save(); renderCoop(); renderCoopCard();
+  toast(`${CHALLENGES[id].icon} Challenge gestartet – schick deiner Partnerin/deinem Partner deinen Stand`);
+}
+const ago = k => { const n = Math.round((new Date(today + 'T12:00') - new Date(k + 'T12:00')) / 864e5); return n <= 0 ? 'heute' : n === 1 ? 'gestern' : `vor ${n} Tagen`; };
+function bar(a, b){ const t = Math.max(1, a + b); return `<div class="vs"><i style="width:${a / t * 100}%"></i><i style="width:${b / t * 100}%"></i></div>`; }
+function renderCoop(){
+  const me = myStatus(), P = db.partner, ch = db.challenge, C = ch && CHALLENGES[ch.id];
+  const pWeek = P && P.ws === me.ws ? P.wx : 0;
+  let html = `<div class="dh" style="margin-top:0"><div class="dh-k">Gemeinsam besser werden</div><div class="dh-t">„… so wetteifert nach den guten Dingen.“</div><div class="dh-r">Quran 2:148</div></div>
+    <div class="inp"><input id="co-name" placeholder="Dein Name (wird mitgeschickt)" value="${esc(db.settings.name || '')}" maxlength="20" autocomplete="off"></div>
+    <button class="btn p" data-co="share">📤 Meinen Stand teilen (WhatsApp …)</button>
+    <button class="btn" data-co="paste">📥 Code von ${P ? esc(P.n) : 'Partner/in'} einfügen</button>
+    <p class="sub">So geht’s: Ihr schickt euch einmal am Tag (z. B. abends) gegenseitig euren Stand. Kein Konto, kein Server – alles bleibt bei euch.</p>`;
+  if (P) {
+    html += `<h4 class="rg-h">👥 ${esc(me.n)} &amp; ${esc(P.n)} <small>· Stand von ${esc(P.n)}: ${ago(P.d)}</small></h4>
+      <table class="cmp"><tr><th></th><th>${esc(me.n)}</th><th>${esc(P.n)}</th></tr>
+      <tr><td>⭐ XP diese Woche</td><td>${fmt(me.wx)}</td><td>${P.ws === me.ws ? fmt(P.wx) : '–'}</td></tr>
+      <tr><td>🔥 Serie</td><td>${me.s} Tage</td><td>${P.s} Tage</td></tr>
+      <tr><td>✅ Heute</td><td>${me.td}/${me.tt}</td><td>${P.d === today ? `${P.td}/${P.tt}` : '–'}</td></tr>
+      <tr><td>🏆 Rang</td><td>${RANKS[me.r].icon} ${RANKS[me.r].name}</td><td>${RANKS[P.r] ? RANKS[P.r].icon + ' ' + RANKS[P.r].name : '–'}</td></tr>
+      <tr><td>🎓 Hadith gelernt</td><td>${me.h}/42</td><td>${P.h}/42</td></tr>
+      <tr><td>🌟 Namen gelernt</td><td>${me.nm}/99</td><td>${P.nm}/99</td></tr></table>
+      ${bar(me.wx, pWeek)}<p class="sub" style="text-align:center;margin-top:2px">XP diese Woche · ${me.wx >= pWeek ? esc(me.n) : esc(P.n)} liegt vorne${me.wx === pWeek ? ' – Gleichstand!' : ''}</p>
+      ${P.h !== me.h ? `<p class="sub">🎓 Zusammen lernen: ${P.h > me.h ? `${esc(P.n)} ist im Wissens-Pfad ${P.h - me.h} Lektion(en) weiter – hol auf!` : `Du bist ${me.h - P.h} Lektion(en) weiter – erklär ${esc(P.n)}, was du gelernt hast.`}</p>` : ''}`;
+  }
+  // Challenge
+  html += `<h4 class="rg-h">🏁 Wochen-Challenge</h4>`;
+  const chActive = ch && ch.start === weekStart(today);
+  if (chActive) {
+    const mine = metricSum(C.metric, ch.start, 7), theirs = P && P.ch && P.ch.id === ch.id && P.ch.st === ch.start ? P.ch.val : null;
+    const coop = ch.mode === 'coop', goal = coop ? C.target * 2 : C.target, sum = mine + (theirs || 0);
+    html += `<div class="chal"><b>${C.icon} ${C.title}</b><small>${coop ? '🤝 Zusammen – ihr sammelt gemeinsam' : '⚔️ Duell – wer schafft es zuerst?'} · bis ${new Date(addDays(ch.start, 6) + 'T12:00').toLocaleDateString('de-DE', {weekday:'long'})}</small>
+      ${coop ? `<div class="bar"><i style="width:${Math.min(100, sum / goal * 100)}%;background:var(--gold)"></i></div><p>Zusammen: <b>${sum}/${goal}</b> ${C.unit} (du ${mine}${theirs !== null ? `, ${esc(P.n)} ${theirs}` : ''})${sum >= goal ? ' – 🎉 geschafft!' : ''}</p>`
+      : `<p>Du: <b>${mine}/${goal}</b>${mine >= goal ? ' ✓' : ''}</p><div class="bar"><i style="width:${Math.min(100, mine / goal * 100)}%"></i></div>
+         <p>${theirs !== null ? `${esc(P.n)}: <b>${theirs}/${goal}</b>${theirs >= goal ? ' ✓' : ''}` : 'Noch kein Stand vom Gegenüber für diese Challenge.'}</p>${theirs !== null ? `<div class="bar"><i style="width:${Math.min(100, theirs / goal * 100)}%;background:var(--gold)"></i></div>` : ''}`}
+      ${theirs === null && P ? `<p class="sub">${esc(P.n)} hat diese Challenge noch nicht – schick deinen Stand, dann kann sie/er sie übernehmen.</p>` : ''}
+      <button class="lnk" data-co="stop">Challenge beenden</button></div>`;
+  } else {
+    if (P && P.ch && P.ch.st === weekStart(today) && CHALLENGES[P.ch.id]) {
+      const PC = CHALLENGES[P.ch.id];
+      html += `<div class="chal"><b>${esc(P.n)} fordert dich heraus: ${PC.icon} ${PC.title}</b><small>${P.ch.m === 'coop' ? '🤝 Zusammen' : '⚔️ Duell'}</small><button class="btn p" data-cstart="${P.ch.id}:${P.ch.m}">Annehmen</button></div>`;
+    }
+    html += `<p class="sub">Wählt eine Challenge für diese Woche (Mo–So). Beide müssen dieselbe starten – oder einer startet und der andere übernimmt sie über den Code.</p>`
+      + Object.entries(CHALLENGES).map(([id, C]) => `<div class="chal-o"><span>${C.icon}</span><div><b>${C.title}</b><small>Ziel: ${C.target} ${C.unit} pro Person</small></div>
+        <button class="mbtn go" data-cstart="${id}:coop">🤝</button><button class="mbtn" data-cstart="${id}:duel">⚔️</button></div>`).join('')
+      + '<p class="sub">🤝 = zusammen sammeln · ⚔️ = gegeneinander</p>';
+  }
+  html += `<p class="sub" style="margin-top:12px">Erinnert euch an die Absicht: Ihr wetteifert für Allah, nicht um voreinander gut dazustehen.</p>`;
+  $('#coop').innerHTML = html;
+}
+function renderCoopCard(){
+  const el = $('#coopcard'), P = db.partner;
+  if (!P) { el.hidden = true; return; }
+  const me = myStatus(), pw = P.ws === me.ws ? P.wx : 0;
+  el.hidden = false;
+  el.innerHTML = `<div class="mh"><b>👥 ${esc(me.n)} vs ${esc(P.n)}</b><span>Stand ${ago(P.d)}</span></div>${bar(me.wx, pw)}
+    <p class="sub" style="margin:4px 0 0">XP diese Woche: <b>${fmt(me.wx)}</b> : <b>${fmt(pw)}</b>${P.d !== today ? ` · <button class="lnk" data-co="share">Stand teilen</button>` : ''} · <button class="lnk" data-hs-go="coop">Details</button></p>`;
+}
+document.addEventListener('change', e => { if (e.target.id === 'co-name') { db.settings.name = e.target.value.trim().slice(0, 20); save(); } });
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -2654,6 +2784,15 @@ document.addEventListener('click', e => {
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
+  else if (b.dataset.co === 'share') shareStatus();
+  else if (b.dataset.co === 'paste') {
+    (async () => { let t = ''; try { t = await navigator.clipboard.readText(); } catch(e) {}
+      if (!/DH1:/.test(t)) t = prompt('Nachricht mit dem Code hier einfügen:') || '';
+      if (t) importStatus(t); })();
+  }
+  else if (b.dataset.co === 'stop') { if (confirm('Challenge beenden?')) { db.challenge = null; save(); renderCoop(); } }
+  else if (b.dataset.cstart) { const [id, m] = b.dataset.cstart.split(':'); startChallenge(id, m); }
+  else if (b.dataset.hsGo) { showPage('hist'); showH(b.dataset.hsGo); }
   else if (b.dataset.adjs) {
     const [k, d] = b.dataset.adjs.split(':'), a = db.settings.adj = db.settings.adj || {};
     a[k] = Math.max(-60, Math.min(60, (a[k] || 0) + +d)); if (!a[k]) delete a[k];
@@ -2751,6 +2890,8 @@ $('#b-import').onchange = async e => {
     if (data.khatm && !db.khatm) db.khatm = data.khatm;
     if (data.names) db.names = {...data.names, ...db.names};
     if (data.hadith) db.hadith = {...data.hadith, ...db.hadith};
+    if (data.partner && !db.partner) db.partner = data.partner;
+    if (data.challenge && !db.challenge) db.challenge = data.challenge;
     if (Array.isArray(data.favs)) db.favs = [...db.favs, ...data.favs.filter(f => !db.favs.some(o => o.id === f.id))];
     if (data.qada && !Object.keys(db.qada).length) db.qada = data.qada;
     if (data.rank != null) db.rank = Math.max(db.rank || 0, data.rank);
