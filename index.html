@@ -368,6 +368,20 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
 .sg{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:6px 2px;font:inherit;font-size:.72rem;font-weight:600;line-height:1.2;min-width:0}
 .sg span{display:block;font-size:1.15rem;line-height:1.3}
 .sg.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.plan-l{font-size:.85rem;color:var(--muted);margin:14px 0 -4px}
+.preset{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:12px;margin-bottom:8px;font:inherit}
+.preset span{font-size:1.8rem;line-height:1}
+.preset b{display:block}
+.preset small{color:var(--muted);font-size:.8rem}
+.preset.on{border:2px solid var(--accent);background:var(--accent-soft)}
+#cele{position:fixed;inset:0;z-index:65;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);padding:24px}
+#cele[hidden]{display:none}
+.cele-c{background:var(--card);border:2px solid var(--gold);border-radius:22px;padding:24px 20px;text-align:center;max-width:340px;display:flex;flex-direction:column;gap:8px}
+.cele-i{font-size:3.4rem}
+.cele-c b{font-size:1.5rem;color:var(--gold)}
+.cele-c small{color:var(--muted);font-size:.8rem}
+#cele.on .cele-c{animation:pop .5s ease-out}
+@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.05);opacity:1}100%{transform:scale(1)}}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -472,10 +486,10 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
       <h2>Werkzeuge</h2>
       <div class="mgrp"><button class="mrow" data-qibla="1"><span>🧭</span><div><b>Qibla-Kompass</b><small>Richtung nach Mekka</small></div><i>›</i></button><button class="mrow" data-mk="ptimes"><span>🕌</span><div><b>Gebetszeiten</b><small>Heute und morgen</small></div><i>›</i></button><button class="mrow" data-mk="events"><span>📅</span><div><b>Besondere Tage</b><small>Fasten, Ramadan, Eid …</small></div><i>›</i></button><button class="mrow" data-mk="zakat"><span>💰</span><div><b>Zakat-Rechner</b><small>2,5 % · Nisab</small></div><i>›</i></button></div>
       <h2>Einstellungen</h2>
-      <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-editlist="1"><span>✎</span><div><b>Tages-Liste anpassen</b><small>Taten aus- und einblenden</small></div><i>›</i></button></div>
+      <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 18 (29.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 19 (29.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -504,6 +518,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <select class="btn" id="set-font"><option value="n">Schrift: normal</option><option value="l">Schrift: groß</option><option value="xl">Schrift: sehr groß</option></select>
     <label class="card" style="display:flex;justify-content:space-between;align-items:center">Arabische Schrift anzeigen <input type="checkbox" id="b-ar" style="width:22px;height:22px"></label>
     </div>
+    <div class="mp" data-m="plan" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📋 Dein Tagesprogramm</h2><div id="plan"></div></div>
     <div class="mp" data-m="data" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>💾 Backup &amp; Daten</h2>
     <div class="card"><p>Alles wird nur lokal auf diesem Gerät gespeichert. Mach ab und zu ein Backup.</p></div>
     <button class="btn p" id="b-export">💾 Backup sichern (z. B. „In Dateien sichern“)</button>
@@ -594,6 +609,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
   </div>
 </div>
 <div id="xppop" aria-live="polite"></div>
+<div id="cele" hidden onclick="this.hidden=true" role="status"><div class="cele-c"><div class="cele-i">🎉</div><b>Tag komplett!</b><span>MashaAllah – dein ganzes Programm für heute ist geschafft.</span><small>„Die Taten, die Allah am liebsten sind, sind die beständigen, auch wenn sie wenig sind.“ – Bukhari 6464, Muslim 783</small></div></div>
 <script src="prayer.js"></script>
 
 <script>
@@ -860,7 +876,8 @@ function dayStats(k){
 }
 function dayStatsRaw(k){
   if (k === today && typeof updateQuranTarget === 'function') updateQuranTarget();
-  const x = day(k), list = deedsFor(k); let has = 0, done = 0, rizq = 0;
+  // Heute zählt dein aktuelles Programm; vergangene Tage zählen alles, was du erledigt hast
+  const x = day(k), list = k === today ? deedsFor(k) : [...specialsFor(k), ...DEEDS]; let has = 0, done = 0, rizq = 0;
   for (const d of list){
     const c = d.calc ? d.calc(x) : (x[d.id] || 0);
     has += deedHasanat(d, c);
@@ -869,7 +886,8 @@ function dayStatsRaw(k){
   let taps = 0;
   for (const q of QUICK){ const c = x['q:'+q.id] || 0; taps += c; has += c * q.per; }
   for (const key in x) if (key.startsWith('a:') || key.startsWith('d:')) { taps += x[key]; has += x[key] * 10; }
-  return {has, done, rizq, taps, total:list.length, rizqTotal:list.filter(d => d.rizq).length};
+  const total = k === today ? list.length : (x._t || list.length);
+  return {has, done, rizq, taps, total, rizqTotal:list.filter(d => d.rizq).length};
 }
 const active = k => { const s = dayStats(k); return s.done > 0 || s.taps > 0; };
 function streak(){
@@ -932,7 +950,8 @@ function renderList(){
   const items = editMode ? DEEDS : [...specialsFor(today), ...DEEDS.filter(d => !isHidden(d.id))];
   const x0 = day(today), isDone = d => (d.calc ? d.calc(x0) : (x0[d.id] || 0)) >= d.target;
   const card = d => deedHTML(d).replace('<div class="deed', `<div data-id="${d.id}" class="deed`);
-  let html = editMode ? '<p class="sub">Blende Taten aus, die du nicht täglich machen willst. Ausgeblendete zählen nicht in deinen Fortschritt.</p>' : '';
+  let html = editMode ? '<p class="sub">Blende Taten aus, die du nicht täglich machen willst. Ausgeblendete zählen heute nicht in deinen Fortschritt – Erledigtes von früher bleibt erhalten.</p>'
+    : `<div class="plan-l">Dein Programm: <b>${presetLabel()}</b> · <button class="lnk" data-mk="plan">ändern</button></div>`;
   const cats = [];
   for (const d of items) {
     if (filter === 'Rizq' ? !d.rizq : (filter !== 'Alle' && d.cat !== filter && d.cat !== 'Heute besonders')) continue;
@@ -962,7 +981,10 @@ function renderStats(){
   $('#s-rizq').textContent = `${s.rizq}/${s.rizqTotal}`;
   $('#s-streak').textContent = streak();
   $('#s-done').textContent = s.done; $('#s-total').textContent = s.total;
-  $('#s-bar').style.width = (s.done / Math.max(1, s.total) * 100) + '%';
+  $('#s-bar').style.width = Math.min(100, s.done / Math.max(1, s.total) * 100) + '%';
+  const xt = db.days[today];
+  if (xt && xt._t !== s.total) { xt._t = s.total; save(); }
+  if (xt && s.total && s.done >= s.total && !xt._c) { xt._c = 1; save(); celebrate(); }
   const h = hijri(new Date());
   $('#date').textContent = new Date().toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long'})
     + (h.hm ? ` · ${h.hd}. ${HIJRI_MONTHS[h.hm-1]} ${h.hy}` : '');
@@ -975,7 +997,7 @@ function renderHist(){
   for (let i = 0; i < 14; i++){ days.push(dkey(d)); d.setDate(d.getDate()+1); }
   $('#hist').innerHTML = days.map(k => {
     const s = dayStats(k);
-    return `<div class="${k===today?'today':''}" style="height:${s.done/Math.max(1,s.total)*100}%" title="${k}: ${s.done}"><em>${+k.slice(8)}</em></div>`;
+    return `<div class="${k===today?'today':''}" style="height:${Math.min(1, s.done/Math.max(1,s.total))*100}%" title="${k}: ${s.done}"><em>${+k.slice(8)}</em></div>`;
   }).join('');
   const all = Object.keys(db.days);
   $('#h-has').textContent = fmt(all.reduce((a,k) => a + dayStats(k).has, 0));
@@ -1453,7 +1475,7 @@ function renderCal(){
   const y = base.getFullYear(), m = base.getMonth(), first = (new Date(y, m, 1).getDay() + 6) % 7, n = new Date(y, m + 1, 0).getDate();
   let cells = ['Mo','Di','Mi','Do','Fr','Sa','So'].map(d => `<div class="cw">${d}</div>`).join('') + '<div></div>'.repeat(first);
   for (let d = 1; d <= n; d++) {
-    const k = `${y}-${pad(m+1)}-${pad(d)}`, s = dayStats(k), p = k > today ? 0 : Math.round(s.done / Math.max(1, s.total) * 100);
+    const k = `${y}-${pad(m+1)}-${pad(d)}`, s = dayStats(k), p = k > today ? 0 : Math.round(Math.min(1, s.done / Math.max(1, s.total)) * 100);
     const bg = p ? `background:color-mix(in srgb, var(--accent) ${20 + p * 0.8}%, var(--card))${p > 50 ? ';color:#fff' : ''}` : '';
     cells += `<div class="cd ${k === today ? 'ct' : ''}" style="${bg}" title="${s.done}/${s.total}">${d}</div>`;
   }
@@ -1467,7 +1489,7 @@ function lifetime(){
   for (const k of Object.keys(db.days)) {
     const x = db.days[k], s = dayStats(k);
     L.has += s.has; if (s.done || s.taps) L.active++;
-    if (s.total && s.done === s.total) L.full++;
+    if (s.total && s.done >= s.total) L.full++;
     L.pages += x.quran || 0;
     L.salawat += (x['q:q_salawat'] || 0) + (x.salawat || 0) + (x.s_jsalawat || 0);
     L.istighfar += (x['q:q_istighfar'] || 0) + (x.istighfar || 0);
@@ -1763,6 +1785,7 @@ function renderIntro(){
   }
   $('#intro').innerHTML = `<div class="card intro"><b>Assalāmu ‘alaykum 👋</b>
     <p>1. <b>📍 Standort festlegen</b> – für Gebetszeiten, Qibla und die passenden Adhkar zur richtigen Zeit.</p>
+    <p>🌱 Du startest mit dem Programm <b>Einsteiger</b> (10 Taten). Mehr geht jederzeit unter <b>☰ Mehr → Tagesprogramm</b>.</p>
     <p>2. Im Reiter <b>📿 Dhikr</b> findest du Dhikr zum Antippen, die Morgen-, Abend- und Schlaf-Adhkar und Du’as.</p>
     <p>3. Jede Tat hat ihre <b>Quelle</b> – einfach „Quelle &amp; Belohnung“ aufklappen.</p>
     <p>4. Ab und zu unter <b>☰ Mehr → Backup</b> sichern.</p>
@@ -2361,7 +2384,7 @@ function goTo(g){
   else if (g.deed) {
     filter = 'Alle'; editMode = false;
     const d = findDeed(g.deed);
-    if (d && isHidden(d.id)) { db.hidden = db.hidden.filter(x => x !== d.id); clearStats(); save(); }
+    if (d && isHidden(d.id)) { db.hidden = db.hidden.filter(x => x !== d.id); db.settings.preset = 'custom'; clearStats(); save(); }
     if (d && isCollapsed(d.cat)) { db.settings.collapsed[d.cat] = false; save(); }
     if (d) showDone[d.cat] = true;
     showPage('today'); renderChips(); renderList();
@@ -2446,6 +2469,7 @@ function showM(k){
   document.querySelectorAll('.mp').forEach(el => { el.hidden = el.dataset.m !== k; });
   if (k === 'ptimes') renderPrayerTable();
   if (k === 'data') renderSnaps();
+  if (k === 'plan') renderPlan();
   $('#scroller').scrollTop = 0;
 }
 function renderPrayerTable(){
@@ -2474,6 +2498,44 @@ function renderSnaps(){
 // Ein unerwarteter Fehler soll nie die App blockieren: Hinweis statt weißer Seite
 window.addEventListener('error', () => { if (!window.__errShown) { window.__errShown = true; try { toast('⚠️ Kleiner Fehler – deine Daten sind sicher. App neu öffnen hilft meist.'); } catch(_) {} } });
 
+
+// ---------- Tagesprogramme: klein anfangen, beständig bleiben ----------
+const PRESETS = {
+  starter:{icon:'🌱', name:'Einsteiger', desc:'Die Basis: 5 Gebete, Morgen- & Abend-Adhkar, etwas Quran, Salawat, Istighfar und guter Charakter.',
+    ids:['fard','jamaa','adh_m','adh_e','quran','salawat','istighfar','kalima','rahim','shukr']},
+  mid:{icon:'🌿', name:'Fortgeschritten', desc:'Dazu die Sunnah-Gebete, Duha, Nachtgebet, Schlaf-Adhkar, Sadaqa und mehr Dhikr.',
+    ids:['fard','jamaa','adh_m','adh_e','quran','salawat','istighfar','kalima','rahim','shukr','rawatib','fajrsunna','duha','qiyam','adhan','afterprayer','subhan100','adh_s','sadaqa','salam','kursi']},
+  all:{icon:'🌳', name:'Alles', desc:'Alle Taten der App – für die, die richtig Gas geben wollen.', ids:null},
+};
+function setPreset(key, silent){
+  const P = PRESETS[key];
+  db.hidden = P.ids ? DEEDS.filter(d => !P.ids.includes(d.id)).map(d => d.id) : [];
+  db.settings.preset = key; clearStats(); save();
+  if (!silent) { render(); renderChips(); renderPlan(); toast(`${P.icon} Programm „${P.name}“ aktiv`); }
+}
+function presetLabel(){
+  const k = db.settings.preset, P = PRESETS[k];
+  return P ? `${P.icon} ${P.name}` : (db.hidden.length ? '✎ Eigenes Programm' : '🌳 Alles');
+}
+function renderPlan(){
+  const cur = db.settings.preset || (db.hidden.length ? 'custom' : 'all');
+  $('#plan').innerHTML = `<div class="dh" style="margin-top:0"><div class="dh-k">Warum klein anfangen?</div><div class="dh-t">„Die Taten, die Allah am liebsten sind, sind die beständigen, auch wenn sie wenig sind.“</div><div class="dh-r">Bukhari 6464, Muslim 783</div></div>`
+    + Object.entries(PRESETS).map(([k, P]) => `<button class="preset ${k === cur ? 'on' : ''}" data-preset="${k}">
+        <span>${P.icon}</span><div><b>${P.name}${k === cur ? ' · aktiv ✓' : ''}</b><small>${P.ids ? P.ids.length : DEEDS.length} Taten · ${P.desc}</small></div></button>`).join('')
+    + `<button class="btn" data-editlist="1">✎ Einzeln anpassen${cur === 'custom' ? ' (aktiv)' : ''}</button>
+       <p class="sub">Besondere Tage (Freitag, Fasten-Tage, Ramadan …) erscheinen immer automatisch. Was du erledigt hast, bleibt in deiner Statistik – auch wenn du später etwas ausblendest.</p>`;
+}
+// „Tag komplett“-Feier
+function celebrate(){
+  // kurz warten, bis die „+XP“-Anzeige verflogen ist
+  setTimeout(() => {
+    const el = $('#cele');
+    el.hidden = false; el.classList.remove('on'); void el.offsetWidth; el.classList.add('on');
+    buzz([40,60,40,60,120]);
+    clearTimeout(celebrate.t); celebrate.t = setTimeout(() => { el.hidden = true; }, 4500);
+  }, 1000);
+}
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -2501,7 +2563,7 @@ document.addEventListener('click', e => {
   }
   else if (b.dataset.c) { filter = b.dataset.c; renderChips(); renderList(); }
   else if (b.dataset.edit) { editMode = !editMode; renderChips(); renderList(); }
-  else if (b.dataset.hide) { const id = b.dataset.hide; db.hidden = isHidden(id) ? db.hidden.filter(x => x !== id) : [...db.hidden, id]; clearStats(); save(); render(); renderChips(); }
+  else if (b.dataset.hide) { const id = b.dataset.hide; db.hidden = isHidden(id) ? db.hidden.filter(x => x !== id) : [...db.hidden, id]; db.settings.preset = 'custom'; clearStats(); save(); render(); renderChips(); }
   else if (b.dataset.fs) { const i = b.dataset.fs.indexOf(':'); openTz(b.dataset.fs.slice(0, i), b.dataset.fs.slice(i + 1)); }
   else if (b.dataset.seg) { seg = b.dataset.seg; segPicked = true; renderSeg(); }
   else if (b.dataset.a) tapAdhkar(b.dataset.a, 1);
@@ -2510,6 +2572,7 @@ document.addEventListener('click', e => {
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
+  else if (b.dataset.preset) setPreset(b.dataset.preset);
   else if (b.dataset.snap) {
     if (!confirm('Den Stand vom ' + new Date(b.dataset.snap + 'T12:00').toLocaleDateString('de-DE') + ' wiederherstellen? Der aktuelle Stand wird ersetzt.')) return;
     try {
@@ -2527,7 +2590,7 @@ document.addEventListener('click', e => {
   else if (b.dataset.mgo) goTo(missionGo(+b.dataset.mgo));
   else if (b.dataset.mtick) {
     const d = findDeed(b.dataset.mtick);
-    if (isHidden(d.id)) { db.hidden = db.hidden.filter(x => x !== d.id); clearStats(); }
+    if (isHidden(d.id)) { db.hidden = db.hidden.filter(x => x !== d.id); db.settings.preset = 'custom'; clearStats(); }
     setCount(d.id, d.target);
   }
   else if (b.dataset.libopen) libOpen();
@@ -2649,6 +2712,7 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   navigator.serviceWorker.addEventListener('controllerchange', () => { if (!reloaded && navigator.serviceWorker.controller) { reloaded = true; location.reload(); } });
 }
 
+if (!db.settings.preset && !Object.keys(db.days).length) setPreset('starter', true);
 applyTheme(); applyFont(); renderChips(); renderInfo(); render(); renderSettings(); renderSeg(); renderDuas();
 renderCustomForm(); renderEvents(); renderNames(); renderZakat(); renderRamadan(); renderHPath(); checkBadges(); renderDuaCollection(); renderTiles();
 </script>
