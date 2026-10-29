@@ -27,7 +27,8 @@
     --accent:#4fbf9f; --accent-soft:#1b3a31; --gold:#d9b45a; --gold-soft:#3a3120; --rizq:#7fb6e6; --rizq-soft:#1c2d3d;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+html{font-size:16px}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 body{padding:env(safe-area-inset-top) 0 calc(76px + env(safe-area-inset-bottom))}
 body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);background:var(--bg);z-index:20}
 .say{margin:8px 0 2px}
@@ -163,6 +164,42 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 #qb.aligned .qbc .ring{stroke:var(--accent);stroke-width:6}
 #qb-hint{font-weight:600;min-height:1.5em}
 #qb-start{margin-top:14px;max-width:280px}
+.pw{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px}
+.pwb{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:6px 2px;font:inherit;touch-action:manipulation}
+.pwb span{display:block;font-size:.68rem;color:var(--muted)}
+.pwb b{display:block;font-size:1.15rem;line-height:1.5}
+.pwb small{display:block;font-size:.62rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.pwb.s1{background:var(--accent-soft);border-color:var(--accent)}
+.pwb.s1 b{color:var(--accent)}
+.pwb.s2{background:var(--accent);border-color:var(--accent);color:#fff}
+.pwb.s2 span,.pwb.s2 small{color:#fff;opacity:.85}
+.pwb.due{border-color:var(--gold);border-style:dashed}
+.nw{display:flex;align-items:center;gap:10px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:14px;padding:10px 12px;margin:0 0 12px;font-size:.88rem}
+.nw[hidden]{display:none}
+.nw-t{flex:1;display:flex;gap:8px;align-items:flex-start}
+.nw-i{font-size:1.4rem;line-height:1}
+.nw small{display:block;color:var(--gold);font-weight:600;margin-top:3px}
+.intro p{margin:.5em 0;font-size:.9rem}
+.nm-day{background:var(--gold-soft);border-radius:12px;padding:12px;text-align:center;margin-bottom:8px}
+.nm-day small{display:block;color:var(--gold);font-weight:700;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em}
+.nm-day b{display:block;font-size:1.4rem;margin:4px 0;color:var(--gold)}
+.nl{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.nmi{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:8px;text-align:left;font:inherit}
+.nmi small{color:var(--muted);font-size:.65rem}
+.nmi b{display:block;font-size:.85rem}
+.nmi span{display:block;font-size:.72rem;color:var(--muted)}
+.nmi.on{border-color:var(--gold);background:var(--gold-soft)}
+.nmi.on b::after{content:" ✓";color:var(--gold)}
+#fc-t{font-size:2.2rem;font-weight:700;color:var(--gold);margin:30px 0 10px}
+#fc-d{font-size:1.2rem;min-height:2em;max-width:340px}
+#fc-close{position:absolute;top:calc(env(safe-area-inset-top) + 12px);right:16px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:1.1rem}
+.fcb{display:flex;gap:10px;width:100%;max-width:340px;margin-top:24px}
+.fcb .btn{margin:0}
+.zl{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 0;font-size:.85rem}
+.zl input,.zl select{width:130px;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:.95rem;text-align:right}
+.zr{background:var(--gold-soft);border-radius:12px;padding:12px;margin:10px 0;text-align:center}
+.zr b{font-size:1.15rem;color:var(--gold)}
+#ramadan:empty{display:none}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -173,10 +210,12 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <h1>Daily Hasanat ☪︎</h1>
     <div class="sub" id="date"></div>
     <div class="np" id="nextp"></div>
+    <div class="np" id="ramadan" style="color:var(--gold)"></div>
   </header>
 
   <!-- HEUTE -->
   <section class="page on" id="p-today">
+    <div id="intro"></div>
     <div class="stats">
       <div class="stat g"><b id="s-has">0</b><span>Hasanat (min.)*</span></div>
       <div class="stat r"><b id="s-rizq">0</b><span>Rizq-Taten</span></div>
@@ -184,6 +223,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     </div>
     <div class="sub"><span id="s-done">0</span> von <span id="s-total">0</span> Schritten erledigt</div>
     <div class="bar"><i id="s-bar" style="width:0"></i></div>
+    <div class="nw" id="now" hidden></div>
     <div id="prayer"></div>
     <div class="dh" id="daily"></div>
     <div class="tm" id="tomorrow" hidden></div>
@@ -201,6 +241,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <p class="sub" style="margin-top:-4px">Ganze Karte antippen = einmal gesagt. Quelle aufklappen zum Nachlesen.</p>
     <div id="qlist"></div>
     <p class="sub">* Pro Dhikr mindestens ×10 (Bukhari 6491; für SubhanAllah ausdrücklich: 100× = 1000, Muslim 2698). Der Bonus steht jeweils dabei – der eigentliche Lohn ist bei Allah.</p>
+    <div class="card" id="cust"></div>
     </div>
   </section>
 
@@ -213,6 +254,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
       <div class="stat a"><b id="h-days">0</b><span>aktive Tage</span></div>
       <div class="stat r"><b id="h-best">0</b><span>längste Serie</span></div>
     </div>
+    <div class="card sub" id="h-week"></div>
     <h2>Kalender</h2><div class="card" id="cal"></div>
     <h2>Quran-Khatm</h2><div class="card" id="khatm"></div>
     <h2>Sadaqa-Tagebuch</h2><div class="card" id="sadaqa"></div>
@@ -234,6 +276,12 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
       <tr><td>Du’a des Reisenden, des Unterdrückten und der Eltern</td><td>Tirmidhi 1905 – hasan</td></tr>
     </table>
     <p class="sub">„Euer Du’a wird erhört, solange ihr nicht ungeduldig werdet und sagt: Ich habe gebetet, aber wurde nicht erhört.“ (Bukhari 6340, Muslim 2735)</p></div>
+    <h2>Kommende besondere Tage</h2>
+    <div class="card" id="events"></div>
+    <h2>Die 99 Namen Allahs</h2>
+    <div class="card" id="names"></div>
+    <h2>Zakat-Rechner</h2>
+    <div class="card" id="zakat"></div>
     <h2>Die Multiplikatoren der Sunnah</h2>
     <div class="card"><table id="mult"></table></div>
     <h2>Rizq – was Quran &amp; Sunnah nennen</h2>
@@ -266,8 +314,9 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <p class="sub">Berechnete Zeiten, können je nach Moschee ein paar Minuten abweichen. Koordinaten findest du z. B. in Apple Karten (Ort antippen).</p>
     <h2>Anzeige</h2>
     <select class="btn" id="set-theme"><option value="auto">Design: automatisch</option><option value="light">Design: hell</option><option value="dark">Design: dunkel</option></select>
+    <select class="btn" id="set-font"><option value="n">Schrift: normal</option><option value="l">Schrift: groß</option><option value="xl">Schrift: sehr groß</option></select>
     <label class="card" style="display:flex;justify-content:space-between;align-items:center">Arabische Schrift anzeigen <input type="checkbox" id="b-ar" style="width:22px;height:22px"></label>
-    <p class="sub" style="text-align:center">App-Version 7 (29.10.2026)</p>
+    <p class="sub" style="text-align:center">App-Version 8 (29.10.2026)</p>
     <h2>Quran-Schätzung</h2>
     <div class="card"><p>Der Mushaf hat ca. 320.000 Buchstaben auf 604 Seiten ≈ 530 Buchstaben/Seite. Pro Buchstabe 1 Hasana ×10 (Tirmidhi 2910) ⇒ ca. <b>5.300 Hasanat pro Seite</b>. Das ist eine grobe Schätzung.</p></div>
   </section>
@@ -305,6 +354,14 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
   <div id="qb-hint"></div>
   <button class="btn p" id="qb-start">Kompass starten</button>
   <p class="sub" style="max-width:300px">Handy flach halten, fern von Magneten/Metall. Die Kaaba-Linie zeigt die Richtung; der goldene Pfeil oben ist die Richtung, in die dein Handy zeigt.</p>
+</div>
+<div class="tzo" id="fc" hidden>
+  <button id="fc-close" aria-label="schließen">✕</button>
+  <div class="sub" id="fc-n"></div>
+  <div id="fc-t"></div>
+  <div id="fc-d"></div>
+  <button class="btn p" id="fc-show" style="max-width:340px;margin-top:24px">Bedeutung zeigen</button>
+  <div class="fcb" id="fc-act" hidden><button class="btn" id="fc-again">Nochmal</button><button class="btn p" id="fc-ok">Kann ich ✓</button></div>
 </div>
 <script src="prayer.js"></script>
 
@@ -604,7 +661,8 @@ function renderList(){
   for (const d of items){
     if (filter === 'Rizq' ? !d.rizq : (filter !== 'Alle' && d.cat !== filter && d.cat !== 'Heute besonders')) continue;
     if (d.cat !== last){ html += `<h2>${d.cat}</h2>`; last = d.cat; }
-    html += deedHTML(d).replace('<div class="deed', `<div data-id="${d.id}" class="deed`);
+    if (!editMode && d.id === 'jamaa') continue;
+    html += !editMode && d.id === 'fard' ? prayerCard() : deedHTML(d).replace('<div class="deed', `<div data-id="${d.id}" class="deed`);
   }
   $('#list').innerHTML = html;
   open.forEach(id => { const el = document.querySelector(`.deed[data-id="${id}"] details`); if (el) el.open = true; });
@@ -654,11 +712,11 @@ function renderQuick(){
         ${sayHTML(q)}${goal}
       </button>
       <div class="qfoot"><details ${open?'open':''}><summary>Quelle &amp; Bonus</summary><div class="src">${esc(q.reward)}<span class="ref">${esc(q.ref)}</span></div></details>
-      <button class="fs" data-fs="q:${q.id}">⛶</button><button class="qundo" data-qu="${q.id}">−1</button></div>
+      ${q.custom ? `<button class="qundo" data-cdel="${q.cid}" aria-label="löschen">🗑</button>` : ''}<button class="fs" data-fs="q:${q.id}">⛶</button><button class="qundo" data-qu="${q.id}">−1</button></div>
     </div>`;
   }).join('');
 }
-function render(){ renderStats(); renderList(); renderQuick(); renderPrayer(); renderDaily(); renderTomorrow(); renderAdhkar(); }
+function render(){ renderStats(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); }
 
 // ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
 const SPECIAL = [
@@ -763,7 +821,7 @@ function locate(){
   navigator.geolocation.getCurrentPosition(p => {
     db.settings.lat = +p.coords.latitude.toFixed(4); db.settings.lng = +p.coords.longitude.toFixed(4);
     db.settings.place = `${db.settings.lat.toFixed(2)}°, ${db.settings.lng.toFixed(2)}°`;
-    save(); renderPrayer(); renderSettings(); toast('Gebetszeiten aktiv ✓');
+    save(); render(); renderSettings(); toast('Gebetszeiten aktiv ✓');
   }, () => toast('Standort nicht erlaubt – unter Daten manuell eingeben'), {enableHighAccuracy:false, timeout:15000});
 }
 function renderSettings(){
@@ -771,6 +829,7 @@ function renderSettings(){
   $('#set-method').value = s.method || 'diyanet';
   $('#set-hanafi').checked = !!s.hanafi;
   $('#set-theme').value = s.theme || 'auto';
+  $('#set-font').value = s.font || 'n';
   $('#set-lat').value = s.lat ?? ''; $('#set-lng').value = s.lng ?? '';
 }
 
@@ -1100,6 +1159,9 @@ function lifetime(){
     const fr = specialsFor(k).filter(d => d.id.startsWith('s_j') || d.id === 's_ghusl' || d.id === 's_kahf');
     if (fr.length && fr.every(d => (x[d.id] || 0) >= d.target)) L.fri++;
   }
+  L.fard5 = Object.values(db.days).filter(x => (x.fard || 0) >= 5).length;
+  L.jamaa5 = Object.values(db.days).filter(x => (x.jamaa || 0) >= 5).length;
+  L.names = Object.keys(db.names || {}).length;
   L.best = bestStreak();
   return L;
 }
@@ -1122,6 +1184,9 @@ const BADGES = [
   ['fri', '🕌', 'Jumu’a komplett', 'Alle Freitags-Taten an einem Freitag', L => L.fri >= 1],
   ['sad30', '🤲', 'Großzügig', 'An 30 Tagen Sadaqa gegeben', L => L.sadaqaDays >= 30],
   ['khatm', '📖', 'Khatm', '604 Quran-Seiten gelesen', L => L.pages >= PAGES],
+  ['fard7', '🕌', 'Gebets-Woche', 'An 7 Tagen alle 5 Gebete', L => L.fard5 >= 7],
+  ['jamaa5', '👥', 'Volle Gemeinschaft', 'Alle 5 Gebete in Jama’a an einem Tag', L => L.jamaa5 >= 1],
+  ['names', '🌟', 'Die 99 Namen', 'Alle 99 Namen gelernt', L => L.names >= 99],
 ];
 db.badges = db.badges || {};
 function checkBadges(L){
@@ -1138,6 +1203,9 @@ function checkBadges(L){
 function renderHistMore(){
   const L = checkBadges();
   renderCal(); renderKhatm(); renderSadaqa();
+  const wk = off => { let h = 0; const d = new Date(); d.setDate(d.getDate() - off); for (let i = 0; i < 7; i++) { h += dayStats(dkey(d)).has; d.setDate(d.getDate() - 1); } return h; };
+  const w1 = wk(0), w0 = wk(7), diff = w0 ? Math.round((w1 - w0) / w0 * 100) : null;
+  $('#h-week').innerHTML = `Letzte 7 Tage: <b>${fmt(w1)}</b> Hasanat · Woche davor: ${fmt(w0)}${diff !== null ? ` · <b style="color:${diff >= 0 ? 'var(--accent)' : 'var(--gold)'}">${diff >= 0 ? '▲' : '▼'} ${Math.abs(diff)} %</b>` : ''}`;
   $('#totals').innerHTML = [
     ['Quran-Seiten', L.pages], ['Salawat', L.salawat], ['SubhanAllah', L.subhan], ['Istighfar', L.istighfar],
     ['Tahlil', L.tahlil], ['La hawla wa la quwwata …', L.hawqala], ['Adhkar (Morgen/Abend/Schlaf)', L.adhkar],
@@ -1165,6 +1233,210 @@ function renderDuas(){
 function applyTheme(){
   const t = db.settings.theme || 'auto';
   if (t === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = t;
+}
+
+// ---------- Die 5 Gebete einzeln abhaken ----------
+const PRAYERS = ['fajr','dhuhr','asr','maghrib','isha'];
+const prState = (x, k) => x['p:' + k] || 0;
+function cyclePrayer(k){
+  const x = db.days[today] = db.days[today] || {};
+  const v = (prState(x, k) + 1) % 3; x['p:' + k] = v;
+  x.fard = PRAYERS.filter(p => prState(x, p) >= 1).length;
+  x.jamaa = PRAYERS.filter(p => prState(x, p) === 2).length;
+  save(); render();
+  if (navigator.vibrate) navigator.vibrate(v ? 15 : 5);
+  if (v === 1 && x.fard === 5) toast('Alle 5 Gebete – MashaAllah ✓');
+  if (v === 2) toast(`${PNAMES[k]} in Gemeinschaft – ×27 Grade`);
+}
+function prayerCard(){
+  const x = day(today), now = new Date(), t = times(now);
+  const tiles = PRAYERS.map(k => {
+    const v = prState(x, k), due = t && t[k] <= now && !v;
+    return `<button class="pwb s${v} ${due ? 'due' : ''}" data-pr="${k}"><span>${PNAMES[k]}</span><b>${v === 2 ? '👥' : v === 1 ? '✓' : '○'}</b><small>${t ? hm(t[k]) : ''}</small></button>`;
+  }).join('');
+  const f = DEEDS.find(d => d.id === 'fard'), j = DEEDS.find(d => d.id === 'jamaa');
+  const n = PRAYERS.filter(p => prState(x, p) >= 1).length, g = PRAYERS.filter(p => prState(x, p) === 2).length;
+  return `<div class="deed ${n === 5 ? 'done' : ''}" data-id="fard">
+    <div class="row"><div class="t"><b>Die 5 Pflichtgebete</b><div class="tags"><span class="tag">beliebteste Tat</span><span class="tag">Jama’a ×27 Grade</span>${n ? `<span class="tag h">+${fmt(n * 10 + g * 10)}</span>` : ''}</div></div><span class="num">${n}/5</span></div>
+    <div class="pw">${tiles}</div>
+    <p class="sub" style="margin:6px 0 0">Tippen: ○ offen → ✓ gebetet → 👥 in Gemeinschaft</p>
+    <details><summary>Quelle &amp; Belohnung</summary><div class="src">${esc(f.reward)}<span class="ref">${esc(f.ref)}</span></div><div class="src">${esc(j.reward)}<span class="ref">${esc(j.ref)}</span></div></details>
+  </div>`;
+}
+
+// ---------- „Jetzt“-Hinweis ----------
+function nowHint(){
+  const now = new Date(), t = times(now); if (!t) return null;
+  const MIN = 6e4, y = new Date(now), tm = new Date(now);
+  y.setDate(y.getDate() - 1); tm.setDate(tm.getDate() + 1);
+  const night = now < t.fajr ? {start:times(y).maghrib, end:t.fajr} : now >= t.maghrib ? {start:t.maghrib, end:times(tm).fajr} : null;
+  if (night) {
+    const third = new Date(+night.end - (night.end - night.start) / 3);
+    if (now >= third) return {icon:'🌌', text:`Letztes Drittel der Nacht (bis Fajr ${hm(night.end)}): Allah fragt: „Wer ruft Mich an, dass Ich ihn erhöre? Wer bittet Mich, dass Ich ihm gebe? Wer bittet Mich um Vergebung, dass Ich ihm vergebe?“ – Zeit für Tahajjud und Du’a.`, ref:'Bukhari 1145, Muslim 758'};
+  }
+  const duhaStart = new Date(+t.sunrise + 20 * MIN), duhaEnd = new Date(+t.dhuhr - 10 * MIN);
+  if (now >= t.fajr && now < duhaStart) return {icon:'🌅', text:'Zeit der Morgen-Adhkar', seg:'m'};
+  if (now >= duhaStart && now < duhaEnd) return {icon:'☀️', text:`Duha-Zeit bis ${hm(duhaEnd)}: Zwei Rak’at genügen für die Sadaqa, die jeden Morgen für jedes deiner 360 Gelenke fällig ist.`, ref:'Muslim 720', deed:'duha'};
+  if (now.getDay() === 5 && now >= t.asr && now < t.maghrib) return {icon:'🤲', text:'Freitag nach Asr: „Sucht die Stunde (der Erhörung) in der letzten Stunde nach dem Asr.“ – Jetzt Du’a machen.', ref:'Abu Dawud 1048 – sahih (al-Albani)'};
+  if (now >= t.asr && now < t.isha) return {icon:'🌇', text:'Zeit der Abend-Adhkar', seg:'e'};
+  if (now >= t.isha || now < t.fajr) return {icon:'🌙', text:'Vor dem Schlafen: Schlaf-Adhkar', seg:'s'};
+  return null;
+}
+function renderNow(){
+  const h = nowHint(), el = $('#now');
+  el.hidden = !h; if (!h) return;
+  let extra = '';
+  if (h.seg) { const c = adhCount(day(today), h.seg), n = adhItems(h.seg).length; extra = c >= n ? ' ✓ erledigt' : ` · ${c}/${n}`; }
+  el.innerHTML = `<div class="nw-t"><span class="nw-i">${h.icon}</span><div><b>Jetzt</b> · ${esc(h.text)}${extra}${h.ref ? `<small>${esc(h.ref)}</small>` : ''}</div></div>`
+    + (h.seg ? `<button class="adhbtn" data-adh="${h.seg}">Öffnen</button>` : '');
+}
+
+// ---------- Kommende besondere Tage ----------
+const EVENTS = [
+  [i => i.hm === 1 && i.hd === 1, '🌙 Islamisches Neujahr'],
+  [i => i.hm === 1 && i.hd === 10, 'Aschura – Fasten sühnt 1 Jahr'],
+  [i => i.hm === 9 && i.hd === 1, '🌙 Ramadan-Beginn'],
+  [i => i.hm === 9 && i.hd === 21, '✨ Letzte 10 Nächte des Ramadan'],
+  [i => i.hm === 10 && i.hd === 1, '🎉 Eid al-Fitr'],
+  [i => i.hm === 12 && i.hd === 1, 'Dhul-Hiddscha – die besten 10 Tage'],
+  [i => i.hm === 12 && i.hd === 9, 'Tag von Arafa – Fasten sühnt 2 Jahre'],
+  [i => i.hm === 12 && i.hd === 10, '🎉 Eid al-Adha'],
+  [i => i.hd === 13, '⚪ Weiße Tage (13.–15.)'],
+  [i => i.dow === 1 || i.dow === 4, 'Nächstes Sunnah-Fasten (Mo/Do)'],
+];
+function upcoming(){
+  const out = [], d = new Date();
+  for (let n = 1; n <= 400 && out.length < EVENTS.length; n++) {
+    d.setDate(d.getDate() + 1);
+    const k = dkey(d), i = dayInfo(k);
+    EVENTS.forEach(([ok, name], idx) => { if (!out.some(o => o.idx === idx) && ok(i)) out.push({idx, name, k, n}); });
+  }
+  return out.sort((a, b) => a.n - b.n);
+}
+function renderEvents(){
+  $('#events').innerHTML = upcoming().map(e => `<div class="li"><span>${esc(e.name)}<br><small class="sub">${new Date(e.k + 'T12:00').toLocaleDateString('de-DE', {weekday:'short', day:'numeric', month:'long', year:'numeric'})}</small></span><b>${e.n === 1 ? 'morgen' : `in ${e.n} Tagen`}</b></div>`).join('')
+    + '<p class="sub">Nach dem Umm-al-Qura-Kalender; je nach Mondsichtung in deiner Gemeinde ±1 Tag.</p>';
+}
+function renderRamadan(){
+  const h = hijri(new Date()), el = $('#ramadan');
+  if (h.hm === 9) { el.textContent = `🌙 Ramadan Tag ${h.hd} – Ramadan Mubarak`; return; }
+  const r = upcoming().find(e => e.idx === 2);
+  el.textContent = r && r.n <= 120 ? `🌙 Ramadan in ${r.n} Tagen (ca. ${new Date(r.k + 'T12:00').toLocaleDateString('de-DE', {day:'numeric', month:'long'})})` : '';
+}
+
+// ---------- Die 99 Namen Allahs ----------
+const NAMES = [
+ ['Ar-Rahmān','Der Allerbarmer'],['Ar-Rahīm','Der Barmherzige'],['Al-Malik','Der König'],['Al-Quddūs','Der Heilige'],['As-Salām','Der Frieden, Quelle des Friedens'],
+ ['Al-Mu’min','Der Gewährer der Sicherheit'],['Al-Muhaymin','Der Wachende, Beschützer'],['Al-‘Azīz','Der Allmächtige'],['Al-Jabbār','Der Bezwinger'],['Al-Mutakabbir','Der Stolze in Seiner Größe'],
+ ['Al-Khāliq','Der Schöpfer'],['Al-Bāri’','Der Erschaffer'],['Al-Musawwir','Der Gestalter'],['Al-Ghaffār','Der viel Vergebende'],['Al-Qahhār','Der Allbezwingende'],
+ ['Al-Wahhāb','Der Schenkende'],['Ar-Razzāq','Der Versorger'],['Al-Fattāh','Der Öffnende, Richter'],['Al-‘Alīm','Der Allwissende'],['Al-Qābid','Der Zurückhaltende'],
+ ['Al-Bāsit','Der Ausbreitende'],['Al-Khāfid','Der Erniedrigende'],['Ar-Rāfi‘','Der Erhöhende'],['Al-Mu‘izz','Der Ehre Verleihende'],['Al-Mudhill','Der Demütigende'],
+ ['As-Samī‘','Der Allhörende'],['Al-Basīr','Der Allsehende'],['Al-Hakam','Der Richter'],['Al-‘Adl','Der Gerechte'],['Al-Latīf','Der Feinfühlige, Gütige'],
+ ['Al-Khabīr','Der Kundige'],['Al-Halīm','Der Nachsichtige'],['Al-‘Azīm','Der Gewaltige'],['Al-Ghafūr','Der Vergebende'],['Asch-Schakūr','Der Dankbare (der wenig mit viel belohnt)'],
+ ['Al-‘Aliyy','Der Hohe'],['Al-Kabīr','Der Große'],['Al-Hafīz','Der Bewahrer'],['Al-Muqīt','Der Erhalter, Ernährer'],['Al-Hasīb','Der Abrechnende, der Genügende'],
+ ['Al-Jalīl','Der Majestätische'],['Al-Karīm','Der Großzügige'],['Ar-Raqīb','Der Wachsame'],['Al-Mujīb','Der Erhörende'],['Al-Wāsi‘','Der Allumfassende'],
+ ['Al-Hakīm','Der Weise'],['Al-Wadūd','Der Liebevolle'],['Al-Majīd','Der Ruhmreiche'],['Al-Bā‘ith','Der Auferweckende'],['Asch-Schahīd','Der Zeuge'],
+ ['Al-Haqq','Die Wahrheit'],['Al-Wakīl','Der Sachwalter, dem man vertraut'],['Al-Qawiyy','Der Starke'],['Al-Matīn','Der Feste'],['Al-Waliyy','Der Schutzherr'],
+ ['Al-Hamīd','Der Lobenswürdige'],['Al-Muhsī','Der alles Erfassende'],['Al-Mubdi’','Der Beginnende'],['Al-Mu‘īd','Der Wiederholende'],['Al-Muhyī','Der Lebensspender'],
+ ['Al-Mumīt','Der Tod Bringende'],['Al-Hayy','Der Lebendige'],['Al-Qayyūm','Der Beständige'],['Al-Wājid','Der Findende'],['Al-Mājid','Der Herrliche'],
+ ['Al-Wāhid','Der Einzige'],['Al-Ahad','Der Eine'],['As-Samad','Der Unabhängige, auf den alle angewiesen sind'],['Al-Qādir','Der Fähige'],['Al-Muqtadir','Der Allmächtige'],
+ ['Al-Muqaddim','Der Voranbringende'],['Al-Mu’akhkhir','Der Zurückstellende'],['Al-Awwal','Der Erste'],['Al-Ākhir','Der Letzte'],['Az-Zāhir','Der Offenbare'],
+ ['Al-Bātin','Der Verborgene'],['Al-Wālī','Der Regierende'],['Al-Muta‘ālī','Der Hocherhabene'],['Al-Barr','Der Gütige'],['At-Tawwāb','Der die Reue Annehmende'],
+ ['Al-Muntaqim','Der Vergelter'],['Al-‘Afuww','Der Verzeihende'],['Ar-Ra’ūf','Der Mitleidvolle'],['Mālik al-Mulk','Der Herrscher aller Herrschaft'],['Dhul-Jalāli wal-Ikrām','Der Herr der Majestät und Ehre'],
+ ['Al-Muqsit','Der Gerechte, Ausgleichende'],['Al-Jāmi‘','Der Versammelnde'],['Al-Ghaniyy','Der Reiche, Unbedürftige'],['Al-Mughnī','Der reich Machende'],['Al-Māni‘','Der Verwehrende'],
+ ['Ad-Dārr','Der Schaden zulassen kann'],['An-Nāfi‘','Der Nutzen Bringende'],['An-Nūr','Das Licht'],['Al-Hādī','Der Rechtleitende'],['Al-Badī‘','Der Unvergleichliche Schöpfer'],
+ ['Al-Bāqī','Der Ewige'],['Al-Wārith','Der Erbe'],['Ar-Raschīd','Der zum Rechten Leitende'],['As-Sabūr','Der Geduldige'],
+];
+db.names = db.names || {};
+let namesOpen = false;
+function renderNames(){
+  const n = Object.keys(db.names).length, idx = Math.floor(new Date(today + 'T12:00') / 864e5) % 99, [tr, de] = NAMES[idx];
+  $('#names').innerHTML = `<div class="nm-day"><small>Name des Tages · Nr. ${idx + 1}</small><b>${tr}</b><span>${de}</span></div>
+    <p>Gelernt: <b>${n} von 99</b></p><div class="bar"><i style="width:${n / 99 * 100}%;background:var(--gold)"></i></div>
+    <button class="btn p" data-fc="1">🎴 Lernmodus (Karteikarten)</button>
+    <button class="btn" data-nl="1">${namesOpen ? 'Liste schließen' : 'Alle 99 Namen anzeigen'}</button>
+    ${namesOpen ? `<div class="nl">${NAMES.map(([t, d], i) => `<button class="nmi ${db.names[i] ? 'on' : ''}" data-nm="${i}"><small>${i + 1}</small><b>${t}</b><span>${d}</span></button>`).join('')}</div>` : ''}
+    <p class="sub">„Allah hat neunundneunzig Namen … wer sie sich zu eigen macht (ahsāhā), tritt ins Paradies ein.“ (Bukhari 2736, Muslim 2677) – Die Aufzählung selbst stammt aus Tirmidhi 3507; viele Gelehrte stufen die Liste als schwach ein, die Namen stehen aber größtenteils im Quran.</p>`;
+}
+let fc = null;
+function nextCard(){
+  const open = NAMES.map((_, i) => i).filter(i => !db.names[i]);
+  const pool = open.length ? open : NAMES.map((_, i) => i);
+  fc = {i:pool[Math.floor(Math.random() * pool.length)], shown:false};
+  renderFc();
+}
+function renderFc(){
+  const [t, d] = NAMES[fc.i];
+  $('#fc-n').textContent = `Nr. ${fc.i + 1} · noch ${99 - Object.keys(db.names).length} offen`;
+  $('#fc-t').textContent = t;
+  $('#fc-d').textContent = fc.shown ? d : '';
+  $('#fc-show').hidden = fc.shown; $('#fc-act').hidden = !fc.shown;
+}
+$('#fc').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.id === 'fc-close') { $('#fc').hidden = true; document.body.style.overflow = ''; renderNames(); }
+  else if (b.id === 'fc-show') { fc.shown = true; renderFc(); }
+  else if (b.id === 'fc-ok') { db.names[fc.i] = today; save(); if (navigator.vibrate) navigator.vibrate(15); if (Object.keys(db.names).length === 99) toast('Alle 99 Namen gelernt – MashaAllah 🌟'); nextCard(); }
+  else if (b.id === 'fc-again') nextCard();
+});
+
+// ---------- Eigener Dhikr ----------
+db.custom = db.custom || [];
+const CUSTOM_REF = {reward:'„O ihr, die ihr glaubt, gedenkt Allahs in häufigem Gedenken und preist Ihn morgens und abends.“ – „Wahrlich, im Gedenken Allahs finden die Herzen Ruhe.“', ref:'Quran 33:41–42; Quran 13:28'};
+function syncCustom(){
+  for (let i = QUICK.length - 1; i >= 0; i--) if (QUICK[i].custom) QUICK.splice(i, 1);
+  for (const c of db.custom) QUICK.push({id:'c_' + c.id, cid:c.id, custom:true, title:c.title, per:10, goal:c.goal > 1 ? c.goal : undefined, mult:'Eigener Dhikr', ...CUSTOM_REF});
+}
+syncCustom();
+function renderCustomForm(){
+  $('#cust').innerHTML = `<b>+ Eigenen Dhikr hinzufügen</b>
+    <div class="inp" style="margin-top:8px"><input id="cu-t" placeholder="z. B. Allāhu akbar"><input id="cu-g" inputmode="numeric" placeholder="Ziel (z. B. 33)" style="max-width:120px"></div>
+    <button class="btn p" id="cu-add">Hinzufügen</button>`;
+  $('#cu-add').onclick = () => {
+    const title = $('#cu-t').value.trim(), goal = parseInt($('#cu-g').value, 10) || 0;
+    if (!title) return toast('Bitte Text eingeben');
+    db.custom.push({id:Date.now().toString(36), title, goal}); save(); syncCustom(); renderQuick(); renderCustomForm(); toast('Dhikr hinzugefügt');
+  };
+}
+
+// ---------- Zakat-Rechner ----------
+function renderZakat(){
+  const z = db.settings.zakat = db.settings.zakat || {basis:'gold'};
+  const f = (id, label) => `<label class="zl">${label}<input data-z="${id}" inputmode="decimal" value="${z[id] ?? ''}" placeholder="0"></label>`;
+  $('#zakat').innerHTML = `<p>Zakat ist fällig, wenn dein Vermögen ein Mondjahr lang über dem Nisab lag. Satz: <b>2,5 %</b> (ein Vierzigstel).</p>
+    ${f('cash', 'Bargeld &amp; Konten (€)')}${f('gold', 'Gold &amp; Silber (Wert in €)')}${f('inv', 'Aktien, Fonds, Krypto, Handelsware (€)')}${f('recv', 'Sichere Forderungen (€)')}${f('debt', 'Fällige Schulden abziehen (€)')}
+    <label class="zl">Nisab nach<select data-z="basis"><option value="gold" ${z.basis === 'gold' ? 'selected' : ''}>Gold (85 g)</option><option value="silver" ${z.basis === 'silver' ? 'selected' : ''}>Silber (595 g)</option></select></label>
+    ${f('price', `Aktueller ${z.basis === 'silver' ? 'Silber' : 'Gold'}preis pro Gramm (€)`)}
+    <div class="zr" id="z-res"></div>
+    <p class="sub">2,5 % („ein Vierzigstel“): Bukhari 1454 · Nisab Silber 5 Awaq ≈ 595 g: Bukhari 1447, Muslim 979 · Gold 20 Dinar ≈ 85 g: Abu Dawud 1573 – sahih (al-Albani). Bei Unsicherheit (Rente, Immobilien, Firmenanteile) einen Gelehrten fragen.</p>`;
+  calcZakat();
+}
+function calcZakat(){
+  const z = db.settings.zakat, n = k => parseFloat(String(z[k] ?? '').replace(',', '.')) || 0;
+  const wealth = n('cash') + n('gold') + n('inv') + n('recv') - n('debt');
+  const nisab = n('price') * (z.basis === 'silver' ? 595 : 85);
+  $('#z-res').innerHTML = !n('price') ? 'Gib den Grammpreis ein, um den Nisab zu berechnen.'
+    : wealth >= nisab ? `Vermögen ${eur(wealth)} ≥ Nisab ${eur(nisab)}<br><b>Zakat: ${eur(wealth * 0.025)}</b>`
+    : `Vermögen ${eur(wealth)} &lt; Nisab ${eur(nisab)}<br><b>Keine Zakat fällig</b> – freiwillige Sadaqa ist immer möglich.`;
+}
+document.addEventListener('input', e => {
+  const k = e.target.dataset && e.target.dataset.z; if (!k) return;
+  db.settings.zakat[k] = e.target.value; save();
+  if (k === 'basis') renderZakat(); else calcZakat();
+});
+
+// ---------- Schriftgröße ----------
+function applyFont(){ document.documentElement.style.fontSize = {n:'16px', l:'18px', xl:'20px'}[db.settings.font || 'n']; }
+
+// ---------- Willkommen ----------
+function renderIntro(){
+  if (db.seenIntro || Object.keys(db.days).length > 2) { $('#intro').innerHTML = ''; return; }
+  $('#intro').innerHTML = `<div class="card intro"><b>Assalāmu ‘alaykum 👋</b>
+    <p>1. <b>📍 Standort festlegen</b> – für Gebetszeiten, Qibla und die passenden Adhkar zur richtigen Zeit.</p>
+    <p>2. Im Tab <b>⚡ Schnell</b> findest du Dhikr zum Antippen und die Morgen-, Abend- und Schlaf-Adhkar.</p>
+    <p>3. Jede Tat hat ihre <b>Quelle</b> – einfach „Quelle &amp; Belohnung“ aufklappen.</p>
+    <p>4. Ab und zu unter <b>Daten</b> ein Backup machen.</p>
+    <button class="btn p" data-intro="1">Bismillah, los geht’s</button></div>`;
 }
 
 // ---------- Interaktion ----------
@@ -1201,6 +1473,12 @@ document.addEventListener('click', e => {
   else if (b.dataset.au) tapAdhkar(b.dataset.au, -1);
   else if (b.dataset.adh) { seg = b.dataset.adh; segPicked = true; showPage('quick'); }
   else if (b.dataset.qibla) openQibla();
+  else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
+  else if (b.dataset.intro) { db.seenIntro = true; save(); renderIntro(); }
+  else if (b.dataset.fc) { $('#fc').hidden = false; document.body.style.overflow = 'hidden'; nextCard(); }
+  else if (b.dataset.nl) { namesOpen = !namesOpen; renderNames(); }
+  else if (b.dataset.nm) { const i = b.dataset.nm; if (db.names[i]) delete db.names[i]; else db.names[i] = today; save(); renderNames(); }
+  else if (b.dataset.cdel) { if (confirm('Eigenen Dhikr löschen?')) { db.custom = db.custom.filter(c => c.id !== b.dataset.cdel); save(); syncCustom(); renderQuick(); } }
   else if (b.dataset.cal) { calOff += +b.dataset.cal; renderCal(); }
   else if (b.dataset.khatm) {
     if (b.dataset.khatm === 'start') db.khatm = {start:today, days:+(($('#kh-days') || {}).value || 30)};
@@ -1234,6 +1512,9 @@ $('#b-import').onchange = async e => {
     for (const k of ['sadaqa', 'duas']) if (Array.isArray(data[k])) db[k] = [...db[k], ...data[k].filter(e => !db[k].some(o => o.id === e.id))];
     if (data.badges) db.badges = {...data.badges, ...db.badges};
     if (data.khatm && !db.khatm) db.khatm = data.khatm;
+    if (data.names) db.names = {...data.names, ...db.names};
+    if (Array.isArray(data.custom)) { db.custom = [...db.custom, ...data.custom.filter(e => !db.custom.some(o => o.id === e.id))]; syncCustom(); }
+    db.seenIntro = true;
     save(); render(); renderSettings(); toast('Backup importiert');
   } catch(_) { toast('Ungültige Datei'); }
 };
@@ -1241,21 +1522,22 @@ $('#b-ar').checked = showAr;
 $('#b-ar').onchange = e => { showAr = e.target.checked; try { localStorage.setItem('show-arabic', showAr ? '1' : '0'); } catch(_) {} render(); };
 $('#set-theme').onchange = e => { db.settings.theme = e.target.value; save(); applyTheme(); };
 $('#set-ics').onclick = exportIcs;
-$('#set-method').onchange = e => { db.settings.method = e.target.value; save(); renderPrayer(); };
-$('#set-hanafi').onchange = e => { db.settings.hanafi = e.target.checked; save(); renderPrayer(); };
+$('#set-font').onchange = e => { db.settings.font = e.target.value; save(); applyFont(); };
+$('#set-method').onchange = e => { db.settings.method = e.target.value; save(); render(); };
+$('#set-hanafi').onchange = e => { db.settings.hanafi = e.target.checked; save(); render(); };
 $('#set-save').onclick = () => {
   const lat = parseFloat($('#set-lat').value.replace(',', '.')), lng = parseFloat($('#set-lng').value.replace(',', '.'));
   if (!(Math.abs(lat) <= 90 && Math.abs(lng) <= 180)) return toast('Bitte gültige Koordinaten eingeben');
-  Object.assign(db.settings, {lat, lng, place:`${lat.toFixed(2)}°, ${lng.toFixed(2)}°`}); save(); renderPrayer(); toast('Gebetszeiten aktiv ✓');
+  Object.assign(db.settings, {lat, lng, place:`${lat.toFixed(2)}°, ${lng.toFixed(2)}°`}); save(); render(); toast('Gebetszeiten aktiv ✓');
 };
 $('#b-reset').onclick = () => { if (confirm('Heutigen Fortschritt löschen?')) { delete db.days[today]; save(); render(); } };
 
 // Tageswechsel, wenn die App über Mitternacht offen bleibt
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) return;
-  if (dkey(new Date()) !== today) { today = dkey(new Date()); render(); } else renderPrayer();
+  if (dkey(new Date()) !== today) { today = dkey(new Date()); render(); renderRamadan(); } else { renderPrayer(); renderNow(); }
 });
-setInterval(renderPrayer, 30000);
+setInterval(() => { renderPrayer(); renderNow(); }, 30000);
 
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   navigator.serviceWorker.register('sw.js', {updateViaCache: 'none'}).then(r => r.update()).catch(()=>{});
@@ -1264,7 +1546,8 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   navigator.serviceWorker.addEventListener('controllerchange', () => { if (!reloaded && navigator.serviceWorker.controller) { reloaded = true; location.reload(); } });
 }
 
-applyTheme(); renderChips(); renderInfo(); render(); renderSettings(); renderSeg(); renderDuas();
+applyTheme(); applyFont(); renderChips(); renderInfo(); render(); renderSettings(); renderSeg(); renderDuas();
+renderCustomForm(); renderEvents(); renderNames(); renderZakat(); renderRamadan();
 </script>
 </body>
 </html>
