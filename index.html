@@ -93,7 +93,39 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 .qundo{border:1px solid var(--line);background:var(--bg);color:var(--muted);border-radius:10px;padding:4px 10px;font-size:.8rem}
 .qgoal{height:4px;background:var(--line);border-radius:4px;margin-top:8px;overflow:hidden}
 .qgoal i{display:block;height:100%;background:var(--gold)}
-.toast{position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
+.np{margin-top:6px;font-size:.9rem;color:var(--accent)}
+.np:empty{display:none}
+.pt{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;text-align:center}
+.pt div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 2px}
+.pt div.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.pt span{display:block;font-size:.62rem;opacity:.8}
+.pt b{font-size:.85rem;font-variant-numeric:tabular-nums}
+.pt-s{text-align:center;margin:4px 0 0;font-size:.72rem}
+.dh{background:var(--gold-soft);border-radius:14px;padding:10px 12px;margin:12px 0;font-size:.88rem}
+.dh-k{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);font-weight:700}
+.dh-t{margin:4px 0}
+.dh-r{font-size:.75rem;color:var(--gold);font-weight:600}
+.dh-r span{color:var(--muted);font-weight:400}
+.deed.special{border-color:var(--gold)}
+.deed.hid{opacity:.45}
+.eye{flex:none;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:8px 10px;font-size:.8rem}
+.fs{border:1px solid var(--line);background:var(--bg);color:var(--muted);border-radius:10px;padding:4px 10px;font-size:.8rem}
+.dfoot{display:flex;align-items:center;gap:8px;margin-top:8px}
+.dfoot details{flex:1;margin:0}
+.tzo{position:fixed;inset:0;z-index:50;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top) + 16px) 20px calc(env(safe-area-inset-bottom) + 16px);text-align:center;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.tzo[hidden]{display:none}
+#tz-close{position:absolute;top:calc(env(safe-area-inset-top) + 12px);right:16px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:1.1rem}
+#tz-undo{margin-top:18px;border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:12px;padding:8px 18px}
+#tz-title{font-size:1.15rem;font-weight:700;max-width:520px}
+#tz-say{max-width:520px}
+.tz-ring{position:relative;width:240px;height:240px;margin:18px 0 6px}
+.tz-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.tz-ring circle{fill:none;stroke-width:14}
+#tz-bg{stroke:var(--line)} #tz-fg{stroke:var(--accent);stroke-linecap:round;stroke-dasharray:691;transition:stroke-dashoffset .15s}
+#tz-n{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:3.6rem;font-weight:700;font-variant-numeric:tabular-nums}
+.inp{display:flex;gap:8px;margin-bottom:8px}
+.inp input,.inp select,select.btn{flex:1;min-width:0;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:.95rem}
+.toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
 </head>
@@ -102,6 +134,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
   <header>
     <h1>Daily Hasanat ☪︎</h1>
     <div class="sub" id="date"></div>
+    <div class="np" id="nextp"></div>
   </header>
 
   <!-- HEUTE -->
@@ -113,6 +146,8 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     </div>
     <div class="sub"><span id="s-done">0</span> von <span id="s-total">0</span> Schritten erledigt</div>
     <div class="bar"><i id="s-bar" style="width:0"></i></div>
+    <div id="prayer"></div>
+    <div class="dh" id="daily"></div>
     <div class="chips" id="chips"></div>
     <div id="list"></div>
     <p class="sub">* Nur Zahlen, die in der Quelle ausdrücklich genannt werden; sonst das Minimum von ×10 pro guter Tat (Bukhari 6491). Allah vervielfacht, wie Er will – der echte Lohn ist bei Ihm.</p>
@@ -158,9 +193,19 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <button class="btn p" id="b-export">Backup exportieren (.json)</button>
     <label class="btn" style="text-align:center">Backup importieren<input type="file" id="b-import" accept="application/json" hidden></label>
     <button class="btn" id="b-reset">Heutigen Tag zurücksetzen</button>
+    <h2>Gebetszeiten</h2>
+    <button class="btn p" data-loc="1">📍 Aktuellen Standort verwenden</button>
+    <div class="inp"><input id="set-lat" inputmode="decimal" placeholder="Breite (z. B. 52.52)"><input id="set-lng" inputmode="decimal" placeholder="Länge (z. B. 13.40)"></div>
+    <button class="btn" id="set-save">Koordinaten speichern</button>
+    <select class="btn" id="set-method">
+      <option value="diyanet">Diyanet (Türkei)</option><option value="mwl">Muslim World League</option>
+      <option value="isna">ISNA (Nordamerika)</option><option value="uoif">UOIF (Frankreich)</option>
+    </select>
+    <label class="card" style="display:flex;justify-content:space-between;align-items:center">Asr nach hanafitischer Rechtsschule <input type="checkbox" id="set-hanafi" style="width:22px;height:22px"></label>
+    <p class="sub">Berechnete Zeiten, können je nach Moschee ein paar Minuten abweichen. Koordinaten findest du z. B. in Apple Karten (Ort antippen).</p>
     <h2>Anzeige</h2>
     <label class="card" style="display:flex;justify-content:space-between;align-items:center">Arabische Schrift anzeigen <input type="checkbox" id="b-ar" style="width:22px;height:22px"></label>
-    <p class="sub" style="text-align:center">App-Version 5 (29.10.2026)</p>
+    <p class="sub" style="text-align:center">App-Version 6 (29.10.2026)</p>
     <h2>Quran-Schätzung</h2>
     <div class="card"><p>Der Mushaf hat ca. 320.000 Buchstaben auf 604 Seiten ≈ 530 Buchstaben/Seite. Pro Buchstabe 1 Hasana ×10 (Tirmidhi 2910) ⇒ ca. <b>5.300 Hasanat pro Seite</b>. Das ist eine grobe Schätzung.</p></div>
   </section>
@@ -174,6 +219,16 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
   <button data-p="set"><span>⚙︎</span>Daten</button>
 </nav>
 <div class="toast" id="toast"></div>
+<div class="tzo" id="tz" hidden>
+  <button id="tz-close" aria-label="schließen">✕</button>
+  <div id="tz-title"></div>
+  <div id="tz-say"></div>
+  <div class="tz-ring"><svg viewBox="0 0 240 240"><circle id="tz-bg" cx="120" cy="120" r="110"/><circle id="tz-fg" cx="120" cy="120" r="110"/></svg><b id="tz-n">0</b></div>
+  <div class="sub" id="tz-g"></div>
+  <div class="sub" style="margin-top:6px">Irgendwo auf den Bildschirm tippen</div>
+  <button id="tz-undo">−1 rückgängig</button>
+</div>
+<script src="prayer.js"></script>
 
 <script>
 // ---------- Taten & Quellen ----------
@@ -389,15 +444,15 @@ function deedHasanat(d, c){
   return h;
 }
 function dayStats(k){
-  const x = day(k); let has = 0, done = 0, rizq = 0;
-  for (const d of DEEDS){
+  const x = day(k), list = deedsFor(k); let has = 0, done = 0, rizq = 0;
+  for (const d of list){
     const c = x[d.id] || 0;
     has += deedHasanat(d, c);
     if (c >= d.target){ done++; if (d.rizq) rizq++; }
   }
   let taps = 0;
   for (const q of QUICK){ const c = x['q:'+q.id] || 0; taps += c; has += c * q.per; }
-  return {has, done, rizq, taps};
+  return {has, done, rizq, taps, total:list.length, rizqTotal:list.filter(d => d.rizq).length};
 }
 const active = k => { const s = dayStats(k); return s.done > 0 || s.taps > 0; };
 function streak(){
@@ -423,7 +478,8 @@ let filter = 'Alle';
 const CATS = ['Alle', ...new Set(DEEDS.map(d => d.cat)), 'Rizq'];
 
 function renderChips(){
-  $('#chips').innerHTML = CATS.map(c => `<button class="chip ${c===filter?'on':''}" data-c="${c}">${c==='Rizq'?'💧 Rizq':c}</button>`).join('');
+  $('#chips').innerHTML = CATS.map(c => `<button class="chip ${c===filter?'on':''}" data-c="${c}">${c==='Rizq'?'💧 Rizq':c}</button>`).join('')
+    + `<button class="chip ${editMode?'on':''}" data-edit="1">${editMode ? '✓ Fertig' : '✎ Liste anpassen'}</button>`;
 }
 let showAr = false;
 try { showAr = localStorage.getItem('show-arabic') === '1'; } catch(e) {}
@@ -437,20 +493,26 @@ function deedHTML(d){
   if (d.rizq) tags.push('<span class="tag r">Rizq</span>');
   const h = deedHasanat(d, c);
   if (h) tags.push(`<span class="tag h">${d.est?'≈ ':''}+${fmt(h)}</span>`);
-  const ctl = d.target === 1
+  const hid = isHidden(d.id), special = d.cat === 'Heute besonders';
+  const ctl = editMode && !special
+    ? `<button class="eye" data-hide="${d.id}">${hid ? 'Einblenden' : 'Ausblenden'}</button>`
+    : d.target === 1
     ? `<button class="check" data-t="${d.id}" aria-label="erledigt">${done?'✓':''}</button>`
     : `<div class="ctr"><button data-m="${d.id}" aria-label="minus">−</button><span class="num">${c}/${d.target}</span><button class="big" data-p="${d.id}">+${d.step||1}</button></div>`;
-  return `<div class="deed ${done?'done':''}">
+  const fs = d.step === 1 && d.target >= 10 && !editMode ? `<button class="fs" data-fs="d:${d.id}">⛶ Vollbild</button>` : '';
+  return `<div class="deed ${done?'done':''} ${special?'special':''} ${hid?'hid':''}">
     <div class="row"><div class="t"><b>${esc(d.title)}</b><div class="tags">${tags.join('')}</div></div>${ctl}</div>
     ${sayHTML(d)}
-    <details><summary>Quelle &amp; Belohnung</summary><div class="src">${esc(d.reward)}<span class="ref">${esc(d.ref)}</span></div></details>
+    <div class="dfoot"><details><summary>Quelle &amp; Belohnung</summary><div class="src">${esc(d.reward)}<span class="ref">${esc(d.ref)}</span></div></details>${fs}</div>
   </div>`;
 }
 function renderList(){
   const open = new Set([...document.querySelectorAll('#list details[open]')].map(e => e.closest('.deed').dataset.id));
   let html = '', last = '';
-  for (const d of DEEDS){
-    if (filter === 'Rizq' ? !d.rizq : (filter !== 'Alle' && d.cat !== filter)) continue;
+  const items = editMode ? DEEDS : [...specialsFor(today), ...DEEDS.filter(d => !isHidden(d.id))];
+  if (editMode) html += '<p class="sub">Blende Taten aus, die du nicht täglich machen willst. Ausgeblendete zählen nicht in deinen Fortschritt.</p>';
+  for (const d of items){
+    if (filter === 'Rizq' ? !d.rizq : (filter !== 'Alle' && d.cat !== filter && d.cat !== 'Heute besonders')) continue;
     if (d.cat !== last){ html += `<h2>${d.cat}</h2>`; last = d.cat; }
     html += deedHTML(d).replace('<div class="deed', `<div data-id="${d.id}" class="deed`);
   }
@@ -460,18 +522,20 @@ function renderList(){
 function renderStats(){
   const s = dayStats(today);
   $('#s-has').textContent = fmt(s.has);
-  $('#s-rizq').textContent = `${s.rizq}/${DEEDS.filter(d=>d.rizq).length}`;
+  $('#s-rizq').textContent = `${s.rizq}/${s.rizqTotal}`;
   $('#s-streak').textContent = streak();
-  $('#s-done').textContent = s.done; $('#s-total').textContent = DEEDS.length;
-  $('#s-bar').style.width = (s.done / DEEDS.length * 100) + '%';
-  $('#date').textContent = new Date().toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+  $('#s-done').textContent = s.done; $('#s-total').textContent = s.total;
+  $('#s-bar').style.width = (s.done / Math.max(1, s.total) * 100) + '%';
+  const h = hijri(new Date());
+  $('#date').textContent = new Date().toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long', year:'numeric'})
+    + (h.hm ? ` · ${h.hd}. ${HIJRI_MONTHS[h.hm-1]} ${h.hy}` : '');
 }
 function renderHist(){
   const days = []; const d = new Date(); d.setDate(d.getDate()-13);
   for (let i = 0; i < 14; i++){ days.push(dkey(d)); d.setDate(d.getDate()+1); }
   $('#hist').innerHTML = days.map(k => {
     const s = dayStats(k);
-    return `<div class="${k===today?'today':''}" style="height:${s.done/DEEDS.length*100}%" title="${k}: ${s.done}"><em>${+k.slice(8)}</em></div>`;
+    return `<div class="${k===today?'today':''}" style="height:${s.done/Math.max(1,s.total)*100}%" title="${k}: ${s.done}"><em>${+k.slice(8)}</em></div>`;
   }).join('');
   const all = Object.keys(db.days);
   $('#h-has').textContent = fmt(all.reduce((a,k) => a + dayStats(k).has, 0));
@@ -497,15 +561,160 @@ function renderQuick(){
         ${sayHTML(q)}${goal}
       </button>
       <div class="qfoot"><details ${open?'open':''}><summary>Quelle &amp; Bonus</summary><div class="src">${esc(q.reward)}<span class="ref">${esc(q.ref)}</span></div></details>
-      <button class="qundo" data-qu="${q.id}">−1</button></div>
+      <button class="fs" data-fs="q:${q.id}">⛶</button><button class="qundo" data-qu="${q.id}">−1</button></div>
     </div>`;
   }).join('');
 }
-function render(){ renderStats(); renderList(); renderQuick(); }
+function render(){ renderStats(); renderList(); renderQuick(); renderPrayer(); renderDaily(); }
+
+// ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
+const SPECIAL = [
+  {id:'s_ghusl', when:i => i.dow === 5, title:'Ghusl & früh zum Freitagsgebet', target:1, bonus:10, mult:'wie ein Kamel opfern',
+   reward:'„Wer am Freitag die Ganzkörperwaschung vollzieht und dann in der ersten Stunde (zum Gebet) geht, ist wie einer, der ein Kamel opfert …“', ref:'Bukhari 881, Muslim 850'},
+  {id:'s_kahf', when:i => i.dow === 5, title:'Surah al-Kahf lesen', target:1, bonus:10, mult:'Licht bis zum nächsten Freitag',
+   reward:'„Wer am Freitag die Sure al-Kahf liest, dem leuchtet ein Licht zwischen den beiden Freitagen.“', ref:'al-Hakim, al-Bayhaqi – sahih (al-Albani, Sahih al-Jami’ 6470)'},
+  {id:'s_jsalawat', when:i => i.dow === 5, title:'Viel Salawat am Freitag', target:100, step:1, per:10, mult:'wird ihm ﷺ vorgelegt', say:'salawat',
+   reward:'„Sprecht am Freitag viel Segen über mich, denn euer Segen wird mir vorgelegt.“', ref:'Abu Dawud 1047 – sahih (al-Albani)'},
+  {id:'s_jdua', when:i => i.dow === 5, title:'Du’a in der Stunde des Freitags', target:1, bonus:10, mult:'Stunde der Erhörung',
+   reward:'„Am Freitag gibt es eine Stunde – kein muslimischer Diener trifft sie, während er betet und Allah um etwas Gutes bittet, ohne dass Er es ihm gibt.“', ref:'Bukhari 935, Muslim 852'},
+  {id:'s_monthu', when:i => i.dow === 1 || i.dow === 4, title:'Sunnah-Fasten (Montag/Donnerstag)', target:1, bonus:10, mult:'Taten werden vorgelegt',
+   reward:'Zum Fasten am Montag sagte der Prophet ﷺ: „Das ist der Tag, an dem ich geboren wurde und an dem mir die Offenbarung herabkam.“ – „Die Taten werden am Montag und Donnerstag vorgelegt, und ich möchte, dass meine Taten vorgelegt werden, während ich faste.“', ref:'Muslim 1162; Tirmidhi 747 – hasan'},
+  {id:'s_white', when:i => i.hd >= 13 && i.hd <= 15, title:'Fasten an den weißen Tagen (13.–15.)', target:1, bonus:10, mult:'≙ ganzes Jahr fasten',
+   reward:'„Drei Tage in jedem Monat zu fasten ist wie das Fasten der ganzen Zeit.“ – „Wenn du drei Tage im Monat fastest, dann faste den 13., 14. und 15.“', ref:'Bukhari 1979, Muslim 1159; Tirmidhi 761 – hasan'},
+  {id:'s_dhulhijja', when:i => i.hm === 12 && i.hd <= 10, title:'Extra gute Taten – erste 10 Tage Dhul-Hiddscha', target:1, bonus:10, mult:'beste Tage des Jahres',
+   reward:'„Es gibt keine Tage, an denen gute Taten besser sind als an diesen (zehn Tagen).“', ref:'Bukhari 969'},
+  {id:'s_arafa', when:i => i.hm === 12 && i.hd === 9, title:'Fasten am Tag von Arafa', target:1, bonus:10, mult:'sühnt 2 Jahre',
+   reward:'„Ich hoffe von Allah, dass es die Sünden des vergangenen und des kommenden Jahres sühnt.“', ref:'Muslim 1162'},
+  {id:'s_muharram', when:i => i.hm === 1 && i.hd !== 9 && i.hd !== 10, title:'Fasten im Monat Muharram', target:1, bonus:10, mult:'bestes Fasten nach Ramadan',
+   reward:'„Das beste Fasten nach dem Ramadan ist im Monat Allahs, Muharram.“', ref:'Muslim 1163'},
+  {id:'s_tasua', when:i => i.hm === 1 && i.hd === 9, title:'Fasten am 9. Muharram (Tasu’a)', target:1, bonus:10, mult:'Sunnah zu Aschura',
+   reward:'„Wenn ich bis zum nächsten Jahr lebe, werde ich gewiss (auch) den Neunten fasten.“', ref:'Muslim 1134'},
+  {id:'s_ashura', when:i => i.hm === 1 && i.hd === 10, title:'Fasten an Aschura (10. Muharram)', target:1, bonus:10, mult:'sühnt 1 Jahr',
+   reward:'„Ich hoffe von Allah, dass es die Sünden des vergangenen Jahres sühnt.“', ref:'Muslim 1162'},
+  {id:'s_ramfast', when:i => i.hm === 9, title:'Ramadan fasten mit Iman & Ihtisab', target:1, bonus:10, mult:'vorige Sünden vergeben',
+   reward:'„Wer im Ramadan aus Glauben und in Hoffnung auf den Lohn fastet, dem werden seine vorigen Sünden vergeben.“', ref:'Bukhari 38, Muslim 760'},
+  {id:'s_tarawih', when:i => i.hm === 9, title:'Tarawih / Nachtgebet im Ramadan', target:1, bonus:10, mult:'vorige Sünden vergeben',
+   reward:'„Wer im Ramadan aus Glauben und in Hoffnung auf den Lohn (nachts) betet, dem werden seine vorigen Sünden vergeben.“', ref:'Bukhari 37, Muslim 759'},
+  {id:'s_iftar', when:i => i.hm === 9, title:'Einem Fastenden Iftar geben', target:1, bonus:10, mult:'×2 – sein Lohn dazu',
+   reward:'„Wer einem Fastenden das Fastenbrechen gibt, erhält den gleichen Lohn wie er, ohne dass dessen Lohn etwas gemindert wird.“', ref:'Tirmidhi 807 – hasan sahih'},
+  {id:'s_qadr', when:i => i.hm === 9 && i.hd >= 20, title:'Laylat al-Qadr suchen (letzte 10 Nächte)', target:1, bonus:10, mult:'> 1000 Monate', say:'afw',
+   reward:'„Die Nacht der Bestimmung ist besser als tausend Monate.“ (Quran 97:3) – „Sucht sie in den ungeraden Nächten der letzten zehn.“ Aischa fragte, was sie sagen soll, und er ﷺ lehrte sie dieses Du’a.', ref:'Quran 97:3; Bukhari 2017; Tirmidhi 3513 – sahih'},
+  {id:'s_shawwal', when:i => i.hm === 10 && i.hd >= 2, title:'6 Tage Schawwal fasten', target:1, bonus:10, mult:'+ Ramadan ≙ ganzes Jahr',
+   reward:'„Wer den Ramadan fastet und ihm sechs Tage aus dem Schawwal folgen lässt, ist wie einer, der das ganze Jahr fastet.“', ref:'Muslim 1164'},
+];
+SAY.afw = ["Allāhumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'annī", "O Allah, Du bist der Vergebende, Du liebst das Vergeben, so vergib mir."];
+for (const d of SPECIAL) { d.cat = 'Heute besonders'; if (d.say) [d.tr, d.de] = SAY[d.say]; }
+
+const HIJRI_MONTHS = ['Muharram','Safar','Rabi’ al-Awwal','Rabi’ al-Akhir','Dschumada al-Ula','Dschumada al-Akhira','Radschab','Scha’ban','Ramadan','Schawwal','Dhul-Qa’da','Dhul-Hiddscha'];
+function hijri(date){
+  for (const cal of ['islamic-umalqura', 'islamic']) {
+    try {
+      const p = new Intl.DateTimeFormat('en-u-ca-' + cal, {day:'numeric', month:'numeric', year:'numeric'}).formatToParts(date);
+      const g = t => +(p.find(x => x.type === t) || {}).value;
+      if (g('day') && g('month')) return {hd:g('day'), hm:g('month'), hy:g('year')};
+    } catch(e) {}
+  }
+  return {hd:0, hm:0, hy:0};
+}
+function dayInfo(k){ const d = new Date(k + 'T12:00'); return {dow:d.getDay(), ...hijri(d)}; }
+const specialsFor = k => { const i = dayInfo(k); return SPECIAL.filter(s => s.when(i)); };
+
+// ---------- Eigene Liste (ausblenden) ----------
+db.hidden = db.hidden || [];
+const isHidden = id => db.hidden.includes(id);
+const deedsFor = k => [...specialsFor(k), ...DEEDS.filter(d => !isHidden(d.id))];
+const findDeed = id => DEEDS.find(x => x.id === id) || SPECIAL.find(x => x.id === id);
+let editMode = false;
+
+// ---------- Hadith des Tages ----------
+function renderDaily(){
+  const pool = [...DEEDS, ...QUICK, ...SPECIAL];
+  const n = Math.floor(new Date(today + 'T12:00') / 864e5);
+  const d = pool[n % pool.length];
+  $('#daily').innerHTML = `<div class="dh-k">📖 Hadith des Tages</div><div class="dh-t">${esc(d.reward)}</div><div class="dh-r">${esc(d.ref)} · <span>${esc(d.title)}</span></div>`;
+}
+
+// ---------- Gebetszeiten ----------
+db.settings = db.settings || {};
+const PNAMES = {fajr:'Fajr', sunrise:'Shuruq', dhuhr:'Dhuhr', asr:'Asr', maghrib:'Maghrib', isha:'Isha'};
+const hm = d => d.toLocaleTimeString('de-DE', {hour:'2-digit', minute:'2-digit'});
+function times(date){
+  const s = db.settings;
+  if (s.lat == null) return null;
+  return PrayerCalc.compute(date, s.lat, s.lng, s.method || 'diyanet', !!s.hanafi);
+}
+function nextPrayer(){
+  const now = new Date(), t = times(now); if (!t) return null;
+  for (const k of ['fajr','dhuhr','asr','maghrib','isha']) if (t[k] > now) return {k, at:t[k], t};
+  const tm = new Date(now); tm.setDate(tm.getDate() + 1);
+  return {k:'fajr', at:times(tm).fajr, t, tomorrow:true};
+}
+function renderPrayer(){
+  const np = nextPrayer();
+  if (!np) {
+    $('#prayer').innerHTML = `<button class="btn" data-loc="1">📍 Standort festlegen für Gebetszeiten</button>`;
+    $('#nextp').textContent = '';
+    return;
+  }
+  const mins = Math.max(0, Math.round((np.at - new Date()) / 6e4));
+  const left = mins >= 60 ? `${Math.floor(mins/60)} Std ${mins%60} Min` : `${mins} Min`;
+  $('#nextp').innerHTML = `🕌 <b>${PNAMES[np.k]}</b> in ${left} · ${hm(np.at)}`;
+  $('#prayer').innerHTML = `<div class="pt">${Object.keys(PNAMES).map(k =>
+    `<div class="${!np.tomorrow && k === np.k ? 'on' : ''}"><span>${PNAMES[k]}</span><b>${hm(np.t[k])}</b></div>`).join('')}</div>
+    <div class="sub pt-s">${esc(db.settings.place || 'Dein Standort')} · ${PrayerCalc.METHODS[db.settings.method || 'diyanet'].name}${db.settings.hanafi ? ' · Asr Hanafi' : ''}</div>`;
+}
+function locate(){
+  if (!navigator.geolocation) { toast('Standort wird nicht unterstützt'); return; }
+  toast('Standort wird ermittelt …');
+  navigator.geolocation.getCurrentPosition(p => {
+    db.settings.lat = +p.coords.latitude.toFixed(4); db.settings.lng = +p.coords.longitude.toFixed(4);
+    db.settings.place = `${db.settings.lat.toFixed(2)}°, ${db.settings.lng.toFixed(2)}°`;
+    save(); renderPrayer(); renderSettings(); toast('Gebetszeiten aktiv ✓');
+  }, () => toast('Standort nicht erlaubt – unter Daten manuell eingeben'), {enableHighAccuracy:false, timeout:15000});
+}
+function renderSettings(){
+  const s = db.settings;
+  $('#set-method').value = s.method || 'diyanet';
+  $('#set-hanafi').checked = !!s.hanafi;
+  $('#set-lat').value = s.lat ?? ''; $('#set-lng').value = s.lng ?? '';
+}
+
+// ---------- Vollbild-Zähler ----------
+let tz = null; // {kind:'q'|'d', id}
+function tzItem(){ return tz.kind === 'q' ? QUICK.find(x => x.id === tz.id) : findDeed(tz.id); }
+function tzCount(){ const x = day(today); return tz.kind === 'q' ? (x['q:'+tz.id] || 0) : (x[tz.id] || 0); }
+function tzGoal(it){ return tz.kind === 'q' ? (it.goal > 1 ? it.goal : 33) : it.target; }
+function renderTz(){
+  const it = tzItem(), c = tzCount(), g = tzGoal(it);
+  const frac = c && c % g === 0 ? 1 : (c % g) / g;
+  $('#tz-title').textContent = it.title;
+  $('#tz-say').innerHTML = sayHTML(it);
+  $('#tz-n').textContent = c;
+  $('#tz-g').textContent = `Runde ${Math.floor(Math.max(0, c - 1) / g) + 1} · Ziel ${g}`;
+  $('#tz-fg').style.strokeDashoffset = 691 * (1 - frac);
+}
+function openTz(kind, id){ tz = {kind, id}; $('#tz').hidden = false; document.body.style.overflow = 'hidden'; renderTz(); }
+function closeTz(){ $('#tz').hidden = true; document.body.style.overflow = ''; tz = null; render(); }
+function bumpTz(delta){
+  const it = tzItem(), x = db.days[today] = db.days[today] || {};
+  const k = tz.kind === 'q' ? 'q:' + tz.id : tz.id;
+  x[k] = Math.max(0, (x[k] || 0) + delta); save(); renderTz();
+  const g = tzGoal(it);
+  if (delta > 0) {
+    if (x[k] % g === 0) { if (navigator.vibrate) navigator.vibrate([40,60,40]); toast(`✨ ${g}× geschafft – ${it.mult}`); }
+    else if (navigator.vibrate) navigator.vibrate(8);
+  }
+}
+$('#tz').addEventListener('click', e => {
+  if (e.target.closest('#tz-close')) return closeTz();
+  if (e.target.closest('#tz-undo')) return bumpTz(-1);
+  bumpTz(1);
+});
+
 
 // ---------- Interaktion ----------
 function setCount(id, v){
-  const d = DEEDS.find(x => x.id === id);
+  const d = findDeed(id);
   const x = db.days[today] = db.days[today] || {};
   const before = (x[id] || 0) >= d.target;
   x[id] = Math.max(0, v);
@@ -516,8 +725,8 @@ document.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   const cur = id => day(today)[id] || 0;
   if (b.dataset.t) setCount(b.dataset.t, cur(b.dataset.t) ? 0 : 1);
-  else if (b.dataset.p && b.closest('.ctr')) { const d = DEEDS.find(x => x.id === b.dataset.p); setCount(d.id, cur(d.id) + (d.step||1)); if (navigator.vibrate) navigator.vibrate(8); }
-  else if (b.dataset.m) { const d = DEEDS.find(x => x.id === b.dataset.m); setCount(d.id, cur(d.id) - (d.step||1)); }
+  else if (b.dataset.p && b.closest('.ctr')) { const d = findDeed(b.dataset.p); setCount(d.id, cur(d.id) + (d.step||1)); if (navigator.vibrate) navigator.vibrate(8); }
+  else if (b.dataset.m) { const d = findDeed(b.dataset.m); setCount(d.id, cur(d.id) - (d.step||1)); }
   else if (b.dataset.q || b.dataset.qu) {
     const id = b.dataset.q || b.dataset.qu, q = QUICK.find(x => x.id === id);
     const x = db.days[today] = db.days[today] || {}, k = 'q:' + id;
@@ -529,6 +738,10 @@ document.addEventListener('click', e => {
     }
   }
   else if (b.dataset.c) { filter = b.dataset.c; renderChips(); renderList(); }
+  else if (b.dataset.edit) { editMode = !editMode; renderChips(); renderList(); }
+  else if (b.dataset.hide) { const id = b.dataset.hide; db.hidden = isHidden(id) ? db.hidden.filter(x => x !== id) : [...db.hidden, id]; save(); render(); renderChips(); }
+  else if (b.dataset.fs) { const [kind, id] = b.dataset.fs.split(':'); openTz(kind, id); }
+  else if (b.dataset.loc) locate();
   else if (b.closest('nav')) {
     document.querySelectorAll('nav button').forEach(n => n.classList.toggle('on', n === b));
     document.querySelectorAll('.page').forEach(p => p.classList.toggle('on', p.id === 'p-' + b.dataset.p));
@@ -547,15 +760,29 @@ $('#b-import').onchange = async e => {
   try {
     const data = JSON.parse(await e.target.files[0].text());
     if (!data.days) throw 0;
-    db.days = {...db.days, ...data.days}; save(); render(); toast('Backup importiert');
+    db.days = {...db.days, ...data.days};
+    if (data.settings) db.settings = {...data.settings, ...db.settings};
+    if (data.hidden) db.hidden = data.hidden;
+    save(); render(); renderSettings(); toast('Backup importiert');
   } catch(_) { toast('Ungültige Datei'); }
 };
 $('#b-ar').checked = showAr;
 $('#b-ar').onchange = e => { showAr = e.target.checked; try { localStorage.setItem('show-arabic', showAr ? '1' : '0'); } catch(_) {} render(); };
+$('#set-method').onchange = e => { db.settings.method = e.target.value; save(); renderPrayer(); };
+$('#set-hanafi').onchange = e => { db.settings.hanafi = e.target.checked; save(); renderPrayer(); };
+$('#set-save').onclick = () => {
+  const lat = parseFloat($('#set-lat').value.replace(',', '.')), lng = parseFloat($('#set-lng').value.replace(',', '.'));
+  if (!(Math.abs(lat) <= 90 && Math.abs(lng) <= 180)) return toast('Bitte gültige Koordinaten eingeben');
+  Object.assign(db.settings, {lat, lng, place:`${lat.toFixed(2)}°, ${lng.toFixed(2)}°`}); save(); renderPrayer(); toast('Gebetszeiten aktiv ✓');
+};
 $('#b-reset').onclick = () => { if (confirm('Heutigen Fortschritt löschen?')) { delete db.days[today]; save(); render(); } };
 
 // Tageswechsel, wenn die App über Mitternacht offen bleibt
-document.addEventListener('visibilitychange', () => { if (!document.hidden && dkey(new Date()) !== today) { today = dkey(new Date()); render(); } });
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) return;
+  if (dkey(new Date()) !== today) { today = dkey(new Date()); render(); } else renderPrayer();
+});
+setInterval(renderPrayer, 30000);
 
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   navigator.serviceWorker.register('sw.js', {updateViaCache: 'none'}).then(r => r.update()).catch(()=>{});
@@ -564,7 +791,7 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   navigator.serviceWorker.addEventListener('controllerchange', () => { if (!reloaded && navigator.serviceWorker.controller) { reloaded = true; location.reload(); } });
 }
 
-renderChips(); renderInfo(); render();
+renderChips(); renderInfo(); render(); renderSettings();
 </script>
 </body>
 </html>
