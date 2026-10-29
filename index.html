@@ -62,7 +62,7 @@ h2{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mut
 .tag{font-size:.7rem;padding:2px 7px;border-radius:6px;background:var(--gold-soft);color:var(--gold);font-weight:600}
 .tag.r{background:var(--rizq-soft);color:var(--rizq)}
 .tag.h{background:var(--accent-soft);color:var(--accent)}
-.check{width:44px;height:44px;border-radius:12px;border:2px solid var(--line);background:transparent;color:var(--accent);font-size:1.4rem;flex:none}
+.check{min-width:96px;height:42px;padding:0 10px;border-radius:12px;border:2px solid var(--accent);background:transparent;color:var(--accent);font-size:.85rem;font-weight:700;flex:none}
 .done .check{background:var(--accent);border-color:var(--accent);color:#fff}
 .ctr{display:flex;align-items:center;gap:6px;flex:none}
 .ctr button{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:1.1rem}
@@ -300,6 +300,22 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 .gr.s{color:var(--accent);border-color:var(--accent)}
 .gr.h{color:var(--gold);border-color:var(--gold)}
 .gr.w{color:#c0392b;border-color:#c0392b}
+.hrow{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.hbtn{width:36px;height:36px;border-radius:50%;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:800;font-size:1rem;flex:none}
+.mi span{flex:1;min-width:0}
+.mbtn{flex:none;border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:10px;padding:6px 10px;font:inherit;font-size:.78rem;font-weight:700}
+.mbtn.go{background:transparent;color:var(--accent)}
+.mdone{flex:none;color:var(--accent);font-weight:700;font-size:.75rem}
+#prayers .deed{margin-top:10px;border-color:var(--accent)}
+.flash{animation:flash 1.6s ease-out}
+@keyframes flash{0%,40%{box-shadow:0 0 0 4px var(--gold)}100%{box-shadow:0 0 0 0 transparent}}
+#xppop{position:fixed;left:50%;top:38%;transform:translate(-50%,0);z-index:70;font-size:1.6rem;font-weight:800;color:var(--gold);text-shadow:0 2px 8px rgba(0,0,0,.25);pointer-events:none;opacity:0}
+#xppop.on{animation:xp 1.1s ease-out}
+@keyframes xp{0%{opacity:0;transform:translate(-50%,10px) scale(.8)}20%{opacity:1;transform:translate(-50%,0) scale(1.1)}100%{opacity:0;transform:translate(-50%,-50px) scale(1)}}
+.hp{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:8px}
+.hp-i{font-size:1.6rem;line-height:1}
+.hp p{margin:.3em 0;font-size:.88rem}
+.hp small{display:block;color:var(--gold);font-weight:700;font-size:.75rem;margin-bottom:6px}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -307,7 +323,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 <body>
 <main id="scroller"><div class="wrap">
   <header>
-    <h1>Daily Hasanat ☪︎</h1>
+    <div class="hrow"><h1>Daily Hasanat ☪︎</h1><button class="hbtn" data-help="1" aria-label="Hilfe: So sammelst du XP">?</button></div>
     <div class="sub" id="date"></div>
     <div class="np" id="nextp"></div>
     <div class="np" id="ramadan" style="color:var(--gold)"></div>
@@ -316,9 +332,14 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
   <!-- HEUTE -->
   <section class="page on" id="p-today">
     <div id="intro"></div>
+    <div id="helpbanner"></div>
     <div id="rank"></div>
     <div class="card" id="missions"></div>
     <div class="card" id="ramcard" hidden></div>
+    <div class="nw" id="now" hidden></div>
+    <div class="tm" id="tomorrow" hidden></div>
+    <div id="prayers"></div>
+    <div id="prayer"></div>
     <div class="stats">
       <div class="stat g"><b id="s-has">0</b><span>Hasanat (min.)*</span></div>
       <div class="stat r"><b id="s-rizq">0</b><span>Rizq-Taten</span></div>
@@ -326,12 +347,9 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     </div>
     <div class="sub"><span id="s-done">0</span> von <span id="s-total">0</span> Schritten erledigt</div>
     <div class="bar"><i id="s-bar" style="width:0"></i></div>
-    <div class="nw" id="now" hidden></div>
-    <div id="prayer"></div>
-    <div class="dh" id="daily"></div>
-    <div class="tm" id="tomorrow" hidden></div>
     <div class="chips" id="chips"></div>
     <div id="list"></div>
+    <div class="dh" id="daily"></div>
     <p class="sub">* Nur Zahlen, die in der Quelle ausdrücklich genannt werden; sonst das Minimum von ×10 pro guter Tat (Bukhari 6491). Allah vervielfacht, wie Er will – der echte Lohn ist bei Ihm.</p>
   </section>
 
@@ -434,7 +452,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <select class="btn" id="set-theme"><option value="auto">Design: automatisch</option><option value="light">Design: hell</option><option value="dark">Design: dunkel</option></select>
     <select class="btn" id="set-font"><option value="n">Schrift: normal</option><option value="l">Schrift: groß</option><option value="xl">Schrift: sehr groß</option></select>
     <label class="card" style="display:flex;justify-content:space-between;align-items:center">Arabische Schrift anzeigen <input type="checkbox" id="b-ar" style="width:22px;height:22px"></label>
-    <p class="sub" style="text-align:center">App-Version 14 (29.10.2026)</p>
+    <p class="sub" style="text-align:center">App-Version 15 (29.10.2026)</p>
     <h2>Quran-Schätzung</h2>
     <div class="card"><p>Der Mushaf hat ca. 320.000 Buchstaben auf 604 Seiten ≈ 530 Buchstaben/Seite. Pro Buchstabe 1 Hasana ×10 (Tirmidhi 2910) ⇒ ca. <b>5.300 Hasanat pro Seite</b>. Das ist eine grobe Schätzung.</p></div>
   </section>
@@ -503,6 +521,13 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
   <div class="refpop-c"><div class="sheet-h"><b>Quelle öffnen</b><button class="x" id="refpop-close" aria-label="schließen">✕</button></div><div id="refpop-body"></div>
   <p class="sub">Hinweis: Bei Sahih Muslim führt sunnah.com manche Nummern mit Unterbuchstaben (z. B. 2698a).</p></div>
 </div>
+<div class="sheet" id="help" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>💡 So sammelst du XP</h3><button class="x" id="help-close" aria-label="schließen">✕</button></div>
+    <div id="help-body"></div>
+  </div>
+</div>
+<div id="xppop" aria-live="polite"></div>
 <script src="prayer.js"></script>
 
 <script>
@@ -805,7 +830,7 @@ function deedHTML(d){
     : d.set
     ? `<button class="adhbtn" data-adh="${d.set}">${done ? '✓' : `${c}/${d.target}`} Öffnen</button>`
     : d.target === 1
-    ? `<button class="check" data-t="${d.id}" aria-label="erledigt">${done?'✓':''}</button>`
+    ? `<button class="check" data-t="${d.id}" aria-label="abhaken">${done ? '✓ Erledigt' : '○ Abhaken'}</button>`
     : `<div class="ctr"><button data-m="${d.id}" aria-label="minus">−</button><span class="num">${c}/${d.target}</span><button class="big" data-p="${d.id}">+${d.step||1}</button></div>`;
   const fs = d.step === 1 && d.target >= 10 && !editMode ? `<button class="fs" data-fs="d:${d.id}">⛶ Vollbild</button>` : '';
   return `<div class="deed ${done?'done':''} ${special?'special':''} ${hid?'hid':''}">
@@ -824,12 +849,12 @@ function renderList(){
     if (filter === 'Rizq' ? !d.rizq : (filter !== 'Alle' && d.cat !== filter && d.cat !== 'Heute besonders')) continue;
     if (d.cat !== last){
       last = d.cat;
-      const inCat = items.filter(x => x.cat === d.cat && x.id !== 'jamaa'), x0 = day(today);
+      const inCat = items.filter(x => x.cat === d.cat && (editMode || (x.id !== 'jamaa' && x.id !== 'fard'))), x0 = day(today);
       const n = inCat.filter(x => (x.calc ? x.calc(x0) : (x0[x.id] || 0)) >= x.target).length;
       html += `<h2><button class="cath" data-cat="${esc(d.cat)}"><span>${d.cat}</span><small>${n}/${inCat.length}${n === inCat.length ? ' ✓' : ''}</small><i>${isCollapsed(d.cat) ? '▸' : '▾'}</i></button></h2>`;
     }
     if (!editMode && isCollapsed(d.cat)) continue;
-    if (!editMode && d.id === 'jamaa') continue;
+    if (!editMode && (d.id === 'jamaa' || d.id === 'fard')) continue;
     html += !editMode && d.id === 'fard' ? prayerCard() : deedHTML(d).replace('<div class="deed', `<div data-id="${d.id}" class="deed`);
   }
   $('#list').innerHTML = html;
@@ -847,6 +872,7 @@ function renderStats(){
   $('#date').textContent = new Date().toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long', year:'numeric'})
     + (h.hm ? ` · ${h.hd}. ${HIJRI_MONTHS[h.hm-1]} ${h.hy}` : '');
   clearTimeout(renderStats.t); renderStats.t = setTimeout(() => checkBadges(), 900);
+  renderMissions(); renderRank(); xpTick();
 }
 function renderHist(){
   const days = []; const d = new Date(); d.setDate(d.getDate()-13);
@@ -884,7 +910,7 @@ function renderQuick(){
     </div>`;
   }).join('');
 }
-function render(){ renderStats(); renderMissions(); renderRank(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); renderRamadanCard(); }
+function render(){ renderStats(); renderPrayersTop(); renderHelpBanner(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); renderRamadanCard(); }
 
 // ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
 const SPECIAL = [
@@ -1833,17 +1859,12 @@ function missionsFor(k){
   while (out.length < 3) { seed = (seed * 9301 + 49297) % 233280; out.push(idx.splice(seed % idx.length, 1)[0]); }
   return out.map(i => MISSIONS[i]);
 }
-function renderMissions(){
-  const x = day(today), ms = missionsFor(today), n = ms.filter(([, ok]) => ok(x)).length;
-  $('#missions').innerHTML = `<div class="mh"><b>🎯 Tagesmissionen</b><span>${n}/3${n === 3 ? ' · +70 XP ✓' : ''}</span></div>`
-    + ms.map(([t, ok]) => `<div class="mi ${ok(x) ? 'on' : ''}"><i>${ok(x) ? '✓' : '○'}</i>${esc(t)}<small>+15 XP</small></div>`).join('')
-    + `<p class="sub" style="margin:6px 0 0">Alle drei geschafft = +25 XP Bonus. Morgen gibt es neue.</p>`;
-}
 
 // ---------- XP & Ränge: vom Playboy zum Prayerboy ----------
 function dayXPRaw(k){
   const x = day(k), s = dayStats(k), m = missionsFor(k).filter(([, ok]) => ok(x)).length;
-  return s.done * 10 + Math.floor(s.taps / 10) + (x.jamaa || 0) * 5 + ((x.fard || 0) >= 5 ? 20 : 0) + m * 15 + (m === 3 ? 25 : 0);
+  // Sofort-Feedback: jedes Gebet und jede Quran-Seite zählt einzeln
+  return s.done * 10 + Math.floor(s.taps / 10) + (x.fard || 0) * 10 + (x.jamaa || 0) * 5 + ((x.fard || 0) >= 5 ? 20 : 0) + (x.quran || 0) * 5 + m * 15 + (m === 3 ? 25 : 0);
 }
 const dayXP = k => k < today ? (XC[k] ?? (XC[k] = dayXPRaw(k))) : dayXPRaw(k);
 const totalXP = () => Object.keys(db.days).reduce((a, k) => a + dayXP(k), 0) + Object.keys(db.hadith).length * 20 + Object.keys(db.names).length * 5;
@@ -1889,7 +1910,7 @@ function renderRank(){
 }
 function openPath(){
   const xp = totalXP(), r = Math.max(db.rank || 0, lastL ? rankIndex(lastL, xp) : 0);
-  $('#path-body').innerHTML = `<p class="sub">XP bekommst du für erledigte Schritte (10), Dhikr (1 je 10×), Gebete in Jama’a (+5), alle 5 Gebete (+20), Tagesmissionen (+15, alle drei +25), gelernte Hadith (+20) und Namen Allahs (+5). Für jeden Rang brauchst du die XP <b>und</b> echte Gewohnheiten.</p>`
+  $('#path-body').innerHTML = `<p class="sub">XP bekommst du für jedes Gebet (+10, in Jama’a +5 extra), alle 5 Gebete (+20), erledigte Schritte (+10), jede Quran-Seite (+5), Dhikr (1 je 10×), Tagesmissionen (+15, alle drei +25), gelernte Hadith (+20) und Namen Allahs (+5). Für jeden Rang brauchst du die XP <b>und</b> echte Gewohnheiten.</p>`
     + RANKS.map((R, i) => `<div class="pr ${i <= r ? 'on' : ''} ${i === r ? 'cur' : ''}">
       <div class="pr-h"><span>${R.icon}</span><div><b>${i + 1}. ${R.name}</b><small>${fmt(R.xp)} XP${i === r ? ' · du bist hier' : i < r ? ' · geschafft ✓' : ''}</small></div></div>
       ${R.gates.length ? `<div class="pr-g">${R.gates.map(([t, f, n]) => `<span class="${lastL && f(lastL) >= n ? 'ok' : ''}">${lastL && f(lastL) >= n ? '✓' : '○'} ${t}</span>`).join('')}</div>` : ''}
@@ -2203,6 +2224,89 @@ $('#lib').addEventListener('click', async e => {
   else if (d.sun) { const [bk, n] = d.sun.split(':'); window.open(`https://sunnah.com/${bk}:${String(n).split('.')[0]}`, '_blank', 'noopener'); }
 });
 
+// ---------- Klarheit: Wo sammle ich XP? ----------
+// Missionen: wie man sie erledigt (direkt abhaken oder hinführen)
+const MISSION_GO = [
+  {prayers:1}, {prayers:1}, {seg:'m'}, {seg:'e'}, {seg:'s'},
+  {quick:'q_salawat'}, {quick:'q_istighfar'}, {quick:'q_subhan'}, {deed:'quran'},
+  {tick:'duha'}, {tick:'qiyam'}, {tick:'sadaqa'}, {tick:'rahim'},
+  {hpath:1}, {deed:'rawatib'}, {quick:'juwayriya'}, {names:1},
+];
+function missionGo(i){ return MISSION_GO[MISSIONS.indexOf(missionsFor(today)[i])] || {}; }
+function renderMissions(){
+  const x = day(today), ms = missionsFor(today), n = ms.filter(([, ok]) => ok(x)).length;
+  $('#missions').innerHTML = `<div class="mh"><b>🎯 Tagesmissionen</b><span>${n}/3${n === 3 ? ' · +70 XP ✓' : ''}</span></div>`
+    + ms.map(([t, ok], i) => {
+      const done = ok(x), g = missionGo(i);
+      const btn = done ? '<span class="mdone">✓ +15 XP</span>'
+        : g.tick ? `<button class="mbtn" data-mtick="${g.tick}">Abhaken</button>`
+        : `<button class="mbtn go" data-mgo="${i}">Los ›</button>`;
+      return `<div class="mi ${done ? 'on' : ''}"><i>${done ? '✓' : '○'}</i><span>${esc(t)}</span>${btn}</div>`;
+    }).join('')
+    + `<p class="sub" style="margin:6px 0 0">Je Mission +15 XP, alle drei +25 Bonus. <button class="lnk" data-help="1">Wie sammle ich XP?</button></p>`;
+}
+function flash(el){
+  if (!el) return;
+  el.scrollIntoView({behavior:'smooth', block:'center'});
+  el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+  setTimeout(() => el.classList.remove('flash'), 1700);
+}
+function goTo(g){
+  $('#help').hidden = true;
+  if (g.prayers) { showPage('today'); setTimeout(() => flash($('#prayers')), 50); }
+  else if (g.deed) {
+    filter = 'Alle'; editMode = false;
+    const d = findDeed(g.deed);
+    if (d && isHidden(d.id)) { db.hidden = db.hidden.filter(x => x !== d.id); clearStats(); save(); }
+    if (d && isCollapsed(d.cat)) { db.settings.collapsed[d.cat] = false; save(); }
+    showPage('today'); renderChips(); renderList();
+    setTimeout(() => flash(document.querySelector(`.deed[data-id="${g.deed}"]`)), 50);
+  }
+  else if (g.seg) { seg = g.seg; segPicked = true; showPage('quick'); }
+  else if (g.quick) { seg = 'quick'; segPicked = true; showPage('quick'); setTimeout(() => flash(document.querySelector(`.q[data-id="${g.quick}"]`)), 50); }
+  else if (g.hpath) { showPage('info'); setTimeout(() => flash($('#hpath')), 50); }
+  else if (g.names) { showPage('info'); $('#fc').hidden = false; nextCard(); }
+}
+function renderPrayersTop(){ $('#prayers').innerHTML = isHidden('fard') ? '' : prayerCard(); }
+
+// +XP-Anzeige bei jedem Fortschritt
+let lastXP = null;
+function xpTick(){
+  const xp = totalXP();
+  if (lastXP !== null && xp > lastXP) {
+    const el = $('#xppop');
+    el.textContent = `+${xp - lastXP} XP`;
+    el.classList.remove('on'); void el.offsetWidth; el.classList.add('on');
+  }
+  lastXP = xp;
+}
+
+// Anleitung „So sammelst du XP“
+const HELP = [
+  ['🕌', 'Gebete abhaken', 'Ganz oben unter „Heute“: Tippe auf Fajr, Dhuhr … – einmal = ✓ gebetet, zweimal = 👥 in Gemeinschaft.', '+10 XP je Gebet · +5 je Jama’a · +20 für alle 5', {prayers:1}],
+  ['✅', 'Taten abhaken', 'Unter „Heute“ in der Liste: rechts auf „○ Abhaken“ tippen – bei Zählern auf „+1“, bis das Ziel erreicht ist.', '+10 XP pro erledigter Tat', {deed:'duha'}],
+  ['🎯', 'Tagesmissionen', 'Drei Aufgaben pro Tag. „Abhaken“ hakt direkt ab, „Los ›“ bringt dich genau zur richtigen Stelle.', '+15 je Mission · +25 für alle drei', null],
+  ['📿', 'Dhikr', 'Tab „⚡ Schnell“: Die ganze Karte antippen = einmal gesagt. Mit ⛶ im Vollbild zählen.', '+1 XP pro 10× Dhikr', {quick:'q_subhan'}],
+  ['🌅', 'Morgen-, Abend-, Schlaf-Adhkar', 'Tab „⚡ Schnell“ → oben Morgen / Abend / Schlaf wählen und jede Karte antippen.', 'Set komplett = Schritt erledigt (+10)', {seg:'m'}],
+  ['📚', 'Wissens-Pfad', 'Tab „Wissen“: Hadith lesen, verinnerlichen, „Gelernt ✓“ tippen.', '+20 XP pro Hadith', {hpath:1}],
+  ['🌟', '99 Namen Allahs', 'Tab „Wissen“ → Lernmodus: Name ansehen, Bedeutung zeigen, „Kann ich ✓“.', '+5 XP pro Name', {names:1}],
+];
+function openHelp(){
+  $('#help-body').innerHTML = `<p>Alles, was du abhakst, gibt XP – oben im Rang-Balken siehst du sofort „+XP“.</p>`
+    + HELP.map(([icon, t, how, xp, g], i) => `<div class="hp"><span class="hp-i">${icon}</span><div><b>${t}</b><p>${how}</p><small>${xp}</small>${g ? `<button class="mbtn go" data-hgo="${i}">Zeig mir ›</button>` : ''}</div></div>`).join('')
+    + '<p class="sub">Tipp: Die Ränge brauchen XP <b>und</b> echte Gewohnheiten (z. B. 3 Tage alle 5 Gebete) – tippe auf die Rang-Karte, um zu sehen, was dir noch fehlt.</p>';
+  $('#help').hidden = false; $('#help').scrollTop = 0;
+  if (!db.seenHelp) { db.seenHelp = true; save(); renderHelpBanner(); }
+}
+$('#help').addEventListener('click', e => {
+  if (e.target.closest('#help-close')) { $('#help').hidden = true; return; }
+  const b = e.target.closest('[data-hgo]'); if (b) goTo(HELP[+b.dataset.hgo][4]);
+});
+
+function renderHelpBanner(){
+  $('#helpbanner').innerHTML = db.seenHelp ? '' : `<div class="nw" style="margin-top:12px"><div class="nw-t"><span class="nw-i">💡</span><div><b>So sammelst du XP</b> – kurze Anleitung, wo du was abhakst.</div></div><button class="adhbtn" data-help="1">Zeigen</button></div>`;
+}
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -2239,6 +2343,13 @@ document.addEventListener('click', e => {
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
+  else if (b.dataset.help) openHelp();
+  else if (b.dataset.mgo) goTo(missionGo(+b.dataset.mgo));
+  else if (b.dataset.mtick) {
+    const d = findDeed(b.dataset.mtick);
+    if (isHidden(d.id)) { db.hidden = db.hidden.filter(x => x !== d.id); clearStats(); }
+    setCount(d.id, d.target);
+  }
   else if (b.dataset.libopen) libOpen();
   else if (b.dataset.dcat) { duaCat = b.dataset.dcat; renderDuaCollection(); }
   else if (b.dataset.dsay) {
