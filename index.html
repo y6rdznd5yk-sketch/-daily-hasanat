@@ -220,6 +220,13 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 .gl li{margin:0 0 10px}
 .ans{background:var(--accent-soft);border-radius:10px;padding:8px 10px}
 .gbtn{display:block;width:100%;margin-top:10px;border:1px dashed var(--accent);background:transparent;color:var(--accent);border-radius:12px;padding:9px;font:inherit;font-weight:600;font-size:.88rem}
+.cath{display:flex;align-items:center;gap:8px;width:100%;border:0;background:none;padding:0;font:inherit;color:inherit;text-transform:inherit;letter-spacing:inherit}
+.cath span{flex:1;text-align:left}
+.cath small{font-size:.75rem;color:var(--accent);letter-spacing:0;text-transform:none}
+.cath i{font-style:normal;font-size:.9rem;width:14px}
+.adj{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.adj label{font-size:.72rem;color:var(--muted)}
+.adj input{width:100%;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:.95rem;text-align:center;margin-top:2px}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -319,8 +326,8 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
   <section class="page" id="p-set">
     <h2>Daten</h2>
     <div class="card"><p>Alles wird nur lokal auf diesem Gerät gespeichert. Mach ab und zu ein Backup.</p></div>
-    <button class="btn p" id="b-export">Backup exportieren (.json)</button>
-    <label class="btn" style="text-align:center">Backup importieren<input type="file" id="b-import" accept="application/json" hidden></label>
+    <button class="btn p" id="b-export">💾 Backup sichern (z. B. „In Dateien sichern“)</button>
+    <label class="btn" style="text-align:center">Backup importieren<input type="file" id="b-import" accept=".json,application/json,text/plain" hidden></label>
     <button class="btn" id="b-reset">Heutigen Tag zurücksetzen</button>
     <h2>Gebetszeiten</h2>
     <button class="btn p" data-loc="1">📍 Aktuellen Standort verwenden</button>
@@ -331,13 +338,19 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
       <option value="isna">ISNA (Nordamerika)</option><option value="uoif">UOIF (Frankreich)</option>
     </select>
     <label class="card" style="display:flex;justify-content:space-between;align-items:center">Asr nach hanafitischer Rechtsschule <input type="checkbox" id="set-hanafi" style="width:22px;height:22px"></label>
+    <div class="card"><b>An deine Moschee anpassen</b> <span class="sub">(± Minuten)</span>
+      <div class="adj" id="set-adj"></div></div>
     <button class="btn" id="set-ics">📅 Gebetszeiten in Kalender (30 Tage, mit Erinnerung)</button>
     <p class="sub">Berechnete Zeiten, können je nach Moschee ein paar Minuten abweichen. Koordinaten findest du z. B. in Apple Karten (Ort antippen).</p>
+    <h2>Kalender</h2>
+    <select class="btn" id="set-hijri"><option value="-2">Hijri-Datum: −2 Tage</option><option value="-1">Hijri-Datum: −1 Tag</option><option value="0">Hijri-Datum: wie Umm al-Qura</option><option value="1">Hijri-Datum: +1 Tag</option><option value="2">Hijri-Datum: +2 Tage</option></select>
+    <p class="sub">Falls deine Gemeinde den Monatsbeginn nach eigener Mondsichtung festlegt.</p>
     <h2>Anzeige</h2>
+    <label class="card" style="display:flex;justify-content:space-between;align-items:center">Vibration / Haptik <input type="checkbox" id="set-haptic" style="width:22px;height:22px"></label>
     <select class="btn" id="set-theme"><option value="auto">Design: automatisch</option><option value="light">Design: hell</option><option value="dark">Design: dunkel</option></select>
     <select class="btn" id="set-font"><option value="n">Schrift: normal</option><option value="l">Schrift: groß</option><option value="xl">Schrift: sehr groß</option></select>
     <label class="card" style="display:flex;justify-content:space-between;align-items:center">Arabische Schrift anzeigen <input type="checkbox" id="b-ar" style="width:22px;height:22px"></label>
-    <p class="sub" style="text-align:center">App-Version 10 (29.10.2026)</p>
+    <p class="sub" style="text-align:center">App-Version 11 (29.10.2026)</p>
     <h2>Quran-Schätzung</h2>
     <div class="card"><p>Der Mushaf hat ca. 320.000 Buchstaben auf 604 Seiten ≈ 530 Buchstaben/Seite. Pro Buchstabe 1 Hasana ×10 (Tirmidhi 2910) ⇒ ca. <b>5.300 Hasanat pro Seite</b>. Das ist eine grobe Schätzung.</p></div>
   </section>
@@ -601,6 +614,21 @@ let db;
 try { db = JSON.parse(localStorage.getItem(KEY)) || {days:{}}; } catch(e) { db = {days:{}}; }
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(db)); } catch(e) {} };
 
+// Haptik: Android über navigator.vibrate; iPhone (iOS 18+) über einen versteckten Schalter,
+// dessen Umschalten Safari mit einem fühlbaren Tick quittiert.
+let hapticEl = null;
+function buzz(p){
+  if (db.settings && db.settings.haptic === false) return;
+  if (navigator.vibrate) { navigator.vibrate(p); return; }
+  if (!hapticEl) {
+    hapticEl = document.createElement('label');
+    hapticEl.style.cssText = 'position:fixed;left:-200px;top:0;opacity:0;pointer-events:none';
+    hapticEl.innerHTML = '<input type="checkbox" switch>';
+    document.body.appendChild(hapticEl);
+  }
+  const n = Array.isArray(p) ? Math.ceil(p.length / 2) : 1;
+  for (let i = 0; i < n; i++) setTimeout(() => hapticEl.click(), i * 110);
+}
 const pad = n => String(n).padStart(2,'0');
 const dkey = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
 let today = dkey(new Date());
@@ -613,7 +641,13 @@ function deedHasanat(d, c){
   if (d.bonus && c >= d.target) h += d.bonus;
   return h;
 }
+let SC = {};
+const clearStats = () => { SC = {}; };
 function dayStats(k){
+  if (k < today) return SC[k] || (SC[k] = dayStatsRaw(k));
+  return dayStatsRaw(k);
+}
+function dayStatsRaw(k){
   if (k === today && typeof updateQuranTarget === 'function') updateQuranTarget();
   const x = day(k), list = deedsFor(k); let has = 0, done = 0, rizq = 0;
   for (const d of list){
@@ -680,6 +714,7 @@ function deedHTML(d){
     <div class="dfoot"><details><summary>Quelle &amp; Belohnung</summary><div class="src">${esc(d.reward)}<span class="ref">${esc(d.ref)}</span></div></details>${fs}</div>
   </div>`;
 }
+const isCollapsed = c => !!(db.settings.collapsed || {})[c];
 function renderList(){
   const open = new Set([...document.querySelectorAll('#list details[open]')].map(e => e.closest('.deed').dataset.id));
   let html = '', last = '';
@@ -687,7 +722,13 @@ function renderList(){
   if (editMode) html += '<p class="sub">Blende Taten aus, die du nicht täglich machen willst. Ausgeblendete zählen nicht in deinen Fortschritt.</p>';
   for (const d of items){
     if (filter === 'Rizq' ? !d.rizq : (filter !== 'Alle' && d.cat !== filter && d.cat !== 'Heute besonders')) continue;
-    if (d.cat !== last){ html += `<h2>${d.cat}</h2>`; last = d.cat; }
+    if (d.cat !== last){
+      last = d.cat;
+      const inCat = items.filter(x => x.cat === d.cat && x.id !== 'jamaa'), x0 = day(today);
+      const n = inCat.filter(x => (x.calc ? x.calc(x0) : (x0[x.id] || 0)) >= x.target).length;
+      html += `<h2><button class="cath" data-cat="${esc(d.cat)}"><span>${d.cat}</span><small>${n}/${inCat.length}${n === inCat.length ? ' ✓' : ''}</small><i>${isCollapsed(d.cat) ? '▸' : '▾'}</i></button></h2>`;
+    }
+    if (!editMode && isCollapsed(d.cat)) continue;
     if (!editMode && d.id === 'jamaa') continue;
     html += !editMode && d.id === 'fard' ? prayerCard() : deedHTML(d).replace('<div class="deed', `<div data-id="${d.id}" class="deed`);
   }
@@ -705,7 +746,7 @@ function renderStats(){
   const h = hijri(new Date());
   $('#date').textContent = new Date().toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long', year:'numeric'})
     + (h.hm ? ` · ${h.hd}. ${HIJRI_MONTHS[h.hm-1]} ${h.hy}` : '');
-  checkBadges();
+  clearTimeout(renderStats.t); renderStats.t = setTimeout(() => checkBadges(), 900);
 }
 function renderHist(){
   const days = []; const d = new Date(); d.setDate(d.getDate()-13);
@@ -786,6 +827,8 @@ for (const d of SPECIAL) { d.cat = 'Heute besonders'; if (d.say) [d.tr, d.de] = 
 const HIJRI_MONTHS = ['Muharram','Safar','Rabi’ al-Awwal','Rabi’ al-Akhir','Dschumada al-Ula','Dschumada al-Akhira','Radschab','Scha’ban','Ramadan','Schawwal','Dhul-Qa’da','Dhul-Hiddscha'];
 const HF = {}, DI = {};
 function hijri(date){
+  const adj = (db.settings && db.settings.hijriAdj) || 0;
+  if (adj) date = new Date(+date + adj * 864e5);
   for (const cal of ['islamic-umalqura', 'islamic']) {
     try {
       const p = (HF[cal] = HF[cal] || new Intl.DateTimeFormat('en-u-ca-' + cal, {day:'numeric', month:'numeric', year:'numeric'})).formatToParts(date);
@@ -820,7 +863,9 @@ const hm = d => d.toLocaleTimeString('de-DE', {hour:'2-digit', minute:'2-digit'}
 function times(date){
   const s = db.settings;
   if (s.lat == null) return null;
-  return PrayerCalc.compute(date, s.lat, s.lng, s.method || 'diyanet', !!s.hanafi);
+  const t = PrayerCalc.compute(date, s.lat, s.lng, s.method || 'diyanet', !!s.hanafi), adj = s.adj || {};
+  for (const k in t) if (adj[k]) t[k] = new Date(+t[k] + adj[k] * 6e4);
+  return t;
 }
 function nextPrayer(){
   const now = new Date(), t = times(now); if (!t) return null;
@@ -851,7 +896,21 @@ function locate(){
     save(); render(); renderSettings(); toast('Gebetszeiten aktiv ✓');
   }, () => toast('Standort nicht erlaubt – unter Daten manuell eingeben'), {enableHighAccuracy:false, timeout:15000});
 }
+function renderAdj(){
+  const a = db.settings.adj || {};
+  $('#set-adj').innerHTML = Object.keys(PNAMES).map(k => `<label>${PNAMES[k]}<input type="number" inputmode="numeric" data-adj="${k}" value="${a[k] || ''}" placeholder="0"></label>`).join('');
+}
+document.addEventListener('change', e => {
+  const k = e.target.dataset && e.target.dataset.adj; if (!k) return;
+  const v = parseInt(e.target.value, 10);
+  db.settings.adj = db.settings.adj || {};
+  if (v && Math.abs(v) <= 60) db.settings.adj[k] = v; else { delete db.settings.adj[k]; e.target.value = ''; }
+  save(); render(); toast(`${PNAMES[k]} angepasst`);
+});
 function renderSettings(){
+  renderAdj();
+  $('#set-hijri').value = String(db.settings.hijriAdj || 0);
+  $('#set-haptic').checked = db.settings.haptic !== false;
   const s = db.settings;
   $('#set-method').value = s.method || 'diyanet';
   $('#set-hanafi').checked = !!s.hanafi;
@@ -875,15 +934,22 @@ function renderTz(){
   $('#tz-g').textContent = `Runde ${Math.floor(Math.max(0, c - 1) / g) + 1} · Ziel ${g}`;
   $('#tz-fg').style.strokeDashoffset = 691 * (1 - frac);
 }
-function openTz(kind, id){ tz = {kind, id}; $('#tz').hidden = false; document.body.style.overflow = 'hidden'; renderTz(); }
-function closeTz(){ $('#tz').hidden = true; document.body.style.overflow = ''; tz = null; render(); renderSeg(); }
+let wake = null;
+async function keepAwake(on){
+  try {
+    if (on && 'wakeLock' in navigator && !wake) { wake = await navigator.wakeLock.request('screen'); wake.addEventListener('release', () => { wake = null; }); }
+    else if (!on && wake) { await wake.release(); wake = null; }
+  } catch(e) {}
+}
+function openTz(kind, id){ tz = {kind, id}; $('#tz').hidden = false; document.body.style.overflow = 'hidden'; renderTz(); keepAwake(true); }
+function closeTz(){ $('#tz').hidden = true; document.body.style.overflow = ''; tz = null; keepAwake(false); render(); renderSeg(); }
 function bumpTz(delta){
   const it = tzItem(), x = db.days[today] = db.days[today] || {}, k = tzKey(), g = tzGoal(it);
   if (delta > 0 && tz.kind === 'a' && (x[k] || 0) >= g) return toast('Schon erledigt ✓');
   x[k] = Math.max(0, (x[k] || 0) + delta); save(); renderTz();
   if (delta > 0) {
-    if (x[k] % g === 0) { if (navigator.vibrate) navigator.vibrate([40,60,40]); toast(`✨ ${g}× geschafft – ${it.mult}`); }
-    else if (navigator.vibrate) navigator.vibrate(8);
+    if (x[k] % g === 0) { buzz([40,60,40]); toast(`✨ ${g}× geschafft – ${it.mult}`); }
+    else buzz(8);
   }
 }
 $('#tz').addEventListener('click', e => {
@@ -1003,7 +1069,7 @@ function tapAdhkar(key, delta){
   x[k] = Math.max(0, (x[k] || 0) + delta); save();
   renderStats(); renderAdhkar(); renderList();
   if (delta < 0) return;
-  if (navigator.vibrate) navigator.vibrate(x[k] === a.target ? [40,60,40] : 8);
+  buzz(x[k] === a.target ? [40,60,40] : 8);
   if (adhCount(x, set) === adhItems(set).length && before < adhItems(set).length) toast(`${SEGS[set]}-Adhkar komplett – BarakAllahu fik ✓`);
 }
 function showPage(pg){
@@ -1057,7 +1123,7 @@ function onOri(e){
   const diff = ((qb.bearing - h + 540) % 360) - 180, ok = Math.abs(diff) < 5;
   $('#qb').classList.toggle('aligned', ok);
   $('#qb-hint').textContent = ok ? '✓ Du schaust Richtung Qibla' : `${Math.round(Math.abs(diff))}° nach ${diff > 0 ? 'rechts' : 'links'} drehen`;
-  if (ok && !wasAligned && navigator.vibrate) navigator.vibrate(60);
+  if (ok && !wasAligned) buzz(60);
   wasAligned = ok;
 }
 async function startCompass(){
@@ -1224,7 +1290,7 @@ function checkBadges(L){
   save();
   const [, icon, name] = fresh[fresh.length - 1];
   setTimeout(() => toast(`🏅 Neues Abzeichen: ${icon} ${name}`), 600);
-  if (navigator.vibrate) navigator.vibrate([30,40,30,40,60]);
+  buzz([30,40,30,40,60]);
   return L;
 }
 function renderHistMore(){
@@ -1271,7 +1337,7 @@ function cyclePrayer(k){
   x.fard = PRAYERS.filter(p => prState(x, p) >= 1).length;
   x.jamaa = PRAYERS.filter(p => prState(x, p) === 2).length;
   save(); render();
-  if (navigator.vibrate) navigator.vibrate(v ? 15 : 5);
+  buzz(v ? 15 : 5);
   if (v === 1 && x.fard === 5) toast('Alle 5 Gebete – MashaAllah ✓');
   if (v === 2) toast(`${PNAMES[k]} in Gemeinschaft – ×27 Grade`);
 }
@@ -1404,7 +1470,7 @@ $('#fc').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   if (b.id === 'fc-close') { $('#fc').hidden = true; document.body.style.overflow = ''; renderNames(); }
   else if (b.id === 'fc-show') { fc.shown = true; renderFc(); }
-  else if (b.id === 'fc-ok') { db.names[fc.i] = today; save(); if (navigator.vibrate) navigator.vibrate(15); if (Object.keys(db.names).length === 99) toast('Alle 99 Namen gelernt – MashaAllah 🌟'); nextCard(); }
+  else if (b.id === 'fc-ok') { db.names[fc.i] = today; save(); buzz(15); if (Object.keys(db.names).length === 99) toast('Alle 99 Namen gelernt – MashaAllah 🌟'); nextCard(); }
   else if (b.id === 'fc-again') nextCard();
 });
 
@@ -1458,7 +1524,12 @@ function applyFont(){ document.documentElement.style.fontSize = {n:'16px', l:'18
 
 // ---------- Willkommen ----------
 function renderIntro(){
-  if (db.seenIntro || Object.keys(db.days).length > 2) { $('#intro').innerHTML = ''; return; }
+  if (db.seenIntro || Object.keys(db.days).length > 2) {
+    const since = db.lastBackup ? Math.round((new Date(today + 'T12:00') - new Date(db.lastBackup + 'T12:00')) / 864e5) : null;
+    const need = Object.keys(db.days).length >= 5 && (since === null || since >= 14);
+    $('#intro').innerHTML = need ? `<div class="nw" style="background:var(--gold-soft);border-color:var(--gold)"><div class="nw-t"><span class="nw-i">💾</span><div>${since === null ? 'Du hast noch kein Backup gemacht.' : `Letztes Backup vor ${since} Tagen.`} Deine Daten liegen nur auf diesem iPhone – sichere sie kurz in „Dateien“.</div></div><button class="adhbtn" data-backup="1">Sichern</button></div>` : '';
+    return;
+  }
   $('#intro').innerHTML = `<div class="card intro"><b>Assalāmu ‘alaykum 👋</b>
     <p>1. <b>📍 Standort festlegen</b> – für Gebetszeiten, Qibla und die passenden Adhkar zur richtigen Zeit.</p>
     <p>2. Im Tab <b>⚡ Schnell</b> findest du Dhikr zum Antippen und die Morgen-, Abend- und Schlaf-Adhkar.</p>
@@ -1577,13 +1648,13 @@ function setCount(id, v){
   const before = (x[id] || 0) >= d.target;
   x[id] = Math.max(0, v);
   save(); render();
-  if (!before && x[id] >= d.target){ toast(`✓ ${d.title} – BarakAllahu fik`); if (navigator.vibrate) navigator.vibrate(30); }
+  if (!before && x[id] >= d.target){ toast(`✓ ${d.title} – BarakAllahu fik`); buzz(30); }
 }
 document.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   const cur = id => day(today)[id] || 0;
   if (b.dataset.t) setCount(b.dataset.t, cur(b.dataset.t) ? 0 : 1);
-  else if (b.dataset.p && b.closest('.ctr')) { const d = findDeed(b.dataset.p); setCount(d.id, cur(d.id) + (d.step||1)); if (navigator.vibrate) navigator.vibrate(8); }
+  else if (b.dataset.p && b.closest('.ctr')) { const d = findDeed(b.dataset.p); setCount(d.id, cur(d.id) + (d.step||1)); buzz(8); }
   else if (b.dataset.m) { const d = findDeed(b.dataset.m); setCount(d.id, cur(d.id) - (d.step||1)); }
   else if (b.dataset.q || b.dataset.qu) {
     const id = b.dataset.q || b.dataset.qu, q = QUICK.find(x => x.id === id);
@@ -1591,13 +1662,13 @@ document.addEventListener('click', e => {
     x[k] = Math.max(0, (x[k] || 0) + (b.dataset.q ? 1 : -1));
     save(); renderStats(); renderQuick();
     if (b.dataset.q){
-      if (navigator.vibrate) navigator.vibrate(q.goal && x[k] % q.goal === 0 ? [40,60,40] : 8);
+      buzz(q.goal && x[k] % q.goal === 0 ? [40,60,40] : 8);
       if (q.goal && x[k] % q.goal === 0) toast(`✨ ${q.mult} – MashaAllah`);
     }
   }
   else if (b.dataset.c) { filter = b.dataset.c; renderChips(); renderList(); }
   else if (b.dataset.edit) { editMode = !editMode; renderChips(); renderList(); }
-  else if (b.dataset.hide) { const id = b.dataset.hide; db.hidden = isHidden(id) ? db.hidden.filter(x => x !== id) : [...db.hidden, id]; save(); render(); renderChips(); }
+  else if (b.dataset.hide) { const id = b.dataset.hide; db.hidden = isHidden(id) ? db.hidden.filter(x => x !== id) : [...db.hidden, id]; clearStats(); save(); render(); renderChips(); }
   else if (b.dataset.fs) { const i = b.dataset.fs.indexOf(':'); openTz(b.dataset.fs.slice(0, i), b.dataset.fs.slice(i + 1)); }
   else if (b.dataset.seg) { seg = b.dataset.seg; segPicked = true; renderSeg(); }
   else if (b.dataset.a) tapAdhkar(b.dataset.a, 1);
@@ -1605,6 +1676,8 @@ document.addEventListener('click', e => {
   else if (b.dataset.adh) { seg = b.dataset.adh; segPicked = true; showPage('quick'); }
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
+  else if (b.dataset.cat) { const c = db.settings.collapsed = db.settings.collapsed || {}; c[b.dataset.cat] = !c[b.dataset.cat]; save(); renderList(); }
+  else if (b.dataset.backup) $('#b-export').click();
   else if (b.dataset.guide) openGuide();
   else if (b.dataset.intro) { db.seenIntro = true; save(); renderIntro(); }
   else if (b.dataset.fc) { $('#fc').hidden = false; document.body.style.overflow = 'hidden'; nextCard(); }
@@ -1629,10 +1702,15 @@ document.addEventListener('click', e => {
 });
 function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(() => el.classList.remove('on'), 1800); }
 
-$('#b-export').onclick = () => {
+$('#b-export').onclick = async () => {
+  db.lastBackup = today; save(); renderIntro();
+  const name = `hasanat-backup-${today}.json`, blob = new Blob([JSON.stringify(db, null, 1)], {type:'application/json'});
+  try {
+    const file = new File([blob], name, {type:'application/json'});
+    if (navigator.canShare && navigator.canShare({files:[file]})) { await navigator.share({files:[file], title:'Daily Hasanat Backup'}); return; }
+  } catch(e) { if (e && e.name === 'AbortError') return; }
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([JSON.stringify(db, null, 1)], {type:'application/json'}));
-  a.download = `hasanat-backup-${today}.json`; a.click();
+  a.href = URL.createObjectURL(blob); a.download = name; a.click();
 };
 $('#b-import').onchange = async e => {
   try {
@@ -1647,13 +1725,19 @@ $('#b-import').onchange = async e => {
     if (data.names) db.names = {...data.names, ...db.names};
     if (Array.isArray(data.custom)) { db.custom = [...db.custom, ...data.custom.filter(e => !db.custom.some(o => o.id === e.id))]; syncCustom(); }
     db.seenIntro = true;
-    save(); render(); renderSettings(); toast('Backup importiert');
+    for (const k in DI) delete DI[k]; clearStats();
+    save(); render(); renderSettings(); renderNames(); renderDuas(); toast('Backup importiert');
   } catch(_) { toast('Ungültige Datei'); }
 };
 $('#b-ar').checked = showAr;
 $('#b-ar').onchange = e => { showAr = e.target.checked; try { localStorage.setItem('show-arabic', showAr ? '1' : '0'); } catch(_) {} render(); };
 $('#set-theme').onchange = e => { db.settings.theme = e.target.value; save(); applyTheme(); };
 $('#set-ics').onclick = exportIcs;
+$('#set-hijri').onchange = e => {
+  db.settings.hijriAdj = +e.target.value; save();
+  for (const k in DI) delete DI[k]; clearStats(); render(); renderRamadan(); renderEvents();
+};
+$('#set-haptic').onchange = e => { db.settings.haptic = e.target.checked; save(); if (e.target.checked) buzz(15); };
 $('#set-font').onchange = e => { db.settings.font = e.target.value; save(); applyFont(); };
 $('#set-method').onchange = e => { db.settings.method = e.target.value; save(); render(); };
 $('#set-hanafi').onchange = e => { db.settings.hanafi = e.target.checked; save(); render(); };
@@ -1667,9 +1751,15 @@ $('#b-reset').onclick = () => { if (confirm('Heutigen Fortschritt löschen?')) {
 // Tageswechsel, wenn die App über Mitternacht offen bleibt
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) return;
-  if (dkey(new Date()) !== today) { today = dkey(new Date()); render(); renderRamadan(); } else { renderPrayer(); renderNow(); }
+  if (dkey(new Date()) !== today) { today = dkey(new Date()); clearStats(); render(); renderRamadan(); renderEvents(); } else { renderPrayer(); renderNow(); }
+  if (tz) keepAwake(true);
 });
-setInterval(() => { renderPrayer(); renderNow(); }, 30000);
+setInterval(() => {
+  if (dkey(new Date()) !== today) { today = dkey(new Date()); clearStats(); render(); renderRamadan(); renderEvents(); }
+  else { renderPrayer(); renderNow(); }
+}, 30000);
+// Bittet den Browser, die Daten nicht automatisch zu löschen
+if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
 
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   navigator.serviceWorker.register('sw.js', {updateViaCache: 'none'}).then(r => r.update()).catch(()=>{});
