@@ -29,7 +29,10 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{font-size:16px}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-body{padding:env(safe-area-inset-top) 0 calc(76px + env(safe-area-inset-bottom))}
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
+/* Nur der Inhalt scrollt – so bleibt die untere Leiste auf dem iPhone fest stehen */
+#scroller{position:fixed;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;padding:env(safe-area-inset-top) 0 calc(76px + env(safe-area-inset-bottom))}
+nav{touch-action:none}
 body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);background:var(--bg);z-index:20}
 .say{margin:8px 0 2px}
 .tr{font-weight:600;font-size:1.02rem;color:var(--accent);line-height:1.4}
@@ -69,7 +72,7 @@ details{margin-top:8px;font-size:.85rem}
 summary{color:var(--muted);cursor:pointer}
 .src{margin-top:6px;padding:8px 10px;border-left:3px solid var(--gold);background:var(--bg);border-radius:0 8px 8px 0}
 .src .ref{font-weight:600;color:var(--gold);display:block;margin-top:4px}
-nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+nav{position:fixed;z-index:10;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
 nav button{flex:1;border:0;background:none;color:var(--muted);padding:10px 0 12px;font-size:.75rem}
 nav button.on{color:var(--accent);font-weight:600}
 nav button span{display:block;font-size:1.25rem}
@@ -205,7 +208,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 </style>
 </head>
 <body>
-<div class="wrap">
+<main id="scroller"><div class="wrap">
   <header>
     <h1>Daily Hasanat ☪︎</h1>
     <div class="sub" id="date"></div>
@@ -316,11 +319,11 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <select class="btn" id="set-theme"><option value="auto">Design: automatisch</option><option value="light">Design: hell</option><option value="dark">Design: dunkel</option></select>
     <select class="btn" id="set-font"><option value="n">Schrift: normal</option><option value="l">Schrift: groß</option><option value="xl">Schrift: sehr groß</option></select>
     <label class="card" style="display:flex;justify-content:space-between;align-items:center">Arabische Schrift anzeigen <input type="checkbox" id="b-ar" style="width:22px;height:22px"></label>
-    <p class="sub" style="text-align:center">App-Version 8 (29.10.2026)</p>
+    <p class="sub" style="text-align:center">App-Version 9 (29.10.2026)</p>
     <h2>Quran-Schätzung</h2>
     <div class="card"><p>Der Mushaf hat ca. 320.000 Buchstaben auf 604 Seiten ≈ 530 Buchstaben/Seite. Pro Buchstabe 1 Hasana ×10 (Tirmidhi 2910) ⇒ ca. <b>5.300 Hasanat pro Seite</b>. Das ist eine grobe Schätzung.</p></div>
   </section>
-</div>
+</div></main>
 
 <nav>
   <button class="on" data-p="today"><span>☀︎</span>Heute</button>
@@ -984,7 +987,7 @@ function showPage(pg){
   document.querySelectorAll('.page').forEach(p => p.classList.toggle('on', p.id === 'p-' + pg));
   if (pg === 'hist') renderHist();
   if (pg === 'quick') { if (!segPicked) seg = autoSeg(); renderSeg(); }
-  window.scrollTo(0, 0);
+  $('#scroller').scrollTop = 0;
 }
 
 // ---------- Morgen-Hinweis ----------
