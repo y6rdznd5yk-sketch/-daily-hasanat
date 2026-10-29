@@ -261,6 +261,23 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 .pr-g span{font-size:.75rem;padding:2px 8px;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
 .pr-g span.ok{border-color:var(--accent);color:var(--accent)}
 .pr p{font-size:.85rem;margin:.6em 0 0}
+.dua{border-top:1px solid var(--line);padding:12px 0 4px}
+.dua-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.dua-h small{color:var(--muted);font-size:.7rem;white-space:nowrap}
+.dua-b{display:flex;gap:8px;margin-top:8px;align-items:center}
+.dua-b .x{padding:0 10px;font-size:.8rem}
+#search{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:1rem}
+.sr{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0 0}
+.sr summary{font-weight:600;font-size:.9rem}
+.sr summary small{display:block;color:var(--gold);font-size:.68rem;text-transform:uppercase;letter-spacing:.05em}
+.sr p{font-size:.85rem;margin:.5em 0}
+.jz,.rg{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin:6px 0 10px}
+.jz span,.rg span{text-align:center;font-size:.72rem;padding:5px 0;border-radius:6px;background:var(--bg);border:1px solid var(--line);font-variant-numeric:tabular-nums}
+.jz span.on,.rg span.on{background:var(--gold);border-color:var(--gold);color:#fff}
+.jz span.part{border-color:var(--gold);color:var(--gold);font-weight:700}
+.rg span.cur{outline:2px solid var(--accent)}
+#ramcard{margin-top:10px;border-color:var(--gold)}
+#ramcard p{font-size:.88rem}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -279,6 +296,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <div id="intro"></div>
     <div id="rank"></div>
     <div class="card" id="missions"></div>
+    <div class="card" id="ramcard" hidden></div>
     <div class="stats">
       <div class="stat g"><b id="s-has">0</b><span>Hasanat (min.)*</span></div>
       <div class="stat r"><b id="s-rizq">0</b><span>Rizq-Taten</span></div>
@@ -321,17 +339,22 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <h2>Kalender</h2><div class="card" id="cal"></div>
     <h2>Quran-Khatm</h2><div class="card" id="khatm"></div>
     <h2>Sadaqa-Tagebuch</h2><div class="card" id="sadaqa"></div>
+    <h2>Nachholen (Qada)</h2><div class="card" id="qada"></div>
     <h2>Dein Dhikr insgesamt</h2><div class="card"><table id="totals"></table></div>
     <h2>Abzeichen</h2><div class="badges" id="badges"></div>
   </section>
 
   <!-- WISSEN -->
   <section class="page" id="p-info">
+    <div class="inp" style="margin-top:12px"><input id="search" type="search" placeholder="🔎 Suchen: Rizq, Schulden, Witr, Eltern …" autocomplete="off"></div>
+    <div id="sresults"></div>
     <button class="gbtn" data-guide="1" style="margin-top:12px">📖 Gebets-Anleitung: Rak’at, Adhan &amp; Iqama, Schritt für Schritt</button>
     <h2>📚 Wissens-Pfad</h2>
     <div class="card" id="hpath"></div>
     <h2>Meine Du’as</h2>
     <div class="card" id="duas"></div>
+    <h2>🤲 Du’a-Sammlung aus Quran &amp; Sunnah</h2>
+    <div class="card" id="duac"></div>
     <h2>Wann Du’a besonders erhört wird</h2>
     <div class="card"><table>
       <tr><td>Im letzten Drittel der Nacht</td><td>Bukhari 1145, Muslim 758</td></tr>
@@ -388,7 +411,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <select class="btn" id="set-theme"><option value="auto">Design: automatisch</option><option value="light">Design: hell</option><option value="dark">Design: dunkel</option></select>
     <select class="btn" id="set-font"><option value="n">Schrift: normal</option><option value="l">Schrift: groß</option><option value="xl">Schrift: sehr groß</option></select>
     <label class="card" style="display:flex;justify-content:space-between;align-items:center">Arabische Schrift anzeigen <input type="checkbox" id="b-ar" style="width:22px;height:22px"></label>
-    <p class="sub" style="text-align:center">App-Version 12 (29.10.2026)</p>
+    <p class="sub" style="text-align:center">App-Version 13 (29.10.2026)</p>
     <h2>Quran-Schätzung</h2>
     <div class="card"><p>Der Mushaf hat ca. 320.000 Buchstaben auf 604 Seiten ≈ 530 Buchstaben/Seite. Pro Buchstabe 1 Hasana ×10 (Tirmidhi 2910) ⇒ ca. <b>5.300 Hasanat pro Seite</b>. Das ist eine grobe Schätzung.</p></div>
   </section>
@@ -701,7 +724,7 @@ function dayStatsRaw(k){
   }
   let taps = 0;
   for (const q of QUICK){ const c = x['q:'+q.id] || 0; taps += c; has += c * q.per; }
-  for (const key in x) if (key.startsWith('a:')) { taps += x[key]; has += x[key] * 10; }
+  for (const key in x) if (key.startsWith('a:') || key.startsWith('d:')) { taps += x[key]; has += x[key] * 10; }
   return {has, done, rizq, taps, total:list.length, rizqTotal:list.filter(d => d.rizq).length};
 }
 const active = k => { const s = dayStats(k); return s.done > 0 || s.taps > 0; };
@@ -828,7 +851,7 @@ function renderQuick(){
     </div>`;
   }).join('');
 }
-function render(){ renderStats(); renderMissions(); renderRank(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); }
+function render(){ renderStats(); renderMissions(); renderRank(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); renderRamadanCard(); }
 
 // ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
 const SPECIAL = [
@@ -1238,6 +1261,7 @@ function renderKhatm(){
     ? `<p><b>🎉 Khatm abgeschlossen – MashaAllah!</b> ${PAGES} Seiten seit ${new Date(st.start + 'T12:00').toLocaleDateString('de-DE')}.</p><button class="btn p" data-khatm="start">Neue Khatm starten</button>`
     : `<p><b>Seite ${Math.min(st.done, PAGES)} von ${PAGES}</b> · noch ${st.daysLeft} Tag${st.daysLeft === 1 ? '' : 'e'}</p>
        <div class="bar"><i style="width:${pct}%;background:var(--gold)"></i></div>
+       ${juzGrid(st.done)}
        <p>Heutiges Ziel: <b>${st.plan} Seiten</b> (${fmt(st.plan * PER_PAGE)} Hasanat ≈). Eintragen bei „Quran lesen“ unter Heute.</p>
        <button class="btn" data-khatm="stop">Khatm beenden</button>`;
 }
@@ -1342,7 +1366,7 @@ function checkBadges(L){
 }
 function renderHistMore(){
   const L = checkBadges();
-  renderCal(); renderKhatm(); renderSadaqa();
+  renderCal(); renderKhatm(); renderSadaqa(); renderQada();
   const wk = off => { let h = 0; const d = new Date(); d.setDate(d.getDate() - off); for (let i = 0; i < 7; i++) { h += dayStats(dkey(d)).has; d.setDate(d.getDate() - 1); } return h; };
   const w1 = wk(0), w0 = wk(7), diff = w0 ? Math.round((w1 - w0) / w0 * 100) : null;
   $('#h-week').innerHTML = `Letzte 7 Tage: <b>${fmt(w1)}</b> Hasanat · Woche davor: ${fmt(w0)}${diff !== null ? ` · <b style="color:${diff >= 0 ? 'var(--accent)' : 'var(--gold)'}">${diff >= 0 ? '▲' : '▼'} ${Math.abs(diff)} %</b>` : ''}`;
@@ -1842,6 +1866,128 @@ function openPath(){
 }
 $('#path').addEventListener('click', e => { if (e.target.closest('#path-close')) $('#path').hidden = true; });
 
+let UPC = null;
+const upcomingCached = () => (UPC && UPC.k === today) ? UPC.v : (UPC = {k:today, v:upcoming()}).v;
+// ---------- Du'a-Sammlung aus Quran & Sunnah ----------
+const DUAS = [
+  {id:'rizq1', cat:'💰 Rizq', title:'Du’a des Musa um Versorgung', tr:'Rabbi innī limā anzalta ilayya min khayrin faqīr', de:'Mein Herr, ich bin bedürftig nach allem Guten, das Du mir herabsendest.', ref:'Quran 28:24'},
+  {id:'rizq2', cat:'💰 Rizq', title:'Genügsamkeit durch Halal & Schuldenfreiheit', tr:'Allāhummak-finī bi halālika ‘an harāmik, wa aghninī bi fadlika ‘amman siwāk', de:'O Allah, lass mich mit Deinem Erlaubten genügen statt mit Deinem Verbotenen, und mach mich durch Deine Güte unabhängig von allen außer Dir.', note:'Der Prophet ﷺ lehrte es für jemanden mit Schulden – „selbst wenn du Schulden so groß wie ein Berg hättest, würde Allah sie für dich begleichen“.', ref:'Tirmidhi 3563 – hasan'},
+  {id:'rizq3', cat:'💰 Rizq', title:'Nach dem Fajr: Wissen, guter Rizq, angenommene Taten', tr:'Allāhumma innī as’aluka ‘ilman nāfi‘an, wa rizqan tayyiban, wa ‘amalan mutaqabbalā', de:'O Allah, ich bitte Dich um nützliches Wissen, gute Versorgung und angenommene Taten.', note:'Er ﷺ sprach es nach dem Salam des Fajr-Gebets.', ref:'Ibn Majah 925 – sahih (al-Albani)'},
+  {id:'rizq4', cat:'💰 Rizq', title:'Das Gute beider Welten', tr:'Rabbanā ātinā fid-dunyā hasanatan wa fil-ākhirati hasanatan wa qinā ‘adhāban-nār', de:'Unser Herr, gib uns im Diesseits Gutes und im Jenseits Gutes und bewahre uns vor der Strafe des Feuers.', note:'Das Du’a, das der Prophet ﷺ am häufigsten sprach.', ref:'Quran 2:201; Bukhari 6389, Muslim 2690'},
+  {id:'worry', cat:'🫶 Sorgen', title:'Gegen Sorgen, Faulheit und Schulden', tr:'Allāhumma innī a‘ūdhu bika minal-hammi wal-hazan, wal-‘ajzi wal-kasal, wal-bukhli wal-jubn, wa dala‘id-dayni wa ghalabatir-rijāl', de:'O Allah, ich suche Zuflucht bei Dir vor Sorge und Trauer, Unfähigkeit und Faulheit, Geiz und Feigheit, der Last der Schulden und der Überwältigung durch Menschen.', ref:'Bukhari 6369'},
+  {id:'hasbuna', cat:'🫶 Sorgen', title:'Allah genügt uns', tr:'Hasbunallāhu wa ni‘mal-wakīl', de:'Allah genügt uns, und welch vorzüglicher Sachwalter ist Er.', note:'Ibrahim sagte es, als er ins Feuer geworfen wurde, und Muhammad ﷺ, als man ihm drohte.', ref:'Quran 3:173; Bukhari 4563'},
+  {id:'rahmatak', cat:'🫶 Sorgen', title:'Überlass mich nicht mir selbst', tr:'Allāhumma rahmataka arjū, fa lā takilnī ilā nafsī tarfata ‘ayn, wa aslih lī sha’nī kullah, lā ilāha illā ant', de:'O Allah, auf Deine Barmherzigkeit hoffe ich – so überlass mich nicht einen Wimpernschlag lang mir selbst, und bringe all meine Angelegenheiten in Ordnung. Es gibt keinen Gott außer Dir.', ref:'Abu Dawud 5090 – hasan'},
+  {id:'sadr', cat:'🫶 Sorgen', title:'Erleichterung (Du’a des Musa)', tr:'Rabbish-rah lī sadrī, wa yassir lī amrī', de:'Mein Herr, weite mir meine Brust und erleichtere mir meine Aufgabe.', ref:'Quran 20:25–26'},
+  {id:'yunus', cat:'🤲 Vergebung', title:'Das Du’a des Yunus', tr:'Lā ilāha illā anta subhānaka innī kuntu minaz-zālimīn', de:'Es gibt keinen Gott außer Dir, gepriesen bist Du; ich war wahrlich einer der Ungerechten.', note:'„Kein Muslim bittet damit um irgendetwas, ohne dass Allah ihn erhört.“', ref:'Quran 21:87; Tirmidhi 3505 – sahih (al-Albani)'},
+  {id:'adam', cat:'🤲 Vergebung', title:'Das Du’a von Adam und Hawwa', tr:'Rabbanā zalamnā anfusanā wa in lam taghfir lanā wa tarhamnā lanakūnanna minal-khāsirīn', de:'Unser Herr, wir haben uns selbst Unrecht getan; wenn Du uns nicht vergibst und Dich unser nicht erbarmst, werden wir gewiss zu den Verlierern gehören.', ref:'Quran 7:23'},
+  {id:'afw', cat:'🤲 Vergebung', title:'Vergebung (Laylat al-Qadr)', tr:'Allāhumma innaka ‘afuwwun tuhibbul-‘afwa fa‘fu ‘annī', de:'O Allah, Du bist der Vergebende, Du liebst das Vergeben, so vergib mir.', ref:'Tirmidhi 3513 – sahih'},
+  {id:'afiya', cat:'🤲 Vergebung', title:'Vergebung und Wohlergehen', tr:'Allāhumma innī as’alukal-‘afwa wal-‘āfiyata fid-dunyā wal-ākhirah', de:'O Allah, ich bitte Dich um Vergebung und Wohlergehen im Diesseits und im Jenseits.', note:'Der Prophet ﷺ ließ es morgens und abends nie aus.', ref:'Abu Dawud 5074, Ibn Majah 3871 – sahih'},
+  {id:'ilm', cat:'📖 Wissen', title:'Mehr Wissen', tr:'Rabbi zidnī ‘ilmā', de:'Mein Herr, mehre mich an Wissen.', ref:'Quran 20:114'},
+  {id:'thabbit', cat:'🛡️ Standhaftigkeit', title:'Festes Herz', tr:'Yā muqallibal-qulūb, thabbit qalbī ‘alā dīnik', de:'O Du, der die Herzen wendet, festige mein Herz in Deiner Religion.', note:'Das Du’a, das er ﷺ am häufigsten sprach (laut Umm Salama).', ref:'Tirmidhi 3522 – hasan'},
+  {id:'tuzigh', cat:'🛡️ Standhaftigkeit', title:'Lass unsere Herzen nicht abweichen', tr:'Rabbanā lā tuzigh qulūbanā ba‘da idh hadaytanā wa hab lanā min ladunka rahmah, innaka antal-wahhāb', de:'Unser Herr, lass unsere Herzen nicht abweichen, nachdem Du uns rechtgeleitet hast, und schenke uns Barmherzigkeit von Dir; Du bist der Schenkende.', ref:'Quran 3:8'},
+  {id:'parents', cat:'👨‍👩‍👧 Familie', title:'Für die Eltern', tr:'Rabbir-hamhumā kamā rabbayānī saghīrā', de:'Mein Herr, erbarme Dich ihrer, wie sie mich aufgezogen haben, als ich klein war.', ref:'Quran 17:24'},
+  {id:'family', cat:'👨‍👩‍👧 Familie', title:'Für Ehepartner und Kinder', tr:'Rabbanā hab lanā min azwājinā wa dhurriyyātinā qurrata a‘yunin waj‘alnā lil-muttaqīna imāmā', de:'Unser Herr, schenke uns an unseren Ehepartnern und Nachkommen Augentrost und mach uns zu einem Vorbild für die Gottesfürchtigen.', ref:'Quran 25:74'},
+  {id:'salah', cat:'👨‍👩‍👧 Familie', title:'Das Gebet für mich und meine Kinder', tr:'Rabbij-‘alnī muqīmas-salāti wa min dhurriyyatī, rabbanā wa taqabbal du‘ā’', de:'Mein Herr, mach, dass ich das Gebet verrichte, und auch von meinen Nachkommen; unser Herr, nimm mein Du’a an.', ref:'Quran 14:40'},
+  {id:'accept', cat:'🛡️ Standhaftigkeit', title:'Nimm es von uns an', tr:'Rabbanā taqabbal minnā innaka antas-samī‘ul-‘alīm', de:'Unser Herr, nimm es von uns an; Du bist der Allhörende, der Allwissende.', note:'Ibrahim und Isma‘il sprachen es beim Bau der Kaaba.', ref:'Quran 2:127'},
+];
+const DUA_CATS = ['Alle', ...new Set(DUAS.map(d => d.cat))];
+let duaCat = 'Alle';
+function renderDuaCollection(){
+  const x = day(today);
+  $('#duac').innerHTML = `<p class="sub" style="margin-top:0">„Das Du’a ist die Ibada (der Gottesdienst).“ (Abu Dawud 1479, Tirmidhi 2969 – sahih) · Jedes gesprochene Du’a zählt mit.</p>
+    <div class="chips">${DUA_CATS.map(c => `<button class="chip ${c === duaCat ? 'on' : ''}" data-dcat="${esc(c)}">${esc(c)}</button>`).join('')}</div>`
+    + DUAS.filter(d => duaCat === 'Alle' || d.cat === duaCat).map(d => {
+      const c = x['d:' + d.id] || 0;
+      return `<div class="dua"><div class="dua-h"><b>${esc(d.title)}</b><small>${esc(d.cat)}</small></div>
+        <div class="say"><div class="tr">${esc(d.tr)}</div><div class="de">„${esc(d.de)}“</div></div>
+        ${d.note ? `<p class="sub" style="margin:4px 0">${esc(d.note)}</p>` : ''}<span class="gref">${esc(d.ref)}</span>
+        <div class="dua-b"><button class="adhbtn" data-dsay="${d.id}">🤲 Gesprochen${c ? ` (${c}×)` : ''}</button><button class="x" data-dsave="${d.id}">+ Meine Du’as</button></div></div>`;
+    }).join('');
+}
+
+// ---------- Suche über alle Inhalte ----------
+const norm = t => String(t).normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’‘'`]/g, '').toLowerCase();
+let SEARCH = null;
+function buildSearch(){
+  const strip = h => h.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+  SEARCH = [
+    ...DEEDS.filter(d => d.reward).map(d => ({k:'Tat', t:d.title, b:d.reward + (d.mult ? ' · ' + d.mult : '') + (d.rizq ? ' · Rizq (Versorgung)' : ''), r:d.ref})),
+    ...SPECIAL.map(d => ({k:'Besonderer Tag', t:d.title, b:d.reward, r:d.ref})),
+    ...QUICK.filter(q => !q.custom).map(q => ({k:'Dhikr', t:q.title, b:(q.tr ? q.tr + ' – ' : '') + q.reward + ' · ' + q.mult + (q.rizq ? ' · Rizq (Versorgung)' : ''), r:q.ref})),
+    ...ADHKAR.map(a => ({k:'Adhkar', t:a.title, b:a.tr + ' – ' + a.reward, r:a.ref})),
+    ...DUAS.map(d => ({k:'Du’a', t:d.title, b:d.tr + ' – ' + d.de + ' · ' + d.cat + (d.note ? ' · ' + d.note : ''), r:d.ref})),
+    ...NAWAWI.map(([t, b, r], i) => ({k:`40 Hadith Nr. ${i + 1}`, t, b, r})),
+    ...NAMES.map(([t, d], i) => ({k:`Name Nr. ${i + 1}`, t, b:d, r:''})),
+    ...GUIDE.map(([t, h]) => ({k:'Gebets-Anleitung', t, b:strip(h), r:''})),
+  ].map(e => ({...e, n:norm(e.t + ' ' + e.b + ' ' + e.r)}));
+}
+function runSearch(q){
+  const el = $('#sresults'), w = norm(q).split(/\s+/).filter(Boolean);
+  if (!w.length || q.trim().length < 2) { el.innerHTML = ''; return; }
+  if (!SEARCH) buildSearch();
+  const hits = SEARCH.filter(e => w.every(x => e.n.includes(x))).slice(0, 25);
+  el.innerHTML = hits.length ? hits.map(e => {
+    const i = norm(e.b).indexOf(w[0]), start = Math.max(0, i - 60);
+    const snip = (start ? '… ' : '') + e.b.slice(start, start + 200) + (e.b.length > start + 200 ? ' …' : '');
+    return `<details class="sr"><summary><small>${esc(e.k)}</small>${esc(e.t)}</summary><p>${esc(i >= 0 ? snip : e.b.slice(0, 200))}</p>${e.r ? `<span class="gref">${esc(e.r)}</span>` : ''}</details>`;
+  }).join('') + `<p class="sub">${hits.length >= 25 ? 'Die ersten 25 Treffer' : hits.length + ' Treffer'}</p>` : '<p class="sub">Nichts gefunden – versuch ein anderes Wort (z. B. „Rizq“, „Schulden“, „Eltern“, „Witr“).</p>';
+}
+document.addEventListener('input', e => { if (e.target.id === 'search') runSearch(e.target.value); });
+
+// ---------- Nachholen (Qada) ----------
+db.qada = db.qada || {};
+const QADA = [['fajr','Fajr'],['dhuhr','Dhuhr'],['asr','Asr'],['maghrib','Maghrib'],['isha','Isha'],['witr','Witr (hanafitisch)'],['fast','Fastentage (Ramadan)']];
+function renderQada(){
+  const total = QADA.slice(0, 5).reduce((a, [k]) => a + (db.qada[k] || 0), 0);
+  $('#qada').innerHTML = `<p>Offene Gebete: <b>${fmt(total)}</b>${db.qada.fast ? ` · offene Fastentage: <b>${db.qada.fast}</b>` : ''}</p>`
+    + QADA.map(([k, n]) => `<div class="li"><span>${n}</span><button class="x" data-qd="${k}:-1" aria-label="eins nachgeholt">−</button><b style="min-width:44px;text-align:center">${db.qada[k] || 0}</b><button class="x" data-qd="${k}:1" aria-label="eins mehr offen">+</button></div>`).join('')
+    + `<div class="inp" style="margin-top:10px"><input id="qd-years" inputmode="decimal" placeholder="Jahre nicht gebetet"><button class="btn" id="qd-add" style="margin:0;flex:none;width:auto">Hinzufügen</button></div>
+    <p class="sub">„−“ tippen, wenn du eins nachgeholt hast. „Wer ein Gebet vergisst oder verschläft, soll es beten, sobald er sich erinnert.“ (Bukhari 597, Muslim 684) · Fasten: Quran 2:184. Nach den vier Rechtsschulen müssen auch absichtlich verpasste Gebete nachgeholt werden; einige Gelehrte (z. B. Ibn Taymiyya) sagen, aufrichtige Reue und viele freiwillige Gebete genügen – frag im Zweifel einen Gelehrten.</p>`;
+  $('#qd-add').onclick = () => {
+    const y = parseFloat($('#qd-years').value.replace(',', '.'));
+    if (!(y > 0 && y < 80)) return toast('Bitte Anzahl Jahre eingeben');
+    const n = Math.round(y * 354);
+    if (!confirm(`${fmt(n)} Gebete je Gebetszeit hinzufügen (${y} Mondjahre à 354 Tage)?`)) return;
+    for (const k of ['fajr','dhuhr','asr','maghrib','isha']) db.qada[k] = (db.qada[k] || 0) + n;
+    save(); renderQada();
+  };
+}
+
+// ---------- Quran: Juz-Übersicht ----------
+const juzEnd = n => n < 30 ? 21 + 20 * (n - 1) : PAGES;
+const juzOf = p => Math.min(30, p <= 21 ? 1 : Math.floor((p - 22) / 20) + 2);
+function juzGrid(done){
+  const cur = Math.min(PAGES, done + 1);
+  return `<p>📍 Weiter bei <b>Seite ${cur}</b> · Juz ${juzOf(cur)}</p><div class="jz">${Array.from({length:30}, (_, i) => {
+    const n = i + 1, full = done >= juzEnd(n), part = !full && done >= (n === 1 ? 0 : juzEnd(n - 1));
+    return `<span class="${full ? 'on' : part ? 'part' : ''}">${n}</span>`;
+  }).join('')}</div>`;
+}
+
+// ---------- Ramadan-Dashboard ----------
+function renderRamadanCard(){
+  const el = $('#ramcard'), h = hijri(new Date());
+  if (h.hm !== 9) {
+    const r = upcomingCached().find(e => e.idx === 2);
+    if (!r || r.n > 30) { el.hidden = true; return; }
+    el.hidden = false;
+    el.innerHTML = `<b>🌙 Ramadan in ${r.n} Tagen – Vorbereitung</b>
+      <p>• Offene Fastentage nachholen${db.qada && db.qada.fast ? ` (<b>${db.qada.fast}</b> offen – siehe Verlauf → Nachholen)` : ''}<br>• Quran-Plan für Ramadan starten (Verlauf → Quran-Khatm)<br>• Im Scha’ban fasten: Er ﷺ fastete in keinem Monat (außer Ramadan) so viel wie im Scha’ban. <span class="gref">Bukhari 1969, Muslim 1156</span></p>`;
+    return;
+  }
+  el.hidden = false;
+  const cells = {}, keys = Object.keys(db.days);
+  for (const k of keys) { const i = dayInfo(k); if (i.hm === 9 && i.hy === h.hy) cells[i.hd] = db.days[k]; }
+  const fasted = Object.values(cells).filter(x => x.s_ramfast).length, tar = Object.values(cells).filter(x => x.s_tarawih).length;
+  const pages = Object.values(cells).reduce((a, x) => a + (x.quran || 0), 0);
+  const night = h.hd + 1, odd = night >= 21 && night % 2 === 1;
+  el.innerHTML = `<b>🌙 Ramadan Tag ${h.hd}</b>
+    <div class="rg">${Array.from({length:30}, (_, i) => `<span class="${cells[i + 1] && cells[i + 1].s_ramfast ? 'on' : ''} ${i + 1 === h.hd ? 'cur' : ''}">${i + 1}</span>`).join('')}</div>
+    <p>Gefastet: <b>${fasted}</b> · Tarawih: <b>${tar}</b> · Quran: <b>${pages}</b> Seiten</p>
+    ${night >= 21 ? `<p>${odd ? `✨ <b>Heute Nacht ist die ${night}. Nacht – eine ungerade Nacht der letzten zehn.</b> Such Laylat al-Qadr: Gebet, Quran und „Allāhumma innaka ‘afuwwun …“.` : `Heute Nacht ist die ${night}. Nacht der letzten zehn – jede Nacht zählt.`} <span class="gref">Bukhari 2017; Tirmidhi 3513</span></p>` : ''}
+    ${h.hd >= 20 ? `<p>🌾 <b>Zakat al-Fitr</b> vor dem Eid-Gebet geben – ein Sa’ (ca. 2,5–3 kg Grundnahrungsmittel oder dessen Wert, je nach Rechtsschule) für jede Person im Haushalt. <span class="gref">Bukhari 1503, Muslim 984</span></p>` : ''}`;
+}
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -1878,6 +2024,22 @@ document.addEventListener('click', e => {
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
+  else if (b.dataset.dcat) { duaCat = b.dataset.dcat; renderDuaCollection(); }
+  else if (b.dataset.dsay) {
+    const x = db.days[today] = db.days[today] || {}, k = 'd:' + b.dataset.dsay;
+    x[k] = (x[k] || 0) + 1; save(); renderDuaCollection(); renderStats(); buzz(10);
+    if (x[k] === 1) toast('Āmīn 🤲 – +10 Hasanat (min.)');
+  }
+  else if (b.dataset.dsave) {
+    const d = DUAS.find(d => d.id === b.dataset.dsave), text = `${d.title}: ${d.tr} – „${d.de}“`;
+    if (db.duas.some(x => x.text === text)) return toast('Schon in „Meine Du’as“');
+    db.duas.push({id:Date.now().toString(36), text, k:today}); save(); renderDuas(); toast('Zu „Meine Du’as“ hinzugefügt');
+  }
+  else if (b.dataset.qd) {
+    const [k, dlt] = b.dataset.qd.split(':');
+    db.qada[k] = Math.max(0, (db.qada[k] || 0) + +dlt); save(); renderQada();
+    if (+dlt < 0) { buzz(15); toast('Nachgeholt ✓ – möge Allah es annehmen'); }
+  }
   else if (b.dataset.hlist) { hpathList = !hpathList; renderHPath(); }
   else if (b.dataset.hl) {
     db.hadith[+b.dataset.hl] = today;
@@ -1932,6 +2094,7 @@ $('#b-import').onchange = async e => {
     if (data.khatm && !db.khatm) db.khatm = data.khatm;
     if (data.names) db.names = {...data.names, ...db.names};
     if (data.hadith) db.hadith = {...data.hadith, ...db.hadith};
+    if (data.qada && !Object.keys(db.qada).length) db.qada = data.qada;
     if (data.rank != null) db.rank = Math.max(db.rank || 0, data.rank);
     if (Array.isArray(data.custom)) { db.custom = [...db.custom, ...data.custom.filter(e => !db.custom.some(o => o.id === e.id))]; syncCustom(); }
     db.seenIntro = true;
@@ -1944,7 +2107,7 @@ $('#b-ar').onchange = e => { showAr = e.target.checked; try { localStorage.setIt
 $('#set-theme').onchange = e => { db.settings.theme = e.target.value; save(); applyTheme(); };
 $('#set-ics').onclick = exportIcs;
 $('#set-hijri').onchange = e => {
-  db.settings.hijriAdj = +e.target.value; save();
+  db.settings.hijriAdj = +e.target.value; save(); UPC = null;
   for (const k in DI) delete DI[k]; clearStats(); render(); renderRamadan(); renderEvents();
 };
 $('#set-haptic').onchange = e => { db.settings.haptic = e.target.checked; save(); if (e.target.checked) buzz(15); };
@@ -1979,7 +2142,7 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
 }
 
 applyTheme(); applyFont(); renderChips(); renderInfo(); render(); renderSettings(); renderSeg(); renderDuas();
-renderCustomForm(); renderEvents(); renderNames(); renderZakat(); renderRamadan(); renderHPath(); checkBadges();
+renderCustomForm(); renderEvents(); renderNames(); renderZakat(); renderRamadan(); renderHPath(); checkBadges(); renderDuaCollection();
 </script>
 </body>
 </html>
