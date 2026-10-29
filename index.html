@@ -73,9 +73,12 @@ summary{color:var(--muted);cursor:pointer}
 .src{margin-top:6px;padding:8px 10px;border-left:3px solid var(--gold);background:var(--bg);border-radius:0 8px 8px 0}
 .src .ref{font-weight:600;color:var(--gold);display:block;margin-top:4px}
 nav{position:fixed;z-index:10;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
-nav button{flex:1;border:0;background:none;color:var(--muted);padding:10px 0 12px;font-size:.75rem}
-nav button.on{color:var(--accent);font-weight:600}
-nav button span{display:block;font-size:1.25rem}
+nav button{flex:1;border:0;background:none;color:var(--muted);padding:6px 0 10px;font-size:.7rem;font-weight:600}
+nav button.on{color:var(--accent)}
+nav button span{position:relative;display:block;width:52px;margin:0 auto 2px;padding:3px 0;border-radius:14px;font-size:1.25rem;line-height:1.4}
+nav button.on span{background:var(--accent-soft)}
+nav .dot{position:absolute;top:2px;right:10px;width:8px;height:8px;border-radius:50%;background:#e0533d}
+nav .dot[hidden]{display:none}
 .page{display:none}.page.on{display:block}
 .hist{display:flex;align-items:flex-end;gap:4px;height:140px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 10px 26px;position:relative}
 .hist div{flex:1;background:var(--accent);border-radius:4px 4px 0 0;position:relative;min-height:2px}
@@ -331,6 +334,23 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 .kback{border:0;background:none;color:var(--accent);font:inherit;font-weight:700;padding:12px 0 0}
 .sayd{margin-top:6px}
 .sayd summary{color:var(--accent);font-weight:600;font-size:.85rem}
+.ptitle{margin:14px 0 10px}
+.ptitle b{display:block;font-size:1.25rem}
+.ptitle span{color:var(--muted);font-size:.82rem}
+.mgrp{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.mrow{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:none;color:var(--ink);padding:12px 14px;font:inherit}
+.mrow:last-child{border-bottom:0}
+.mrow>span{font-size:1.35rem;width:28px;text-align:center}
+.mrow div{flex:1;min-width:0}
+.mrow b{display:block;font-size:.95rem}
+.mrow small{color:var(--muted);font-size:.75rem}
+.mrow i{font-style:normal;color:var(--muted);font-size:1.2rem}
+#mlist[hidden],.mp[hidden]{display:none}
+.ptab{font-size:.95rem}
+.ptab th{text-align:left;font-size:.72rem;color:var(--muted);font-weight:600;padding:4px}
+.ptab td,.ptab td:last-child{color:var(--ink);font-weight:500;text-align:left;font-variant-numeric:tabular-nums}
+.ptab tr.on td{color:var(--accent);font-weight:700}
+#rank2 .rk{margin-top:0}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -365,7 +385,8 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 
   <!-- SCHNELL -->
   <section class="page" id="p-quick">
-    <div class="chips" id="seg" style="margin-top:12px"></div>
+    <div class="ptitle"><b>📿 Dhikr &amp; Du’a</b><span>Zählen, Adhkar zur richtigen Zeit, Du’as</span></div>
+    <div class="chips" id="seg"></div>
     <div id="adhk" hidden></div>
     <div id="quickwrap">
     <div class="qhead"><div><div class="sub">Heute über Schnell-Dhikr</div><span id="q-taps">0</span> Mal gesagt</div><div style="text-align:right"><b id="q-has">0</b><div class="sub">Hasanat (min.)*</div></div></div>
@@ -374,14 +395,30 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <p class="sub">* Pro Dhikr mindestens ×10 (Bukhari 6491; für SubhanAllah ausdrücklich: 100× = 1000, Muslim 2698). Der Bonus steht jeweils dabei – der eigentliche Lohn ist bei Allah.</p>
     <div class="card" id="cust"></div>
     </div>
+    <div id="duawrap" hidden>
+      <h2>🤲 Du’a-Sammlung aus Quran &amp; Sunnah</h2><div class="card" id="duac"></div>
+      <h2>📝 Meine Du’as</h2><div class="card" id="duas"></div>
+    <h2>Wann Du’a besonders erhört wird</h2>
+    <div class="card"><table>
+      <tr><td>Im letzten Drittel der Nacht</td><td>Bukhari 1145, Muslim 758</td></tr>
+      <tr><td>In der Niederwerfung (Sujud)</td><td>Muslim 482</td></tr>
+      <tr><td>Zwischen Adhan und Iqama</td><td>Abu Dawud 521, Tirmidhi 212 – sahih</td></tr>
+      <tr><td>In der Stunde am Freitag</td><td>Bukhari 935, Muslim 852</td></tr>
+      <tr><td>Für einen Bruder in seiner Abwesenheit</td><td>Muslim 2732</td></tr>
+      <tr><td>Du’a des Reisenden, des Unterdrückten und der Eltern</td><td>Tirmidhi 1905 – hasan</td></tr>
+    </table>
+    <p class="sub">„Euer Du’a wird erhört, solange ihr nicht ungeduldig werdet und sagt: Ich habe gebetet, aber wurde nicht erhört.“ (Bukhari 6340, Muslim 2735)</p></div>
+    </div>
   </section>
 
   <!-- VERLAUF -->
   <section class="page" id="p-hist">
-    <div class="chips" id="hseg" style="margin-top:12px">
-      <button class="chip on" data-hs="over">📊 Übersicht</button><button class="chip" data-hs="quran">📖 Quran</button><button class="chip" data-hs="sadaqa">🤲 Sadaqa</button><button class="chip" data-hs="qada">🔁 Nachholen</button><button class="chip" data-hs="badges">🏅 Abzeichen</button>
+    <div class="ptitle"><b>🏆 Fortschritt</b><span>Rang, Statistik und deine Tagebücher</span></div>
+    <div class="chips" id="hseg">
+      <button class="chip on" data-hs="rank">🏆 Rang</button><button class="chip" data-hs="over">📊 Statistik</button><button class="chip" data-hs="badges">🏅 Abzeichen</button><button class="chip" data-hs="quran">📖 Quran</button><button class="chip" data-hs="sadaqa">🤲 Sadaqa</button><button class="chip" data-hs="qada">🔁 Nachholen</button>
     </div>
-    <div class="hpn" data-h="over">
+    <div class="hpn" data-h="rank"><div id="rank2"></div><div id="pathinline"></div></div>
+    <div class="hpn" data-h="over" hidden>
       <h2>Letzte 14 Tage · erledigte Schritte</h2>
       <div class="hist" id="hist"></div>
       <div class="stats" style="margin-top:14px">
@@ -401,45 +438,32 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 
   <!-- WISSEN -->
   <section class="page" id="p-info">
-    <div class="inp" style="margin-top:12px"><input id="search" type="search" placeholder="🔎 Suchen: Rizq, Schulden, Witr, Eltern …" autocomplete="off"></div>
+    <div class="ptitle"><b>📖 Lernen</b><span>Wissen aufbauen – Schritt für Schritt</span></div>
+    <div class="inp"><input id="search" type="search" placeholder="🔎 Suchen: Rizq, Schulden, Witr, Eltern …" autocomplete="off"></div>
     <div id="sresults"></div>
     <div class="tiles" id="ktiles"></div>
     <div class="kp" data-k="hpath" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>🎓 Wissens-Pfad</h2><div class="card" id="hpath"></div></div>
-    <div class="kp" data-k="duac" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>🤲 Du’a-Sammlung aus Quran &amp; Sunnah</h2><div class="card" id="duac"></div>
-    <h2>Wann Du’a besonders erhört wird</h2>
-    <div class="card"><table>
-      <tr><td>Im letzten Drittel der Nacht</td><td>Bukhari 1145, Muslim 758</td></tr>
-      <tr><td>In der Niederwerfung (Sujud)</td><td>Muslim 482</td></tr>
-      <tr><td>Zwischen Adhan und Iqama</td><td>Abu Dawud 521, Tirmidhi 212 – sahih</td></tr>
-      <tr><td>In der Stunde am Freitag</td><td>Bukhari 935, Muslim 852</td></tr>
-      <tr><td>Für einen Bruder in seiner Abwesenheit</td><td>Muslim 2732</td></tr>
-      <tr><td>Du’a des Reisenden, des Unterdrückten und der Eltern</td><td>Tirmidhi 1905 – hasan</td></tr>
-    </table>
-    <p class="sub">„Euer Du’a wird erhört, solange ihr nicht ungeduldig werdet und sagt: Ich habe gebetet, aber wurde nicht erhört.“ (Bukhari 6340, Muslim 2735)</p></div>
-    </div>
-    <div class="kp" data-k="duas" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>📝 Meine Du’as</h2><div class="card" id="duas"></div></div>
     <div class="kp" data-k="names" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>🌟 Die 99 Namen Allahs</h2><div class="card" id="names"></div></div>
-    <div class="kp" data-k="events" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
-    <div class="kp" data-k="zakat" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>💰 Zakat-Rechner</h2><div class="card" id="zakat"></div></div>
     <div class="kp" data-k="mult" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>✖️ Die Multiplikatoren der Sunnah</h2><div class="card"><table id="mult"></table></div>
-      <h2>Rizq – was Quran &amp; Sunnah nennen</h2><div class="card" id="rizqinfo"></div>
-    <h2>Wichtig</h2>
-    <div class="card">
-      <p><b>Die Absicht zählt:</b> „Die Taten werden nur nach den Absichten beurteilt.“ <span class="sub">(Bukhari 1, Muslim 1907)</span></p>
-      <p>Die Zahlen hier sind eine Motivationshilfe, keine Abrechnung. Ob eine Tat angenommen wird und wie sehr sie vervielfacht wird, weiß nur Allah.</p>
-      <p><b>Quellen:</b> Bukhari nach Fath-al-Bari-Nummerierung, Muslim nach Abd-al-Baqi. Gradierungen außerhalb von Bukhari/Muslim sind angegeben. Bitte bei Bedarf auf sunnah.com oder bei einem Gelehrten gegenprüfen.</p>
-    </div>
-    </div>
+      <h2>Rizq – was Quran &amp; Sunnah nennen</h2><div class="card" id="rizqinfo"></div></div>
   </section>
 
   <!-- EINSTELLUNGEN -->
   <section class="page" id="p-set">
-    <h2>Daten</h2>
-    <div class="card"><p>Alles wird nur lokal auf diesem Gerät gespeichert. Mach ab und zu ein Backup.</p></div>
-    <button class="btn p" id="b-export">💾 Backup sichern (z. B. „In Dateien sichern“)</button>
-    <label class="btn" style="text-align:center">Backup importieren<input type="file" id="b-import" accept=".json,application/json,text/plain" hidden></label>
-    <button class="btn" id="b-reset">Heutigen Tag zurücksetzen</button>
-    <h2>Gebetszeiten</h2>
+    <div class="ptitle"><b>☰ Mehr</b><span>Werkzeuge, Einstellungen &amp; Daten</span></div>
+    <div id="mlist">
+      <h2>Werkzeuge</h2>
+      <div class="mgrp"><button class="mrow" data-qibla="1"><span>🧭</span><div><b>Qibla-Kompass</b><small>Richtung nach Mekka</small></div><i>›</i></button><button class="mrow" data-mk="ptimes"><span>🕌</span><div><b>Gebetszeiten</b><small>Heute und morgen</small></div><i>›</i></button><button class="mrow" data-mk="events"><span>📅</span><div><b>Besondere Tage</b><small>Fasten, Ramadan, Eid …</small></div><i>›</i></button><button class="mrow" data-mk="zakat"><span>💰</span><div><b>Zakat-Rechner</b><small>2,5 % · Nisab</small></div><i>›</i></button></div>
+      <h2>Einstellungen</h2>
+      <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-editlist="1"><span>✎</span><div><b>Tages-Liste anpassen</b><small>Taten aus- und einblenden</small></div><i>›</i></button></div>
+      <h2>Daten &amp; Hilfe</h2>
+      <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
+      <p class="sub" style="text-align:center">App-Version 17 (29.10.2026)</p>
+    </div>
+    <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
+    <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
+    <div class="mp" data-m="zakat" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>💰 Zakat-Rechner</h2><div class="card" id="zakat"></div></div>
+    <div class="mp" data-m="pset" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📍 Standort &amp; Berechnung</h2>
     <button class="btn p" data-loc="1">📍 Aktuellen Standort verwenden</button>
     <div class="inp"><input id="set-lat" inputmode="decimal" placeholder="Breite (z. B. 52.52)"><input id="set-lng" inputmode="decimal" placeholder="Länge (z. B. 13.40)"></div>
     <button class="btn" id="set-save">Koordinaten speichern</button>
@@ -452,26 +476,42 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
       <div class="adj" id="set-adj"></div></div>
     <button class="btn" id="set-ics">📅 Gebetszeiten in Kalender (30 Tage, mit Erinnerung)</button>
     <p class="sub">Berechnete Zeiten, können je nach Moschee ein paar Minuten abweichen. Koordinaten findest du z. B. in Apple Karten (Ort antippen).</p>
-    <h2>Kalender</h2>
+    </div>
+    <div class="mp" data-m="cal" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🗓️ Hijri-Kalender</h2>
     <select class="btn" id="set-hijri"><option value="-2">Hijri-Datum: −2 Tage</option><option value="-1">Hijri-Datum: −1 Tag</option><option value="0">Hijri-Datum: wie Umm al-Qura</option><option value="1">Hijri-Datum: +1 Tag</option><option value="2">Hijri-Datum: +2 Tage</option></select>
     <p class="sub">Falls deine Gemeinde den Monatsbeginn nach eigener Mondsichtung festlegt.</p>
-    <h2>Anzeige</h2>
+    </div>
+    <div class="mp" data-m="disp" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🎨 Anzeige</h2>
     <label class="card" style="display:flex;justify-content:space-between;align-items:center">Vibration / Haptik <input type="checkbox" id="set-haptic" style="width:22px;height:22px"></label>
     <select class="btn" id="set-theme"><option value="auto">Design: automatisch</option><option value="light">Design: hell</option><option value="dark">Design: dunkel</option></select>
     <select class="btn" id="set-font"><option value="n">Schrift: normal</option><option value="l">Schrift: groß</option><option value="xl">Schrift: sehr groß</option></select>
     <label class="card" style="display:flex;justify-content:space-between;align-items:center">Arabische Schrift anzeigen <input type="checkbox" id="b-ar" style="width:22px;height:22px"></label>
-    <p class="sub" style="text-align:center">App-Version 16 (29.10.2026)</p>
+    </div>
+    <div class="mp" data-m="data" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>💾 Backup &amp; Daten</h2>
+    <div class="card"><p>Alles wird nur lokal auf diesem Gerät gespeichert. Mach ab und zu ein Backup.</p></div>
+    <button class="btn p" id="b-export">💾 Backup sichern (z. B. „In Dateien sichern“)</button>
+    <label class="btn" style="text-align:center">Backup importieren<input type="file" id="b-import" accept=".json,application/json,text/plain" hidden></label>
+    <button class="btn" id="b-reset">Heutigen Tag zurücksetzen</button>
+    </div>
+    <div class="mp" data-m="about" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>ℹ️ Über die App</h2>
+    <h2>Wichtig</h2>
+    <div class="card">
+      <p><b>Die Absicht zählt:</b> „Die Taten werden nur nach den Absichten beurteilt.“ <span class="sub">(Bukhari 1, Muslim 1907)</span></p>
+      <p>Die Zahlen hier sind eine Motivationshilfe, keine Abrechnung. Ob eine Tat angenommen wird und wie sehr sie vervielfacht wird, weiß nur Allah.</p>
+      <p><b>Quellen:</b> Bukhari nach Fath-al-Bari-Nummerierung, Muslim nach Abd-al-Baqi. Gradierungen außerhalb von Bukhari/Muslim sind angegeben. Bitte bei Bedarf auf sunnah.com oder bei einem Gelehrten gegenprüfen.</p>
+    </div>
     <h2>Quran-Schätzung</h2>
     <div class="card"><p>Der Mushaf hat ca. 320.000 Buchstaben auf 604 Seiten ≈ 530 Buchstaben/Seite. Pro Buchstabe 1 Hasana ×10 (Tirmidhi 2910) ⇒ ca. <b>5.300 Hasanat pro Seite</b>. Das ist eine grobe Schätzung.</p></div>
+    </div>
   </section>
 </div></main>
 
 <nav>
-  <button class="on" data-p="today"><span>☀︎</span>Heute</button>
-  <button data-p="quick"><span>⚡</span>Schnell</button>
-  <button data-p="hist"><span>▤</span>Verlauf</button>
-  <button data-p="info"><span>❖</span>Wissen</button>
-  <button data-p="set"><span>⚙︎</span>Daten</button>
+  <button class="on" data-p="today"><span>🏠</span>Heute</button>
+  <button data-p="quick"><span>📿<i class="dot" id="dot-quick" hidden></i></span>Dhikr</button>
+  <button data-p="info"><span>📖</span>Lernen</button>
+  <button data-p="hist"><span>🏆</span>Fortschritt</button>
+  <button data-p="set"><span>☰</span>Mehr</button>
 </nav>
 <div class="toast" id="toast"></div>
 <div class="tzo" id="tz" hidden>
@@ -889,7 +929,8 @@ function renderStats(){
   $('#date').textContent = new Date().toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long', year:'numeric'})
     + (h.hm ? ` · ${h.hd}. ${HIJRI_MONTHS[h.hm-1]} ${h.hy}` : '');
   clearTimeout(renderStats.t); renderStats.t = setTimeout(() => checkBadges(), 900);
-  renderMissions(); renderRank(); xpTick();
+  renderMissions(); renderRank(); xpTick(); renderDot();
+  const r2 = $('#rank2'); if (r2) r2.innerHTML = $('#rank').innerHTML;
 }
 function renderHist(){
   const days = []; const d = new Date(); d.setDate(d.getDate()-13);
@@ -903,6 +944,8 @@ function renderHist(){
   $('#h-days').textContent = all.filter(active).length;
   $('#h-best').textContent = bestStreak();
   renderHistMore();
+  if (!document.querySelector('.hpn[data-h="rank"]').hidden) $('#pathinline').innerHTML = pathHTML();
+  $('#rank2').innerHTML = $('#rank').innerHTML;
 }
 function renderInfo(){
   $('#mult').innerHTML = MULT.map(([a,b,c]) => `<tr><td>${a}<br><span class="sub">${b}</span></td><td>${c}</td></tr>`).join('');
@@ -1162,7 +1205,7 @@ const ADHKAR = [
    reward:'Wenn er ﷺ sich schlafen legte, sagte er: „Bismika Allahumma amutu wa ahya.“', ref:'Bukhari 6324'},
 ];
 for (const a of ADHKAR) [a.tr, a.de] = SAY[a.say];
-const SEGS = {quick:'⚡ Schnell', m:'🌅 Morgen', e:'🌇 Abend', s:'🌙 Schlaf'};
+const SEGS = {quick:'⚡ Zähler', m:'🌅 Morgen', e:'🌇 Abend', s:'🌙 Schlaf', du:'🤲 Du’as'};
 const SEGINFO = {m:'Nach dem Fajr-Gebet bis zum Vormittag', e:'Nach dem Asr-Gebet bis in die Nacht', s:'Vor dem Einschlafen, am besten mit Wudu auf der rechten Seite liegend'};
 const adhItems = set => ADHKAR.filter(a => a.sets.includes(set));
 const adhCount = (x, set) => adhItems(set).filter(a => (x[`a:${set}:${a.id}`] || 0) >= a.target).length;
@@ -1182,11 +1225,12 @@ function autoSeg(){
 function renderSeg(){
   $('#seg').innerHTML = Object.entries(SEGS).map(([k, v]) => `<button class="chip ${k===seg?'on':''}" data-seg="${k}">${v}</button>`).join('');
   $('#quickwrap').hidden = seg !== 'quick';
-  $('#adhk').hidden = seg === 'quick';
+  $('#adhk').hidden = seg === 'quick' || seg === 'du';
+  $('#duawrap').hidden = seg !== 'du';
   renderAdhkar();
 }
 function renderAdhkar(){
-  if (seg === 'quick') return;
+  if (seg === 'quick' || seg === 'du') return;
   const x = day(today), items = adhItems(seg), done = adhCount(x, seg);
   const open = new Set([...document.querySelectorAll('#adhk details[open]')].map(e => e.closest('.q').dataset.id));
   $('#adhk').innerHTML = `<div class="qhead"><div><div class="sub">${SEGINFO[seg]}</div>${done} von ${items.length} erledigt</div><div style="text-align:right"><b>${done === items.length ? '✓' : Math.round(done / items.length * 100) + '%'}</b></div></div>`
@@ -1212,12 +1256,14 @@ function tapAdhkar(key, delta){
   if (delta < 0) return;
   buzz(x[k] === a.target ? [40,60,40] : 8);
   if (adhCount(x, set) === adhItems(set).length && before < adhItems(set).length) toast(`${SEGS[set]}-Adhkar komplett – BarakAllahu fik ✓`);
+  renderDot();
 }
 function showPage(pg){
   document.querySelectorAll('nav button').forEach(n => n.classList.toggle('on', n.dataset.p === pg));
   document.querySelectorAll('.page').forEach(p => p.classList.toggle('on', p.id === 'p-' + pg));
   if (pg === 'hist') renderHist();
   if (pg === 'info') showK(null);
+  if (pg === 'set') showM(null);
   if (pg === 'quick') { if (!segPicked) seg = autoSeg(); renderSeg(); }
   $('#scroller').scrollTop = 0;
 }
@@ -1337,7 +1383,7 @@ function renderKhatm(){
     : `<p><b>Seite ${Math.min(st.done, PAGES)} von ${PAGES}</b> · noch ${st.daysLeft} Tag${st.daysLeft === 1 ? '' : 'e'}</p>
        <div class="bar"><i style="width:${pct}%;background:var(--gold)"></i></div>
        ${juzGrid(st.done)}
-       <p>Heutiges Ziel: <b>${st.plan} Seiten</b> (${fmt(st.plan * PER_PAGE)} Hasanat ≈). Eintragen bei „Quran lesen“ unter Heute.</p>
+       <p>Heutiges Ziel: <b>${st.plan} Seiten</b> (${fmt(st.plan * PER_PAGE)} Hasanat ≈). Eintragen bei „Quran lesen“ unter 🏠 Heute.</p>
        <button class="btn" data-khatm="stop">Khatm beenden</button>`;
 }
 
@@ -1678,9 +1724,9 @@ function renderIntro(){
   }
   $('#intro').innerHTML = `<div class="card intro"><b>Assalāmu ‘alaykum 👋</b>
     <p>1. <b>📍 Standort festlegen</b> – für Gebetszeiten, Qibla und die passenden Adhkar zur richtigen Zeit.</p>
-    <p>2. Im Tab <b>⚡ Schnell</b> findest du Dhikr zum Antippen und die Morgen-, Abend- und Schlaf-Adhkar.</p>
+    <p>2. Im Reiter <b>📿 Dhikr</b> findest du Dhikr zum Antippen, die Morgen-, Abend- und Schlaf-Adhkar und Du’as.</p>
     <p>3. Jede Tat hat ihre <b>Quelle</b> – einfach „Quelle &amp; Belohnung“ aufklappen.</p>
-    <p>4. Ab und zu unter <b>Daten</b> ein Backup machen.</p>
+    <p>4. Ab und zu unter <b>☰ Mehr → Backup</b> sichern.</p>
     <button class="btn p" data-intro="1">Bismillah, los geht’s</button></div>`;
 }
 
@@ -1925,14 +1971,17 @@ function renderRank(){
     </span><span class="rk-a">›</span></button>`;
 }
 function openPath(){
+  $('#path-body').innerHTML = pathHTML();
+  $('#path').hidden = false; $('#path').scrollTop = 0;
+}
+function pathHTML(){
   const xp = totalXP(), r = Math.max(db.rank || 0, lastL ? rankIndex(lastL, xp) : 0);
-  $('#path-body').innerHTML = `<p class="sub">XP bekommst du für jedes Gebet (+10, in Jama’a +5 extra), alle 5 Gebete (+20), erledigte Schritte (+10), jede Quran-Seite (+5), Dhikr (1 je 10×), Tagesmissionen (+15, alle drei +25), gelernte Hadith (+20) und Namen Allahs (+5). Für jeden Rang brauchst du die XP <b>und</b> echte Gewohnheiten.</p>`
+  return `<p class="sub">XP bekommst du für jedes Gebet (+10, in Jama’a +5 extra), alle 5 Gebete (+20), erledigte Schritte (+10), jede Quran-Seite (+5), Dhikr (1 je 10×), Tagesmissionen (+15, alle drei +25), gelernte Hadith (+20) und Namen Allahs (+5). Für jeden Rang brauchst du die XP <b>und</b> echte Gewohnheiten.</p>`
     + RANKS.map((R, i) => `<div class="pr ${i <= r ? 'on' : ''} ${i === r ? 'cur' : ''}">
       <div class="pr-h"><span>${R.icon}</span><div><b>${i + 1}. ${R.name}</b><small>${fmt(R.xp)} XP${i === r ? ' · du bist hier' : i < r ? ' · geschafft ✓' : ''}</small></div></div>
       ${R.gates.length ? `<div class="pr-g">${R.gates.map(([t, f, n]) => `<span class="${lastL && f(lastL) >= n ? 'ok' : ''}">${lastL && f(lastL) >= n ? '✓' : '○'} ${t}</span>`).join('')}</div>` : ''}
       <p>${esc(R.quote)} <span class="gref">${esc(R.ref)}</span></p></div>`).join('')
     + `<p class="sub" style="margin-top:12px"><b>Ehrlich gesagt:</b> Ein echter Sheikh bzw. Gelehrter wird man durch jahrelanges Lernen bei Lehrern – Arabisch, Quran, Hadith, Fiqh. Die Ränge hier sind eine Motivationshilfe für Gewohnheiten und Grundwissen; ob Taten angenommen werden, weiß nur Allah. Bleib bescheiden: „Wer sich für Allah demütig zeigt, den erhöht Allah.“ (Muslim 2588)</p>`;
-  $('#path').hidden = false; $('#path').scrollTop = 0;
 }
 $('#path').addEventListener('click', e => { if (e.target.closest('#path-close')) $('#path').hidden = true; });
 
@@ -2042,7 +2091,7 @@ function renderRamadanCard(){
     if (!r || r.n > 30) { el.hidden = true; return; }
     el.hidden = false;
     el.innerHTML = `<b>🌙 Ramadan in ${r.n} Tagen – Vorbereitung</b>
-      <p>• Offene Fastentage nachholen${db.qada && db.qada.fast ? ` (<b>${db.qada.fast}</b> offen – siehe Verlauf → Nachholen)` : ''}<br>• Quran-Plan für Ramadan starten (Verlauf → Quran-Khatm)<br>• Im Scha’ban fasten: Er ﷺ fastete in keinem Monat (außer Ramadan) so viel wie im Scha’ban. <span class="gref">Bukhari 1969, Muslim 1156</span></p>`;
+      <p>• Offene Fastentage nachholen${db.qada && db.qada.fast ? ` (<b>${db.qada.fast}</b> offen – siehe 🏆 Fortschritt → Nachholen)` : ''}<br>• Quran-Plan für Ramadan starten (🏆 Fortschritt → Quran)<br>• Im Scha’ban fasten: Er ﷺ fastete in keinem Monat (außer Ramadan) so viel wie im Scha’ban. <span class="gref">Bukhari 1969, Muslim 1156</span></p>`;
     return;
   }
   el.hidden = false;
@@ -2303,10 +2352,10 @@ const HELP = [
   ['🕌', 'Gebete abhaken', 'Ganz oben unter „Heute“: Tippe auf Fajr, Dhuhr … – einmal = ✓ gebetet, zweimal = 👥 in Gemeinschaft.', '+10 XP je Gebet · +5 je Jama’a · +20 für alle 5', {prayers:1}],
   ['✅', 'Taten abhaken', 'Unter „Heute“ in der Liste: rechts auf „○ Abhaken“ tippen – bei Zählern auf „+1“, bis das Ziel erreicht ist.', '+10 XP pro erledigter Tat', {deed:'duha'}],
   ['🎯', 'Tagesmissionen', 'Drei Aufgaben pro Tag. „Abhaken“ hakt direkt ab, „Los ›“ bringt dich genau zur richtigen Stelle.', '+15 je Mission · +25 für alle drei', null],
-  ['📿', 'Dhikr', 'Tab „⚡ Schnell“: Die ganze Karte antippen = einmal gesagt. Mit ⛶ im Vollbild zählen.', '+1 XP pro 10× Dhikr', {quick:'q_subhan'}],
-  ['🌅', 'Morgen-, Abend-, Schlaf-Adhkar', 'Tab „⚡ Schnell“ → oben Morgen / Abend / Schlaf wählen und jede Karte antippen.', 'Set komplett = Schritt erledigt (+10)', {seg:'m'}],
-  ['📚', 'Wissens-Pfad', 'Tab „Wissen“: Hadith lesen, verinnerlichen, „Gelernt ✓“ tippen.', '+20 XP pro Hadith', {hpath:1}],
-  ['🌟', '99 Namen Allahs', 'Tab „Wissen“ → Lernmodus: Name ansehen, Bedeutung zeigen, „Kann ich ✓“.', '+5 XP pro Name', {names:1}],
+  ['📿', 'Dhikr', 'Reiter „📿 Dhikr“: Die ganze Karte antippen = einmal gesagt. Mit ⛶ im Vollbild zählen.', '+1 XP pro 10× Dhikr', {quick:'q_subhan'}],
+  ['🌅', 'Morgen-, Abend-, Schlaf-Adhkar', 'Reiter „📿 Dhikr“ → oben Morgen / Abend / Schlaf wählen und jede Karte antippen.', 'Set komplett = Schritt erledigt (+10)', {seg:'m'}],
+  ['📚', 'Wissens-Pfad', 'Reiter „📖 Lernen“ → Wissens-Pfad: Hadith lesen, verinnerlichen, „Gelernt ✓“ tippen.', '+20 XP pro Hadith', {hpath:1}],
+  ['🌟', '99 Namen Allahs', 'Reiter „📖 Lernen“ → 99 Namen → Lernmodus: Name ansehen, Bedeutung zeigen, „Kann ich ✓“.', '+5 XP pro Name', {names:1}],
 ];
 function openHelp(){
   $('#help-body').innerHTML = `<p>Alles, was du abhakst, gibt XP – oben im Rang-Balken siehst du sofort „+XP“.</p>`
@@ -2328,17 +2377,13 @@ function renderHelpBanner(){
 // ---------- Übersicht: Kacheln (Wissen) & Reiter (Verlauf) ----------
 let curK = null;
 function renderTiles(){
-  const ev = upcomingCached()[0];
   const T = [
+    ['🎓', 'Wissens-Pfad', `${Object.keys(db.hadith).length}/42 Hadith gelernt`, 'data-kt="hpath"'],
+    ['🌟', '99 Namen Allahs', `${Object.keys(db.names).length}/99 gelernt`, 'data-kt="names"'],
     ['📚', 'Hadith-Bibliothek', 'Alle Sunan, Bukhari, Muslim', 'data-libopen="1"'],
     ['📖', 'Gebets-Anleitung', 'Rak’at, Adhan, Schritt für Schritt', 'data-guide="1"'],
-    ['🎓', 'Wissens-Pfad', `${Object.keys(db.hadith).length}/42 Hadith gelernt`, 'data-kt="hpath"'],
-    ['🤲', 'Du’a-Sammlung', `${DUAS.length} Du’as · Rizq, Sorgen …`, 'data-kt="duac"'],
-    ['📝', 'Meine Du’as', `${db.duas.length} Einträge`, 'data-kt="duas"'],
-    ['🌟', '99 Namen Allahs', `${Object.keys(db.names).length}/99 gelernt`, 'data-kt="names"'],
-    ['📅', 'Besondere Tage', ev ? `${ev.name.replace(/^\S+\s/, '')}: ${ev.n === 1 ? 'morgen' : `in ${ev.n} T.`}` : 'Kalender', 'data-kt="events"'],
-    ['💰', 'Zakat-Rechner', '2,5 % · Nisab Gold/Silber', 'data-kt="zakat"'],
     ['✖️', 'Multiplikatoren & Rizq', '×10 bis ×700 · Quellen', 'data-kt="mult"'],
+    ['🔎', 'Alles durchsuchen', 'Hadith, Du’as, Adhkar …', 'data-focus-search="1"'],
   ];
   $('#ktiles').innerHTML = T.map(([i, t, sub, attr]) => `<button class="tile" ${attr}><span>${i}</span><b>${t}</b><small>${esc(sub)}</small></button>`).join('');
 }
@@ -2350,8 +2395,32 @@ function showK(k){
   $('#scroller').scrollTop = 0;
 }
 function showH(h){
+  if (h === 'rank') $('#pathinline').innerHTML = pathHTML();
   document.querySelectorAll('#hseg .chip').forEach(c => c.classList.toggle('on', c.dataset.hs === h));
   document.querySelectorAll('.hpn').forEach(el => { el.hidden = el.dataset.h !== h; });
+}
+
+
+// ---------- Navigation: Mehr-Menü, Gebetszeiten-Tabelle, Hinweis-Punkt ----------
+function showM(k){
+  $('#mlist').hidden = !!k;
+  document.querySelectorAll('.mp').forEach(el => { el.hidden = el.dataset.m !== k; });
+  if (k === 'ptimes') renderPrayerTable();
+  $('#scroller').scrollTop = 0;
+}
+function renderPrayerTable(){
+  const now = new Date(), t = times(now);
+  if (!t) { $('#ptable').innerHTML = '<p>Für Gebetszeiten brauchst du deinen Standort.</p><button class="btn p" data-loc="1">📍 Standort festlegen</button>'; return; }
+  const tm = new Date(now); tm.setDate(tm.getDate() + 1); const t2 = times(tm), np = nextPrayer();
+  $('#ptable').innerHTML = `<table class="ptab"><tr><th></th><th>Heute</th><th>Morgen</th></tr>${Object.keys(PNAMES).map(k =>
+    `<tr class="${np && !np.tomorrow && np.k === k ? 'on' : ''}"><td>${PNAMES[k]}</td><td>${hm(t[k])}</td><td>${hm(t2[k])}</td></tr>`).join('')}</table>
+    <p class="sub">${esc(db.settings.place || '')} · ${PrayerCalc.METHODS[db.settings.method || 'diyanet'].name}${db.settings.hanafi ? ' · Asr Hanafi' : ''}</p>
+    <button class="btn" data-mk="pset">⚙️ Standort &amp; Berechnung ändern</button>`;
+}
+// kleiner Punkt am Dhikr-Reiter, wenn gerade Adhkar-Zeit ist und das Set noch offen ist
+function renderDot(){
+  const h = typeof nowHint === 'function' ? nowHint() : null;
+  $('#dot-quick').hidden = !(h && h.seg && adhCount(day(today), h.seg) < adhItems(h.seg).length);
 }
 
 // ---------- Interaktion ----------
@@ -2391,6 +2460,9 @@ document.addEventListener('click', e => {
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
   else if ('kt' in b.dataset) showK(b.dataset.kt);
+  else if ('mk' in b.dataset) { if (!$('#p-set').classList.contains('on')) showPage('set'); showM(b.dataset.mk || null); }
+  else if (b.dataset.focusSearch) { $('#search').focus(); $('#search').scrollIntoView({block:'center'}); }
+  else if (b.dataset.editlist) { showPage('today'); filter = 'Alle'; editMode = true; renderChips(); renderList(); setTimeout(() => flash($('#chips')), 50); }
   else if (b.dataset.hs) showH(b.dataset.hs);
   else if (b.dataset.done) { showDone[b.dataset.done] = !showDone[b.dataset.done]; renderList(); }
   else if (b.dataset.help) openHelp();
