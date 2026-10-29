@@ -203,6 +203,23 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 .zr{background:var(--gold-soft);border-radius:12px;padding:12px;margin:10px 0;text-align:center}
 .zr b{font-size:1.15rem;color:var(--gold)}
 #ramadan:empty{display:none}
+.sheet{position:fixed;inset:0;z-index:55;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:calc(env(safe-area-inset-top) + 12px) 0 calc(env(safe-area-inset-bottom) + 24px)}
+.sheet[hidden]{display:none}
+.sheet-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.sheet-h h3{margin:0;font-size:1.2rem}
+.gd{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:0 0 10px;padding:0}
+.gd summary{padding:12px 14px;font-weight:700;color:var(--ink);font-size:.95rem}
+.gb{padding:0 14px 12px;font-size:.9rem}
+.gb p{margin:.55em 0}
+.gb h4{margin:14px 0 4px;font-size:.9rem}
+.gref{display:inline-block;font-size:.72rem;font-weight:600;color:var(--gold);background:var(--gold-soft);border-radius:6px;padding:1px 6px;margin:2px 0}
+.gt{font-size:.82rem;margin:4px 0 8px}
+.gt th{text-align:left;font-size:.68rem;color:var(--muted);font-weight:600;padding:4px;border-bottom:1px solid var(--line)}
+.gt td,.gt td:last-child{color:var(--ink);font-weight:400;text-align:left;white-space:normal}
+.gl{padding-left:20px;margin:6px 0}
+.gl li{margin:0 0 10px}
+.ans{background:var(--accent-soft);border-radius:10px;padding:8px 10px}
+.gbtn{display:block;width:100%;margin-top:10px;border:1px dashed var(--accent);background:transparent;color:var(--accent);border-radius:12px;padding:9px;font:inherit;font-weight:600;font-size:.88rem}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -267,6 +284,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 
   <!-- WISSEN -->
   <section class="page" id="p-info">
+    <button class="gbtn" data-guide="1" style="margin-top:12px">📖 Gebets-Anleitung: Rak’at, Adhan &amp; Iqama, Schritt für Schritt</button>
     <h2>Meine Du’as</h2>
     <div class="card" id="duas"></div>
     <h2>Wann Du’a besonders erhört wird</h2>
@@ -319,7 +337,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <select class="btn" id="set-theme"><option value="auto">Design: automatisch</option><option value="light">Design: hell</option><option value="dark">Design: dunkel</option></select>
     <select class="btn" id="set-font"><option value="n">Schrift: normal</option><option value="l">Schrift: groß</option><option value="xl">Schrift: sehr groß</option></select>
     <label class="card" style="display:flex;justify-content:space-between;align-items:center">Arabische Schrift anzeigen <input type="checkbox" id="b-ar" style="width:22px;height:22px"></label>
-    <p class="sub" style="text-align:center">App-Version 9 (29.10.2026)</p>
+    <p class="sub" style="text-align:center">App-Version 10 (29.10.2026)</p>
     <h2>Quran-Schätzung</h2>
     <div class="card"><p>Der Mushaf hat ca. 320.000 Buchstaben auf 604 Seiten ≈ 530 Buchstaben/Seite. Pro Buchstabe 1 Hasana ×10 (Tirmidhi 2910) ⇒ ca. <b>5.300 Hasanat pro Seite</b>. Das ist eine grobe Schätzung.</p></div>
   </section>
@@ -365,6 +383,12 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
   <div id="fc-d"></div>
   <button class="btn p" id="fc-show" style="max-width:340px;margin-top:24px">Bedeutung zeigen</button>
   <div class="fcb" id="fc-act" hidden><button class="btn" id="fc-again">Nochmal</button><button class="btn p" id="fc-ok">Kann ich ✓</button></div>
+</div>
+<div class="sheet" id="guide" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>📖 Gebets-Anleitung</h3><button class="x" id="guide-close" aria-label="schließen">✕</button></div>
+    <div id="guide-body"></div>
+  </div>
 </div>
 <script src="prayer.js"></script>
 
@@ -1263,6 +1287,7 @@ function prayerCard(){
     <div class="row"><div class="t"><b>Die 5 Pflichtgebete</b><div class="tags"><span class="tag">beliebteste Tat</span><span class="tag">Jama’a ×27 Grade</span>${n ? `<span class="tag h">+${fmt(n * 10 + g * 10)}</span>` : ''}</div></div><span class="num">${n}/5</span></div>
     <div class="pw">${tiles}</div>
     <p class="sub" style="margin:6px 0 0">Tippen: ○ offen → ✓ gebetet → 👥 in Gemeinschaft</p>
+    <button class="gbtn" data-guide="1">📖 Gebets-Anleitung: Rak’at, Adhan &amp; Iqama, Schritt für Schritt</button>
     <details><summary>Quelle &amp; Belohnung</summary><div class="src">${esc(f.reward)}<span class="ref">${esc(f.ref)}</span></div><div class="src">${esc(j.reward)}<span class="ref">${esc(j.ref)}</span></div></details>
   </div>`;
 }
@@ -1442,6 +1467,109 @@ function renderIntro(){
     <button class="btn p" data-intro="1">Bismillah, los geht’s</button></div>`;
 }
 
+// ---------- Gebets-Anleitung ----------
+const G_SAY = (tr, de) => `<div class="say"><div class="tr">${tr}</div><div class="de">„${de}“</div></div>`;
+const G_REF = r => `<span class="gref">${r}</span>`;
+const GUIDE = [
+  ['🕌 Wie viele Rak’at hat welches Gebet?', `
+    <table class="gt"><tr><th>Gebet</th><th>Sunnah davor</th><th>Fard</th><th>Sunnah danach</th></tr>
+      <tr><td><b>Fajr</b></td><td>2 ⭐</td><td><b>2</b></td><td>–</td></tr>
+      <tr><td><b>Dhuhr</b></td><td>4 ⭐ (oder 2)</td><td><b>4</b></td><td>2 ⭐</td></tr>
+      <tr><td><b>Asr</b></td><td>4 (freiwillig)</td><td><b>4</b></td><td>–</td></tr>
+      <tr><td><b>Maghrib</b></td><td>2 (freiwillig)</td><td><b>3</b></td><td>2 ⭐</td></tr>
+      <tr><td><b>Isha</b></td><td>freiwillig</td><td><b>4</b></td><td>2 ⭐ + Witr</td></tr>
+      <tr><td><b>Jumu’a</b></td><td>freiwillig</td><td><b>2</b> + Khutba</td><td>4 (Moschee) oder 2 (zu Hause)</td></tr>
+    </table>
+    <p><b>⭐ = Sunnah mu’akkada</b> (stark betonte Sunnah, die der Prophet ﷺ kaum ausließ). Zusammen sind das die <b>12 Rawatib</b>: „Wer an einem Tag zwölf Rak’at betet, dem wird ein Haus im Paradies gebaut.“ ${G_REF('Muslim 728; Aufzählung: Tirmidhi 415 – hasan sahih')}</p>
+    <p><b>Nur die Fard-Rak’at sind Pflicht.</b> Die Sunnah-Gebete sind freiwillig, aber sehr belohnt und gleichen Mängel im Pflichtgebet aus.</p>
+    <p><b>Witr</b> (nach Isha bis Fajr): mindestens 1 Rak’a, meist 3. Nach der hanafitischen Schule ist Witr <b>wajib</b> (3 Rak’at), nach der Mehrheit Sunnah mu’akkada. „Macht den Witr zu eurem letzten Gebet in der Nacht.“ ${G_REF('Bukhari 998, Muslim 751; Muslim 752')}</p>
+    <p>Freiwillige 4 vor Asr: „Allah erbarme sich eines Menschen, der vor dem Asr vier betet.“ ${G_REF('Abu Dawud 1271, Tirmidhi 430 – hasan')} · 2 vor Maghrib: „Betet vor Maghrib … für wen es will.“ ${G_REF('Bukhari 1183')} · Nach Jumu’a: ${G_REF('Muslim 881; Bukhari 937, Muslim 882')}</p>
+    <p><b>Auf Reisen</b> werden 4er-Gebete (Dhuhr, Asr, Isha) auf <b>2</b> verkürzt; Fajr und Maghrib bleiben. ${G_REF('Quran 4:101; Bukhari 1090, Muslim 685')}</p>`],
+
+  ['📣 Adhan & Iqama – Pflicht, wenn ich allein bete?', `
+    <p class="ans"><b>Kurz: Nein.</b> Dein Gebet ist auch ohne Adhan und Iqama gültig.</p>
+    <p><b>Hanafi, Maliki, Schafi’i:</b> Adhan und Iqama sind Sunnah mu’akkada (stark empfohlen).<br><b>Hanbali:</b> für Männer in einer Ortschaft Fard Kifaya – wenn die Moschee den Adhan ruft, ist die Pflicht für alle erfüllt.</p>
+    <p><b>Wenn du allein betest</b> (zu Hause, unterwegs, auf der Arbeit): Es ist Sunnah, zumindest die <b>Iqama</b> zu sprechen; auch der Adhan allein ist belohnt. Wurde in deiner Gegend schon der Adhan gerufen, genügt vielen Gelehrten zufolge die Iqama.</p>
+    <p>„Wenn du bei deinen Schafen in der Wüste bist und zum Gebet rufst, dann erhebe deine Stimme, denn kein Dschinn, kein Mensch und nichts hört die Stimme des Muezzins, ohne dass es am Tag der Auferstehung für ihn Zeugnis ablegt.“ ${G_REF('Bukhari 609')}</p>
+    <p>Allah wundert sich über einen Hirten auf einem Berggipfel, der den Adhan ruft und betet: „Ich habe Meinem Diener vergeben und ihn ins Paradies eingelassen.“ ${G_REF('an-Nasa’i 666, Abu Dawud 1203 – sahih (al-Albani)')}</p>
+    <p><b>Frauen:</b> Kein Adhan nötig; die Iqama ist nach mehreren Rechtsschulen empfohlen.</p>
+    <h4>Der Adhan</h4>
+    ${G_SAY('Allāhu akbar (4×) · Ash-hadu an lā ilāha illallāh (2×) · Ash-hadu anna Muhammadan rasūlullāh (2×) · Hayya ‘alas-salāh (2×) · Hayya ‘alal-falāh (2×) · [nur Fajr: As-salātu khayrun minan-nawm (2×)] · Allāhu akbar (2×) · Lā ilāha illallāh', 'Allah ist größer · Ich bezeuge, dass es keinen Gott außer Allah gibt · Ich bezeuge, dass Muhammad der Gesandte Allahs ist · Kommt zum Gebet · Kommt zum Erfolg · [Das Gebet ist besser als Schlaf] · Allah ist größer · Es gibt keinen Gott außer Allah')}
+    <h4>Die Iqama</h4>
+    ${G_SAY('Allāhu akbar (2×) · Ash-hadu an lā ilāha illallāh · Ash-hadu anna Muhammadan rasūlullāh · Hayya ‘alas-salāh · Hayya ‘alal-falāh · Qad qāmatis-salāh (2×) · Allāhu akbar (2×) · Lā ilāha illallāh', '… Das Gebet hat begonnen …')}
+    <p>Bilal wurde angewiesen, den Adhan paarweise und die Iqama einzeln zu sprechen – außer „Qad qāmatis-salāh“. ${G_REF('Bukhari 605, Muslim 378')} Nach hanafitischer Praxis wird die Iqama wie der Adhan doppelt gesprochen.</p>
+    <p><b>Wenn du den Adhan hörst:</b> sprich die Worte leise mit; bei „Hayya ‘ala …“ sagst du „Lā hawla wa lā quwwata illā billāh“. ${G_REF('Muslim 385')} Danach Salawat und das Du’a nach dem Adhan. ${G_REF('Muslim 384; Bukhari 614')}</p>`],
+
+  ['✅ Voraussetzungen (Schurut)', `
+    <ol class="gl">
+      <li><b>Die Zeit ist eingetreten.</b> Siehe Gebetszeiten oben. ${G_REF('Quran 4:103')}</li>
+      <li><b>Rituelle Reinheit:</b> Wudu (bzw. Ghusl nach großer Unreinheit). „Allah nimmt kein Gebet ohne Reinheit an.“ ${G_REF('Muslim 224; Bukhari 135')}</li>
+      <li><b>Sauberer Körper, Kleidung und Gebetsplatz</b> (frei von Najasa).</li>
+      <li><b>‘Awra bedeckt:</b> Männer mindestens vom Bauchnabel bis zu den Knien (Schultern bedeckt ist Sunnah), Frauen alles außer Gesicht und Händen.</li>
+      <li><b>Richtung Qibla.</b> ${G_REF('Quran 2:144')} → 🧭 Qibla bei den Gebetszeiten.</li>
+      <li><b>Absicht (Niyya)</b> im Herzen – laut aussprechen ist nicht nötig. ${G_REF('Bukhari 1, Muslim 1907')}</li>
+    </ol>`],
+
+  ['🧎 Schritt für Schritt (2 Rak’at, z. B. Fajr)', `
+    <p class="sub">So wie die Mehrheit der Gelehrten es beschreibt. Kleine Unterschiede zwischen den Rechtsschulen (z. B. Haltung der Hände) sind alle gültig. „Betet, wie ihr mich beten seht.“ ${G_REF('Bukhari 631')}</p>
+    <ol class="gl steps">
+      <li><b>Stehen, Absicht fassen</b>, Richtung Qibla.</li>
+      <li><b>Takbirat al-Ihram:</b> Hände bis zu den Schultern/Ohren heben und sagen: <span class="tr">Allāhu akbar</span>. Ab jetzt keine Gespräche mehr. ${G_REF('Bukhari 735')}</li>
+      <li><b>Hände auf die Brust/den Bauch</b>, rechte über linke. ${G_REF('Bukhari 740')} Eröffnungs-Du’a (Sunnah):
+        ${G_SAY('Subhānakallāhumma wa bihamdika, wa tabārakasmuka, wa ta‘ālā jadduka, wa lā ilāha ghayruk', 'Gepriesen bist Du, o Allah, und Dir gebührt das Lob; gesegnet ist Dein Name, erhaben ist Deine Majestät, und es gibt keinen Gott außer Dir.')} ${G_REF('Muslim 399; Abu Dawud 775 – sahih')}</li>
+      <li><b>A’ūdhu billāhi minasch-schaytānir-rajīm, Bismillāhir-rahmānir-rahīm</b>, dann <b>al-Fatiha</b> (siehe „Texte“) – in jeder Rak’a. „Kein Gebet für den, der die Fatiha nicht liest.“ ${G_REF('Bukhari 756, Muslim 394')} Danach „Āmīn“.</li>
+      <li><b>Eine weitere Sure oder Verse</b> (in den ersten beiden Rak’at), z. B. al-Ikhlas. ${G_REF('Bukhari 776')}</li>
+      <li><b>Ruku’ (Verbeugung):</b> <span class="tr">Allāhu akbar</span>, Rücken gerade, Hände auf den Knien, 3×: ${G_SAY('Subhāna rabbiyal-‘azīm', 'Gepriesen ist mein Herr, der Gewaltige')} ${G_REF('Muslim 772')}</li>
+      <li><b>Aufrichten:</b> ${G_SAY('Sami‘allāhu liman hamidah – Rabbanā wa lakal-hamd', 'Allah hört den, der Ihn lobt – Unser Herr, Dir gebührt das Lob')} ${G_REF('Bukhari 789, 795')}</li>
+      <li><b>Sujud (Niederwerfung):</b> <span class="tr">Allāhu akbar</span>, auf 7 Körperteilen: Stirn+Nase, beide Hände, beide Knie, beide Fußspitzen. ${G_REF('Bukhari 812, Muslim 490')} 3×: ${G_SAY('Subhāna rabbiyal-a‘lā', 'Gepriesen ist mein Herr, der Höchste')} ${G_REF('Muslim 772')} Hier ist man Allah am nächsten – viel Du’a machen. ${G_REF('Muslim 482')}</li>
+      <li><b>Sitzen zwischen den Niederwerfungen:</b> ${G_SAY('Rabbighfir lī, Rabbighfir lī', 'Mein Herr, vergib mir')} ${G_REF('Abu Dawud 874, Ibn Majah 897 – sahih')}</li>
+      <li><b>Zweiter Sujud</b> wie oben. → <b>Die erste Rak’a ist fertig.</b> Mit <span class="tr">Allāhu akbar</span> aufstehen.</li>
+      <li><b>Zweite Rak’a</b> genauso (ohne Eröffnungs-Du’a): Fatiha, Sure, Ruku’, Aufrichten, 2× Sujud.</li>
+      <li><b>Sitzen: Taschahhud</b>, dann <b>Salawat Ibrahimiyya</b> und ein Du’a (siehe „Texte“). ${G_REF('Bukhari 831, Muslim 402; Bukhari 3370')}</li>
+      <li><b>Taslim:</b> Kopf nach rechts, dann nach links: ${G_SAY('As-salāmu ‘alaykum wa rahmatullāh', 'Friede sei mit euch und die Barmherzigkeit Allahs')} ${G_REF('Muslim 582')} „Sein Anfang ist der Takbir, sein Ende der Taslim.“ ${G_REF('Abu Dawud 61, Tirmidhi 3 – sahih')}</li>
+    </ol>`],
+
+  ['🔢 Aufbau bei 3 und 4 Rak’at', `
+    <p><b>2 Rak’at</b> (Fajr, Jumu’a, Sunnah): Rak’a 1 → Rak’a 2 → Taschahhud + Salawat + Du’a → Salam.</p>
+    <p><b>3 Rak’at</b> (Maghrib, Witr): Rak’a 1 → Rak’a 2 → <b>erster Taschahhud</b> (nur bis „… ‘abduhū wa rasūluh“) → aufstehen → Rak’a 3 <b>nur mit Fatiha</b> → letzter Taschahhud + Salawat + Du’a → Salam.</p>
+    <p><b>4 Rak’at</b> (Dhuhr, Asr, Isha): Rak’a 1 → Rak’a 2 → erster Taschahhud → Rak’a 3 und 4 <b>nur mit Fatiha</b> → letzter Taschahhud + Salawat + Du’a → Salam.</p>
+    <p><b>Laut oder leise?</b> Fatiha und Sure werden in den ersten 2 Rak’at von Fajr, Maghrib, Isha (und Jumu’a) <b>laut</b> rezitiert, in Dhuhr und Asr <b>leise</b>. Wer allein betet, darf auch leise lesen.</p>
+    <p><b>Witr</b> mit Qunut (Du’a im Stehen) ist Sunnah; die Hanafis lesen es vor dem Ruku’ der 3. Rak’a.</p>`],
+
+  ['📜 Texte: Fatiha, Taschahhud, Salawat', `
+    <h4>al-Fatiha (Sure 1)</h4>
+    ${G_SAY('Bismillāhir-rahmānir-rahīm. Al-hamdu lillāhi rabbil-‘ālamīn. Ar-rahmānir-rahīm. Māliki yawmid-dīn. Iyyāka na‘budu wa iyyāka nasta‘īn. Ihdinas-sirātal-mustaqīm. Sirātalladhīna an‘amta ‘alayhim, ghayril-maghdūbi ‘alayhim wa lad-dāllīn. (Āmīn)',
+      'Im Namen Allahs, des Allerbarmers, des Barmherzigen. Alles Lob gebührt Allah, dem Herrn der Welten, dem Allerbarmer, dem Barmherzigen, dem Herrscher am Tag des Gerichts. Dir allein dienen wir, und Dich allein bitten wir um Hilfe. Leite uns den geraden Weg, den Weg derer, denen Du Gnade erwiesen hast, nicht derer, die Deinen Zorn erregt haben, und nicht der Irregehenden.')}
+    <h4>Taschahhud (at-Tahiyyat)</h4>
+    ${G_SAY('At-tahiyyātu lillāhi was-salawātu wat-tayyibāt. As-salāmu ‘alayka ayyuhan-nabiyyu wa rahmatullāhi wa barakātuh. As-salāmu ‘alaynā wa ‘alā ‘ibādillāhis-sālihīn. Asch-hadu an lā ilāha illallāh, wa asch-hadu anna Muhammadan ‘abduhū wa rasūluh.',
+      'Alle Grüße, Gebete und guten Worte gebühren Allah. Friede sei mit dir, o Prophet, und die Barmherzigkeit Allahs und Sein Segen. Friede sei mit uns und mit den rechtschaffenen Dienern Allahs. Ich bezeuge, dass es keinen Gott außer Allah gibt, und ich bezeuge, dass Muhammad Sein Diener und Gesandter ist.')}
+    ${G_REF('Bukhari 831, Muslim 402')}
+    <h4>Salawat Ibrahimiyya (im letzten Sitzen)</h4>
+    ${G_SAY('Allāhumma salli ‘alā Muhammadin wa ‘alā āli Muhammad, kamā sallayta ‘alā Ibrāhīma wa ‘alā āli Ibrāhīm, innaka hamīdun majīd. Allāhumma bārik ‘alā Muhammadin wa ‘alā āli Muhammad, kamā bārakta ‘alā Ibrāhīma wa ‘alā āli Ibrāhīm, innaka hamīdun majīd.',
+      'O Allah, segne Muhammad und die Familie Muhammads, wie Du Ibrahim und die Familie Ibrahims gesegnet hast; Du bist der Lobenswürdige, der Ruhmreiche. O Allah, gib Muhammad und der Familie Muhammads Barakah, wie Du Ibrahim und der Familie Ibrahims Barakah gegeben hast; Du bist der Lobenswürdige, der Ruhmreiche.')}
+    ${G_REF('Bukhari 3370')}
+    <h4>Du’a vor dem Salam</h4>
+    ${G_SAY('Allāhumma innī a‘ūdhu bika min ‘adhābi jahannam, wa min ‘adhābil-qabr, wa min fitnatil-mahyā wal-mamāt, wa min scharri fitnatil-masīhid-dajjāl',
+      'O Allah, ich suche Zuflucht bei Dir vor der Strafe der Hölle, der Strafe des Grabes, der Prüfung des Lebens und des Todes und dem Übel der Prüfung des Dajjal.')}
+    ${G_REF('Muslim 588')}`],
+
+  ['⏰ Zeiten & verbotene Zeiten', `
+    <p><b>Fajr:</b> Morgendämmerung bis Sonnenaufgang · <b>Dhuhr:</b> nach dem Zenit bis Asr · <b>Asr:</b> bis Sonnenuntergang (besser bevor die Sonne gelb wird) · <b>Maghrib:</b> Sonnenuntergang bis die Abendröte verschwindet · <b>Isha:</b> bis Mitternacht (bevorzugt), im Notfall bis Fajr. ${G_REF('Muslim 612')}</p>
+    <p><b>Keine freiwilligen Gebete</b> nach dem Fajr-Gebet bis die Sonne aufgegangen ist, beim Zenit kurz vor Dhuhr und nach dem Asr-Gebet bis Sonnenuntergang. ${G_REF('Bukhari 586, Muslim 827; Muslim 831')} Pflichtgebete nachzuholen ist immer erlaubt.</p>`],
+
+  ['🔁 Vergessen, gezweifelt, verpasst', `
+    <p><b>Sajdat as-Sahw:</b> Wenn du etwas vergessen hast (z. B. den ersten Taschahhud) oder zweifelst, machst du am Ende zwei zusätzliche Niederwerfungen. ${G_REF('Bukhari 1224, Muslim 570')}</p>
+    <p><b>Zweifel an der Anzahl:</b> Geh von der sicheren, kleineren Zahl aus, bete den Rest und mach vor dem Salam zwei Niederwerfungen. ${G_REF('Muslim 571')}</p>
+    <p><b>Gebet verschlafen oder vergessen:</b> „Wer ein Gebet vergisst oder verschläft, soll es beten, sobald er sich daran erinnert.“ ${G_REF('Bukhari 597, Muslim 684')}</p>
+    <p><b>Das Gebet wird ungültig</b> durch: absichtliches Sprechen, Essen/Trinken, lautes Lachen, Verlust des Wudu, Weglassen einer Säule (z. B. Fatiha, Ruku’, Sujud) oder bewusstes Abwenden von der Qibla.</p>`],
+];
+function openGuide(){
+  $('#guide-body').innerHTML = GUIDE.map(([t, html], i) => `<details class="gd" ${i === 0 ? 'open' : ''}><summary>${t}</summary><div class="gb">${html}</div></details>`).join('')
+    + '<p class="sub" style="margin-top:14px">Die Details unterscheiden sich zum Teil zwischen den Rechtsschulen. Am besten lernst du die Praxis zusätzlich bei deiner Moschee oder einem Lehrer. Bukhari nach Fath-al-Bari-, Muslim nach Abd-al-Baqi-Nummerierung.</p>';
+  $('#guide').hidden = false; $('#guide').scrollTop = 0; document.body.style.overflow = 'hidden';
+}
+$('#guide').addEventListener('click', e => { if (e.target.closest('#guide-close')) { $('#guide').hidden = true; document.body.style.overflow = ''; } });
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -1477,6 +1605,7 @@ document.addEventListener('click', e => {
   else if (b.dataset.adh) { seg = b.dataset.adh; segPicked = true; showPage('quick'); }
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
+  else if (b.dataset.guide) openGuide();
   else if (b.dataset.intro) { db.seenIntro = true; save(); renderIntro(); }
   else if (b.dataset.fc) { $('#fc').hidden = false; document.body.style.overflow = 'hidden'; nextCard(); }
   else if (b.dataset.nl) { namesOpen = !namesOpen; renderNames(); }
