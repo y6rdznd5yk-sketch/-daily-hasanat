@@ -316,6 +316,21 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 .hp-i{font-size:1.6rem;line-height:1}
 .hp p{margin:.3em 0;font-size:.88rem}
 .hp small{display:block;color:var(--gold);font-weight:700;font-size:.75rem;margin-bottom:6px}
+.srow{display:flex;flex-wrap:wrap;gap:6px 14px;margin:12px 0 2px;font-size:.85rem;color:var(--muted)}
+.srow b{color:var(--ink);font-variant-numeric:tabular-nums}
+.rk{padding:10px 12px}
+.rk-i{font-size:1.9rem}
+.rk-t b{font-size:1.02rem}
+.donetog{display:block;width:100%;text-align:left;border:1px dashed var(--line);background:transparent;color:var(--accent);border-radius:12px;padding:9px 12px;margin:0 0 10px;font:inherit;font-size:.85rem;font-weight:600}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.tiles[hidden]{display:none}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:16px;padding:12px;font:inherit;min-height:104px}
+.tile span{font-size:1.6rem;line-height:1.2}
+.tile b{font-size:.92rem}
+.tile small{color:var(--muted);font-size:.72rem;line-height:1.3}
+.kback{border:0;background:none;color:var(--accent);font:inherit;font-weight:700;padding:12px 0 0}
+.sayd{margin-top:6px}
+.sayd summary{color:var(--accent);font-weight:600;font-size:.85rem}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -340,12 +355,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <div class="tm" id="tomorrow" hidden></div>
     <div id="prayers"></div>
     <div id="prayer"></div>
-    <div class="stats">
-      <div class="stat g"><b id="s-has">0</b><span>Hasanat (min.)*</span></div>
-      <div class="stat r"><b id="s-rizq">0</b><span>Rizq-Taten</span></div>
-      <div class="stat a"><b id="s-streak">0</b><span>Tage Serie</span></div>
-    </div>
-    <div class="sub"><span id="s-done">0</span> von <span id="s-total">0</span> Schritten erledigt</div>
+    <div class="srow"><span>💎 <b id="s-has">0</b> Hasanat*</span><span>💧 <b id="s-rizq">0</b> Rizq</span><span>🔥 <b id="s-streak">0</b> Tage</span><span>✅ <b><span id="s-done">0</span>/<span id="s-total">0</span></b></span></div>
     <div class="bar"><i id="s-bar" style="width:0"></i></div>
     <div class="chips" id="chips"></div>
     <div id="list"></div>
@@ -368,34 +378,34 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 
   <!-- VERLAUF -->
   <section class="page" id="p-hist">
-    <h2>Letzte 14 Tage · erledigte Schritte</h2>
-    <div class="hist" id="hist"></div>
-    <div class="stats" style="margin-top:14px">
-      <div class="stat g"><b id="h-has">0</b><span>Hasanat gesamt*</span></div>
-      <div class="stat a"><b id="h-days">0</b><span>aktive Tage</span></div>
-      <div class="stat r"><b id="h-best">0</b><span>längste Serie</span></div>
+    <div class="chips" id="hseg" style="margin-top:12px">
+      <button class="chip on" data-hs="over">📊 Übersicht</button><button class="chip" data-hs="quran">📖 Quran</button><button class="chip" data-hs="sadaqa">🤲 Sadaqa</button><button class="chip" data-hs="qada">🔁 Nachholen</button><button class="chip" data-hs="badges">🏅 Abzeichen</button>
     </div>
-    <div class="card sub" id="h-week"></div>
-    <h2>Kalender</h2><div class="card" id="cal"></div>
-    <h2>Quran-Khatm</h2><div class="card" id="khatm"></div>
-    <h2>Sadaqa-Tagebuch</h2><div class="card" id="sadaqa"></div>
-    <h2>Nachholen (Qada)</h2><div class="card" id="qada"></div>
-    <h2>Dein Dhikr insgesamt</h2><div class="card"><table id="totals"></table></div>
-    <h2>Abzeichen</h2><div class="badges" id="badges"></div>
+    <div class="hpn" data-h="over">
+      <h2>Letzte 14 Tage · erledigte Schritte</h2>
+      <div class="hist" id="hist"></div>
+      <div class="stats" style="margin-top:14px">
+        <div class="stat g"><b id="h-has">0</b><span>Hasanat gesamt*</span></div>
+        <div class="stat a"><b id="h-days">0</b><span>aktive Tage</span></div>
+        <div class="stat r"><b id="h-best">0</b><span>längste Serie</span></div>
+      </div>
+      <div class="card sub" id="h-week"></div>
+      <h2>Kalender</h2><div class="card" id="cal"></div>
+      <h2>Dein Dhikr insgesamt</h2><div class="card"><table id="totals"></table></div>
+    </div>
+    <div class="hpn" data-h="quran" hidden><h2>Quran-Khatm</h2><div class="card" id="khatm"></div></div>
+    <div class="hpn" data-h="sadaqa" hidden><h2>Sadaqa-Tagebuch</h2><div class="card" id="sadaqa"></div></div>
+    <div class="hpn" data-h="qada" hidden><h2>Nachholen (Qada)</h2><div class="card" id="qada"></div></div>
+    <div class="hpn" data-h="badges" hidden><h2>Abzeichen</h2><div class="badges" id="badges"></div></div>
   </section>
 
   <!-- WISSEN -->
   <section class="page" id="p-info">
     <div class="inp" style="margin-top:12px"><input id="search" type="search" placeholder="🔎 Suchen: Rizq, Schulden, Witr, Eltern …" autocomplete="off"></div>
     <div id="sresults"></div>
-    <button class="gbtn" data-libopen="1" style="margin-top:12px;border-style:solid;background:var(--gold-soft);border-color:var(--gold);color:var(--gold)">📚 Hadith-Bibliothek: alle Sunan, Bukhari, Muslim &amp; mehr</button>
-    <button class="gbtn" data-guide="1" style="margin-top:12px">📖 Gebets-Anleitung: Rak’at, Adhan &amp; Iqama, Schritt für Schritt</button>
-    <h2>📚 Wissens-Pfad</h2>
-    <div class="card" id="hpath"></div>
-    <h2>Meine Du’as</h2>
-    <div class="card" id="duas"></div>
-    <h2>🤲 Du’a-Sammlung aus Quran &amp; Sunnah</h2>
-    <div class="card" id="duac"></div>
+    <div class="tiles" id="ktiles"></div>
+    <div class="kp" data-k="hpath" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>🎓 Wissens-Pfad</h2><div class="card" id="hpath"></div></div>
+    <div class="kp" data-k="duac" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>🤲 Du’a-Sammlung aus Quran &amp; Sunnah</h2><div class="card" id="duac"></div>
     <h2>Wann Du’a besonders erhört wird</h2>
     <div class="card"><table>
       <tr><td>Im letzten Drittel der Nacht</td><td>Bukhari 1145, Muslim 758</td></tr>
@@ -406,21 +416,19 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
       <tr><td>Du’a des Reisenden, des Unterdrückten und der Eltern</td><td>Tirmidhi 1905 – hasan</td></tr>
     </table>
     <p class="sub">„Euer Du’a wird erhört, solange ihr nicht ungeduldig werdet und sagt: Ich habe gebetet, aber wurde nicht erhört.“ (Bukhari 6340, Muslim 2735)</p></div>
-    <h2>Kommende besondere Tage</h2>
-    <div class="card" id="events"></div>
-    <h2>Die 99 Namen Allahs</h2>
-    <div class="card" id="names"></div>
-    <h2>Zakat-Rechner</h2>
-    <div class="card" id="zakat"></div>
-    <h2>Die Multiplikatoren der Sunnah</h2>
-    <div class="card"><table id="mult"></table></div>
-    <h2>Rizq – was Quran &amp; Sunnah nennen</h2>
-    <div class="card" id="rizqinfo"></div>
+    </div>
+    <div class="kp" data-k="duas" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>📝 Meine Du’as</h2><div class="card" id="duas"></div></div>
+    <div class="kp" data-k="names" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>🌟 Die 99 Namen Allahs</h2><div class="card" id="names"></div></div>
+    <div class="kp" data-k="events" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
+    <div class="kp" data-k="zakat" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>💰 Zakat-Rechner</h2><div class="card" id="zakat"></div></div>
+    <div class="kp" data-k="mult" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>✖️ Die Multiplikatoren der Sunnah</h2><div class="card"><table id="mult"></table></div>
+      <h2>Rizq – was Quran &amp; Sunnah nennen</h2><div class="card" id="rizqinfo"></div>
     <h2>Wichtig</h2>
     <div class="card">
       <p><b>Die Absicht zählt:</b> „Die Taten werden nur nach den Absichten beurteilt.“ <span class="sub">(Bukhari 1, Muslim 1907)</span></p>
       <p>Die Zahlen hier sind eine Motivationshilfe, keine Abrechnung. Ob eine Tat angenommen wird und wie sehr sie vervielfacht wird, weiß nur Allah.</p>
       <p><b>Quellen:</b> Bukhari nach Fath-al-Bari-Nummerierung, Muslim nach Abd-al-Baqi. Gradierungen außerhalb von Bukhari/Muslim sind angegeben. Bitte bei Bedarf auf sunnah.com oder bei einem Gelehrten gegenprüfen.</p>
+    </div>
     </div>
   </section>
 
@@ -452,7 +460,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <select class="btn" id="set-theme"><option value="auto">Design: automatisch</option><option value="light">Design: hell</option><option value="dark">Design: dunkel</option></select>
     <select class="btn" id="set-font"><option value="n">Schrift: normal</option><option value="l">Schrift: groß</option><option value="xl">Schrift: sehr groß</option></select>
     <label class="card" style="display:flex;justify-content:space-between;align-items:center">Arabische Schrift anzeigen <input type="checkbox" id="b-ar" style="width:22px;height:22px"></label>
-    <p class="sub" style="text-align:center">App-Version 15 (29.10.2026)</p>
+    <p class="sub" style="text-align:center">App-Version 16 (29.10.2026)</p>
     <h2>Quran-Schätzung</h2>
     <div class="card"><p>Der Mushaf hat ca. 320.000 Buchstaben auf 604 Seiten ≈ 530 Buchstaben/Seite. Pro Buchstabe 1 Hasana ×10 (Tirmidhi 2910) ⇒ ca. <b>5.300 Hasanat pro Seite</b>. Das ist eine grobe Schätzung.</p></div>
   </section>
@@ -835,27 +843,36 @@ function deedHTML(d){
   const fs = d.step === 1 && d.target >= 10 && !editMode ? `<button class="fs" data-fs="d:${d.id}">⛶ Vollbild</button>` : '';
   return `<div class="deed ${done?'done':''} ${special?'special':''} ${hid?'hid':''}">
     <div class="row"><div class="t"><b>${esc(d.title)}</b><div class="tags">${tags.join('')}</div></div>${ctl}</div>
-    ${sayHTML(d)}
+    ${d.tr && d.tr.length > 70 ? `<details class="sayd"><summary>📜 Text anzeigen</summary>${sayHTML(d)}</details>` : sayHTML(d)}
     <div class="dfoot"><details><summary>Quelle &amp; Belohnung</summary><div class="src">${esc(d.reward)}<span class="ref">${esc(d.ref)}</span></div></details>${fs}</div>
   </div>`;
 }
 const isCollapsed = c => !!(db.settings.collapsed || {})[c];
+const showDone = {};
 function renderList(){
   const open = new Set([...document.querySelectorAll('#list details[open]')].map(e => e.closest('.deed').dataset.id));
-  let html = '', last = '';
   const items = editMode ? DEEDS : [...specialsFor(today), ...DEEDS.filter(d => !isHidden(d.id))];
-  if (editMode) html += '<p class="sub">Blende Taten aus, die du nicht täglich machen willst. Ausgeblendete zählen nicht in deinen Fortschritt.</p>';
-  for (const d of items){
+  const x0 = day(today), isDone = d => (d.calc ? d.calc(x0) : (x0[d.id] || 0)) >= d.target;
+  const card = d => deedHTML(d).replace('<div class="deed', `<div data-id="${d.id}" class="deed`);
+  let html = editMode ? '<p class="sub">Blende Taten aus, die du nicht täglich machen willst. Ausgeblendete zählen nicht in deinen Fortschritt.</p>' : '';
+  const cats = [];
+  for (const d of items) {
     if (filter === 'Rizq' ? !d.rizq : (filter !== 'Alle' && d.cat !== filter && d.cat !== 'Heute besonders')) continue;
-    if (d.cat !== last){
-      last = d.cat;
-      const inCat = items.filter(x => x.cat === d.cat && (editMode || (x.id !== 'jamaa' && x.id !== 'fard'))), x0 = day(today);
-      const n = inCat.filter(x => (x.calc ? x.calc(x0) : (x0[x.id] || 0)) >= x.target).length;
-      html += `<h2><button class="cath" data-cat="${esc(d.cat)}"><span>${d.cat}</span><small>${n}/${inCat.length}${n === inCat.length ? ' ✓' : ''}</small><i>${isCollapsed(d.cat) ? '▸' : '▾'}</i></button></h2>`;
-    }
-    if (!editMode && isCollapsed(d.cat)) continue;
     if (!editMode && (d.id === 'jamaa' || d.id === 'fard')) continue;
-    html += !editMode && d.id === 'fard' ? prayerCard() : deedHTML(d).replace('<div class="deed', `<div data-id="${d.id}" class="deed`);
+    let c = cats.find(c => c.name === d.cat); if (!c) cats.push(c = {name:d.cat, list:[]});
+    c.list.push(d);
+  }
+  for (const c of cats) {
+    const n = c.list.filter(isDone).length, all = n === c.list.length;
+    html += `<h2><button class="cath" data-cat="${esc(c.name)}"><span>${c.name}</span><small>${n}/${c.list.length}${all ? ' ✓' : ''}</small><i>${isCollapsed(c.name) ? '▸' : '▾'}</i></button></h2>`;
+    if (!editMode && isCollapsed(c.name)) continue;
+    if (editMode) { html += c.list.map(card).join(''); continue; }
+    html += c.list.filter(d => !isDone(d)).map(card).join('');
+    const doneL = c.list.filter(isDone);
+    if (doneL.length) {
+      html += `<button class="donetog" data-done="${esc(c.name)}">${showDone[c.name] ? '▾' : '▸'} ✓ ${doneL.length} erledigt${showDone[c.name] ? '' : ' – anzeigen'}</button>`;
+      if (showDone[c.name]) html += doneL.map(card).join('');
+    }
   }
   $('#list').innerHTML = html;
   open.forEach(id => { const el = document.querySelector(`.deed[data-id="${id}"] details`); if (el) el.open = true; });
@@ -1009,9 +1026,7 @@ function renderPrayer(){
   const mins = Math.max(0, Math.round((np.at - new Date()) / 6e4));
   const left = mins >= 60 ? `${Math.floor(mins/60)} Std ${mins%60} Min` : `${mins} Min`;
   $('#nextp').innerHTML = `🕌 <b>${PNAMES[np.k]}</b> in ${left} · ${hm(np.at)}`;
-  $('#prayer').innerHTML = `<div class="pt">${Object.keys(PNAMES).map(k =>
-    `<div class="${!np.tomorrow && k === np.k ? 'on' : ''}"><span>${PNAMES[k]}</span><b>${hm(np.t[k])}</b></div>`).join('')}</div>
-    <div class="sub pt-s">${esc(db.settings.place || 'Dein Standort')} · ${PrayerCalc.METHODS[db.settings.method || 'diyanet'].name}${db.settings.hanafi ? ' · Asr Hanafi' : ''} · <button class="lnk" data-qibla="1">🧭 Qibla</button></div>`;
+  $('#prayer').innerHTML = `<div class="sub pt-s">☀️ Shuruq ${hm(np.t.sunrise)} · ${esc(db.settings.place || 'Dein Standort')} · ${PrayerCalc.METHODS[db.settings.method || 'diyanet'].name}${db.settings.hanafi ? ' · Asr Hanafi' : ''} · <button class="lnk" data-qibla="1">🧭 Qibla</button></div>`;
 }
 function locate(){
   if (!navigator.geolocation) { toast('Standort wird nicht unterstützt'); return; }
@@ -1202,6 +1217,7 @@ function showPage(pg){
   document.querySelectorAll('nav button').forEach(n => n.classList.toggle('on', n.dataset.p === pg));
   document.querySelectorAll('.page').forEach(p => p.classList.toggle('on', p.id === 'p-' + pg));
   if (pg === 'hist') renderHist();
+  if (pg === 'info') showK(null);
   if (pg === 'quick') { if (!segPicked) seg = autoSeg(); renderSeg(); }
   $('#scroller').scrollTop = 0;
 }
@@ -2259,13 +2275,14 @@ function goTo(g){
     const d = findDeed(g.deed);
     if (d && isHidden(d.id)) { db.hidden = db.hidden.filter(x => x !== d.id); clearStats(); save(); }
     if (d && isCollapsed(d.cat)) { db.settings.collapsed[d.cat] = false; save(); }
+    if (d) showDone[d.cat] = true;
     showPage('today'); renderChips(); renderList();
     setTimeout(() => flash(document.querySelector(`.deed[data-id="${g.deed}"]`)), 50);
   }
   else if (g.seg) { seg = g.seg; segPicked = true; showPage('quick'); }
   else if (g.quick) { seg = 'quick'; segPicked = true; showPage('quick'); setTimeout(() => flash(document.querySelector(`.q[data-id="${g.quick}"]`)), 50); }
-  else if (g.hpath) { showPage('info'); setTimeout(() => flash($('#hpath')), 50); }
-  else if (g.names) { showPage('info'); $('#fc').hidden = false; nextCard(); }
+  else if (g.hpath) { showPage('info'); showK('hpath'); setTimeout(() => flash($('#hpath')), 50); }
+  else if (g.names) { showPage('info'); showK('names'); $('#fc').hidden = false; nextCard(); }
 }
 function renderPrayersTop(){ $('#prayers').innerHTML = isHidden('fard') ? '' : prayerCard(); }
 
@@ -2307,6 +2324,36 @@ function renderHelpBanner(){
   $('#helpbanner').innerHTML = db.seenHelp ? '' : `<div class="nw" style="margin-top:12px"><div class="nw-t"><span class="nw-i">💡</span><div><b>So sammelst du XP</b> – kurze Anleitung, wo du was abhakst.</div></div><button class="adhbtn" data-help="1">Zeigen</button></div>`;
 }
 
+
+// ---------- Übersicht: Kacheln (Wissen) & Reiter (Verlauf) ----------
+let curK = null;
+function renderTiles(){
+  const ev = upcomingCached()[0];
+  const T = [
+    ['📚', 'Hadith-Bibliothek', 'Alle Sunan, Bukhari, Muslim', 'data-libopen="1"'],
+    ['📖', 'Gebets-Anleitung', 'Rak’at, Adhan, Schritt für Schritt', 'data-guide="1"'],
+    ['🎓', 'Wissens-Pfad', `${Object.keys(db.hadith).length}/42 Hadith gelernt`, 'data-kt="hpath"'],
+    ['🤲', 'Du’a-Sammlung', `${DUAS.length} Du’as · Rizq, Sorgen …`, 'data-kt="duac"'],
+    ['📝', 'Meine Du’as', `${db.duas.length} Einträge`, 'data-kt="duas"'],
+    ['🌟', '99 Namen Allahs', `${Object.keys(db.names).length}/99 gelernt`, 'data-kt="names"'],
+    ['📅', 'Besondere Tage', ev ? `${ev.name.replace(/^\S+\s/, '')}: ${ev.n === 1 ? 'morgen' : `in ${ev.n} T.`}` : 'Kalender', 'data-kt="events"'],
+    ['💰', 'Zakat-Rechner', '2,5 % · Nisab Gold/Silber', 'data-kt="zakat"'],
+    ['✖️', 'Multiplikatoren & Rizq', '×10 bis ×700 · Quellen', 'data-kt="mult"'],
+  ];
+  $('#ktiles').innerHTML = T.map(([i, t, sub, attr]) => `<button class="tile" ${attr}><span>${i}</span><b>${t}</b><small>${esc(sub)}</small></button>`).join('');
+}
+function showK(k){
+  curK = k || null;
+  $('#ktiles').hidden = !!curK;
+  document.querySelectorAll('.kp').forEach(el => { el.hidden = el.dataset.k !== curK; });
+  if (!curK) renderTiles();
+  $('#scroller').scrollTop = 0;
+}
+function showH(h){
+  document.querySelectorAll('#hseg .chip').forEach(c => c.classList.toggle('on', c.dataset.hs === h));
+  document.querySelectorAll('.hpn').forEach(el => { el.hidden = el.dataset.h !== h; });
+}
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -2343,6 +2390,9 @@ document.addEventListener('click', e => {
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
+  else if ('kt' in b.dataset) showK(b.dataset.kt);
+  else if (b.dataset.hs) showH(b.dataset.hs);
+  else if (b.dataset.done) { showDone[b.dataset.done] = !showDone[b.dataset.done]; renderList(); }
   else if (b.dataset.help) openHelp();
   else if (b.dataset.mgo) goTo(missionGo(+b.dataset.mgo));
   else if (b.dataset.mtick) {
@@ -2470,7 +2520,7 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
 }
 
 applyTheme(); applyFont(); renderChips(); renderInfo(); render(); renderSettings(); renderSeg(); renderDuas();
-renderCustomForm(); renderEvents(); renderNames(); renderZakat(); renderRamadan(); renderHPath(); checkBadges(); renderDuaCollection();
+renderCustomForm(); renderEvents(); renderNames(); renderZakat(); renderRamadan(); renderHPath(); checkBadges(); renderDuaCollection(); renderTiles();
 </script>
 </body>
 </html>
