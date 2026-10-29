@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1a17">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Daily Hasanat</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg">
+<link rel="apple-touch-icon" href="icon.svg">
+<style>
+:root{
+  --bg:#f6f3ec; --card:#fffdf8; --ink:#1d2622; --muted:#6b736f; --line:#e6e0d3;
+  --accent:#1f6f5c; --accent-soft:#e3f0eb; --gold:#a77d1e; --gold-soft:#f6ecd4; --rizq:#2e6fa8; --rizq-soft:#e3edf7;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0f1a17; --card:#16231f; --ink:#e9efe9; --muted:#97a39d; --line:#25352f;
+    --accent:#4fbf9f; --accent-soft:#1b3a31; --gold:#d9b45a; --gold-soft:#3a3120; --rizq:#7fb6e6; --rizq-soft:#1c2d3d;
+  }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{padding:env(safe-area-inset-top) 0 calc(76px + env(safe-area-inset-bottom))}
+.wrap{max-width:640px;margin:0 auto;padding:0 16px}
+header{padding:18px 0 8px}
+h1{font-size:1.35rem;margin:0}
+.sub{color:var(--muted);font-size:.85rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px}
+.stat b{display:block;font-size:1.25rem;font-variant-numeric:tabular-nums}
+.stat span{font-size:.72rem;color:var(--muted)}
+.stat.g b{color:var(--gold)} .stat.r b{color:var(--rizq)} .stat.a b{color:var(--accent)}
+.bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin:4px 0 14px}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:6px;scrollbar-width:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:6px 12px;border-radius:999px;font-size:.85rem}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+h2{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:18px 0 8px}
+.deed{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;margin-bottom:10px}
+.deed.done{border-color:var(--accent);background:linear-gradient(0deg,var(--accent-soft),var(--card) 70%)}
+.row{display:flex;align-items:center;gap:10px}
+.t{flex:1;min-width:0}
+.t b{display:block;font-size:.98rem}
+.ar{font-family:"Amiri","Scheherazade New","Noto Naskh Arabic",serif;font-size:1.2rem;direction:rtl;text-align:right;margin:6px 0 2px;line-height:1.9}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.tag{font-size:.7rem;padding:2px 7px;border-radius:6px;background:var(--gold-soft);color:var(--gold);font-weight:600}
+.tag.r{background:var(--rizq-soft);color:var(--rizq)}
+.tag.h{background:var(--accent-soft);color:var(--accent)}
+.check{width:44px;height:44px;border-radius:12px;border:2px solid var(--line);background:transparent;color:var(--accent);font-size:1.4rem;flex:none}
+.done .check{background:var(--accent);border-color:var(--accent);color:#fff}
+.ctr{display:flex;align-items:center;gap:6px;flex:none}
+.ctr button{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:1.1rem}
+.ctr .big{width:auto;padding:0 12px;background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.num{min-width:58px;text-align:center;font-variant-numeric:tabular-nums;font-size:.9rem}
+details{margin-top:8px;font-size:.85rem}
+summary{color:var(--muted);cursor:pointer}
+.src{margin-top:6px;padding:8px 10px;border-left:3px solid var(--gold);background:var(--bg);border-radius:0 8px 8px 0}
+.src .ref{font-weight:600;color:var(--gold);display:block;margin-top:4px}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;border:0;background:none;color:var(--muted);padding:10px 0 12px;font-size:.75rem}
+nav button.on{color:var(--accent);font-weight:600}
+nav button span{display:block;font-size:1.25rem}
+.page{display:none}.page.on{display:block}
+.hist{display:flex;align-items:flex-end;gap:4px;height:140px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 10px 26px;position:relative}
+.hist div{flex:1;background:var(--accent);border-radius:4px 4px 0 0;position:relative;min-height:2px}
+.hist div.today{background:var(--gold)}
+.hist div em{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:.6rem;color:var(--muted);font-style:normal}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px;font-size:.92rem}
+.card p{margin:.4em 0}
+.btn{display:block;width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:.95rem;margin-bottom:8px}
+.btn.p{background:var(--accent);border-color:var(--accent);color:#fff}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+td{padding:6px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:right}
+.toast{position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Daily Hasanat ☪︎</h1>
+    <div class="sub" id="date"></div>
+  </header>
+
+  <!-- HEUTE -->
+  <section class="page on" id="p-today">
+    <div class="stats">
+      <div class="stat g"><b id="s-has">0</b><span>Hasanat (min.)*</span></div>
+      <div class="stat r"><b id="s-rizq">0</b><span>Rizq-Taten</span></div>
+      <div class="stat a"><b id="s-streak">0</b><span>Tage Serie</span></div>
+    </div>
+    <div class="sub"><span id="s-done">0</span> von <span id="s-total">0</span> Schritten erledigt</div>
+    <div class="bar"><i id="s-bar" style="width:0"></i></div>
+    <div class="chips" id="chips"></div>
+    <div id="list"></div>
+    <p class="sub">* Nur Zahlen, die in der Quelle ausdrücklich genannt werden; sonst das Minimum von ×10 pro guter Tat (Bukhari 6491). Allah vervielfacht, wie Er will – der echte Lohn ist bei Ihm.</p>
+  </section>
+
+  <!-- VERLAUF -->
+  <section class="page" id="p-hist">
+    <h2>Letzte 14 Tage · erledigte Schritte</h2>
+    <div class="hist" id="hist"></div>
+    <div class="stats" style="margin-top:14px">
+      <div class="stat g"><b id="h-has">0</b><span>Hasanat gesamt*</span></div>
+      <div class="stat a"><b id="h-days">0</b><span>aktive Tage</span></div>
+      <div class="stat r"><b id="h-best">0</b><span>längste Serie</span></div>
+    </div>
+  </section>
+
+  <!-- WISSEN -->
+  <section class="page" id="p-info">
+    <h2>Die Multiplikatoren der Sunnah</h2>
+    <div class="card"><table id="mult"></table></div>
+    <h2>Rizq – was Quran &amp; Sunnah nennen</h2>
+    <div class="card" id="rizqinfo"></div>
+    <h2>Wichtig</h2>
+    <div class="card">
+      <p><b>Die Absicht zählt:</b> „Die Taten werden nur nach den Absichten beurteilt.“ <span class="sub">(Bukhari 1, Muslim 1907)</span></p>
+      <p>Die Zahlen hier sind eine Motivationshilfe, keine Abrechnung. Ob eine Tat angenommen wird und wie sehr sie vervielfacht wird, weiß nur Allah.</p>
+      <p><b>Quellen:</b> Bukhari nach Fath-al-Bari-Nummerierung, Muslim nach Abd-al-Baqi. Gradierungen außerhalb von Bukhari/Muslim sind angegeben. Bitte bei Bedarf auf sunnah.com oder bei einem Gelehrten gegenprüfen.</p>
+    </div>
+  </section>
+
+  <!-- EINSTELLUNGEN -->
+  <section class="page" id="p-set">
+    <h2>Daten</h2>
+    <div class="card"><p>Alles wird nur lokal auf diesem Gerät gespeichert. Mach ab und zu ein Backup.</p></div>
+    <button class="btn p" id="b-export">Backup exportieren (.json)</button>
+    <label class="btn" style="text-align:center">Backup importieren<input type="file" id="b-import" accept="application/json" hidden></label>
+    <button class="btn" id="b-reset">Heutigen Tag zurücksetzen</button>
+    <h2>Quran-Schätzung</h2>
+    <div class="card"><p>Der Mushaf hat ca. 320.000 Buchstaben auf 604 Seiten ≈ 530 Buchstaben/Seite. Pro Buchstabe 1 Hasana ×10 (Tirmidhi 2910) ⇒ ca. <b>5.300 Hasanat pro Seite</b>. Das ist eine grobe Schätzung.</p></div>
+  </section>
+</div>
+
+<nav>
+  <button class="on" data-p="today"><span>☀︎</span>Heute</button>
+  <button data-p="hist"><span>▤</span>Verlauf</button>
+  <button data-p="info"><span>❖</span>Wissen</button>
+  <button data-p="set"><span>⚙︎</span>Daten</button>
+</nav>
+<div class="toast" id="toast"></div>
+
+<script>
+// ---------- Taten & Quellen ----------
+// target: Anzahl für "erledigt" · per: Hasanat pro Einheit (nur wenn so genannt bzw. Minimum ×10)
+// bonus: ausdrücklich genannte Hasanat bei Erreichen des Ziels · step: Schritte des Zählers
+const PER_PAGE = 5300;
+const DEEDS = [
+  // --- Gebet ---
+  {id:'fard', cat:'Gebet', title:'5 Pflichtgebete pünktlich', target:5, per:10, mult:'beliebteste Tat',
+   reward:'Auf die Frage, welche Tat Allah am liebsten ist, sagte der Prophet ﷺ: „Das Gebet zu seiner Zeit.“', ref:'Bukhari 527, Muslim 85'},
+  {id:'jamaa', cat:'Gebet', title:'Gebet in Gemeinschaft (Jama\'a)', target:5, per:10, mult:'×27 Grade',
+   reward:'„Das Gebet in Gemeinschaft ist dem Gebet allein um 27 Stufen überlegen.“', ref:'Bukhari 645, Muslim 650'},
+  {id:'rawatib', cat:'Gebet', title:'12 Sunnah-Rak\'at (Rawatib)', target:12, step:2, bonus:10, mult:'Haus im Paradies',
+   reward:'„Wer an einem Tag und einer Nacht zwölf Rak\'at betet, dem wird dafür ein Haus im Paradies gebaut.“', ref:'Muslim 728'},
+  {id:'fajrsunna', cat:'Gebet', title:'2 Rak\'at Sunnah vor Fajr', target:1, bonus:10, mult:'> Dunya',
+   reward:'„Die zwei Rak\'at vor Fajr sind besser als die Welt und alles, was in ihr ist.“', ref:'Muslim 725'},
+  {id:'duha', cat:'Gebet', title:'Duha-Gebet (2 Rak\'at)', target:1, bonus:10, mult:'≙ 360 Sadaqat',
+   reward:'Für jedes Gelenk ist jeden Morgen eine Sadaqa fällig … „und es genügen dafür zwei Rak\'at, die man am Vormittag (Duha) betet.“', ref:'Muslim 720'},
+  {id:'wudu', cat:'Gebet', title:'Wudu gut machen + 2 Rak\'at', target:1, bonus:10, mult:'Sünden vergeben',
+   reward:'„Wer die Gebetswaschung so vollzieht wie ich und dann zwei Rak\'at betet, ohne sich mit Gedanken abzulenken, dem werden seine vorigen Sünden vergeben.“', ref:'Bukhari 159, Muslim 226'},
+  {id:'adhan', cat:'Gebet', title:'Du\'a nach dem Adhan', target:5, per:10, mult:'Fürsprache',
+   ar:'اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ وَالصَّلَاةِ الْقَائِمَةِ آتِ مُحَمَّدًا الْوَسِيلَةَ وَالْفَضِيلَةَ وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ',
+   reward:'Wer dies nach dem Adhan sagt, dem wird am Tag der Auferstehung die Fürsprache des Propheten ﷺ zuteil.', ref:'Bukhari 614'},
+  {id:'qiyam', cat:'Gebet', title:'Nachtgebet / Witr', target:1, bonus:10, mult:'bestes Sunnah-Gebet',
+   reward:'„Das beste Gebet nach dem Pflichtgebet ist das Gebet in der Nacht.“ Im letzten Drittel der Nacht sagt Allah: „Wer bittet Mich, dass Ich ihm gebe?“', ref:'Muslim 1163; Bukhari 1145, Muslim 758'},
+
+  // --- Dhikr ---
+  {id:'subhan100', cat:'Dhikr', title:'SubhanAllah ×100', ar:'سُبْحَانَ اللَّهِ', target:100, step:1, bonus:1000, mult:'1000 Hasanat',
+   reward:'„Kann einer von euch nicht täglich tausend Hasanat erwerben? … Er preist Allah hundertmal (SubhanAllah), dann werden ihm tausend Hasanat geschrieben oder tausend Sünden getilgt.“', ref:'Muslim 2698'},
+  {id:'tahlil100', cat:'Dhikr', title:'Tahlil ×100', ar:'لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ', target:100, step:1, bonus:100, mult:'100 Hasanat · ≙ 10 Sklaven',
+   reward:'Wer dies 100× am Tag sagt: gleich dem Befreien von 10 Sklaven, 100 Hasanat werden geschrieben, 100 Sünden getilgt, und es ist ihm Schutz vor Shaytan bis zum Abend.', ref:'Bukhari 6403, Muslim 2691'},
+  {id:'bihamdihi', cat:'Dhikr', title:'SubhanAllahi wa bihamdihi ×100', ar:'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ', target:100, step:1, bonus:10, mult:'Sünden wie Meeresschaum',
+   reward:'„Wer 100× am Tag sagt: SubhanAllahi wa bihamdihi, dem werden seine Sünden vergeben, selbst wenn sie wie der Schaum des Meeres wären.“', ref:'Bukhari 6405, Muslim 2691'},
+  {id:'twowords', cat:'Dhikr', title:'Die zwei leichten Worte', ar:'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ', target:10, step:1, bonus:10, mult:'schwer auf der Waage',
+   reward:'„Zwei Worte, leicht auf der Zunge, schwer auf der Waage, geliebt vom Allerbarmer.“', ref:'Bukhari 6406, Muslim 2694'},
+  {id:'afterprayer', cat:'Dhikr', title:'Tasbih nach dem Gebet (33/33/33 + 1)', target:5, per:10, mult:'Sünden vergeben',
+   reward:'33× SubhanAllah, 33× Alhamdulillah, 33× Allahu Akbar und zum Abschluss „La ilaha illallahu wahdahu …“ – dem werden seine Sünden vergeben, auch wenn sie wie Meeresschaum wären.', ref:'Muslim 597'},
+  {id:'istighfar', cat:'Dhikr', title:'Istighfar ×100', ar:'أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ', target:100, step:1, bonus:10, rizq:true, mult:'Rizq (Quran 71)',
+   reward:'„Ich bitte Allah hundertmal am Tag um Vergebung.“ – Und Nuh sagte: „Bittet euren Herrn um Vergebung … Er wird euch mit Vermögen und Söhnen unterstützen.“ (Quran 71:10–12)', ref:'Muslim 2702; Quran 71:10–12'},
+  {id:'sayyid', cat:'Dhikr', title:'Sayyid al-Istighfar (morgens & abends)', target:2, per:10, mult:'Paradies',
+   ar:'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ لَكَ بِذَنْبِي فَاغْفِرْ لِي، فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ',
+   reward:'Wer es tagsüber mit Gewissheit sagt und vor dem Abend stirbt, gehört zu den Leuten des Paradieses – ebenso nachts bis zum Morgen.', ref:'Bukhari 6306'},
+  {id:'salawat', cat:'Dhikr', title:'Salawat auf den Propheten ﷺ', ar:'اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ', target:10, step:1, per:10, mult:'×10 Segnungen',
+   reward:'„Wer einmal Segen auf mich spricht, auf den spricht Allah zehnmal Segen.“', ref:'Muslim 408'},
+  {id:'hawqala', cat:'Dhikr', title:'La hawla wa la quwwata illa billah', ar:'لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ', target:10, step:1, bonus:10, mult:'Schatz des Paradieses',
+   reward:'„Es ist einer der Schätze des Paradieses.“', ref:'Bukhari 6384, Muslim 2704'},
+
+  // --- Quran ---
+  {id:'quran', cat:'Quran', title:'Quran lesen (Seiten)', target:2, step:1, per:PER_PAGE, est:true, mult:'×10 pro Buchstabe',
+   reward:'„Wer einen Buchstaben aus dem Buch Allahs liest, dem ist dafür eine Hasana, und die Hasana zählt zehnfach. Ich sage nicht, Alif-Lam-Mim ist ein Buchstabe, sondern Alif ist ein Buchstabe, Lam ist ein Buchstabe und Mim ist ein Buchstabe.“', ref:'Tirmidhi 2910 – sahih (al-Albani)'},
+  {id:'ikhlas', cat:'Quran', title:'Surah al-Ikhlas', target:3, step:1, per:10, mult:'≙ ⅓ des Quran',
+   reward:'„Sie entspricht einem Drittel des Quran.“', ref:'Bukhari 5013'},
+  {id:'kursi', cat:'Quran', title:'Ayat al-Kursi vor dem Schlafen', target:1, bonus:10, mult:'Schutz bis morgens',
+   reward:'Wer sie vor dem Schlafen liest, über den wacht ein Wächter von Allah, und kein Shaytan kommt ihm nahe bis zum Morgen.', ref:'Bukhari 5010'},
+  {id:'baqara', cat:'Quran', title:'Letzte 2 Verse al-Baqara (nachts)', target:1, bonus:10, mult:'genügen ihm',
+   reward:'„Wer die letzten beiden Verse der Sure al-Baqara in einer Nacht liest, dem genügen sie.“', ref:'Bukhari 5009, Muslim 807'},
+
+  // --- Sadaqa & Rizq ---
+  {id:'sadaqa', cat:'Sadaqa & Rizq', title:'Sadaqa geben (egal wie wenig)', target:1, bonus:10, rizq:true, mult:'bis ×700+',
+   reward:'„Sadaqa vermindert das Vermögen nicht.“ Allah lässt die Sadaqa aus gutem Erwerb – sei es eine Dattel – wachsen wie ihr ein Fohlen großzieht. Gleichnis: ein Korn, das sieben Ähren treibt, in jeder Ähre hundert Körner (×700), „und Allah vervielfacht, wem Er will“.', ref:'Muslim 2588; Bukhari 1410, Muslim 1014; Quran 2:261'},
+  {id:'family', cat:'Sadaqa & Rizq', title:'Für die Familie ausgeben (mit Absicht)', target:1, bonus:10, rizq:true, mult:'Ersatz von Allah',
+   reward:'„Du gibst nichts aus, womit du Allahs Angesicht suchst, ohne dafür belohnt zu werden – selbst den Bissen, den du deiner Frau in den Mund gibst.“ Jeden Morgen beten zwei Engel: „O Allah, gib dem Spendenden Ersatz.“', ref:'Bukhari 56, Muslim 1628; Bukhari 1442, Muslim 1010'},
+  {id:'rahim', cat:'Sadaqa & Rizq', title:'Verwandtschaft pflegen (Anruf/Besuch)', target:1, bonus:10, rizq:true, mult:'Rizq erweitert',
+   reward:'„Wer möchte, dass ihm seine Versorgung (Rizq) erweitert und sein Leben verlängert wird, der soll die Verwandtschaftsbande pflegen.“', ref:'Bukhari 5986, Muslim 2557'},
+  {id:'shukr', cat:'Sadaqa & Rizq', title:'Alhamdulillah nach Essen & Trinken', target:3, per:10, rizq:true, mult:'Allah ist zufrieden',
+   reward:'„Allah ist zufrieden mit dem Diener, der isst und Ihn dafür lobt, und trinkt und Ihn dafür lobt.“ – „Wenn ihr dankbar seid, werde Ich euch gewiss mehr geben.“ (Quran 14:7)', ref:'Muslim 2734; Quran 14:7'},
+  {id:'tawakkul', cat:'Sadaqa & Rizq', title:'Halal arbeiten mit Tawakkul', target:1, bonus:10, rizq:true, mult:'wie die Vögel',
+   reward:'„Würdet ihr wahrhaftig auf Allah vertrauen, würde Er euch versorgen, wie Er die Vögel versorgt: Sie fliegen morgens hungrig aus und kehren abends satt zurück.“ – „Wer Allah fürchtet, dem schafft Er einen Ausweg und versorgt ihn, von wo er es nicht erwartet.“ (Quran 65:2–3)', ref:'Tirmidhi 2344 – hasan sahih; Quran 65:2–3'},
+
+  // --- Charakter ---
+  {id:'kalima', cat:'Charakter', title:'Ein gutes Wort sagen', target:3, per:10, mult:'= Sadaqa',
+   reward:'„Das gute Wort ist eine Sadaqa.“', ref:'Bukhari 2989, Muslim 1009'},
+  {id:'salam', cat:'Charakter', title:'Salam verbreiten', target:5, per:10, mult:'Liebe & Paradies',
+   reward:'„Ihr tretet nicht ins Paradies ein, bis ihr glaubt, und ihr glaubt nicht, bis ihr einander liebt. Soll ich euch etwas zeigen, wodurch ihr einander liebt? Verbreitet den Salam unter euch.“', ref:'Muslim 54'},
+  {id:'harm', cat:'Charakter', title:'Etwas Schädliches aus dem Weg räumen', target:1, bonus:10, mult:'Vergebung',
+   reward:'Ein Mann fand einen Dornenzweig auf dem Weg und räumte ihn beiseite; Allah dankte es ihm und vergab ihm.', ref:'Bukhari 652, Muslim 1914'},
+  {id:'ilm', cat:'Charakter', title:'Islamisches Wissen lernen', target:1, bonus:10, mult:'Weg ins Paradies',
+   reward:'„Wer einen Weg beschreitet, um Wissen zu suchen, dem erleichtert Allah dadurch einen Weg ins Paradies.“', ref:'Muslim 2699'},
+];
+
+const MULT = [
+  ['Gute Tat getan', 'Bukhari 6491, Muslim 131', '×10 bis ×700+'],
+  ['Gute Tat nur beabsichtigt', 'Bukhari 6491, Muslim 131', '1 Hasana'],
+  ['Schlechte Tat beabsichtigt, aber gelassen', 'Bukhari 6491, Muslim 131', '1 Hasana'],
+  ['Schlechte Tat begangen', 'Bukhari 6491, Muslim 131', 'nur ×1'],
+  ['Quran: pro Buchstabe', 'Tirmidhi 2910 (sahih)', '10'],
+  ['SubhanAllah ×100', 'Muslim 2698', '1000'],
+  ['Tahlil ×100', 'Bukhari 6403, Muslim 2691', '100'],
+  ['Gebet in Jama\'a', 'Bukhari 645, Muslim 650', '×27 Grade'],
+  ['Isha in Jama\'a / + Fajr in Jama\'a', 'Muslim 656', '½ / ganze Nacht'],
+  ['Sadaqa (Gleichnis)', 'Quran 2:261', '×700+'],
+  ['Salawat', 'Muslim 408', '×10 Segen'],
+  ['Laylat al-Qadr', 'Quran 97:3', '> 1000 Monate'],
+  ['3 Tage Fasten jeden Monat', 'Bukhari 1979, Muslim 1159', '≙ ganzes Jahr'],
+];
+
+const RIZQ = [
+  ['Istighfar', 'Quran 71:10–12'],
+  ['Taqwa', 'Quran 65:2–3'],
+  ['Dankbarkeit (Shukr)', 'Quran 14:7'],
+  ['Verwandtschaft pflegen', 'Bukhari 5986, Muslim 2557'],
+  ['Sadaqa & Ausgeben', 'Muslim 2588; Bukhari 1442, Muslim 1010'],
+  ['Tawakkul + Bemühen', 'Tirmidhi 2344 (hasan sahih)'],
+];
+
+// ---------- Speicher ----------
+const KEY = 'daily-hasanat-v1';
+let db;
+try { db = JSON.parse(localStorage.getItem(KEY)) || {days:{}}; } catch(e) { db = {days:{}}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(db)); } catch(e) {} };
+
+const pad = n => String(n).padStart(2,'0');
+const dkey = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+let today = dkey(new Date());
+const day = k => db.days[k] || {};
+const fmt = n => Math.round(n).toLocaleString('de-DE');
+
+function deedHasanat(d, c){
+  if (!c) return 0;
+  let h = d.per ? d.per * c : 0;
+  if (d.bonus && c >= d.target) h += d.bonus;
+  return h;
+}
+function dayStats(k){
+  const x = day(k); let has = 0, done = 0, rizq = 0;
+  for (const d of DEEDS){
+    const c = x[d.id] || 0;
+    has += deedHasanat(d, c);
+    if (c >= d.target){ done++; if (d.rizq) rizq++; }
+  }
+  return {has, done, rizq};
+}
+const active = k => dayStats(k).done > 0;
+function streak(){
+  let n = 0; const d = new Date();
+  if (!active(dkey(d))) d.setDate(d.getDate()-1); // heute zählt erst ab der ersten Tat
+  while (active(dkey(d))) { n++; d.setDate(d.getDate()-1); }
+  return n;
+}
+function bestStreak(){
+  const ks = Object.keys(db.days).filter(active).sort(); let best = 0, cur = 0, prev = null;
+  for (const k of ks){
+    const t = new Date(k+'T12:00');
+    cur = prev && (t - prev) / 864e5 === 1 ? cur + 1 : 1;
+    best = Math.max(best, cur); prev = t;
+  }
+  return best;
+}
+
+// ---------- Rendering ----------
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let filter = 'Alle';
+const CATS = ['Alle', ...new Set(DEEDS.map(d => d.cat)), 'Rizq'];
+
+function renderChips(){
+  $('#chips').innerHTML = CATS.map(c => `<button class="chip ${c===filter?'on':''}" data-c="${c}">${c==='Rizq'?'💧 Rizq':c}</button>`).join('');
+}
+function deedHTML(d){
+  const c = day(today)[d.id] || 0, done = c >= d.target;
+  const tags = [`<span class="tag">${esc(d.mult)}</span>`];
+  if (d.rizq) tags.push('<span class="tag r">Rizq</span>');
+  const h = deedHasanat(d, c);
+  if (h) tags.push(`<span class="tag h">${d.est?'≈ ':''}+${fmt(h)}</span>`);
+  const ctl = d.target === 1
+    ? `<button class="check" data-t="${d.id}" aria-label="erledigt">${done?'✓':''}</button>`
+    : `<div class="ctr"><button data-m="${d.id}" aria-label="minus">−</button><span class="num">${c}/${d.target}</span><button class="big" data-p="${d.id}">+${d.step||1}</button></div>`;
+  return `<div class="deed ${done?'done':''}">
+    <div class="row"><div class="t"><b>${esc(d.title)}</b><div class="tags">${tags.join('')}</div></div>${ctl}</div>
+    ${d.ar?`<div class="ar">${d.ar}</div>`:''}
+    <details><summary>Quelle &amp; Belohnung</summary><div class="src">${esc(d.reward)}<span class="ref">${esc(d.ref)}</span></div></details>
+  </div>`;
+}
+function renderList(){
+  const open = new Set([...document.querySelectorAll('#list details[open]')].map(e => e.closest('.deed').dataset.id));
+  let html = '', last = '';
+  for (const d of DEEDS){
+    if (filter === 'Rizq' ? !d.rizq : (filter !== 'Alle' && d.cat !== filter)) continue;
+    if (d.cat !== last){ html += `<h2>${d.cat}</h2>`; last = d.cat; }
+    html += deedHTML(d).replace('<div class="deed', `<div data-id="${d.id}" class="deed`);
+  }
+  $('#list').innerHTML = html;
+  open.forEach(id => { const el = document.querySelector(`.deed[data-id="${id}"] details`); if (el) el.open = true; });
+}
+function renderStats(){
+  const s = dayStats(today);
+  $('#s-has').textContent = fmt(s.has);
+  $('#s-rizq').textContent = `${s.rizq}/${DEEDS.filter(d=>d.rizq).length}`;
+  $('#s-streak').textContent = streak();
+  $('#s-done').textContent = s.done; $('#s-total').textContent = DEEDS.length;
+  $('#s-bar').style.width = (s.done / DEEDS.length * 100) + '%';
+  $('#date').textContent = new Date().toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+}
+function renderHist(){
+  const days = []; const d = new Date(); d.setDate(d.getDate()-13);
+  for (let i = 0; i < 14; i++){ days.push(dkey(d)); d.setDate(d.getDate()+1); }
+  $('#hist').innerHTML = days.map(k => {
+    const s = dayStats(k);
+    return `<div class="${k===today?'today':''}" style="height:${s.done/DEEDS.length*100}%" title="${k}: ${s.done}"><em>${+k.slice(8)}</em></div>`;
+  }).join('');
+  const all = Object.keys(db.days);
+  $('#h-has').textContent = fmt(all.reduce((a,k) => a + dayStats(k).has, 0));
+  $('#h-days').textContent = all.filter(active).length;
+  $('#h-best').textContent = bestStreak();
+}
+function renderInfo(){
+  $('#mult').innerHTML = MULT.map(([a,b,c]) => `<tr><td>${a}<br><span class="sub">${b}</span></td><td>${c}</td></tr>`).join('');
+  $('#rizqinfo').innerHTML = '<table>' + RIZQ.map(([a,b]) => `<tr><td>${a}</td><td style="color:var(--rizq)">${b}</td></tr>`).join('') + '</table>';
+}
+function render(){ renderStats(); renderList(); }
+
+// ---------- Interaktion ----------
+function setCount(id, v){
+  const d = DEEDS.find(x => x.id === id);
+  const x = db.days[today] = db.days[today] || {};
+  const before = (x[id] || 0) >= d.target;
+  x[id] = Math.max(0, v);
+  save(); render();
+  if (!before && x[id] >= d.target){ toast(`✓ ${d.title} – BarakAllahu fik`); if (navigator.vibrate) navigator.vibrate(30); }
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  const cur = id => day(today)[id] || 0;
+  if (b.dataset.t) setCount(b.dataset.t, cur(b.dataset.t) ? 0 : 1);
+  else if (b.dataset.p && b.closest('.ctr')) { const d = DEEDS.find(x => x.id === b.dataset.p); setCount(d.id, cur(d.id) + (d.step||1)); if (navigator.vibrate) navigator.vibrate(8); }
+  else if (b.dataset.m) { const d = DEEDS.find(x => x.id === b.dataset.m); setCount(d.id, cur(d.id) - (d.step||1)); }
+  else if (b.dataset.c) { filter = b.dataset.c; renderChips(); renderList(); }
+  else if (b.closest('nav')) {
+    document.querySelectorAll('nav button').forEach(n => n.classList.toggle('on', n === b));
+    document.querySelectorAll('.page').forEach(p => p.classList.toggle('on', p.id === 'p-' + b.dataset.p));
+    if (b.dataset.p === 'hist') renderHist();
+    window.scrollTo(0,0);
+  }
+});
+function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(() => el.classList.remove('on'), 1800); }
+
+$('#b-export').onclick = () => {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(db, null, 1)], {type:'application/json'}));
+  a.download = `hasanat-backup-${today}.json`; a.click();
+};
+$('#b-import').onchange = async e => {
+  try {
+    const data = JSON.parse(await e.target.files[0].text());
+    if (!data.days) throw 0;
+    db.days = {...db.days, ...data.days}; save(); render(); toast('Backup importiert');
+  } catch(_) { toast('Ungültige Datei'); }
+};
+$('#b-reset').onclick = () => { if (confirm('Heutigen Fortschritt löschen?')) { delete db.days[today]; save(); render(); } };
+
+// Tageswechsel, wenn die App über Mitternacht offen bleibt
+document.addEventListener('visibilitychange', () => { if (!document.hidden && dkey(new Date()) !== today) { today = dkey(new Date()); render(); } });
+
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(()=>{});
+
+renderChips(); renderInfo(); render();
+</script>
+</body>
+</html>
