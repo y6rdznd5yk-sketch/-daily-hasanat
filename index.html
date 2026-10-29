@@ -385,6 +385,11 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
 .cele-c small{color:var(--muted);font-size:.8rem}
 #cele.on .cele-c{animation:pop .5s ease-out}
 @keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.05);opacity:1}100%{transform:scale(1)}}
+.rg-h{margin:16px 0 4px;color:var(--gold)}
+.rg-h small{color:var(--muted);font-weight:400}
+.rf{display:block;text-decoration:none;color:var(--ink);border-top:1px solid var(--line);padding:7px 0}
+.rf b{display:block;font-size:.88rem;color:var(--accent)}
+.rf small{display:block;color:var(--muted);font-size:.72rem;line-height:1.35}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -491,8 +496,8 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
       <h2>Einstellungen</h2>
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
-      <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 20 (29.10.2026)</p>
+      <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
+      <p class="sub" style="text-align:center">App-Version 21 (29.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -531,6 +536,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <label class="btn" style="text-align:center">Backup importieren<input type="file" id="b-import" accept=".json,application/json,text/plain" hidden></label>
     <button class="btn" id="b-reset">Heutigen Tag zurücksetzen</button>
     </div>
+    <div class="mp" data-m="refs" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📚 Quellenverzeichnis</h2><div class="card" id="refs"></div></div>
     <div class="mp" data-m="about" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>ℹ️ Über die App</h2>
     <h2>Wichtig</h2>
     <div class="card">
@@ -2496,6 +2502,7 @@ function showM(k){
   if (k === 'ptimes') renderPrayerTable();
   if (k === 'data') renderSnaps();
   if (k === 'plan') renderPlan();
+  if (k === 'refs') renderRefs();
   $('#scroller').scrollTop = 0;
 }
 function renderPrayerTable(){
@@ -2582,6 +2589,34 @@ document.addEventListener('change', e => {
   Object.assign(db.settings, {lat:+la, lng:+lo, place:n.join(',')}); save(); render(); renderSettings(); renderCities();
   toast(`📍 ${n.join(',')} – Gebetszeiten aktiv ✓`);
 });
+
+
+// ---------- Quellenverzeichnis: jede Stelle der App, sortiert und verlinkt ----------
+const REF_ORDER = ['Quran', 'Sahih al-Bukhari', 'Sahih Muslim', 'Sunan Abi Dawud', 'Jami‘ at-Tirmidhi', 'Sunan an-Nasa’i', 'Sunan Ibn Majah'];
+function buildRefIndex(){
+  const strip = h => h.replace(/<[^>]+>/g, ' ');
+  const items = [
+    ...DEEDS.map(d => [d.title, d.ref]), ...QUICK.filter(q => !q.custom).map(q => [q.title, q.ref]), ...SPECIAL.map(d => [d.title, d.ref]),
+    ...ADHKAR.map(a => [a.title, a.ref]), ...DUAS.map(d => [d.title, d.ref]), ...NAWAWI.map(([t, , r], i) => [`40 Hadith Nr. ${i + 1}: ${t}`, r]),
+    ...MULT.map(([t, r]) => [t, r]), ...RIZQ.map(([t, r]) => [`Rizq: ${t}`, r]), ...RANKS.map(R => [`Rang ${R.name}`, R.ref]),
+    ...GUIDE.map(([t, h]) => [`Gebets-Anleitung: ${t.replace(/^\S+\s/, '')}`, strip(h)]),
+  ];
+  const map = new Map();
+  for (const [title, ref] of items) for (const l of parseRefs(ref || '')) {
+    const e = map.get(l.url) || {label:l.label, url:l.url, uses:new Set()};
+    e.uses.add(title); map.set(l.url, e);
+  }
+  const key = e => { const col = REF_ORDER.findIndex(c => e.label.startsWith(c)); const n = e.label.match(/(\d+)(?::(\d+))?/); return [col < 0 ? 99 : col, +n[1], +(n[2] || 0)]; };
+  return [...map.values()].sort((a, b) => { const x = key(a), y = key(b); return x[0] - y[0] || x[1] - y[1] || x[2] - y[2]; });
+}
+function renderRefs(){
+  const list = buildRefIndex(), groups = {};
+  for (const e of list) { const g = REF_ORDER.find(c => e.label.startsWith(c)) || 'Weitere'; (groups[g] = groups[g] || []).push(e); }
+  $('#refs').innerHTML = `<p>Alle <b>${list.length}</b> Quran- und Hadith-Stellen, die in der App vorkommen – zum Nachprüfen antippen.</p>
+    <p class="sub">Nummerierung: Bukhari nach Fath al-Bari, Muslim nach Abd al-Baqi (sunnah.com zeigt bei Muslim teils Unterbuchstaben wie 2698a). Die Nummern wurden von Claude aus dem Gedächtnis zusammengestellt und noch nicht automatisch gegen sunnah.com geprüft – im Zweifel gilt immer sunnah.com bzw. dein Lehrer.</p>`
+    + Object.entries(groups).map(([g, es]) => `<h4 class="rg-h">${g} <small>(${es.length})</small></h4>` + es.map(e =>
+      `<a class="rf" href="${e.url}" target="_blank" rel="noopener"><b>${esc(e.label.replace(g + ' ', ''))} ↗</b><small>${esc([...e.uses].slice(0, 3).join(' · '))}${e.uses.size > 3 ? ` · +${e.uses.size - 3}` : ''}</small></a>`).join('')).join('');
+}
 
 // ---------- Interaktion ----------
 function setCount(id, v){
