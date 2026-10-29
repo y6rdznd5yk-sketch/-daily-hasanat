@@ -90,7 +90,8 @@ nav .dot[hidden]{display:none}
 .btn.p{background:var(--accent);border-color:var(--accent);color:#fff}
 table{width:100%;border-collapse:collapse;font-size:.85rem}
 td{padding:6px 4px;border-bottom:1px solid var(--line);vertical-align:top}
-td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:right}
+td:last-child{color:var(--gold);font-weight:600;text-align:right}
+#mult td:last-child{white-space:nowrap}
 .qhead{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin:12px 0;display:flex;justify-content:space-between;align-items:center}
 .qhead b{font-size:1.3rem;color:var(--gold);font-variant-numeric:tabular-nums}
 .q{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden}
@@ -351,11 +352,27 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 .ptab td,.ptab td:last-child{color:var(--ink);font-weight:500;text-align:left;font-variant-numeric:tabular-nums}
 .ptab tr.on td{color:var(--accent);font-weight:700}
 #rank2 .rk{margin-top:0}
+/* iPhone: kein Auto-Zoom in Eingabefelder, kein Doppeltipp-Zoom, kein Markieren beim schnellen Tippen */
+input,select,textarea{font-size:max(16px,1rem) !important}
+button,label,summary,a{touch-action:manipulation}
+button,.qtap,.pwb,.tile,.mrow,summary{-webkit-user-select:none;user-select:none}
+button:active,.tile:active,.mrow:active{transform:scale(.97)}
+.qtap:active{transform:none}
+/* Kopfbereich nur auf „Heute“ – die anderen Seiten haben ihre eigene Überschrift */
+body:not([data-page="today"]) header{display:none}
+body:not([data-page="today"]) .ptitle{margin-top:16px}
+/* Unter-Reiter als Raster */
+.segc{display:grid;gap:6px;margin:0 0 12px}
+.segc.c5{grid-template-columns:repeat(5,1fr)}
+.segc.c3{grid-template-columns:repeat(3,1fr)}
+.sg{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:6px 2px;font:inherit;font-size:.72rem;font-weight:600;line-height:1.2;min-width:0}
+.sg span{display:block;font-size:1.15rem;line-height:1.3}
+.sg.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
 </head>
-<body>
+<body data-page="today">
 <main id="scroller"><div class="wrap">
   <header>
     <div class="hrow"><h1>Daily Hasanat ☪︎</h1><button class="hbtn" data-help="1" aria-label="Hilfe: So sammelst du XP">?</button></div>
@@ -386,10 +403,10 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
   <!-- SCHNELL -->
   <section class="page" id="p-quick">
     <div class="ptitle"><b>📿 Dhikr &amp; Du’a</b><span>Zählen, Adhkar zur richtigen Zeit, Du’as</span></div>
-    <div class="chips" id="seg"></div>
+    <div class="segc c5" id="seg"></div>
     <div id="adhk" hidden></div>
     <div id="quickwrap">
-    <div class="qhead"><div><div class="sub">Heute über Schnell-Dhikr</div><span id="q-taps">0</span> Mal gesagt</div><div style="text-align:right"><b id="q-has">0</b><div class="sub">Hasanat (min.)*</div></div></div>
+    <div class="qhead"><div><div class="sub">Heute gezählt</div><span id="q-taps">0</span> Mal gesagt</div><div style="text-align:right"><b id="q-has">0</b><div class="sub">Hasanat (min.)*</div></div></div>
     <p class="sub" style="margin-top:-4px">Ganze Karte antippen = einmal gesagt. Quelle aufklappen zum Nachlesen.</p>
     <div id="qlist"></div>
     <p class="sub">* Pro Dhikr mindestens ×10 (Bukhari 6491; für SubhanAllah ausdrücklich: 100× = 1000, Muslim 2698). Der Bonus steht jeweils dabei – der eigentliche Lohn ist bei Allah.</p>
@@ -414,8 +431,8 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
   <!-- VERLAUF -->
   <section class="page" id="p-hist">
     <div class="ptitle"><b>🏆 Fortschritt</b><span>Rang, Statistik und deine Tagebücher</span></div>
-    <div class="chips" id="hseg">
-      <button class="chip on" data-hs="rank">🏆 Rang</button><button class="chip" data-hs="over">📊 Statistik</button><button class="chip" data-hs="badges">🏅 Abzeichen</button><button class="chip" data-hs="quran">📖 Quran</button><button class="chip" data-hs="sadaqa">🤲 Sadaqa</button><button class="chip" data-hs="qada">🔁 Nachholen</button>
+    <div class="segc c3" id="hseg">
+      <button class="sg on" data-hs="rank"><span>🏆</span>Rang</button><button class="sg" data-hs="over"><span>📊</span>Statistik</button><button class="sg" data-hs="badges"><span>🏅</span>Abzeichen</button><button class="sg" data-hs="quran"><span>📖</span>Quran</button><button class="sg" data-hs="sadaqa"><span>🤲</span>Sadaqa</button><button class="sg" data-hs="qada"><span>🔁</span>Nachholen</button>
     </div>
     <div class="hpn" data-h="rank"><div id="rank2"></div><div id="pathinline"></div></div>
     <div class="hpn" data-h="over" hidden>
@@ -444,7 +461,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <div class="tiles" id="ktiles"></div>
     <div class="kp" data-k="hpath" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>🎓 Wissens-Pfad</h2><div class="card" id="hpath"></div></div>
     <div class="kp" data-k="names" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>🌟 Die 99 Namen Allahs</h2><div class="card" id="names"></div></div>
-    <div class="kp" data-k="mult" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>✖️ Die Multiplikatoren der Sunnah</h2><div class="card"><table id="mult"></table></div>
+    <div class="kp" data-k="mult" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>📈 Die Multiplikatoren der Sunnah</h2><div class="card"><table id="mult"></table></div>
       <h2>Rizq – was Quran &amp; Sunnah nennen</h2><div class="card" id="rizqinfo"></div></div>
   </section>
 
@@ -458,7 +475,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-editlist="1"><span>✎</span><div><b>Tages-Liste anpassen</b><small>Taten aus- und einblenden</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 17 (29.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 18 (29.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -490,6 +507,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <div class="mp" data-m="data" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>💾 Backup &amp; Daten</h2>
     <div class="card"><p>Alles wird nur lokal auf diesem Gerät gespeichert. Mach ab und zu ein Backup.</p></div>
     <button class="btn p" id="b-export">💾 Backup sichern (z. B. „In Dateien sichern“)</button>
+    <div class="card" id="snaps"></div>
     <label class="btn" style="text-align:center">Backup importieren<input type="file" id="b-import" accept=".json,application/json,text/plain" hidden></label>
     <button class="btn" id="b-reset">Heutigen Tag zurücksetzen</button>
     </div>
@@ -513,7 +531,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
   <button data-p="hist"><span>🏆</span>Fortschritt</button>
   <button data-p="set"><span>☰</span>Mehr</button>
 </nav>
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="tzo" id="tz" hidden>
   <button id="tz-close" aria-label="schließen">✕</button>
   <div id="tz-title"></div>
@@ -785,7 +803,27 @@ const RIZQ = [
 const KEY = 'daily-hasanat-v1';
 let db;
 try { db = JSON.parse(localStorage.getItem(KEY)) || {days:{}}; } catch(e) { db = {days:{}}; }
-const save = () => { try { localStorage.setItem(KEY, JSON.stringify(db)); } catch(e) {} };
+const SNAP_KEY = 'daily-hasanat-snaps';
+let saveWarned = false;
+const save = () => {
+  const data = JSON.stringify(db);
+  try { localStorage.setItem(KEY, data); return; } catch(e) {}
+  // Speicher voll: zuerst die automatischen Sicherungskopien opfern, dann nochmal
+  try { localStorage.removeItem(SNAP_KEY); localStorage.setItem(KEY, data); return; } catch(e) {}
+  if (!saveWarned && typeof toast === 'function') { saveWarned = true; toast('⚠️ Speicher voll – bitte unter Mehr → Backup sichern'); }
+};
+// einmal pro Tag eine Sicherungskopie des Vortags-Stands behalten (max. 5)
+function snapshot(){
+  try {
+    const k = new Date().toISOString().slice(0, 10), list = JSON.parse(localStorage.getItem(SNAP_KEY) || '[]');
+    if (list.length && list[list.length - 1].k === k) return;
+    if (!Object.keys(db.days || {}).length) return;
+    list.push({k, data:JSON.stringify(db)});
+    while (list.length > 5) list.shift();
+    localStorage.setItem(SNAP_KEY, JSON.stringify(list));
+  } catch(e) { try { localStorage.removeItem(SNAP_KEY); } catch(_) {} }
+}
+snapshot();
 
 // Haptik: Android über navigator.vibrate; iPhone (iOS 18+) über einen versteckten Schalter,
 // dessen Umschalten Safari mit einem fühlbaren Tick quittiert.
@@ -926,7 +964,7 @@ function renderStats(){
   $('#s-done').textContent = s.done; $('#s-total').textContent = s.total;
   $('#s-bar').style.width = (s.done / Math.max(1, s.total) * 100) + '%';
   const h = hijri(new Date());
-  $('#date').textContent = new Date().toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long', year:'numeric'})
+  $('#date').textContent = new Date().toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long'})
     + (h.hm ? ` · ${h.hd}. ${HIJRI_MONTHS[h.hm-1]} ${h.hy}` : '');
   clearTimeout(renderStats.t); renderStats.t = setTimeout(() => checkBadges(), 900);
   renderMissions(); renderRank(); xpTick(); renderDot();
@@ -1223,7 +1261,7 @@ function autoSeg(){
   return h >= 4 && h < 11 ? 'm' : h >= 15 && h < 20 ? 'e' : (h >= 20 || h < 3) ? 's' : 'quick';
 }
 function renderSeg(){
-  $('#seg').innerHTML = Object.entries(SEGS).map(([k, v]) => `<button class="chip ${k===seg?'on':''}" data-seg="${k}">${v}</button>`).join('');
+  $('#seg').innerHTML = Object.entries(SEGS).map(([k, v]) => { const [i, ...t] = v.split(' '); return `<button class="sg ${k===seg?'on':''}" data-seg="${k}"><span>${i}</span>${t.join(' ')}</button>`; }).join('');
   $('#quickwrap').hidden = seg !== 'quick';
   $('#adhk').hidden = seg === 'quick' || seg === 'du';
   $('#duawrap').hidden = seg !== 'du';
@@ -1261,6 +1299,7 @@ function tapAdhkar(key, delta){
 function showPage(pg){
   document.querySelectorAll('nav button').forEach(n => n.classList.toggle('on', n.dataset.p === pg));
   document.querySelectorAll('.page').forEach(p => p.classList.toggle('on', p.id === 'p-' + pg));
+  document.body.dataset.page = pg;
   if (pg === 'hist') renderHist();
   if (pg === 'info') showK(null);
   if (pg === 'set') showM(null);
@@ -2382,7 +2421,7 @@ function renderTiles(){
     ['🌟', '99 Namen Allahs', `${Object.keys(db.names).length}/99 gelernt`, 'data-kt="names"'],
     ['📚', 'Hadith-Bibliothek', 'Alle Sunan, Bukhari, Muslim', 'data-libopen="1"'],
     ['📖', 'Gebets-Anleitung', 'Rak’at, Adhan, Schritt für Schritt', 'data-guide="1"'],
-    ['✖️', 'Multiplikatoren & Rizq', '×10 bis ×700 · Quellen', 'data-kt="mult"'],
+    ['📈', 'Multiplikatoren & Rizq', '×10 bis ×700 · Quellen', 'data-kt="mult"'],
     ['🔎', 'Alles durchsuchen', 'Hadith, Du’as, Adhkar …', 'data-focus-search="1"'],
   ];
   $('#ktiles').innerHTML = T.map(([i, t, sub, attr]) => `<button class="tile" ${attr}><span>${i}</span><b>${t}</b><small>${esc(sub)}</small></button>`).join('');
@@ -2396,7 +2435,7 @@ function showK(k){
 }
 function showH(h){
   if (h === 'rank') $('#pathinline').innerHTML = pathHTML();
-  document.querySelectorAll('#hseg .chip').forEach(c => c.classList.toggle('on', c.dataset.hs === h));
+  document.querySelectorAll('#hseg .sg').forEach(c => c.classList.toggle('on', c.dataset.hs === h));
   document.querySelectorAll('.hpn').forEach(el => { el.hidden = el.dataset.h !== h; });
 }
 
@@ -2406,6 +2445,7 @@ function showM(k){
   $('#mlist').hidden = !!k;
   document.querySelectorAll('.mp').forEach(el => { el.hidden = el.dataset.m !== k; });
   if (k === 'ptimes') renderPrayerTable();
+  if (k === 'data') renderSnaps();
   $('#scroller').scrollTop = 0;
 }
 function renderPrayerTable(){
@@ -2422,6 +2462,17 @@ function renderDot(){
   const h = typeof nowHint === 'function' ? nowHint() : null;
   $('#dot-quick').hidden = !(h && h.seg && adhCount(day(today), h.seg) < adhItems(h.seg).length);
 }
+
+
+// ---------- Automatische Sicherungskopien anzeigen / wiederherstellen ----------
+function renderSnaps(){
+  let list = [];
+  try { list = JSON.parse(localStorage.getItem(SNAP_KEY) || '[]'); } catch(e) {}
+  $('#snaps').innerHTML = `<b>🛟 Automatische Sicherungskopien</b><p class="sub" style="margin:4px 0 6px">Die App legt täglich beim ersten Öffnen eine Kopie an (die letzten 5 Tage) – falls mal etwas schiefgeht.</p>`
+    + (list.length ? list.slice().reverse().map(sn => `<div class="li"><span>${new Date(sn.k + 'T12:00').toLocaleDateString('de-DE', {weekday:'short', day:'numeric', month:'long'})}</span><button class="x" data-snap="${sn.k}" style="padding:0 10px">Wiederherstellen</button></div>`).join('') : '<p class="sub">Noch keine Kopie vorhanden.</p>');
+}
+// Ein unerwarteter Fehler soll nie die App blockieren: Hinweis statt weißer Seite
+window.addEventListener('error', () => { if (!window.__errShown) { window.__errShown = true; try { toast('⚠️ Kleiner Fehler – deine Daten sind sicher. App neu öffnen hilft meist.'); } catch(_) {} } });
 
 // ---------- Interaktion ----------
 function setCount(id, v){
@@ -2459,6 +2510,13 @@ document.addEventListener('click', e => {
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
+  else if (b.dataset.snap) {
+    if (!confirm('Den Stand vom ' + new Date(b.dataset.snap + 'T12:00').toLocaleDateString('de-DE') + ' wiederherstellen? Der aktuelle Stand wird ersetzt.')) return;
+    try {
+      const sn = JSON.parse(localStorage.getItem(SNAP_KEY) || '[]').find(x => x.k === b.dataset.snap);
+      localStorage.setItem(KEY, sn.data); location.reload();
+    } catch(e) { toast('Wiederherstellen fehlgeschlagen'); }
+  }
   else if ('kt' in b.dataset) showK(b.dataset.kt);
   else if ('mk' in b.dataset) { if (!$('#p-set').classList.contains('on')) showPage('set'); showM(b.dataset.mk || null); }
   else if (b.dataset.focusSearch) { $('#search').focus(); $('#search').scrollIntoView({block:'center'}); }
