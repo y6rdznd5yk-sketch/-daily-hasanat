@@ -278,6 +278,28 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
 .rg span.cur{outline:2px solid var(--accent)}
 #ramcard{margin-top:10px;border-color:var(--gold)}
 #ramcard p{font-size:.88rem}
+.ref,.gref,.dh-r{cursor:pointer}
+.ref::after,.gref::after{content:" ↗";font-weight:400;opacity:.7}
+.refpop{position:fixed;inset:0;z-index:58;background:rgba(0,0,0,.35);display:flex;align-items:flex-end}
+.refpop[hidden]{display:none}
+.refpop-c{background:var(--bg);width:100%;border-radius:18px 18px 0 0;padding:16px 16px calc(env(safe-area-inset-bottom) + 16px)}
+.refpop-c a.btn{text-decoration:none;text-align:center}
+.lb{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:8px}
+.lb .tag{margin-left:6px}
+.lb-l{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.lib-top{display:flex;gap:8px;align-items:center;margin-bottom:6px}
+.lib-top input{flex:1;min-width:0;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:1rem}
+.sec{display:flex;justify-content:space-between;gap:8px;width:100%;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:10px 12px;margin-bottom:6px;font:inherit;font-size:.9rem}
+.sec small{color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.hc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:8px;font-size:.9rem}
+.hc-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.hc-h span{display:flex;gap:6px}
+.hc p{margin:.5em 0 0;white-space:pre-line}
+.grs{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.gr{font-size:.7rem;font-weight:600;padding:2px 7px;border-radius:6px;background:var(--bg);border:1px solid var(--line)}
+.gr.s{color:var(--accent);border-color:var(--accent)}
+.gr.h{color:var(--gold);border-color:var(--gold)}
+.gr.w{color:#c0392b;border-color:#c0392b}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -348,6 +370,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
   <section class="page" id="p-info">
     <div class="inp" style="margin-top:12px"><input id="search" type="search" placeholder="🔎 Suchen: Rizq, Schulden, Witr, Eltern …" autocomplete="off"></div>
     <div id="sresults"></div>
+    <button class="gbtn" data-libopen="1" style="margin-top:12px;border-style:solid;background:var(--gold-soft);border-color:var(--gold);color:var(--gold)">📚 Hadith-Bibliothek: alle Sunan, Bukhari, Muslim &amp; mehr</button>
     <button class="gbtn" data-guide="1" style="margin-top:12px">📖 Gebets-Anleitung: Rak’at, Adhan &amp; Iqama, Schritt für Schritt</button>
     <h2>📚 Wissens-Pfad</h2>
     <div class="card" id="hpath"></div>
@@ -411,7 +434,7 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <select class="btn" id="set-theme"><option value="auto">Design: automatisch</option><option value="light">Design: hell</option><option value="dark">Design: dunkel</option></select>
     <select class="btn" id="set-font"><option value="n">Schrift: normal</option><option value="l">Schrift: groß</option><option value="xl">Schrift: sehr groß</option></select>
     <label class="card" style="display:flex;justify-content:space-between;align-items:center">Arabische Schrift anzeigen <input type="checkbox" id="b-ar" style="width:22px;height:22px"></label>
-    <p class="sub" style="text-align:center">App-Version 13 (29.10.2026)</p>
+    <p class="sub" style="text-align:center">App-Version 14 (29.10.2026)</p>
     <h2>Quran-Schätzung</h2>
     <div class="card"><p>Der Mushaf hat ca. 320.000 Buchstaben auf 604 Seiten ≈ 530 Buchstaben/Seite. Pro Buchstabe 1 Hasana ×10 (Tirmidhi 2910) ⇒ ca. <b>5.300 Hasanat pro Seite</b>. Das ist eine grobe Schätzung.</p></div>
   </section>
@@ -469,6 +492,16 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <div class="sheet-h"><h3>🎮 → 👑 Vom Playboy zum Prayerboy</h3><button class="x" id="path-close" aria-label="schließen">✕</button></div>
     <div id="path-body"></div>
   </div>
+</div>
+<div class="sheet" id="lib" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3 id="lib-title">📚 Hadith-Bibliothek</h3><button class="x" id="lib-close" aria-label="schließen">✕</button></div>
+    <div id="lib-body"></div>
+  </div>
+</div>
+<div class="refpop" id="refpop" hidden>
+  <div class="refpop-c"><div class="sheet-h"><b>Quelle öffnen</b><button class="x" id="refpop-close" aria-label="schließen">✕</button></div><div id="refpop-body"></div>
+  <p class="sub">Hinweis: Bei Sahih Muslim führt sunnah.com manche Nummern mit Unterbuchstaben (z. B. 2698a).</p></div>
 </div>
 <script src="prayer.js"></script>
 
@@ -1988,6 +2021,188 @@ function renderRamadanCard(){
     ${h.hd >= 20 ? `<p>🌾 <b>Zakat al-Fitr</b> vor dem Eid-Gebet geben – ein Sa’ (ca. 2,5–3 kg Grundnahrungsmittel oder dessen Wert, je nach Rechtsschule) für jede Person im Haushalt. <span class="gref">Bukhari 1503, Muslim 984</span></p>` : ''}`;
 }
 
+// ---------- Quellen antippen → sunnah.com / quran.com ----------
+const REF_SLUG = {'bukhari':'bukhari', 'muslim':'muslim', 'tirmidhi':'tirmidhi', 'abu dawud':'abudawud', 'an-nasai':'nasai', 'nasai':'nasai', 'ibn majah':'ibnmajah'};
+const REF_NAME = {bukhari:'Sahih al-Bukhari', muslim:'Sahih Muslim', tirmidhi:'Jami‘ at-Tirmidhi', abudawud:'Sunan Abi Dawud', nasai:'Sunan an-Nasa’i', ibnmajah:'Sunan Ibn Majah'};
+function parseRefs(text){
+  const t = text.replace(/[’‘]/g, "'"), out = [];
+  const re = /(Bukhari|Muslim|Tirmidhi|Abu Dawud|an-Nasa'i|Nasa'i|Ibn Majah|Quran)\s+(\d+(?::\d+(?:[–-]\d+)?)?)((?:\s*,\s*\d+(?![\d:]))*)/g;
+  let m;
+  while ((m = re.exec(t))) {
+    const col = m[1].toLowerCase().replace("'", ''), nums = [m[2], ...(m[3].match(/\d+/g) || [])];
+    for (const n of nums) {
+      if (col === 'quran') {
+        const [su, ay] = n.split(':'); if (!ay) continue;
+        out.push({label:`Quran ${su}:${ay}`, url:`https://quran.com/${su}/${ay.replace('–', '-')}`});
+      } else {
+        const slug = REF_SLUG[col]; if (!slug) continue;
+        out.push({label:`${REF_NAME[slug]} ${n}`, url:`https://sunnah.com/${slug}:${n}`});
+      }
+    }
+  }
+  return out.filter((r, i, a) => a.findIndex(x => x.url === r.url) === i);
+}
+function openRefs(links){
+  if (links.length === 1) { window.open(links[0].url, '_blank', 'noopener'); return; }
+  $('#refpop-body').innerHTML = links.map(l => `<a class="btn" href="${l.url}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`).join('');
+  $('#refpop').hidden = false;
+}
+document.addEventListener('click', e => {
+  if (e.target.closest('#refpop-close') || e.target.id === 'refpop') { $('#refpop').hidden = true; return; }
+  if (e.target.closest('#refpop a')) { setTimeout(() => { $('#refpop').hidden = true; }, 300); return; }
+  const el = e.target.closest('.ref, .gref, .dh-r'); if (!el) return;
+  const links = parseRefs(el.textContent); if (!links.length) return;
+  e.preventDefault(); e.stopPropagation(); openRefs(links);
+}, true);
+
+// ---------- Hadith-Bibliothek (freier Datensatz fawazahmed0/hadith-api) ----------
+// Lädt eine Sammlung einmal komplett (ca. 1–8 MB) und speichert sie im Cache → danach offline.
+let LIB_BASES = ['https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1', 'https://raw.githubusercontent.com/fawazahmed0/hadith-api/1'];
+try { const o = localStorage.getItem('lib-base'); if (o) LIB_BASES = [o]; } catch(e) {}
+const LIB_CACHE = 'hadith-lib-v1';
+const LIB_ORDER = ['abudawud', 'tirmidhi', 'nasai', 'ibnmajah', 'bukhari', 'muslim', 'malik', 'nawawi', 'qudsi', 'dehlawi'];
+const LIB_DE = {abudawud:'Sunan Abu Dawud', tirmidhi:'Jami‘ at-Tirmidhi', nasai:'Sunan an-Nasa’i', ibnmajah:'Sunan Ibn Majah', bukhari:'Sahih al-Bukhari', muslim:'Sahih Muslim', malik:'Muwatta Malik', nawawi:'40 Hadith an-Nawawi', qudsi:'40 Hadith Qudsi', dehlawi:'40 Hadith Shah Waliullah'};
+const LANG_DE = {ara:'Arabisch', eng:'Englisch', tur:'Türkisch', urd:'Urdu', ind:'Indonesisch', ben:'Bengalisch', rus:'Russisch', fra:'Französisch', tam:'Tamil'};
+const lib = {editions:null, book:null, lang:null, data:null, ar:null, view:'home', sec:null, shown:30, q:''};
+db.favs = db.favs || [];
+
+async function libFetch(path, progress){
+  const cache = 'caches' in window ? await caches.open(LIB_CACHE) : null;
+  for (const base of LIB_BASES) {
+    const url = `${base}/${path}`;
+    try {
+      if (cache) { const hit = await cache.match(url); if (hit) return await hit.json(); }
+      const r = await fetch(url); if (!r.ok) continue;
+      let text;
+      const total = +r.headers.get('content-length') || 0;
+      if (progress && r.body && r.body.getReader) {
+        const rd = r.body.getReader(), parts = []; let got = 0;
+        for (;;) { const {done, value} = await rd.read(); if (done) break; parts.push(value); got += value.length; progress(got, total); }
+        text = await new Blob(parts).text();
+      } else text = await r.text();
+      if (cache) await cache.put(url, new Response(text, {headers:{'content-type':'application/json'}}));
+      return JSON.parse(text);
+    } catch(e) { /* nächste Quelle versuchen */ }
+  }
+  throw new Error('nicht erreichbar');
+}
+async function libIsCached(path){
+  if (!('caches' in window)) return false;
+  const c = await caches.open(LIB_CACHE);
+  for (const b of LIB_BASES) if (await c.match(`${b}/${path}`)) return true;
+  return false;
+}
+const edPath = (lang, book) => `editions/${lang}-${book}.min.json`;
+
+function libOpen(){ $('#lib').hidden = false; $('#lib').scrollTop = 0; lib.view = lib.data ? 'book' : 'home'; libRender(); }
+async function libHome(){
+  const el = $('#lib-body');
+  el.innerHTML = '<p class="sub">Sammlungen werden geladen …</p>';
+  try { lib.editions = lib.editions || await libFetch('editions.json'); }
+  catch(e) { el.innerHTML = '<p>⚠️ Die Hadith-Bibliothek ist gerade nicht erreichbar. Beim ersten Laden brauchst du Internet – danach geht es offline.</p><button class="btn" data-lib="home">Nochmal versuchen</button>'; return; }
+  const books = Object.keys(lib.editions).sort((a, b) => (LIB_ORDER.indexOf(a) + 1 || 99) - (LIB_ORDER.indexOf(b) + 1 || 99));
+  const rows = await Promise.all(books.map(async b => {
+    const langs = (lib.editions[b].collection || []).map(c => (c.name || '').split('-')[0]).filter(l => LANG_DE[l]);
+    const cached = await Promise.all(langs.map(l => libIsCached(edPath(l, b))));
+    const pref = ['eng', 'tur', 'ara'].filter(l => langs.includes(l)).concat(langs.filter(l => !['eng', 'tur', 'ara'].includes(l)));
+    return `<div class="lb"><b>${esc(LIB_DE[b] || lib.editions[b].name || b)}</b>${['abudawud','tirmidhi','nasai','ibnmajah'].includes(b) ? '<small class="tag">Sunan</small>' : ''}
+      <div class="lb-l">${pref.map(l => `<button class="chip ${cached[langs.indexOf(l)] ? 'on' : ''}" data-libload="${b}:${l}">${LANG_DE[l]}${cached[langs.indexOf(l)] ? ' ✓' : ''}</button>`).join('')}</div></div>`;
+  }));
+  el.innerHTML = `<p class="sub">Tippe auf eine Sprache, um die Sammlung herunterzuladen (einmalig, danach offline). ✓ = schon auf dem Gerät.</p>
+    ${db.favs.length ? `<button class="btn" data-lib="favs">⭐ Meine gemerkten Hadithe (${db.favs.length})</button>` : ''}
+    ${rows.join('')}
+    <p class="sub">Daten: freier Datensatz „hadith-api“ (fawazahmed0) – arabischer Originaltext und Übersetzungen ihrer jeweiligen Übersetzer, Gradierungen laut Datensatz (u. a. al-Albani). Deutsche Übersetzungen der Sunan sind nicht frei verfügbar.</p>`;
+}
+async function libLoad(book, lang){
+  const el = $('#lib-body');
+  el.innerHTML = `<p><b>${esc(LIB_DE[book] || book)}</b> (${LANG_DE[lang]}) wird geladen …</p><div class="bar"><i id="lib-prog" style="width:3%"></i></div><p class="sub" id="lib-pt"></p>`;
+  try {
+    const data = await libFetch(edPath(lang, book), (got, total) => {
+      const p = $('#lib-prog'); if (p) p.style.width = (total ? Math.min(100, got / total * 100) : Math.min(95, got / 8e6 * 100)) + '%';
+      const t = $('#lib-pt'); if (t) t.textContent = `${(got / 1e6).toFixed(1)} MB`;
+    });
+    lib.book = book; lib.lang = lang; lib.data = data; lib.ar = null; lib.view = 'book'; lib.sec = null; lib.q = '';
+    if (lang !== 'ara' && await libIsCached(edPath('ara', book))) lib.ar = await libFetch(edPath('ara', book));
+    libRender();
+  } catch(e) { el.innerHTML = '<p>⚠️ Laden fehlgeschlagen – bitte mit Internet erneut versuchen.</p><button class="btn" data-lib="home">Zurück</button>'; }
+}
+function libSections(){
+  const md = lib.data.metadata || {}, names = md.sections || md.section || {}, det = md.section_details || {};
+  const ids = Object.keys(names).length ? Object.keys(names) : [...new Set(lib.data.hadiths.map(h => String((h.reference || {}).book)))];
+  return ids.filter(id => id !== '0' || names[id]).map(id => ({id, name:names[id] || `Buch ${id}`, from:(det[id] || {}).hadithnumber_first, to:(det[id] || {}).hadithnumber_last}));
+}
+const gradeClass = g => /da[‘'’]?if|weak|maudu|fabricat|munkar|shadh/i.test(g) ? 'w' : /hasan/i.test(g) ? 'h' : /sahih|authentic/i.test(g) ? 's' : '';
+function hadithCard(h, book, lang){
+  const id = `${book}:${h.hadithnumber}`, fav = db.favs.some(f => f.id === id);
+  const ar = lib.ar && lib.book === book ? (lib.ar.hadiths.find(x => x.hadithnumber === h.hadithnumber) || {}).text : null;
+  const grades = (h.grades || []).map(g => `<span class="gr ${gradeClass(g.grade)}">${esc(g.name)}: ${esc(g.grade)}</span>`).join('');
+  return `<div class="hc"><div class="hc-h"><b>${esc(LIB_DE[book] || book)} ${h.hadithnumber}</b>
+      <span><button class="x" data-fav="${id}" aria-label="merken">${fav ? '⭐' : '☆'}</button><button class="x" data-sun="${book}:${h.hadithnumber}" aria-label="sunnah.com">↗</button></span></div>
+    ${grades ? `<div class="grs">${grades}</div>` : ''}
+    ${ar ? `<p class="ar">${esc(ar)}</p>` : ''}
+    <p class="${lang === 'ara' ? 'ar' : ''}">${esc(h.text || '–')}</p></div>`;
+}
+function libRender(){
+  const el = $('#lib-body');
+  $('#lib-title').textContent = lib.view === 'home' || !lib.data ? '📚 Hadith-Bibliothek' : (LIB_DE[lib.book] || lib.book);
+  if (lib.view === 'home') return void libHome();
+  if (lib.view === 'favs') {
+    el.innerHTML = `<button class="btn" data-lib="home">‹ Alle Sammlungen</button>` + (db.favs.length ? db.favs.slice().reverse().map(f => `<div class="hc"><div class="hc-h"><b>${esc(LIB_DE[f.book] || f.book)} ${f.n}</b><span><button class="x" data-fav="${f.id}">⭐</button><button class="x" data-sun="${f.book}:${f.n}">↗</button></span></div>${f.g ? `<div class="grs"><span class="gr ${gradeClass(f.g)}">${esc(f.g)}</span></div>` : ''}<p>${esc(f.text)}</p></div>`).join('') : '<p class="sub">Noch nichts gemerkt.</p>');
+    return;
+  }
+  const H = lib.data.hadiths || [];
+  let list = null, head = '';
+  if (lib.q.trim().length >= 2) {
+    const w = norm(lib.q).split(/\s+/).filter(Boolean);
+    const num = /^\d+$/.test(lib.q.trim()) ? +lib.q.trim() : null;
+    list = num ? H.filter(h => h.hadithnumber === num || Math.floor(h.hadithnumber) === num) : H.filter(h => { const t = norm(h.text || ''); return w.every(x => t.includes(x)); });
+    head = `<p class="sub">${list.length} Treffer</p>`;
+  } else if (lib.sec) {
+    list = H.filter(h => String((h.reference || {}).book) === lib.sec.id);
+    head = `<button class="btn" data-lib="book">‹ Alle Kapitel</button><h4 style="margin:6px 0">${esc(lib.sec.name)}</h4>`;
+  }
+  const top = `<div class="lib-top"><button class="x" data-lib="home" aria-label="zurück">‹</button><input id="lib-q" type="search" placeholder="Suchen oder Nummer (z. B. 1520)" value="${esc(lib.q)}" autocomplete="off"></div>
+    <p class="sub">${fmt(H.length)} Hadithe · ${LANG_DE[lib.lang]}${lib.ar ? ' + Arabisch' : lib.lang !== 'ara' ? ` · <button class="lnk" data-libload="${lib.book}:ara">+ Arabischen Text laden</button>` : ''}</p>`;
+  if (!list) {
+    el.innerHTML = top + libSections().map(s => `<button class="sec" data-sec="${esc(s.id)}"><span>${esc(s.id)}. ${esc(s.name)}</span><small>${s.from ? `${s.from}–${s.to}` : ''}</small></button>`).join('');
+    return;
+  }
+  el.innerHTML = top + head + list.slice(0, lib.shown).map(h => hadithCard(h, lib.book, lib.lang)).join('')
+    + (list.length > lib.shown ? `<button class="btn" data-lib="more">Weitere ${Math.min(30, list.length - lib.shown)} laden (${list.length - lib.shown} übrig)</button>` : '');
+}
+document.addEventListener('input', e => {
+  if (e.target.id !== 'lib-q') return;
+  lib.q = e.target.value; lib.shown = 30;
+  clearTimeout(libRender.t); libRender.t = setTimeout(() => { const pos = e.target.selectionStart; libRender(); const i = $('#lib-q'); if (i) { i.focus(); try { i.setSelectionRange(pos, pos); } catch(_) {} } }, 250);
+});
+$('#lib').addEventListener('click', async e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.id === 'lib-close') { $('#lib').hidden = true; return; }
+  const d = b.dataset;
+  if (d.lib === 'home') { lib.view = 'home'; libRender(); }
+  else if (d.lib === 'book') { lib.view = 'book'; lib.sec = null; lib.q = ''; libRender(); }
+  else if (d.lib === 'favs') { lib.view = 'favs'; libRender(); }
+  else if (d.lib === 'more') { lib.shown += 30; libRender(); }
+  else if (d.libload) {
+    const [bk, lg] = d.libload.split(':');
+    if (lg === 'ara' && lib.data && lib.book === bk && lib.lang !== 'ara') {
+      b.textContent = 'Lädt …';
+      try { lib.ar = await libFetch(edPath('ara', bk)); libRender(); } catch(_) { toast('Arabischer Text nicht erreichbar'); }
+    } else libLoad(bk, lg);
+  }
+  else if (d.sec) { lib.sec = libSections().find(s => s.id === d.sec); lib.shown = 30; libRender(); $('#lib').scrollTop = 0; }
+  else if (d.fav) {
+    const [bk, n] = d.fav.split(':'), i = db.favs.findIndex(f => f.id === d.fav);
+    if (i >= 0) db.favs.splice(i, 1);
+    else {
+      const h = lib.data && lib.book === bk ? lib.data.hadiths.find(x => String(x.hadithnumber) === n) : null;
+      if (h) { db.favs.push({id:d.fav, book:bk, n, text:h.text, g:(h.grades || []).map(g => `${g.name}: ${g.grade}`).join(' · ')}); toast('Gemerkt ⭐'); }
+    }
+    save(); libRender();
+  }
+  else if (d.sun) { const [bk, n] = d.sun.split(':'); window.open(`https://sunnah.com/${bk}:${String(n).split('.')[0]}`, '_blank', 'noopener'); }
+});
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -2024,6 +2239,7 @@ document.addEventListener('click', e => {
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
+  else if (b.dataset.libopen) libOpen();
   else if (b.dataset.dcat) { duaCat = b.dataset.dcat; renderDuaCollection(); }
   else if (b.dataset.dsay) {
     const x = db.days[today] = db.days[today] || {}, k = 'd:' + b.dataset.dsay;
@@ -2094,6 +2310,7 @@ $('#b-import').onchange = async e => {
     if (data.khatm && !db.khatm) db.khatm = data.khatm;
     if (data.names) db.names = {...data.names, ...db.names};
     if (data.hadith) db.hadith = {...data.hadith, ...db.hadith};
+    if (Array.isArray(data.favs)) db.favs = [...db.favs, ...data.favs.filter(f => !db.favs.some(o => o.id === f.id))];
     if (data.qada && !Object.keys(db.qada).length) db.qada = data.qada;
     if (data.rank != null) db.rank = Math.max(db.rank || 0, data.rank);
     if (Array.isArray(data.custom)) { db.custom = [...db.custom, ...data.custom.filter(e => !db.custom.some(o => o.id === e.id))]; syncCustom(); }
