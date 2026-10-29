@@ -24,6 +24,10 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 body{padding:env(safe-area-inset-top) 0 calc(76px + env(safe-area-inset-bottom))}
+body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);background:var(--bg);z-index:20}
+.say{margin:8px 0 2px}
+.tr{font-weight:600;font-size:1.02rem;color:var(--accent);line-height:1.4}
+.de{font-size:.85rem;color:var(--muted);margin-top:3px;font-style:italic}
 .wrap{max-width:640px;margin:0 auto;padding:0 16px}
 header{padding:18px 0 8px}
 h1{font-size:1.35rem;margin:0}
@@ -153,6 +157,8 @@ td:last-child{color:var(--gold);font-weight:600;white-space:nowrap;text-align:ri
     <button class="btn p" id="b-export">Backup exportieren (.json)</button>
     <label class="btn" style="text-align:center">Backup importieren<input type="file" id="b-import" accept="application/json" hidden></label>
     <button class="btn" id="b-reset">Heutigen Tag zurücksetzen</button>
+    <h2>Anzeige</h2>
+    <label class="card" style="display:flex;justify-content:space-between;align-items:center">Arabische Schrift anzeigen <input type="checkbox" id="b-ar" style="width:22px;height:22px"></label>
     <h2>Quran-Schätzung</h2>
     <div class="card"><p>Der Mushaf hat ca. 320.000 Buchstaben auf 604 Seiten ≈ 530 Buchstaben/Seite. Pro Buchstabe 1 Hasana ×10 (Tirmidhi 2910) ⇒ ca. <b>5.300 Hasanat pro Seite</b>. Das ist eine grobe Schätzung.</p></div>
   </section>
@@ -275,6 +281,68 @@ const QUICK = [
    reward:'„Kein Muslim bittet für seinen Bruder in dessen Abwesenheit, ohne dass der Engel sagt: Und dir das Gleiche.“', ref:'Muslim 2732'},
 ];
 
+// ---------- Lautschrift & Bedeutung ----------
+const SAY = {
+ "adhan": [
+  "Allahumma rabba hādhihi d-da'wati t-tāmmah, wa s-salāti l-qā'imah, āti Muhammadan al-wasīlata wa l-fadīlah, wab'ath-hu maqāman mahmūdan alladhī wa'adtah",
+  "O Allah, Herr dieses vollkommenen Rufes und des Gebets, das nun verrichtet wird: Gib Muhammad die Wasīla und den Vorzug, und erwecke ihn an der lobenswerten Stelle, die Du ihm versprochen hast."
+ ],
+ "subhan": [
+  "SubhānAllāh",
+  "Gepriesen ist Allah (frei von jedem Makel)."
+ ],
+ "tahlil": [
+  "Lā ilāha illallāhu wahdahū lā sharīka lah, lahu l-mulku wa lahu l-hamd, wa huwa 'alā kulli shay'in qadīr",
+  "Es gibt keinen Gott außer Allah, allein, ohne Partner. Ihm gehört die Herrschaft und Ihm gebührt das Lob, und Er hat Macht über alle Dinge."
+ ],
+ "bihamdihi": [
+  "SubhānAllāhi wa bihamdihī",
+  "Gepriesen ist Allah, und Ihm gebührt das Lob."
+ ],
+ "two": [
+  "SubhānAllāhi wa bihamdihī, SubhānAllāhil-'Azīm",
+  "Gepriesen ist Allah und Ihm gebührt das Lob – gepriesen ist Allah, der Gewaltige."
+ ],
+ "istighfar": [
+  "Astaghfirullāha wa atūbu ilayh",
+  "Ich bitte Allah um Vergebung und wende mich Ihm reuevoll zu."
+ ],
+ "sayyid": [
+  "Allāhumma anta rabbī, lā ilāha illā ant, khalaqtanī wa ana 'abduk, wa ana 'alā 'ahdika wa wa'dika mastata't, a'ūdhu bika min sharri mā sana't, abū'u laka bi ni'matika 'alayya, wa abū'u laka bi dhanbī, faghfir lī, fa innahū lā yaghfiru dh-dhunūba illā ant",
+  "O Allah, Du bist mein Herr, es gibt keinen Gott außer Dir. Du hast mich erschaffen und ich bin Dein Diener. Ich halte an Deinem Bund und Deinem Versprechen fest, so gut ich kann. Ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe. Ich erkenne Deine Gnade an mir an und bekenne Dir meine Sünde – so vergib mir, denn niemand vergibt die Sünden außer Dir."
+ ],
+ "salawat": [
+  "Allāhumma salli 'alā Muhammad",
+  "O Allah, segne Muhammad."
+ ],
+ "hawqala": [
+  "Lā hawla wa lā quwwata illā billāh",
+  "Es gibt keine Macht und keine Kraft außer durch Allah."
+ ],
+ "juwayriya": [
+  "SubhānAllāhi wa bihamdihī, 'adada khalqihī, wa ridā nafsihī, wa zinata 'arshihī, wa midāda kalimātih",
+  "Gepriesen ist Allah und Ihm gebührt das Lob – so oft wie die Zahl Seiner Geschöpfe, so sehr, wie es Ihm gefällt, so schwer wie Sein Thron und so viel wie die Tinte Seiner Worte."
+ ],
+ "four": [
+  "SubhānAllāh, wal-hamdu lillāh, wa lā ilāha illallāh, wallāhu akbar",
+  "Gepriesen ist Allah, alles Lob gebührt Allah, es gibt keinen Gott außer Allah, und Allah ist größer."
+ ],
+ "palm": [
+  "SubhānAllāhil-'Azīmi wa bihamdihī",
+  "Gepriesen ist Allah, der Gewaltige, und Ihm gebührt das Lob."
+ ],
+ "hamd": [
+  "Alhamdulillāh",
+  "Alles Lob gebührt Allah."
+ ],
+ "ikhlas": [
+  "Qul huwallāhu ahad. Allāhu s-samad. Lam yalid wa lam yūlad. Wa lam yakun lahū kufuwan ahad.",
+  "Sag: Er ist Allah, der Eine. Allah, der Absolute (auf den alle angewiesen sind). Er hat nicht gezeugt und ist nicht gezeugt worden, und niemand ist Ihm gleich. (Quran 112)"
+ ]
+};
+const SAY_IDS = {"adhan": "adhan", "subhan100": "subhan", "q_subhan": "subhan", "tahlil100": "tahlil", "q_tahlil10": "tahlil", "bihamdihi": "bihamdihi", "twowords": "two", "q_two": "two", "istighfar": "istighfar", "q_istighfar": "istighfar", "sayyid": "sayyid", "salawat": "salawat", "q_salawat": "salawat", "hawqala": "hawqala", "q_hawqala": "hawqala", "juwayriya": "juwayriya", "q_four": "four", "q_palm": "palm", "q_hamd": "hamd", "ikhlas": "ikhlas", "q_ikhlas": "ikhlas"};
+for (const d of [...DEEDS, ...QUICK]) { const k = SAY_IDS[d.id]; if (k) [d.tr, d.de] = SAY[k]; }
+
 const MULT = [
   ['Gute Tat getan', 'Bukhari 6491, Muslim 131', '×10 bis ×700+'],
   ['Gute Tat nur beabsichtigt', 'Bukhari 6491, Muslim 131', '1 Hasana'],
@@ -355,6 +423,12 @@ const CATS = ['Alle', ...new Set(DEEDS.map(d => d.cat)), 'Rizq'];
 function renderChips(){
   $('#chips').innerHTML = CATS.map(c => `<button class="chip ${c===filter?'on':''}" data-c="${c}">${c==='Rizq'?'💧 Rizq':c}</button>`).join('');
 }
+let showAr = false;
+try { showAr = localStorage.getItem('show-arabic') === '1'; } catch(e) {}
+function sayHTML(d){
+  if (!d.tr && !d.ar) return '';
+  return `<div class="say">${d.tr ? `<div class="tr">${esc(d.tr)}</div><div class="de">„${esc(d.de)}“</div>` : ''}${showAr && d.ar ? `<div class="ar">${d.ar}</div>` : ''}</div>`;
+}
 function deedHTML(d){
   const c = day(today)[d.id] || 0, done = c >= d.target;
   const tags = [`<span class="tag">${esc(d.mult)}</span>`];
@@ -366,7 +440,7 @@ function deedHTML(d){
     : `<div class="ctr"><button data-m="${d.id}" aria-label="minus">−</button><span class="num">${c}/${d.target}</span><button class="big" data-p="${d.id}">+${d.step||1}</button></div>`;
   return `<div class="deed ${done?'done':''}">
     <div class="row"><div class="t"><b>${esc(d.title)}</b><div class="tags">${tags.join('')}</div></div>${ctl}</div>
-    ${d.ar?`<div class="ar">${d.ar}</div>`:''}
+    ${sayHTML(d)}
     <details><summary>Quelle &amp; Belohnung</summary><div class="src">${esc(d.reward)}<span class="ref">${esc(d.ref)}</span></div></details>
   </div>`;
 }
@@ -418,7 +492,7 @@ function renderQuick(){
       <button class="qtap" data-q="${q.id}">
         <div class="qtop"><div><b>${esc(q.title)}</b><div class="tags"><span class="tag">${esc(q.mult)}</span>${q.rizq?'<span class="tag r">Rizq</span>':''}${sets}</div></div>
         <div class="qcount">${c}<small>${q.goal>1 ? '/' + q.goal : (q.unit || 'heute')}</small></div></div>
-        ${q.ar ? `<div class="ar">${q.ar}</div>` : ''}${goal}
+        ${sayHTML(q)}${goal}
       </button>
       <div class="qfoot"><details ${open?'open':''}><summary>Quelle &amp; Bonus</summary><div class="src">${esc(q.reward)}<span class="ref">${esc(q.ref)}</span></div></details>
       <button class="qundo" data-qu="${q.id}">−1</button></div>
@@ -474,6 +548,8 @@ $('#b-import').onchange = async e => {
     db.days = {...db.days, ...data.days}; save(); render(); toast('Backup importiert');
   } catch(_) { toast('Ungültige Datei'); }
 };
+$('#b-ar').checked = showAr;
+$('#b-ar').onchange = e => { showAr = e.target.checked; try { localStorage.setItem('show-arabic', showAr ? '1' : '0'); } catch(_) {} render(); };
 $('#b-reset').onclick = () => { if (confirm('Heutigen Fortschritt löschen?')) { delete db.days[today]; save(); render(); } };
 
 // Tageswechsel, wenn die App über Mitternacht offen bleibt
