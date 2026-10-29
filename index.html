@@ -134,7 +134,7 @@ td:last-child{color:var(--gold);font-weight:600;text-align:right}
 .tz-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
 .tz-ring circle{fill:none;stroke-width:14}
 #tz-bg{stroke:var(--line)} #tz-fg{stroke:var(--accent);stroke-linecap:round;stroke-dasharray:691;transition:stroke-dashoffset .15s}
-#tz-n{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:3.6rem;font-weight:700;font-variant-numeric:tabular-nums}
+#tz-n,#ts-n{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:3.2rem;font-weight:700;font-variant-numeric:tabular-nums}
 .inp{display:flex;gap:8px;margin-bottom:8px}
 .inp input,.inp select,select.btn{flex:1;min-width:0;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:.95rem}
 .tm{background:var(--rizq-soft);color:var(--ink);border-radius:14px;padding:10px 12px;margin:0 0 12px;font-size:.88rem}
@@ -409,6 +409,22 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
 .chal-o b{display:block;font-size:.88rem}
 .chal-o small{color:var(--muted);font-size:.74rem}
 #coopcard{margin-top:10px}
+.tsb{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid var(--gold);background:var(--gold-soft);color:var(--ink);border-radius:16px;padding:12px;margin:0 0 12px;font:inherit}
+.tsb>span{font-size:1.8rem}
+.tsb div{flex:1;min-width:0}
+.tsb b{display:block}
+.tsb small{color:var(--muted);font-size:.76rem}
+.tsb i{font-style:normal;color:var(--gold);font-size:1.2rem}
+.hz{margin:8px 0}
+.hzr{display:flex;align-items:center;gap:8px;border-top:1px solid var(--line);padding:4px 0}
+.hzb{flex:1;display:flex;align-items:center;gap:10px;border:0;background:none;color:var(--ink);text-align:left;font:inherit;padding:6px 0;min-width:0}
+.hzb i{font-style:normal;width:26px;text-align:center;font-size:1.05rem;color:var(--muted)}
+.hzb b{display:block;font-size:.9rem}
+.hzb small{color:var(--muted);font-size:.72rem}
+.hzr.s1 .hzb i{color:var(--gold)}
+.hzr.s2 .hzb i{color:var(--accent);font-weight:800}
+.hzr.s2 .hzb b{color:var(--accent)}
+.hzl{text-decoration:none;display:flex;align-items:center;justify-content:center}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -448,6 +464,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <div class="segc c5" id="seg"></div>
     <div id="adhk" hidden></div>
     <div id="quickwrap">
+    <button class="tsb" data-tsb="1"><span>📿</span><div><b>Tasbih nach dem Gebet</b><small>33× SubhanAllah · 33× Alhamdulillah · 33× Allahu akbar · 1× La ilaha illallah – läuft automatisch weiter</small></div><i>▶</i></button>
     <div class="qhead"><div><div class="sub">Heute gezählt</div><span id="q-taps">0</span> Mal gesagt</div><div style="text-align:right"><b id="q-has">0</b><div class="sub">Hasanat (min.)*</div></div></div>
     <p class="sub" style="margin-top:-4px">Ganze Karte antippen = einmal gesagt. Quelle aufklappen zum Nachlesen.</p>
     <div id="qlist"></div>
@@ -503,6 +520,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <div id="sresults"></div>
     <div class="tiles" id="ktiles"></div>
     <div class="kp" data-k="hpath" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>🎓 Wissens-Pfad</h2><div class="card" id="hpath"></div></div>
+    <div class="kp" data-k="hifz" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>🧠 Suren auswendig lernen</h2><div class="card" id="hifz"></div></div>
     <div class="kp" data-k="names" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>🌟 Die 99 Namen Allahs</h2><div class="card" id="names"></div></div>
     <div class="kp" data-k="mult" hidden><button class="kback" data-kt="">‹ Übersicht</button><h2>📈 Die Multiplikatoren der Sunnah</h2><div class="card"><table id="mult"></table></div>
       <h2>Rizq – was Quran &amp; Sunnah nennen</h2><div class="card" id="rizqinfo"></div></div>
@@ -518,7 +536,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 22 (29.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 23 (29.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -642,6 +660,16 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
 </div>
 <div id="xppop" aria-live="polite"></div>
 <div id="cele" hidden onclick="this.hidden=true" role="status"><div class="cele-c"><div class="cele-i">🎉</div><b>Tag komplett!</b><span>MashaAllah – dein ganzes Programm für heute ist geschafft.</span><small>„Die Taten, die Allah am liebsten sind, sind die beständigen, auch wenn sie wenig sind.“ – Bukhari 6464, Muslim 783</small></div></div>
+<div class="tzo" id="ts" hidden>
+  <button id="ts-close" aria-label="schließen" class="x" style="position:absolute;top:calc(env(safe-area-inset-top) + 12px);right:16px;width:44px;height:44px;border-radius:50%">✕</button>
+  <div class="sub" id="ts-step"></div>
+  <div id="ts-tr" class="tr" style="font-size:1.6rem;margin:8px 0 2px"></div>
+  <div id="ts-de" class="de"></div>
+  <div class="tz-ring"><svg viewBox="0 0 240 240"><circle cx="120" cy="120" r="110" style="stroke:var(--line)"/><circle id="ts-fg" cx="120" cy="120" r="110" style="stroke:var(--gold);stroke-linecap:round;stroke-dasharray:691;transition:stroke-dashoffset .15s"/></svg><b id="ts-n">0</b></div>
+  <div class="sub">Irgendwo auf den Bildschirm tippen</div>
+  <button class="x" id="ts-undo" style="margin-top:18px;padding:0 16px">−1 rückgängig</button>
+  <p class="sub" style="max-width:320px;margin-top:14px">„… dem werden seine Sünden vergeben, auch wenn sie wie der Schaum des Meeres wären.“ (Muslim 597)</p>
+</div>
 <script src="prayer.js"></script>
 
 <script>
@@ -1872,6 +1900,25 @@ const GUIDE = [
     <p>Bilal wurde angewiesen, den Adhan paarweise und die Iqama einzeln zu sprechen – außer „Qad qāmatis-salāh“. ${G_REF('Bukhari 605, Muslim 378')} Nach hanafitischer Praxis wird die Iqama wie der Adhan doppelt gesprochen.</p>
     <p><b>Wenn du den Adhan hörst:</b> sprich die Worte leise mit; bei „Hayya ‘ala …“ sagst du „Lā hawla wa lā quwwata illā billāh“. ${G_REF('Muslim 385')} Danach Salawat und das Du’a nach dem Adhan. ${G_REF('Muslim 384; Bukhari 614')}</p>`],
 
+  ['💧 Wudu (Gebetswaschung) Schritt für Schritt', `
+    <p>Allah sagt: „O ihr, die ihr glaubt, wenn ihr euch zum Gebet aufstellt, so wascht euer Gesicht und eure Hände bis zu den Ellbogen, streicht über euren Kopf und wascht eure Füße bis zu den Knöcheln.“ ${G_REF('Quran 5:6')} – Diese vier Teile sind <b>Pflicht</b>, der Rest ist Sunnah.</p>
+    <ol class="gl steps">
+      <li><b>Absicht</b> im Herzen fassen und <span class="tr">Bismillāh</span> sagen.</li>
+      <li><b>Hände</b> bis zu den Handgelenken waschen – 3×.</li>
+      <li><b>Mund ausspülen</b> und <b>Nase</b> (Wasser hochziehen und wieder ausschnauben) – je 3×.</li>
+      <li><b>Gesicht</b> waschen, von Haaransatz bis Kinn und von Ohr zu Ohr – 3×. <span class="sub">(Pflicht)</span></li>
+      <li><b>Arme bis einschließlich Ellbogen</b>, erst rechts, dann links – je 3×. <span class="sub">(Pflicht)</span></li>
+      <li><b>Über den Kopf streichen</b> mit nassen Händen, von vorne nach hinten und zurück – 1×, dazu die Ohren innen und außen. <span class="sub">(Pflicht: über den Kopf streichen)</span></li>
+      <li><b>Füße bis einschließlich Knöchel</b>, erst rechts, dann links, auch zwischen den Zehen – je 3×. <span class="sub">(Pflicht)</span></li>
+    </ol>
+    <p>So zeigte es ‘Uthman: Wer die Waschung so vollzieht und dann zwei Rak’at betet, ohne sich ablenken zu lassen, dem werden seine vorigen Sünden vergeben. ${G_REF('Bukhari 159, Muslim 226')}</p>
+    <h4>Danach</h4>
+    ${G_SAY('Asch-hadu an lā ilāha illallāhu wahdahū lā scharīka lah, wa asch-hadu anna Muhammadan ‘abduhū wa rasūluh', 'Ich bezeuge, dass es keinen Gott außer Allah gibt, allein, ohne Partner, und ich bezeuge, dass Muhammad Sein Diener und Gesandter ist.')}
+    <p>Wer das nach dem Wudu sagt, dem werden die acht Tore des Paradieses geöffnet. ${G_REF('Muslim 234')}</p>
+    <h4>Was das Wudu ungültig macht</h4>
+    <p>Toilettengang (Urin, Stuhl), Winde ${G_REF('Quran 5:6; Bukhari 135')}, tiefer Schlaf, Bewusstlosigkeit. Bei einigen Punkten unterscheiden sich die Rechtsschulen (z. B. Berühren, Blutungen, Kamelfleisch) – im Zweifel deine Moschee fragen.</p>
+    <p><b>Ghusl</b> (Ganzkörperwaschung) ist nötig nach großer Unreinheit (z. B. nach dem ehelichen Verkehr, nach Menstruation) – dann wird der ganze Körper gewaschen.</p>`],
+
   ['✅ Voraussetzungen (Schurut)', `
     <ol class="gl">
       <li><b>Die Zeit ist eingetreten.</b> Siehe Gebetszeiten oben. ${G_REF('Quran 4:103')}</li>
@@ -2044,7 +2091,7 @@ function totalXP(){
     past = Object.keys(db.days).filter(k => k < today).reduce((a, k) => a + dayXP(k), 0);
     c = db._pc = pastCache() || {k:today, v:PC_VER, n:pastN()}; c.xp = past;
   }
-  return past + (db.days[today] ? dayXP(today) : 0) + Object.keys(db.hadith).length * 20 + Object.keys(db.names).length * 5;
+  return past + (db.days[today] ? dayXP(today) : 0) + Object.keys(db.hadith).length * 20 + Object.keys(db.names).length * 5 + hifzDone() * 15;
 }
 const RANKS = [
   {icon:'🎮', name:'Playboy', xp:0, gates:[], quote:'„Sag: O Meine Diener, die ihr gegen euch selbst maßlos gewesen seid, verzweifelt nicht an Allahs Barmherzigkeit. Allah vergibt alle Sünden.“', ref:'Quran 39:53'},
@@ -2496,13 +2543,15 @@ function renderTiles(){
     ['🎓', 'Wissens-Pfad', `${Object.keys(db.hadith).length}/42 Hadith gelernt`, 'data-kt="hpath"'],
     ['🌟', '99 Namen Allahs', `${Object.keys(db.names).length}/99 gelernt`, 'data-kt="names"'],
     ['📚', 'Hadith-Bibliothek', 'Alle Sunan, Bukhari, Muslim', 'data-libopen="1"'],
-    ['📖', 'Gebets-Anleitung', 'Rak’at, Adhan, Schritt für Schritt', 'data-guide="1"'],
+    ['🧠', 'Suren auswendig', `${hifzDone()}/${HIFZ.length} · Fatiha & Juz ‘Amma`, 'data-kt="hifz"'],
+    ['📖', 'Gebets-Anleitung', 'Wudu, Rak’at, Adhan, Schritt für Schritt', 'data-guide="1"'],
     ['📈', 'Multiplikatoren & Rizq', '×10 bis ×700 · Quellen', 'data-kt="mult"'],
     ['🔎', 'Alles durchsuchen', 'Hadith, Du’as, Adhkar …', 'data-focus-search="1"'],
   ];
   $('#ktiles').innerHTML = T.map(([i, t, sub, attr]) => `<button class="tile" ${attr}><span>${i}</span><b>${t}</b><small>${esc(sub)}</small></button>`).join('');
 }
 function showK(k){
+  if (k === 'hifz') renderHifz();
   curK = k || null;
   $('#ktiles').hidden = !!curK;
   document.querySelectorAll('.kp').forEach(el => { el.hidden = el.dataset.k !== curK; });
@@ -2748,6 +2797,60 @@ function renderCoopCard(){
 }
 document.addEventListener('change', e => { if (e.target.id === 'co-name') { db.settings.name = e.target.value.trim().slice(0, 20); save(); } });
 
+
+// ---------- 📿 Tasbih nach dem Gebet (Muslim 597) ----------
+const TS_STEPS = [
+  ['SubhānAllāh', 'Gepriesen ist Allah', 33],
+  ['Alhamdulillāh', 'Alles Lob gebührt Allah', 33],
+  ['Allāhu akbar', 'Allah ist größer', 33],
+  ['Lā ilāha illallāhu wahdahū lā scharīka lah, lahul-mulku wa lahul-hamdu wa huwa ‘alā kulli schay’in qadīr', 'Es gibt keinen Gott außer Allah, allein, ohne Partner; Ihm gehört die Herrschaft und das Lob, und Er hat Macht über alle Dinge', 1],
+];
+let ts = null;
+function openTs(){ ts = {i:0, n:0}; $('#ts').hidden = false; renderTs(); keepAwake(true); }
+function renderTs(){
+  const [tr, de, g] = TS_STEPS[ts.i];
+  $('#ts-step').textContent = `Schritt ${ts.i + 1} von ${TS_STEPS.length}`;
+  $('#ts-tr').textContent = tr; $('#ts-tr').style.fontSize = tr.length > 30 ? '1.05rem' : '1.6rem';
+  $('#ts-de').textContent = `„${de}“`;
+  $('#ts-n').textContent = `${ts.n}/${g}`;
+  $('#ts-fg').style.strokeDashoffset = 691 * (1 - ts.n / g);
+}
+function tapTs(d){
+  if (d < 0) { if (ts.n > 0) ts.n--; else if (ts.i > 0) { ts.i--; ts.n = TS_STEPS[ts.i][2] - 1; } renderTs(); return; }
+  ts.n++;
+  const x = db.days[today] = db.days[today] || {};
+  if (ts.i < 3) { const k = ['q:q_subhan', 'q:q_hamd', null][ts.i]; if (k) x[k] = (x[k] || 0) + 1; save(); }
+  if (ts.n >= TS_STEPS[ts.i][2]) {
+    if (ts.i === TS_STEPS.length - 1) {
+      const d = findDeed('afterprayer'); x.afterprayer = Math.min(d.target, (x.afterprayer || 0) + 1); save();
+      buzz([40,60,40,60,80]); toast('📿 Tasbih komplett – möge Allah es annehmen'); closeTs(); render(); return;
+    }
+    ts.i++; ts.n = 0; buzz([30,50,30]);
+  } else buzz(6);
+  renderTs();
+}
+function closeTs(){ $('#ts').hidden = true; ts = null; keepAwake(false); render(); }
+$('#ts').addEventListener('click', e => {
+  if (e.target.closest('#ts-close')) return closeTs();
+  if (e.target.closest('#ts-undo')) return tapTs(-1);
+  tapTs(1);
+});
+
+// ---------- 🧠 Auswendig lernen: al-Fatiha + Juz ‘Amma ----------
+const HIFZ = [[1,'al-Fātiha',7],[78,'an-Naba’',40],[79,'an-Nāzi‘āt',46],[80,'‘Abasa',42],[81,'at-Takwīr',29],[82,'al-Infitār',19],[83,'al-Mutaffifīn',36],[84,'al-Inschiqāq',25],[85,'al-Burūdsch',22],[86,'at-Tāriq',17],[87,'al-A‘lā',19],[88,'al-Ghāschiya',26],[89,'al-Fadschr',30],[90,'al-Balad',20],[91,'asch-Schams',15],[92,'al-Lail',21],[93,'ad-Duhā',11],[94,'asch-Scharh',8],[95,'at-Tīn',8],[96,'al-‘Alaq',19],[97,'al-Qadr',5],[98,'al-Bayyina',8],[99,'az-Zalzala',8],[100,'al-‘Ādiyāt',11],[101,'al-Qāri‘a',11],[102,'at-Takāthur',8],[103,'al-‘Asr',3],[104,'al-Humaza',9],[105,'al-Fīl',5],[106,'Quraisch',4],[107,'al-Mā‘ūn',7],[108,'al-Kauthar',3],[109,'al-Kāfirūn',6],[110,'an-Nasr',3],[111,'al-Masad',5],[112,'al-Ikhlās',4],[113,'al-Falaq',5],[114,'an-Nās',6]];
+db.hifz = db.hifz || {};
+const hifzDone = () => Object.values(db.hifz).filter(v => v === 2).length;
+function renderHifz(){
+  const n = hifzDone(), learning = Object.values(db.hifz).filter(v => v === 1).length;
+  $('#hifz').innerHTML = `<p>Fang mit den kurzen Suren an – sie sind auch für dein Gebet die wichtigsten. Tippe: <b>○ offen → 📖 lerne gerade → ✓ kann ich</b>.</p>
+    <p>Auswendig: <b>${n} von ${HIFZ.length}</b>${learning ? ` · ${learning} in Arbeit` : ''}</p><div class="bar"><i style="width:${n / HIFZ.length * 100}%;background:var(--gold)"></i></div>
+    <div class="hz">${HIFZ.slice().sort((a, b) => (a[0] === 1 ? -1 : b[0] === 1 ? 1 : b[0] - a[0])).map(([nr, name, ay]) => {
+      const v = db.hifz[nr] || 0;
+      return `<div class="hzr s${v}"><button class="hzb" data-hz="${nr}"><i>${v === 2 ? '✓' : v === 1 ? '📖' : '○'}</i><span><b>${nr}. ${name}</b><small>${ay} Verse</small></span></button><a href="https://quran.com/${nr}" target="_blank" rel="noopener" class="x hzl" aria-label="Sure ${name} auf quran.com öffnen">↗</a></div>`;
+    }).join('')}</div>
+    <p class="sub">„Wer den Quran gut beherrscht, ist mit den edlen, gehorsamen Schreiber-Engeln; und wer ihn mit Mühe stockend liest, hat doppelten Lohn.“ (Bukhari 4937, Muslim 798) · +15 XP pro auswendig gelernter Sure · ↗ öffnet die Sure mit Rezitation auf quran.com</p>`;
+}
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -2784,6 +2887,13 @@ document.addEventListener('click', e => {
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
+  else if (b.dataset.tsb) openTs();
+  else if (b.dataset.hz) {
+    const k = b.dataset.hz, v = ((db.hifz[k] || 0) + 1) % 3;
+    if (v) db.hifz[k] = v; else delete db.hifz[k];
+    save(); renderHifz(); renderTiles(); buzz(v === 2 ? [30,50,30] : 8);
+    if (v === 2) toast('✓ Auswendig – MashaAllah, +15 XP');
+  }
   else if (b.dataset.co === 'share') shareStatus();
   else if (b.dataset.co === 'paste') {
     (async () => { let t = ''; try { t = await navigator.clipboard.readText(); } catch(e) {}
@@ -2890,6 +3000,7 @@ $('#b-import').onchange = async e => {
     if (data.khatm && !db.khatm) db.khatm = data.khatm;
     if (data.names) db.names = {...data.names, ...db.names};
     if (data.hadith) db.hadith = {...data.hadith, ...db.hadith};
+    if (data.hifz) db.hifz = {...data.hifz, ...db.hifz};
     if (data.partner && !db.partner) db.partner = data.partner;
     if (data.challenge && !db.challenge) db.challenge = data.challenge;
     if (Array.isArray(data.favs)) db.favs = [...db.favs, ...data.favs.filter(f => !db.favs.some(o => o.id === f.id))];
