@@ -427,6 +427,13 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
 .hzl{text-decoration:none;display:flex;align-items:center;justify-content:center}
 .readb{display:inline-block;margin-top:8px;padding:6px 12px;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font-size:.82rem;font-weight:700}
 .qfoot .readb{margin-top:0;padding:4px 10px}
+#situ{margin-top:10px}
+.sit{border-top:1px solid var(--line);padding:8px 0;margin:0}
+.sit summary{font-size:.92rem;list-style:none;color:var(--ink)}
+.sit summary::-webkit-details-marker{display:none}
+.sit summary small{display:block;color:var(--gold);font-weight:700;font-size:.72rem}
+.sit summary b::after{content:" ›";color:var(--muted)}
+.sit[open] summary b::after{content:" ⌄"}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -444,6 +451,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
   <section class="page on" id="p-today">
     <div id="intro"></div>
     <div id="helpbanner"></div>
+    <div class="card" id="situ"></div>
     <div id="rank"></div>
     <div class="card" id="missions"></div>
     <div class="card" id="coopcard" hidden></div>
@@ -474,6 +482,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <div class="card" id="cust"></div>
     </div>
     <div id="duawrap" hidden>
+      <button class="tsb" data-reg="1"><span>📒</span><div><b>Register: Was sage ich wann?</b><small>Aufwachen, Essen, Haus verlassen, Regen, Wut, Sorge, Krankheit …</small></div><i>›</i></button>
       <h2>🤲 Du’a-Sammlung aus Quran &amp; Sunnah</h2><div class="card" id="duac"></div>
       <h2>📝 Meine Du’as</h2><div class="card" id="duas"></div>
     <h2>Wann Du’a besonders erhört wird</h2>
@@ -538,7 +547,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 24 (30.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 25 (30.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -671,6 +680,12 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
   <div class="sub">Irgendwo auf den Bildschirm tippen</div>
   <button class="x" id="ts-undo" style="margin-top:18px;padding:0 16px">−1 rückgängig</button>
   <p class="sub" style="max-width:320px;margin-top:14px">„… dem werden seine Sünden vergeben, auch wenn sie wie der Schaum des Meeres wären.“ (Muslim 597)</p>
+</div>
+<div class="sheet" id="reg" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>📒 Was sage ich wann?</h3><button class="x" id="reg-close" aria-label="schließen">✕</button></div>
+    <div id="reg-body"></div>
+  </div>
 </div>
 <script src="prayer.js"></script>
 
@@ -1107,7 +1122,7 @@ function renderQuick(){
     </div>`;
   }).join('');
 }
-function render(){ renderStats(); renderCoopCard(); renderPrayersTop(); renderHelpBanner(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); renderRamadanCard(); }
+function render(){ renderStats(); renderCoopCard(); renderPrayersTop(); renderHelpBanner(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); renderRamadanCard(); renderSitu(); }
 
 // ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
 const SPECIAL = [
@@ -2866,6 +2881,109 @@ function readUrl(id){
 }
 const readBtn = id => { const u = readUrl(id); return u ? `<a class="readb" href="${u}" target="_blank" rel="noopener">📖 ${id === 'quran' ? 'Weiterlesen' : 'Lesen'} ›</a>` : ''; };
 
+// ---------- 📒 Register: Was sage ich wann? (automatisch passend zur Situation) ----------
+const SITU = [
+  // Alltag
+  {id:'wake', cat:'🌅 Alltag', title:'Beim Aufwachen', tr:'Alhamdu lillāhilladhī ahyānā ba‘da mā amātanā wa ilayhin-nuschūr', de:'Alles Lob gebührt Allah, der uns wieder lebendig gemacht hat, nachdem Er uns sterben ließ, und zu Ihm ist die Auferstehung.', ref:'Bukhari 6312'},
+  {id:'out', cat:'🌅 Alltag', title:'Beim Verlassen des Hauses', tr:'Bismillāh, tawakkaltu ‘alallāh, wa lā hawla wa lā quwwata illā billāh', de:'Im Namen Allahs, ich vertraue auf Allah, es gibt keine Macht und keine Kraft außer durch Allah.', note:'Ihm wird gesagt: „Du bist rechtgeleitet, dir ist genügt, und du bist beschützt.“', ref:'Abu Dawud 5095, Tirmidhi 3426 – sahih'},
+  {id:'home', cat:'🌅 Alltag', title:'Beim Betreten des Hauses', tr:'Bismillāh', de:'Im Namen Allahs.', note:'Wer beim Betreten seines Hauses und beim Essen Allah erwähnt, zu dem sagt der Shaytan: „Hier gibt es für euch keine Übernachtung und kein Abendessen.“', ref:'Muslim 2018'},
+  {id:'wc_in', cat:'🌅 Alltag', title:'Vor dem Betreten der Toilette', tr:'Allāhumma innī a‘ūdhu bika minal-khubuthi wal-khabā’ith', de:'O Allah, ich suche Zuflucht bei Dir vor den männlichen und weiblichen Schayatin.', ref:'Bukhari 142, Muslim 375'},
+  {id:'wc_out', cat:'🌅 Alltag', title:'Nach dem Verlassen der Toilette', tr:'Ghufrānak', de:'(Ich bitte um) Deine Vergebung.', ref:'Abu Dawud 30, Tirmidhi 7 – sahih'},
+  {id:'dress', cat:'🌅 Alltag', title:'Beim Anziehen neuer Kleidung', tr:'Alhamdu lillāhilladhī kasānī hādhā wa razaqanīhi min ghayri hawlin minnī wa lā quwwah', de:'Alles Lob gebührt Allah, der mich damit bekleidet und es mir als Versorgung gegeben hat, ohne Macht und Kraft von mir.', note:'Ihm werden seine vorigen Sünden vergeben.', ref:'Abu Dawud 4023 – hasan', rizq:true},
+  {id:'sneeze', cat:'🌅 Alltag', title:'Beim Niesen', tr:'Alhamdulillāh – (Antwort:) Yarhamukallāh – (darauf:) Yahdīkumullāhu wa yuslihu bālakum', de:'Alles Lob gebührt Allah – Allah erbarme sich deiner – Allah leite euch recht und bringe eure Angelegenheiten in Ordnung.', ref:'Bukhari 6224'},
+  // Essen & Rizq
+  {id:'eat', cat:'🍽️ Essen & Rizq', title:'Vor dem Essen', tr:'Bismillāh – (vergessen:) Bismillāhi fī awwalihī wa ākhirih', de:'Im Namen Allahs – (falls vergessen:) Im Namen Allahs am Anfang und am Ende.', ref:'Abu Dawud 3767, Tirmidhi 1858 – sahih'},
+  {id:'ate', cat:'🍽️ Essen & Rizq', title:'Nach dem Essen', tr:'Alhamdu lillāhilladhī at‘amanī hādhā wa razaqanīhi min ghayri hawlin minnī wa lā quwwah', de:'Alles Lob gebührt Allah, der mich damit gespeist und es mir als Versorgung gegeben hat, ohne Macht und Kraft von mir.', note:'Ihm werden seine vorigen Sünden vergeben.', ref:'Abu Dawud 4023, Tirmidhi 3458 – hasan', rizq:true},
+  {id:'fajr_rizq', cat:'🍽️ Essen & Rizq', title:'Nach dem Fajr: um guten Rizq bitten', tr:'Allāhumma innī as’aluka ‘ilman nāfi‘an, wa rizqan tayyiban, wa ‘amalan mutaqabbalā', de:'O Allah, ich bitte Dich um nützliches Wissen, gute Versorgung und angenommene Taten.', ref:'Ibn Majah 925 – sahih (al-Albani)', rizq:true},
+  {id:'debt', cat:'🍽️ Essen & Rizq', title:'Bei Schulden & Geldsorgen', tr:'Allāhummak-finī bi halālika ‘an harāmik, wa aghninī bi fadlika ‘amman siwāk', de:'O Allah, lass mich mit Deinem Erlaubten genügen statt mit Deinem Verbotenen, und mach mich durch Deine Güte unabhängig von allen außer Dir.', ref:'Tirmidhi 3563 – hasan', rizq:true},
+  {id:'iftar', cat:'🍽️ Essen & Rizq', title:'Beim Fastenbrechen', tr:'Dhahabaz-zama’u wabtallatil-‘urūqu wa thabatal-adschru in schā’allāh', de:'Der Durst ist vergangen, die Adern sind befeuchtet, und der Lohn ist sicher, so Allah will.', ref:'Abu Dawud 2357 – hasan'},
+  // Unterwegs
+  {id:'mosque_in', cat:'🕌 Unterwegs', title:'Beim Betreten der Moschee', tr:'Allāhummaf-tah lī abwāba rahmatik', de:'O Allah, öffne mir die Tore Deiner Barmherzigkeit.', ref:'Muslim 713'},
+  {id:'mosque_out', cat:'🕌 Unterwegs', title:'Beim Verlassen der Moschee', tr:'Allāhumma innī as’aluka min fadlik', de:'O Allah, ich bitte Dich um Deine Gunst.', ref:'Muslim 713', rizq:true},
+  {id:'travel', cat:'🕌 Unterwegs', title:'Beim Losfahren / auf Reisen', tr:'Subhānalladhī sakhkhara lanā hādhā wa mā kunnā lahū muqrinīn, wa innā ilā rabbinā lamunqalibūn', de:'Gepriesen sei Der, der uns dies dienstbar gemacht hat; wir selbst hätten es nicht vermocht, und zu unserem Herrn werden wir gewiss zurückkehren.', ref:'Quran 43:13–14; Muslim 1342'},
+  // Wetter & Natur
+  {id:'rain', cat:'🌧️ Wetter & Natur', title:'Wenn es regnet', tr:'Allāhumma sayyiban nāfi‘ā', de:'O Allah, (lass es) einen nützlichen Regen (sein).', note:'Regen ist eine Zeit, in der Du’a angenommen wird – nutze sie für deine Bitten.', ref:'Bukhari 1032'},
+  {id:'after_rain', cat:'🌧️ Wetter & Natur', title:'Nach dem Regen', tr:'Mutirnā bi fadlillāhi wa rahmatih', de:'Uns wurde Regen gegeben durch die Gunst Allahs und Seine Barmherzigkeit.', ref:'Bukhari 846, Muslim 71'},
+  {id:'wind', cat:'🌧️ Wetter & Natur', title:'Bei starkem Wind', tr:'Allāhumma innī as’aluka khayrahā wa khayra mā fīhā wa khayra mā ursilat bih, wa a‘ūdhu bika min scharrihā wa scharri mā fīhā wa scharri mā ursilat bih', de:'O Allah, ich bitte Dich um sein Gutes, das Gute in ihm und das Gute, womit er gesandt wurde, und suche Zuflucht vor seinem Übel, dem Übel in ihm und dem Übel, womit er gesandt wurde.', ref:'Muslim 899'},
+  {id:'thunder', cat:'🌧️ Wetter & Natur', title:'Bei Donner', tr:'Subhānalladhī yusabbihur-ra‘du bi hamdihī wal-malā’ikatu min khīfatih', de:'Gepriesen sei Der, den der Donner mit Seinem Lob preist, und die Engel aus Ehrfurcht vor Ihm.', note:'So sprach es ‘Abdullah ibn az-Zubair (Aussage eines Gefährten).', ref:'Muwatta Malik – sahih (mawquf); vgl. Quran 13:13'},
+  {id:'hilal', cat:'🌧️ Wetter & Natur', title:'Beim Sehen des Neumonds', tr:'Allāhumma ahillahū ‘alaynā bil-yumni wal-īmān, was-salāmati wal-islām, rabbī wa rabbukallāh', de:'O Allah, lass ihn über uns aufgehen mit Segen und Glauben, mit Sicherheit und Islam. Mein Herr und dein Herr ist Allah.', ref:'Tirmidhi 3451 – hasan'},
+  {id:'winter', cat:'🌧️ Wetter & Natur', title:'Im Winter: Fasten', tr:'', de:'„Das Fasten im Winter ist eine kühle Beute.“ – kurze Tage, leichter Lohn. Nutze Montag/Donnerstag und die weißen Tage.', ref:'Tirmidhi 797 – sahih (al-Albani)'},
+  // Gefühle
+  {id:'worry', cat:'💭 Gefühle & Schwierigkeiten', title:'Bei Sorge und Kummer', tr:'Lā ilāha illallāhul-‘Azīmul-Halīm, lā ilāha illallāhu rabbul-‘arschil-‘azīm, lā ilāha illallāhu rabbus-samāwāti wa rabbul-ardi wa rabbul-‘arschil-karīm', de:'Es gibt keinen Gott außer Allah, dem Gewaltigen, dem Nachsichtigen; keinen Gott außer Allah, dem Herrn des gewaltigen Throns; keinen Gott außer Allah, dem Herrn der Himmel, der Erde und des edlen Throns.', ref:'Bukhari 6346, Muslim 2730'},
+  {id:'anger', cat:'💭 Gefühle & Schwierigkeiten', title:'Bei Wut', tr:'A‘ūdhu billāhi minasch-schaytānir-radschīm', de:'Ich suche Zuflucht bei Allah vor dem verfluchten Shaytan.', ref:'Bukhari 3282, Muslim 2610'},
+  {id:'calamity', cat:'💭 Gefühle & Schwierigkeiten', title:'Bei einem Unglück / Verlust', tr:'Innā lillāhi wa innā ilayhi rādschi‘ūn, Allāhumma’dschurnī fī musībatī wa akhlif lī khayran minhā', de:'Wir gehören Allah und zu Ihm kehren wir zurück. O Allah, belohne mich in meinem Unglück und gib mir Besseres dafür.', note:'Umm Salama sprach es, und Allah gab ihr den Propheten ﷺ zum Ehemann.', ref:'Muslim 918'},
+  {id:'good', cat:'💭 Gefühle & Schwierigkeiten', title:'Wenn etwas Gutes passiert', tr:'Alhamdu lillāhilladhī bi ni‘matihī tatimmus-sālihāt', de:'Alles Lob gebührt Allah, durch dessen Gnade die guten Dinge vollendet werden.', ref:'Ibn Majah 3803 – hasan (al-Albani)'},
+  {id:'guidance', cat:'💭 Gefühle & Schwierigkeiten', title:'Um Rechtleitung bitten', tr:'Allāhumma innī as’alukal-hudā wat-tuqā wal-‘afāfa wal-ghinā', de:'O Allah, ich bitte Dich um Rechtleitung, Gottesfurcht, Keuschheit und Unabhängigkeit (Genügsamkeit).', ref:'Muslim 2721', rizq:true},
+  // Gesundheit
+  {id:'sick', cat:'🩺 Gesundheit', title:'Beim Krankenbesuch', tr:'Lā ba’sa, tahūrun in schā’allāh', de:'Kein Grund zur Sorge – (es ist) eine Reinigung, so Allah will.', ref:'Bukhari 3616'},
+  {id:'pain', cat:'🩺 Gesundheit', title:'Bei Schmerzen', tr:'Bismillāh (3×) – A‘ūdhu billāhi wa qudratihī min scharri mā adschidu wa uhādhir (7×)', de:'Im Namen Allahs – Ich suche Zuflucht bei Allah und Seiner Macht vor dem Übel dessen, was ich spüre und befürchte.', note:'Die Hand auf die schmerzende Stelle legen.', ref:'Muslim 2202'},
+];
+SITU.forEach(x => x.cat2 = x.cat);
+
+// Wetter (freiwillig): open-meteo.com, nur grob gerundete Koordinaten
+let WX = null;
+async function loadWeather(){
+  if (!db.settings.weather || db.settings.lat == null) return;
+  try { const c = JSON.parse(localStorage.getItem('wx') || 'null'); if (c && Date.now() - c.t < 30 * 6e4) { WX = c.w; return; } } catch(e) {}
+  try {
+    const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${db.settings.lat.toFixed(1)}&longitude=${db.settings.lng.toFixed(1)}&current=weather_code,wind_speed_10m`);
+    const j = await r.json(), c = j.current || {};
+    WX = {code:c.weather_code, wind:c.wind_speed_10m};
+    try { localStorage.setItem('wx', JSON.stringify({t:Date.now(), w:WX})); } catch(e) {}
+    renderSitu();
+  } catch(e) {}
+}
+const isRain = () => WX && ((WX.code >= 51 && WX.code <= 67) || (WX.code >= 80 && WX.code <= 82));
+const isThunder = () => WX && WX.code >= 95;
+const isWindy = () => WX && WX.wind >= 40;
+
+// Welche Einträge passen gerade?
+function situNow(){
+  const now = new Date(), t = times(now), h = hijri(now), H = now.getHours(), dow = now.getDay(), M = now.getMonth(), out = [];
+  const after = (a, min = 0) => t && now >= new Date(+t[a] + min * 6e4), before = (a, min = 0) => t && now < new Date(+t[a] + min * 6e4);
+  if (isThunder()) out.push(['thunder', '⛈️ Gerade Gewitter bei dir']);
+  if (isRain()) out.push(['rain', '🌧️ Gerade regnet es bei dir – eine Zeit, in der Du’a angenommen wird']);
+  if (isWindy()) out.push(['wind', '💨 Gerade starker Wind bei dir']);
+  if (h.hm === 9 && t && after('maghrib') && before('maghrib', 45)) out.push(['iftar', '🌙 Zeit zum Fastenbrechen']);
+  if ((h.hd === 1 || h.hd === 2 || h.hd === 30 || h.hd === 29) && t && after('maghrib') && before('isha')) out.push(['hilal', '🌙 Neuer Mondmonat – schau nach dem Hilal']);
+  if (t ? (after('fajr', -30) && before('sunrise', 60)) : (H >= 4 && H < 8)) out.push(['wake', '🌅 Guten Morgen']);
+  if (t ? (after('fajr') && before('sunrise', 90)) : (H >= 5 && H < 9)) out.push(['fajr_rizq', '💰 Nach dem Fajr – bitte um guten Rizq']);
+  if (dow >= 1 && dow <= 5 && H >= 6 && H < 9) out.push(['out', '🚪 Auf dem Weg nach draußen?']);
+  if ((H >= 12 && H < 14) || (H >= 18 && H < 20)) out.push(['eat', '🍽️ Essenszeit? Bismillah nicht vergessen']), out.push(['ate', '🍽️ Nach dem Essen – Sünden vergeben']);
+  if ((M === 11 || M <= 1) && (dow === 0 || dow === 3)) out.push(['winter', '❄️ Morgen Sunnah-Fasten – im Winter besonders leicht']);
+  if (!out.some(([id]) => id === 'guidance')) out.push(['guidance', '🧭 Bitte jeden Tag um Rechtleitung']);
+  return out.slice(0, 4);
+}
+function situHTML(x, label){
+  const c = day(today)['d:x_' + x.id] || 0;
+  return `<details class="sit"><summary>${label ? `<small>${esc(label)}</small>` : ''}<b>${esc(x.title)}</b>${x.rizq ? ' <span class="tag r">Rizq</span>' : ''}</summary>
+    ${x.tr ? `<div class="say"><div class="tr">${esc(x.tr)}</div><div class="de">„${esc(x.de)}“</div></div>` : `<p>${esc(x.de)}</p>`}
+    ${x.note ? `<p class="sub" style="margin:4px 0">${esc(x.note)}</p>` : ''}<span class="gref">${esc(x.ref)}</span>
+    ${x.tr ? `<div class="dua-b"><button class="adhbtn" data-xsay="${x.id}">🤲 Gesprochen${c ? ` (${c}×)` : ''}</button></div>` : ''}</details>`;
+}
+function renderSitu(){
+  const list = situNow();
+  $('#situ').innerHTML = `<div class="mh"><b>🧭 Passend für jetzt</b><button class="lnk" data-reg="1">Register ›</button></div>`
+    + list.map(([id, label]) => situHTML(SITU.find(x => x.id === id), label)).join('')
+    + (!db.settings.weather && db.settings.lat != null ? `<p class="sub" style="margin:6px 0 0">🌧️ Soll die App Regen, Gewitter und Sturm automatisch erkennen? <button class="lnk" data-wx="1">Einschalten</button></p>` : '');
+}
+let regCat = 'Alle';
+function openReg(){
+  const cats = ['Alle', ...new Set(SITU.map(x => x.cat))];
+  $('#reg-body').innerHTML = `<p class="sub">Für jede Lage das passende Gedenken aus Quran und Sunnah. „Gesprochen“ zählt wie Dhikr (+10 Hasanat min.).</p>
+    <div class="chips">${cats.map(c => `<button class="chip ${c === regCat ? 'on' : ''}" data-regcat="${esc(c)}">${esc(c)}</button>`).join('')}</div>`
+    + cats.filter(c => c !== 'Alle' && (regCat === 'Alle' || regCat === c)).map(c => `<h4 class="rg-h">${esc(c)}</h4>` + SITU.filter(x => x.cat === c).map(x => situHTML(x)).join('')).join('')
+    + `<label class="card" style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">🌧️ Wetter automatisch erkennen<br><small class="sub">fragt open-meteo.com mit grob gerundetem Standort</small><input type="checkbox" id="set-wx" ${db.settings.weather ? 'checked' : ''} style="width:22px;height:22px"></label>`;
+  $('#reg').hidden = false; $('#reg').scrollTop = 0;
+}
+$('#reg').addEventListener('click', e => { if (e.target.closest('#reg-close')) $('#reg').hidden = true; });
+document.addEventListener('change', e => {
+  if (e.target.id !== 'set-wx') return;
+  db.settings.weather = e.target.checked; save(); localStorage.removeItem('wx'); WX = null;
+  if (db.settings.weather) { if (db.settings.lat == null) toast('Erst Standort festlegen (Mehr → Standort)'); loadWeather(); }
+  renderSitu();
+});
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -2902,6 +3020,14 @@ document.addEventListener('click', e => {
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
+  else if (b.dataset.reg) openReg();
+  else if (b.dataset.regcat) { regCat = b.dataset.regcat; openReg(); }
+  else if (b.dataset.wx) { db.settings.weather = true; save(); loadWeather(); renderSitu(); toast('🌧️ Wetter-Hinweise aktiv'); }
+  else if (b.dataset.xsay) {
+    const x = db.days[today] = db.days[today] || {}, k = 'd:x_' + b.dataset.xsay;
+    x[k] = (x[k] || 0) + 1; save(); renderStats(); buzz(10);
+    b.textContent = `🤲 Gesprochen (${x[k]}×)`; if (x[k] === 1) toast('Āmīn 🤲');
+  }
   else if (b.dataset.tsb) openTs();
   else if (b.dataset.hz) {
     const k = b.dataset.hz, v = ((db.hifz[k] || 0) + 1) % 3;
@@ -3054,7 +3180,7 @@ document.addEventListener('visibilitychange', () => {
 });
 setInterval(() => {
   if (dkey(new Date()) !== today) { today = dkey(new Date()); clearStats(); render(); renderRamadan(); renderEvents(); }
-  else { renderPrayer(); renderNow(); }
+  else { renderPrayer(); renderNow(); if (!document.querySelector('#situ details[open]')) renderSitu(); }
 }, 30000);
 // Bittet den Browser, die Daten nicht automatisch zu löschen
 if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
@@ -3071,7 +3197,7 @@ applyTheme(); applyFont(); renderChips(); render(); renderRamadan();
 // Was beim Start nicht sichtbar ist, erst nach dem ersten Bild vorbereiten
 setTimeout(() => {
   renderInfo(); renderSettings(); renderSeg(); renderDuas(); renderCustomForm(); renderEvents(); renderNames();
-  renderZakat(); renderHPath(); renderDuaCollection(); renderTiles(); checkBadges();
+  renderZakat(); renderHPath(); renderDuaCollection(); renderTiles(); checkBadges(); loadWeather();
 }, 30);
 </script>
 </body>
