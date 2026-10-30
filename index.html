@@ -547,7 +547,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 25 (30.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 26 (30.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -2917,6 +2917,28 @@ const SITU = [
   // Gesundheit
   {id:'sick', cat:'🩺 Gesundheit', title:'Beim Krankenbesuch', tr:'Lā ba’sa, tahūrun in schā’allāh', de:'Kein Grund zur Sorge – (es ist) eine Reinigung, so Allah will.', ref:'Bukhari 3616'},
   {id:'pain', cat:'🩺 Gesundheit', title:'Bei Schmerzen', tr:'Bismillāh (3×) – A‘ūdhu billāhi wa qudratihī min scharri mā adschidu wa uhādhir (7×)', de:'Im Namen Allahs – Ich suche Zuflucht bei Allah und Seiner Macht vor dem Übel dessen, was ich spüre und befürchte.', note:'Die Hand auf die schmerzende Stelle legen.', ref:'Muslim 2202'},
+  // —— Erweiterung ——
+  {id:'nightwake', cat:'🌅 Alltag', title:'Wenn du nachts aufwachst', tr:'Lā ilāha illallāhu wahdahū lā scharīka lah, lahul-mulku wa lahul-hamdu wa huwa ‘alā kulli schay’in qadīr, alhamdulillāh, wa subhānallāh, wa lā ilāha illallāh, wallāhu akbar, wa lā hawla wa lā quwwata illā billāh – Allāhummaghfir lī', de:'Es gibt keinen Gott außer Allah … alles Lob gebührt Allah, gepriesen sei Allah, Allah ist größer, keine Macht und Kraft außer durch Allah – O Allah, vergib mir.', note:'Wer dann um Vergebung bittet oder ein Du’a spricht, wird erhört; und wenn er Wudu macht und betet, wird sein Gebet angenommen.', ref:'Bukhari 1154'},
+  {id:'baddream', cat:'🌅 Alltag', title:'Nach einem schlechten Traum', tr:'A‘ūdhu billāhi minasch-schaytānir-radschīm (3×)', de:'Ich suche Zuflucht bei Allah vor dem verfluchten Shaytan.', note:'Dreimal leicht nach links „spucken“ (hauchen), Zuflucht suchen, auf die andere Seite drehen und niemandem davon erzählen – dann schadet er dir nicht. Bei einem guten Traum: Allah loben und nur geliebten Menschen erzählen.', ref:'Muslim 2261, 2262; Bukhari 6985'},
+  {id:'rooster', cat:'🌅 Alltag', title:'Wenn ein Hahn kräht', tr:'Allāhumma innī as’aluka min fadlik', de:'O Allah, ich bitte Dich um Deine Gunst.', note:'„Wenn ihr den Hahn krähen hört, bittet Allah um Seine Gunst, denn er hat einen Engel gesehen.“ (Beim Eselsschrei: Zuflucht vor dem Shaytan suchen.)', ref:'Bukhari 3303, Muslim 2729', rizq:true},
+  {id:'majlis', cat:'🌅 Alltag', title:'Am Ende eines Treffens / Gesprächs', tr:'Subhānakallāhumma wa bihamdika, asch-hadu an lā ilāha illā ant, astaghfiruka wa atūbu ilayk', de:'Gepriesen bist Du, o Allah, und Dir gebührt das Lob. Ich bezeuge, dass es keinen Gott außer Dir gibt. Ich bitte Dich um Vergebung und wende mich Dir reuevoll zu.', note:'Es sühnt, was in dieser Runde (an unnützem Gerede) war.', ref:'Tirmidhi 3433 – sahih'},
+  {id:'stop', cat:'🕌 Unterwegs', title:'Beim Ankommen an einem Ort (Hotel, Rast)', tr:'A‘ūdhu bi kalimātillāhit-tāmmāti min scharri mā khalaq', de:'Ich suche Zuflucht bei den vollkommenen Worten Allahs vor dem Übel dessen, was Er erschaffen hat.', note:'Nichts schadet ihm, bis er von diesem Ort weiterzieht.', ref:'Muslim 2708'},
+  {id:'farewell', cat:'🕌 Unterwegs', title:'Jemanden auf Reisen verabschieden', tr:'Astawdi‘ullāha dīnaka wa amānataka wa khawātīma ‘amalik', de:'Ich vertraue Allah deine Religion, das dir Anvertraute und den Abschluss deiner Taten an.', ref:'Abu Dawud 2600, Tirmidhi 3443 – sahih'},
+  {id:'return', cat:'🕌 Unterwegs', title:'Bei der Rückkehr von einer Reise', tr:'Āyibūna, tā’ibūna, ‘ābidūna, li rabbinā hāmidūn', de:'Wir kehren zurück, bereuend, (Allah) dienend und unseren Herrn lobend.', ref:'Bukhari 1797, Muslim 1342'},
+  {id:'istikhara', cat:'🧭 Entscheidungen & Reue', title:'Bei einer wichtigen Entscheidung (Istikhara)', tr:'Allāhumma innī astakhīruka bi ‘ilmika, wa astaqdiruka bi qudratika, wa as’aluka min fadlikal-‘azīm, fa innaka taqdiru wa lā aqdir, wa ta‘lamu wa lā a‘lam, wa anta ‘allāmul-ghuyūb. Allāhumma in kunta ta‘lamu anna hādhal-amra (… Sache nennen …) khayrun lī fī dīnī wa ma‘āschī wa ‘āqibati amrī faqdurhu lī wa yassirhu lī thumma bārik lī fīh, wa in kunta ta‘lamu anna hādhal-amra scharrun lī fī dīnī wa ma‘āschī wa ‘āqibati amrī fasrifhu ‘annī wasrifnī ‘anhu, waqdur liyal-khayra haythu kāna thumma ardinī bih', de:'O Allah, ich bitte Dich durch Dein Wissen um das Beste und durch Deine Macht um Kraft und bitte Dich um Deine gewaltige Gunst … Wenn Du weißt, dass diese Sache gut für mich ist in meiner Religion, meinem Lebensunterhalt und meinem Ende, so bestimme sie mir, erleichtere sie mir und segne sie mir; und wenn sie schlecht für mich ist, so wende sie von mir ab und mich von ihr, bestimme mir das Gute, wo immer es ist, und lass mich damit zufrieden sein.', note:'Erst zwei freiwillige Rak’at beten, dann dieses Du’a sprechen – z. B. bei Jobwahl, Umzug, Heirat.', ref:'Bukhari 1162', rizq:true},
+  {id:'tawba', cat:'🧭 Entscheidungen & Reue', title:'Nach einer Sünde (Gebet der Reue)', tr:'Astaghfirullāha wa atūbu ilayh', de:'Ich bitte Allah um Vergebung und wende mich Ihm reuevoll zu.', note:'„Kein Diener begeht eine Sünde, macht dann gut Wudu, betet zwei Rak’at und bittet Allah um Vergebung, ohne dass Allah ihm vergibt.“', ref:'Abu Dawud 1521, Tirmidhi 406 – sahih'},
+  {id:'hard', cat:'🧭 Entscheidungen & Reue', title:'Wenn etwas schwer fällt', tr:'Allāhumma lā sahla illā mā dscha‘altahū sahlā, wa anta tadsch‘alul-hazna idhā schi’ta sahlā', de:'O Allah, nichts ist leicht außer dem, was Du leicht machst, und Du machst das Schwere leicht, wenn Du willst.', ref:'Ibn Hibban 974 – sahih (al-Albani)'},
+  {id:'doubt', cat:'🧭 Entscheidungen & Reue', title:'Bei Zweifeln im Glauben (Einflüsterungen)', tr:'Āmantu billāh – A‘ūdhu billāhi minasch-schaytānir-radschīm', de:'Ich glaube an Allah – Ich suche Zuflucht bei Allah vor dem verfluchten Shaytan.', note:'Dann den Gedanken nicht weiterverfolgen.', ref:'Muslim 134; Bukhari 3276'},
+  {id:'distress', cat:'💭 Gefühle & Schwierigkeiten', title:'In großer Not', tr:'Yā Hayyu yā Qayyūm, bi rahmatika astaghīth', de:'O Lebendiger, o Beständiger, bei Deiner Barmherzigkeit suche ich Hilfe.', ref:'Tirmidhi 3524 – hasan'},
+  {id:'fear', cat:'💭 Gefühle & Schwierigkeiten', title:'Wenn du Angst vor Menschen hast', tr:'Allāhumma innā nadsch‘aluka fī nuhūrihim wa na‘ūdhu bika min schurūrihim', de:'O Allah, wir stellen Dich ihnen entgegen und suchen Zuflucht bei Dir vor ihrem Übel.', ref:'Abu Dawud 1537 – sahih'},
+  {id:'afflicted', cat:'💭 Gefühle & Schwierigkeiten', title:'Wenn du jemanden in Not siehst', tr:'Alhamdu lillāhilladhī ‘āfānī mimmabtalāka bihī wa faddalanī ‘alā kathīrin mimman khalaqa tafdīlā', de:'Alles Lob gebührt Allah, der mich vor dem bewahrt hat, womit Er dich geprüft hat, und mich vielen Seiner Geschöpfe vorgezogen hat.', note:'Leise sprechen, nicht so, dass der Betroffene es hört.', ref:'Tirmidhi 3432 – hasan'},
+  {id:'marry', cat:'👪 Familie & Gemeinschaft', title:'Glückwunsch zur Hochzeit', tr:'Bārakallāhu laka wa bāraka ‘alayka wa dschama‘a baynakumā fī khayr', de:'Allah segne dich, segne über dich und vereine euch beide im Guten.', ref:'Abu Dawud 2130, Tirmidhi 1091 – sahih'},
+  {id:'thanks', cat:'👪 Familie & Gemeinschaft', title:'Wenn dir jemand etwas Gutes tut', tr:'Dschazākallāhu khayrā', de:'Allah belohne dich mit Gutem.', note:'„Wer das sagt, hat (den anderen) vollkommen gelobt.“', ref:'Tirmidhi 2035 – sahih'},
+  {id:'condole', cat:'👪 Familie & Gemeinschaft', title:'Beileid aussprechen', tr:'Inna lillāhi mā akhadha wa lahū mā a‘tā, wa kullu schay’in ‘indahū bi adschalin musammā, faltasbir waltahtasib', de:'Allah gehört, was Er genommen hat, und Ihm gehört, was Er gegeben hat; alles hat bei Ihm eine festgesetzte Frist – so sei geduldig und hoffe auf den Lohn.', ref:'Bukhari 1284, Muslim 923'},
+  {id:'graves', cat:'👪 Familie & Gemeinschaft', title:'Beim Friedhofsbesuch', tr:'As-salāmu ‘alaykum ahlad-diyāri minal-mu’minīna wal-muslimīn, wa innā in schā’allāhu bikum lalāhiqūn, as’alullāha lanā wa lakumul-‘āfiyah', de:'Friede sei mit euch, ihr Bewohner dieser Stätten, Gläubige und Muslime; wir werden, so Allah will, zu euch stoßen. Ich bitte Allah für uns und euch um Wohlergehen.', ref:'Muslim 975'},
+  {id:'lender', cat:'🍽️ Essen & Rizq', title:'Beim Zurückzahlen eines Darlehens', tr:'Bārakallāhu laka fī ahlika wa mālik', de:'Allah segne dir deine Familie und dein Vermögen.', ref:'an-Nasa’i 4683, Ibn Majah 2424 – hasan', rizq:true},
+  {id:'admire', cat:'🩺 Gesundheit', title:'Wenn dir etwas gefällt (gegen den bösen Blick)', tr:'Bārakallāhu fīk / Allāhumma bārik', de:'Allah segne dich / O Allah, gib Segen.', note:'„Wenn einer von euch an seinem Bruder etwas sieht, das ihm gefällt, so soll er für ihn um Segen bitten.“', ref:'Ibn Majah 3509 – sahih'},
+  {id:'ruqya', cat:'🩺 Gesundheit', title:'Für einen Kranken bitten', tr:'Adh-hibil-ba’s, rabban-nās, waschfi antasch-schāfī, lā schifā’a illā schifā’uk, schifā’an lā yughādiru saqamā', de:'Nimm das Leiden fort, Herr der Menschen, und heile – Du bist der Heilende; es gibt keine Heilung außer Deiner, eine Heilung, die keine Krankheit zurücklässt.', ref:'Bukhari 5743, Muslim 2191'},
 ];
 SITU.forEach(x => x.cat2 = x.cat);
 
@@ -2951,6 +2973,8 @@ function situNow(){
   if (dow >= 1 && dow <= 5 && H >= 6 && H < 9) out.push(['out', '🚪 Auf dem Weg nach draußen?']);
   if ((H >= 12 && H < 14) || (H >= 18 && H < 20)) out.push(['eat', '🍽️ Essenszeit? Bismillah nicht vergessen']), out.push(['ate', '🍽️ Nach dem Essen – Sünden vergeben']);
   if ((M === 11 || M <= 1) && (dow === 0 || dow === 3)) out.push(['winter', '❄️ Morgen Sunnah-Fasten – im Winter besonders leicht']);
+  if (t ? (now >= new Date(+t.isha + 3 * 3600e3) || before('fajr', -20)) : (H >= 0 && H < 4)) out.unshift(['nightwake', '🌌 Nachts wach? Jetzt wird Du’a erhört']);
+  if (H >= 20 && H < 23) out.push(['majlis', '🗣️ Nach dem Abend mit Freunden']);
   if (!out.some(([id]) => id === 'guidance')) out.push(['guidance', '🧭 Bitte jeden Tag um Rechtleitung']);
   return out.slice(0, 4);
 }
@@ -2970,13 +2994,21 @@ function renderSitu(){
 let regCat = 'Alle';
 function openReg(){
   const cats = ['Alle', ...new Set(SITU.map(x => x.cat))];
-  $('#reg-body').innerHTML = `<p class="sub">Für jede Lage das passende Gedenken aus Quran und Sunnah. „Gesprochen“ zählt wie Dhikr (+10 Hasanat min.).</p>
+  $('#reg-body').innerHTML = `<p class="sub">${SITU.length} Situationen mit dem passenden Gedenken aus Quran und Sunnah. „Gesprochen“ zählt wie Dhikr (+10 Hasanat min.).</p>
+    <div class="inp"><input id="reg-q" type="search" placeholder="🔎 z. B. Regen, Schulden, Reise, Angst …" autocomplete="off"></div><div id="reg-res"></div>
     <div class="chips">${cats.map(c => `<button class="chip ${c === regCat ? 'on' : ''}" data-regcat="${esc(c)}">${esc(c)}</button>`).join('')}</div>`
     + cats.filter(c => c !== 'Alle' && (regCat === 'Alle' || regCat === c)).map(c => `<h4 class="rg-h">${esc(c)}</h4>` + SITU.filter(x => x.cat === c).map(x => situHTML(x)).join('')).join('')
     + `<label class="card" style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">🌧️ Wetter automatisch erkennen<br><small class="sub">fragt open-meteo.com mit grob gerundetem Standort</small><input type="checkbox" id="set-wx" ${db.settings.weather ? 'checked' : ''} style="width:22px;height:22px"></label>`;
   $('#reg').hidden = false; $('#reg').scrollTop = 0;
 }
 $('#reg').addEventListener('click', e => { if (e.target.closest('#reg-close')) $('#reg').hidden = true; });
+document.addEventListener('input', e => {
+  if (e.target.id !== 'reg-q') return;
+  const w = norm(e.target.value).split(/\s+/).filter(Boolean), res = $('#reg-res');
+  if (!w.length) { res.innerHTML = ''; return; }
+  const hits = SITU.filter(x => { const t = norm(x.title + ' ' + x.de + ' ' + (x.note || '') + ' ' + x.cat); return w.every(v => t.includes(v)); });
+  res.innerHTML = hits.length ? '<h4 class="rg-h">Treffer</h4>' + hits.map(x => situHTML(x)).join('') : '<p class="sub">Nichts gefunden.</p>';
+});
 document.addEventListener('change', e => {
   if (e.target.id !== 'set-wx') return;
   db.settings.weather = e.target.checked; save(); localStorage.removeItem('wx'); WX = null;
