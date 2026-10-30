@@ -425,6 +425,8 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
 .hzr.s2 .hzb i{color:var(--accent);font-weight:800}
 .hzr.s2 .hzb b{color:var(--accent)}
 .hzl{text-decoration:none;display:flex;align-items:center;justify-content:center}
+.readb{display:inline-block;margin-top:8px;padding:6px 12px;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font-size:.82rem;font-weight:700}
+.qfoot .readb{margin-top:0;padding:4px 10px}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -536,7 +538,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 23 (29.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 24 (30.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -1011,7 +1013,7 @@ function deedHTML(d){
     : `<div class="ctr"><button data-m="${d.id}" aria-label="minus">−</button><span class="num">${c}/${d.target}</span><button class="big" data-p="${d.id}">+${d.step||1}</button></div>`;
   const fs = d.step === 1 && d.target >= 10 && !editMode ? `<button class="fs" data-fs="d:${d.id}">⛶ Vollbild</button>` : '';
   return `<div class="deed ${done?'done':''} ${special?'special':''} ${hid?'hid':''}">
-    <div class="row"><div class="t"><b>${esc(d.title)}</b><div class="tags">${tags.join('')}</div></div>${ctl}</div>
+    <div class="row"><div class="t"><b>${esc(d.title)}</b><div class="tags">${tags.join('')}</div>${editMode ? '' : readBtn(d.id)}</div>${ctl}</div>
     ${d.tr && d.tr.length > 70 ? `<details class="sayd"><summary>📜 Text anzeigen</summary>${sayHTML(d)}</details>` : sayHTML(d)}
     <div class="dfoot"><details><summary>Quelle &amp; Belohnung</summary><div class="src">${esc(d.reward)}<span class="ref">${esc(d.ref)}</span></div></details>${fs}</div>
   </div>`;
@@ -1101,7 +1103,7 @@ function renderQuick(){
         ${sayHTML(q)}${goal}
       </button>
       <div class="qfoot"><details ${open?'open':''}><summary>Quelle &amp; Bonus</summary><div class="src">${esc(q.reward)}<span class="ref">${esc(q.ref)}</span></div></details>
-      ${q.custom ? `<button class="qundo" data-cdel="${q.cid}" aria-label="löschen">🗑</button>` : ''}<button class="fs" data-fs="q:${q.id}">⛶</button><button class="qundo" data-qu="${q.id}">−1</button></div>
+      ${readBtn(q.id)}${q.custom ? `<button class="qundo" data-cdel="${q.cid}" aria-label="löschen">🗑</button>` : ''}<button class="fs" data-fs="q:${q.id}">⛶</button><button class="qundo" data-qu="${q.id}">−1</button></div>
     </div>`;
   }).join('');
 }
@@ -1378,7 +1380,7 @@ function renderAdhkar(){
           ${sayHTML(a)}
         </button>
         <div class="qfoot"><details ${open.has(key)?'open':''}><summary>Quelle &amp; Nutzen</summary><div class="src">${esc(a.reward)}<span class="ref">${esc(a.ref)}</span></div></details>
-        ${a.target >= 10 ? `<button class="fs" data-fs="a:${key}">⛶</button>` : ''}<button class="qundo" data-au="${key}">−1</button></div>
+        ${readBtn('a:' + a.id)}${a.target >= 10 ? `<button class="fs" data-fs="a:${key}">⛶</button>` : ''}<button class="qundo" data-au="${key}">−1</button></div>
       </div>`;
     }).join('');
 }
@@ -2850,6 +2852,19 @@ function renderHifz(){
     }).join('')}</div>
     <p class="sub">„Wer den Quran gut beherrscht, ist mit den edlen, gehorsamen Schreiber-Engeln; und wer ihn mit Mühe stockend liest, hat doppelten Lohn.“ (Bukhari 4937, Muslim 798) · +15 XP pro auswendig gelernter Sure · ↗ öffnet die Sure mit Rezitation auf quran.com</p>`;
 }
+
+
+// ---------- 📖 Lesen: Taten mit Quran-Text direkt öffnen ----------
+const READ = {s_kahf:'18', kursi:'2/255', baqara:'2/285-286', ikhlas:'112', q_ikhlas:'112',
+  'a:kursi':'2/255', 'a:skursi':'2/255', 'a:sbaqara':'2/285-286', 'a:quls':'112', 'a:squls':'112'};
+function readUrl(id){
+  if (id === 'quran') {
+    const st = typeof khatmState === 'function' ? khatmState() : null;
+    return `https://quran.com/page/${st && !st.finished ? Math.min(604, st.done + 1) : 1}`;
+  }
+  return READ[id] ? `https://quran.com/${READ[id]}` : null;
+}
+const readBtn = id => { const u = readUrl(id); return u ? `<a class="readb" href="${u}" target="_blank" rel="noopener">📖 ${id === 'quran' ? 'Weiterlesen' : 'Lesen'} ›</a>` : ''; };
 
 // ---------- Interaktion ----------
 function setCount(id, v){
