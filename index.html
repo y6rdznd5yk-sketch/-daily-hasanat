@@ -639,6 +639,29 @@ button.readb{border:0;font:inherit;font-size:.82rem;font-weight:700;cursor:point
 .qnav{display:flex;gap:8px;margin:16px 0 6px}
 .qnav .btn{margin:0}
 .qerr{text-align:center;margin-top:30px}
+.qpl-now{margin-top:0}
+.qpl-c{display:flex;gap:8px;position:relative}
+.qbtn2{background:rgba(255,255,255,.15);color:#fff}
+.say.ist mark{background:var(--gold-soft);color:var(--gold);border-radius:4px;padding:0 4px;font-weight:700}
+#qdark{position:fixed;inset:0;z-index:90;background:#000;display:flex;align-items:flex-end;justify-content:center;padding-bottom:calc(env(safe-area-inset-bottom) + 40px)}
+#qdark[hidden]{display:none}
+#qdark p{color:#555;font-size:.8rem;animation:qdk 5s forwards}
+@keyframes qdk{to{opacity:0}}
+.qz-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.8rem;color:var(--muted);margin-bottom:6px}
+.qz-top span{font-weight:700;color:var(--accent);white-space:nowrap}
+.qz-q{font-size:1.1rem;line-height:1.45;margin:14px 0 12px}
+.qz-h{display:block;font-weight:400;font-size:.92rem;color:var(--muted);font-style:italic;margin-top:8px}
+.qz-o{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:12px 14px;margin:0 0 8px;font:inherit;font-size:.95rem;line-height:1.35}
+.qz-o:disabled{color:var(--ink);opacity:1}
+.qz-o.ok{border-color:var(--accent);background:var(--accent-soft);font-weight:700}
+.qz-o.no{border-color:#c0392b;background:rgba(192,57,43,.13)}
+.qz-o.off{opacity:.5}
+.qz-fb{font-size:.92rem;margin:10px 0}
+.qz-end{text-align:center}
+.qz-score{display:flex;gap:10px;justify-content:center;margin:14px 0}
+.qz-score div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 18px;min-width:90px}
+.qz-score b{display:block;font-size:1.8rem;color:var(--accent)}
+.qz-score small{color:var(--muted)}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -753,12 +776,12 @@ button.readb{border:0;font:inherit;font-size:.82rem;font-weight:700;cursor:point
     <div class="ptitle"><b>☰ Mehr</b><span>Werkzeuge, Einstellungen &amp; Daten</span></div>
     <div id="mlist">
       <h2>Werkzeuge</h2>
-      <div class="mgrp"><button class="mrow" data-qurb="1"><span>💫</span><div><b>Näher zu Allah</b><small>7 Minuten mit Allah · Licht · Schatzkammer</small></div><i>›</i></button><button class="mrow" data-qibla="1"><span>🧭</span><div><b>Qibla-Kompass</b><small>Richtung nach Mekka</small></div><i>›</i></button><button class="mrow" data-mk="ptimes"><span>🕌</span><div><b>Gebetszeiten</b><small>Heute und morgen</small></div><i>›</i></button><button class="mrow" data-mk="events"><span>📅</span><div><b>Besondere Tage</b><small>Fasten, Ramadan, Eid …</small></div><i>›</i></button><button class="mrow" data-dm="1"><span>🤲</span><div><b>Der Du’a-Meister</b><small>Adab, Zeiten, vollständige Du’a</small></div><i>›</i></button><button class="mrow" data-jr="1"><span>🌙</span><div><b>Abend-Rückblick</b><small>Dankbarkeit & Muhasaba</small></div><i>›</i></button><button class="mrow" data-tawba="1"><span>🤍</span><div><b>Neuanfang</b><small>Tawba, Sünde & Sucht, Notfall-Hilfe</small></div><i>›</i></button><button class="mrow" data-mk="zakat"><span>💰</span><div><b>Zakat-Rechner</b><small>2,5 % · Nisab</small></div><i>›</i></button></div>
+      <div class="mgrp"><button class="mrow" data-qurb="1"><span>💫</span><div><b>Näher zu Allah</b><small>7 Minuten mit Allah · Licht · Schatzkammer</small></div><i>›</i></button><button class="mrow" data-qibla="1"><span>🧭</span><div><b>Qibla-Kompass</b><small>Richtung nach Mekka</small></div><i>›</i></button><button class="mrow" data-mk="ptimes"><span>🕌</span><div><b>Gebetszeiten</b><small>Heute und morgen</small></div><i>›</i></button><button class="mrow" data-mk="events"><span>📅</span><div><b>Besondere Tage</b><small>Fasten, Ramadan, Eid …</small></div><i>›</i></button><button class="mrow" data-dm="1"><span>🤲</span><div><b>Der Du’a-Meister</b><small>Adab, Zeiten, vollständige Du’a</small></div><i>›</i></button><button class="mrow" data-ist="1"><span>🧭</span><div><b>Istikhara</b><small>Wenn du dich entscheiden musst</small></div><i>›</i></button><button class="mrow" data-jr="1"><span>🌙</span><div><b>Abend-Rückblick</b><small>Dankbarkeit & Muhasaba</small></div><i>›</i></button><button class="mrow" data-tawba="1"><span>🤍</span><div><b>Neuanfang</b><small>Tawba, Sünde & Sucht, Notfall-Hilfe</small></div><i>›</i></button><button class="mrow" data-mk="zakat"><span>💰</span><div><b>Zakat-Rechner</b><small>2,5 % · Nisab</small></div><i>›</i></button></div>
       <h2>Einstellungen</h2>
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 36 (31.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 37 (31.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -963,6 +986,25 @@ button.readb{border:0;font:inherit;font-size:.82rem;font-weight:700;cursor:point
   </div>
 </div>
 <div id="qrv" hidden><div class="qrv-top" id="qrv-top"></div><div class="wrap" id="qrv-body"></div><div class="qrv-foot" id="qrv-foot"></div></div>
+<div class="sheet" id="qpl" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>🎧 Quran hören</h3><button class="x" id="qpl-close" aria-label="schließen">✕</button></div>
+    <div id="qpl-body"></div>
+  </div>
+</div>
+<div class="sheet" id="ist" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>🧭 Istikhara</h3><button class="x" id="ist-close" aria-label="schließen">✕</button></div>
+    <div id="ist-body"></div>
+  </div>
+</div>
+<div class="sheet" id="qz" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>🧩 Quiz</h3><button class="x" id="qz-close" aria-label="schließen">✕</button></div>
+    <div id="qz-body"></div>
+  </div>
+</div>
+<div id="qdark" hidden><p>Rezitation läuft · zum Beenden tippen</p></div>
 <script src="prayer.js"></script>
 
 <script>
@@ -1875,6 +1917,7 @@ function lifetime(){
   L.names = Object.keys(db.names || {}).length;
   L.hadith = Object.keys(db.hadith || {}).length;
   L.qurb = Object.values(db.days).filter(x => x.qb).length;
+  L.qz10 = Object.values(db.days).filter(x => x.qz >= 10).length;
   L.qiyam = Object.values(db.days).filter(x => (x.qiyam || 0) >= 1).length;
   L.best = bestStreak();
   return L;
@@ -1903,6 +1946,7 @@ const BADGES = [
   ['names', '🌟', 'Die 99 Namen', 'Alle 99 Namen gelernt', L => L.names >= 99],
   ['qb7', '💫', 'Nähe', 'An 7 Tagen einen Moment mit Allah', L => L.qurb >= 7],
   ['qb40', '🌌', '40 Tage mit Allah', 'An 40 Tagen einen Moment mit Allah', L => L.qurb >= 40],
+  ['quiz10', '🧩', 'Quiz-Meister', '10 von 10 in einer Quiz-Runde', L => L.qz10 >= 1],
 ];
 db.badges = db.badges || {};
 function checkBadges(L){
@@ -2366,6 +2410,7 @@ const MISSIONS = [
   ['Lerne 3 Namen Allahs', x => (x.nl || 0) >= 3],
   ['Mach deinen Abend-Rückblick', x => (x.jr || 0) >= 1],
   ['Nimm dir 7 Minuten mit Allah', x => (x.qb || 0) >= 1],
+  ['Spiel eine Runde Quiz', x => (x.qzr || 0) >= 1],
 ];
 function missionsFor(k){
   // deterministisch pro Tag: jeden Tag drei andere Missionen
@@ -2379,7 +2424,7 @@ function missionsFor(k){
 function dayXPRaw(k){
   const x = day(k), s = dayStats(k), m = missionsFor(k).filter(([, ok]) => ok(x)).length;
   // Sofort-Feedback: jedes Gebet und jede Quran-Seite zählt einzeln
-  return (s.done + (s.bonus || 0)) * 10 + (x.jr ? 15 : 0) + (x.qb ? 30 : 0) + (x.qt ? 20 : 0) + Math.floor(s.taps / 10) + (x.fard || 0) * 10 + (x.jamaa || 0) * 5 + ((x.fard || 0) >= 5 ? 20 : 0) + (x.quran || 0) * 5 + m * 15 + (m === 3 ? 25 : 0);
+  return (s.done + (s.bonus || 0)) * 10 + (x.jr ? 15 : 0) + (x.qb ? 30 : 0) + (x.qt ? 20 : 0) + (x.qz || 0) * 2 + Math.floor(s.taps / 10) + (x.fard || 0) * 10 + (x.jamaa || 0) * 5 + ((x.fard || 0) >= 5 ? 20 : 0) + (x.quran || 0) * 5 + m * 15 + (m === 3 ? 25 : 0);
 }
 const dayXP = k => k < today ? (XC[k] ?? (XC[k] = dayXPRaw(k))) : dayXPRaw(k);
 function totalXP(){
@@ -2755,7 +2800,7 @@ const MISSION_GO = [
   {prayers:1}, {prayers:1}, {seg:'m'}, {seg:'e'}, {seg:'s'},
   {quick:'q_salawat'}, {quick:'q_istighfar'}, {quick:'q_subhan'}, {deed:'quran'},
   {tick:'duha'}, {tick:'qiyam'}, {tick:'sadaqa'}, {tick:'rahim'},
-  {hpath:1}, {deed:'rawatib'}, {quick:'juwayriya'}, {names:1}, {jr:1}, {qurb:1},
+  {hpath:1}, {deed:'rawatib'}, {quick:'juwayriya'}, {names:1}, {jr:1}, {qurb:1}, {quiz:1},
 ];
 function missionGo(i){ return MISSION_GO[MISSIONS.indexOf(missionsFor(today)[i])] || {}; }
 function renderMissions(){
@@ -2794,6 +2839,7 @@ function goTo(g){
   else if (g.jr) { openJournal(); }
   else if (g.qurb) { startQurb(); }
   else if (g.qr) { openQr(g.qr); }
+  else if (g.quiz) { openQuiz(); }
   else if (g.dua) { dmGuide(); }
   else if (g.names) { showPage('info'); showK('names'); $('#fc').hidden = false; nextCard(); }
 }
@@ -2821,6 +2867,7 @@ const HELP = [
   ['📚', 'Wissens-Pfad', 'Reiter „📖 Lernen“ → Wissens-Pfad: Hadith lesen, verinnerlichen, „Gelernt ✓“ tippen.', '+20 XP pro Hadith', {hpath:1}],
   ['🌟', '99 Namen Allahs', 'Reiter „📖 Lernen“ → 99 Namen → Lernmodus: Name ansehen, Bedeutung zeigen, „Kann ich ✓“.', '+5 XP pro Name', {names:1}],
   ['📖', 'Quran lesen', 'Bei „Quran lesen“ auf „📖 Weiterlesen“ tippen oder unter „📖 Lernen“ → „Quran lesen & hören“: Umschrift, Deutsch und Rezitation. Gelesene Seiten zählen automatisch.', '+5 XP pro Seite', {qr:'resume'}],
+  ['🧩', 'Quiz', 'Reiter „📖 Lernen“ → Quiz: 10 Fragen aus Quran, Sunnah, 99 Namen und 40 Hadith – allein oder zu zweit.', '+2 XP pro richtiger Antwort (bis 20 am Tag)', {quiz:1}],
   ['💫', 'Näher zu Allah', 'Unter „Heute“ die dunkle Karte: „▶ 7 Minuten mit Allah“ – Herz wählen, kurz innehalten, Name Allahs, Vers, Danke, Du’a, eine Tat für Allah.', '+30 XP pro Tag · +20 für deine erledigte Tat', {qurb:1}],
 ];
 function openHelp(){
@@ -2845,6 +2892,8 @@ let curK = null;
 function renderTiles(){
   const T = [
     ['📖', 'Quran lesen & hören', 'Umschrift · Deutsch · Rezitation', 'data-qlist="1"'],
+    ['🎧', 'Quran hören', 'Ruqya, Schlafen, al-Kahf, Juz ‘Amma', 'data-qplo="1"'],
+    ['🧩', 'Quiz', 'Allein oder zu zweit · bis +20 XP', 'data-qz="1"'],
     ['🎓', 'Wissens-Pfad', `${Object.keys(db.hadith).length}/42 Hadith gelernt`, 'data-kt="hpath"'],
     ['🌟', '99 Namen Allahs', `${Object.keys(db.names).length}/99 gelernt`, 'data-kt="names"'],
     ['📚', 'Hadith-Bibliothek', 'Alle Sunan, Bukhari, Muslim', 'data-libopen="1"'],
@@ -2980,6 +3029,7 @@ function buildRefIndex(){
     ...HEARTS.flatMap(h => [[`Näher zu Allah (${h.t})`, h.oref], ...h.names.map(n => [`Näher zu Allah: ${n[0]}`, n[3]]), ...h.verses.map(v => [`Näher zu Allah (${h.t}): Vers`, v[1]]),
       ...h.duas.map(d => [`Näher zu Allah (${h.t}): Du’a`, d[2]]), ...h.acts.map(a => [`Näher zu Allah (${h.t}): Tat`, a[1]])]),
     ...DOORS.map(D => [`Tür der Nähe: ${D[2]}`, D[5]]),
+    ...QUIZ_FIX.map(q => [`Quiz: ${q[0]}`, q[3]]), ...PLAYLISTS.map(P => [`Quran hören: ${P.t}`, P.ref]), ['Istikhara', 'Bukhari 1162 · Quran 3:159 · Quran 2:216'],
   ];
   const map = new Map();
   for (const [title, ref] of items) for (const l of parseRefs(ref || '')) {
@@ -3285,6 +3335,7 @@ function situNow(){
   if ((H >= 12 && H < 14) || (H >= 18 && H < 20)) out.push(['eat', '🍽️ Essenszeit? Bismillah nicht vergessen']), out.push(['ate', '🍽️ Nach dem Essen – Sünden vergeben']);
   if ((M === 11 || M <= 1) && (dow === 0 || dow === 3)) out.push(['winter', '❄️ Morgen Sunnah-Fasten – im Winter besonders leicht']);
   if (t ? (now >= new Date(+t.isha + 3 * 3600e3) || before('fajr', -20)) : (H >= 0 && H < 4)) out.unshift(['nightwake', '🌌 Nachts wach? Jetzt wird Du’a erhört']);
+  if (H >= 21 || H < 1) out.unshift(['__sleep', '😴 Schlafenszeit – Quran zum Einschlafen']);
   if ((t ? after('isha') : H >= 20) && H >= 19 && !db.journal[today]) out.unshift(['__jr', '🌙 Zeit für deinen Abend-Rückblick']);
   if (H >= 20 && H < 23) out.push(['majlis', '🗣️ Nach dem Abend mit Freunden']);
   if (h.hm === 12 && h.hd === 9) out.unshift(['arafah', '🕋 Heute ist der Tag von Arafa – das beste Du’a']);
@@ -3306,7 +3357,7 @@ function situHTML(x, label){
 function renderSitu(){
   const list = situNow();
   $('#situ').innerHTML = `<div class="mh"><b>🧭 Passend für jetzt</b><button class="lnk" data-reg="1">Register ›</button></div>`
-    + list.map(([id, label]) => id === '__dm' ? `<button class="tsb" data-dmgo="1" style="margin:8px 0 4px;border-color:var(--gold)"><span>🤲</span><div><b>${label}</b><small>Jetzt die vollständige Du’a Schritt für Schritt</small></div><i>›</i></button>` : id === '__jr' ? `<button class="tsb" data-jr="1" style="margin:8px 0 4px"><span>🌙</span><div><b>${label}</b><small>3× Dankbarkeit · was lief gut · was morgen besser – 1 Minute</small></div><i>›</i></button>` : situHTML(SITU.find(x => x.id === id), label)).join('')
+    + list.map(([id, label]) => id === '__dm' ? `<button class="tsb" data-dmgo="1" style="margin:8px 0 4px;border-color:var(--gold)"><span>🤲</span><div><b>${label}</b><small>Jetzt die vollständige Du’a Schritt für Schritt</small></div><i>›</i></button>` : id === '__sleep' ? `<button class="tsb" data-qpl="sleep" style="margin:8px 0 4px"><span>😴</span><div><b>${label}</b><small>Āyat al-Kursī, Ende al-Baqara, die Quls, as-Sadschda & al-Mulk – mit Schlaf-Timer</small></div><i>▶</i></button>` : id === '__jr' ? `<button class="tsb" data-jr="1" style="margin:8px 0 4px"><span>🌙</span><div><b>${label}</b><small>3× Dankbarkeit · was lief gut · was morgen besser – 1 Minute</small></div><i>›</i></button>` : situHTML(SITU.find(x => x.id === id), label)).join('')
     + (!db.settings.weather && db.settings.lat != null ? `<p class="sub" style="margin:6px 0 0">🌧️ Soll die App Regen, Gewitter und Sturm automatisch erkennen? <button class="lnk" data-wx="1">Einschalten</button></p>` : '');
 }
 let regCat = 'Alle';
@@ -4269,7 +4320,7 @@ function renderSura(v){
   for (let i = 1; i <= cnt; i++) {
     const k = s + ':' + i, pg = QPS.get(k), jz = QJS.get(k), sj = QS.has(k), on = hl && i >= hl[0] && i <= hl[1];
     if (pg && (i > 1 || pg > 1)) h += `<div class="qpg">Seite ${pg}${jz ? ` · Juz ${jz}` : ''}</div>`;
-    h += `<div class="qv${on ? ' hl' : ''}" id="qv-${i}" data-v="${i}"><div class="qv-h"><span class="qv-n">${s}:${i}</span>${sj ? '<span class="qv-s">۩ Niederwerfung (Sajdat at-Tilāwa)</span>' : ''}<button class="qv-b" data-qplay="${i}" aria-label="ab hier anhören">▶</button><button class="qv-b" data-qmark="${i}" aria-label="Lesezeichen setzen">🔖</button></div>
+    h += `<div class="qv${on ? ' hl' : ''}" id="qv-${i}" data-v="${i}"><div class="qv-h"><span class="qv-n">${s}:${i}</span>${sj ? '<span class="qv-s">۩ Niederwerfung (Sajdat at-Tilāwa)</span>' : ''}<button class="qv-b" data-qplay="${i}" aria-label="ab hier anhören">▶</button><button class="qv-b" data-qshare="${i}" aria-label="Vers teilen">📤</button><button class="qv-b" data-qmark="${i}" aria-label="Lesezeichen setzen">🔖</button></div>
       ${QR.ar && QR.ar[i - 1] ? `<p class="qv-ar" dir="rtl" lang="ar">${esc(QR.ar[i - 1].text)}</p>` : ''}<p class="qv-tr">${esc(qTr(QR.tr[i - 1] && QR.tr[i - 1].text))}</p><p class="qv-de">${esc(QR.de[i - 1] ? QR.de[i - 1].text : '')}</p></div>`;
   }
   h += `<div class="qnav">${s > 1 ? `<button class="btn" data-qr="${s - 1}">‹ ${esc(qName(s - 1))}</button>` : ''}${s < 114 ? `<button class="btn p" data-qr="${s + 1}">${esc(qName(s + 1))} ›</button>` : ''}</div>
@@ -4341,7 +4392,7 @@ function openQList(){
     ${st && !st.finished ? `<button class="tsb" data-qr="p${Math.min(PAGES, st.done + 1)}"><span>🎯</span><div><b>Khatm: weiter bei Seite ${Math.min(PAGES, st.done + 1)}</b><small>Heutiges Ziel: ${st.plan} Seiten</small></div><i>›</i></button>` : ''}
     ${M ? `<button class="tsb" data-qr="${M.s}:${M.v}" style="border-color:var(--line);background:var(--card)"><span>🔖</span><div><b>Lesezeichen</b><small>${esc(qName(M.s))} ${M.s}:${M.v}</small></div><i>›</i></button>` : ''}
     <p class="sub">📖 Heute gelesen: <b>${x.quran || 0}</b> ${(x.quran || 0) === 1 ? 'Seite' : 'Seiten'}. Im Leser zählen die Seiten automatisch mit – du musst nichts eintragen.</p>
-    <div class="chips">${quick.map(([q, t]) => `<button class="chip" data-qr="${q}">${t}</button>`).join('')}</div>
+    <div class="chips"><button class="chip on" data-qplo="1">🎧 Playlists</button>${quick.map(([q, t]) => `<button class="chip" data-qr="${q}">${t}</button>`).join('')}</div>
     <div class="inp"><input id="qr-q" placeholder="Sure suchen – Name, Bedeutung oder Nummer" autocomplete="off"></div>
     <div id="qr-list">${qListHTML('')}</div>
     <button class="btn" data-qdl="1">📥 Ganzen Quran offline speichern (≈ 2 MB)</button><p class="sub" id="qr-dl">${db.qoff ? '✓ Der ganze Quran ist offline gespeichert.' : 'Jede Sure, die du einmal öffnest, bleibt automatisch offline verfügbar.'}</p>
@@ -4374,7 +4425,7 @@ const QA_URLS = [
 ];
 function qPlay(s, v, o = {}){
   const rep = o.rep || 1;
-  QAS = {s, v, to:o.to || SURAS[s - 1][2], src:QAS ? QAS.src : 0, rep, left:rep, inline:!!o.inline, bism:o.bism ?? (!o.inline && v === 1 && s !== 1 && s !== 9)};
+  QAS = {s, v, to:o.to || SURAS[s - 1][2], src:QAS ? QAS.src : 0, rep, left:rep, inline:!!o.inline, pl:o.pl || null, queue:o.queue || null, idx:0, bism:o.bism ?? ((!o.inline || o.pl) && v === 1 && s !== 1 && s !== 9)};
   qLoad();
 }
 function qLoad(){
@@ -4386,6 +4437,7 @@ function qLoad(){
 }
 function qStop(){
   QAS = null; QA.pause(); QA.removeAttribute('src'); try { QA.load(); } catch(e) {}
+  clearTimeout(qSleep.t); qSleep.min = 0; qSleep.end = 0;
   qMark(); qSync();
 }
 QA.addEventListener('ended', () => {
@@ -4393,6 +4445,7 @@ QA.addEventListener('ended', () => {
   if (a.bism) { a.bism = false; return qLoad(); }
   if (a.left > 1) { a.left--; return qLoad(); }
   if (a.v < a.to) { a.v++; a.left = a.rep; return qLoad(); }
+  if (a.queue && a.queue.length) { const [s, f, t] = a.queue.shift(); Object.assign(a, {s, v:f, to:t, left:a.rep, idx:(a.idx || 0) + 1, bism:f === 1 && s !== 1 && s !== 9}); return qLoad(); }
   qStop();
 });
 QA.addEventListener('error', () => {
@@ -4416,7 +4469,8 @@ function qSync(){
   const on = QAS && !QA.paused;
   const b = $('#qrv [data-qpa]'); if (b) b.textContent = QAS && !QAS.inline ? (on ? '⏸ Pause' : '▶ Weiter') : '▶ Anhören';
   if (b) b.classList.toggle('on', !!(QAS && !QAS.inline && on));
-  document.querySelectorAll('[data-qbl]').forEach(x => { x.textContent = QAS && QAS.inline && on ? '⏸ Rezitation anhalten' : '🔊 Rezitation anhören'; });
+  document.querySelectorAll('[data-qbl]').forEach(x => { x.textContent = QAS && QAS.inline && !QAS.pl && on ? '⏸ Rezitation anhalten' : '🔊 Rezitation anhören'; });
+  renderPl();
 }
 // Vers-Bereich direkt abspielen (z. B. in „Näher zu Allah“)
 function qInline(spec){
@@ -4426,7 +4480,7 @@ function qInline(spec){
 }
 
 document.addEventListener('click', e => {
-  const b = e.target.closest('[data-qr],[data-qlist],[data-qclose],[data-qpa],[data-qplay],[data-qmark],[data-qrep],[data-qar],[data-qdl]'); if (!b) return;
+  const b = e.target.closest('[data-qr],[data-qlist],[data-qclose],[data-qpa],[data-qplay],[data-qmark],[data-qrep],[data-qar],[data-qdl],[data-qshare]'); if (!b) return;
   const d = b.dataset;
   if (d.qr) { e.preventDefault(); openQr(d.qr, {rep:+d.qrepset || 0}); }
   else if (d.qlist) openQList();
@@ -4447,9 +4501,206 @@ document.addEventListener('click', e => {
       .then(() => { if (QR && QR.s === s && QR.tr) { if (!showAr) QR.ar = null; renderSura(keep); } });
   }
   else if (d.qdl) qDownloadAll(b);
+  else if (d.qshare) {
+    if (!QR || !QR.tr) return;
+    const v = +d.qshare, s = QR.s, text = `„${QR.de[v - 1] ? QR.de[v - 1].text : ''}“\n\n${qTr(QR.tr[v - 1].text)}\n\n– Quran ${s}:${v} (${qName(s)}) · Übersetzung: Bubenheim & Elyas`;
+    (async () => {
+      try { if (navigator.share) { await navigator.share({text}); return; } } catch(err) { if (err && err.name === 'AbortError') return; }
+      try { await navigator.clipboard.writeText(text); toast('📋 Vers kopiert – jetzt einfügen und teilen'); } catch(_) { prompt('Vers kopieren:', text); }
+    })();
+  }
 });
 document.addEventListener('input', e => { if (e.target.id === 'qr-q') $('#qr-list').innerHTML = qListHTML(e.target.value); });
 $('#qrl').addEventListener('click', e => { if (e.target.closest('#qrl-close')) $('#qrl').hidden = true; });
+
+// ---------- 🎧 Quran hören: Playlists mit Schlaf-Timer ----------
+const x3 = a => [a, a, a];
+const PLAYLISTS = [
+  {id:'ruqya', ic:'🛡️', t:'Ruqya & Schutz', d:'al-Fātiha, Āyat al-Kursī, Ende al-Baqara, al-Ikhlās, al-Falaq und an-Nās (je 3×)', items:[[1, 1, 7], [2, 255, 255], [2, 285, 286], ...x3([112, 1, 4]), ...x3([113, 1, 5]), ...x3([114, 1, 6])],
+    note:'Mit al-Fātiha behandelten die Gefährten einen Kranken, und der Prophet ﷺ bestätigte es. Über al-Falaq und an-Nās sagte er: Nie wurden Verse wie sie herabgesandt.', ref:'Bukhari 2276 · Muslim 810 · Bukhari 5009 · Muslim 814'},
+  {id:'sleep', ic:'😴', t:'Vor dem Schlafen', d:'Āyat al-Kursī, Ende al-Baqara, die drei Quls (je 3×), as-Sadschda und al-Mulk', items:[[2, 255, 255], [2, 285, 286], ...x3([112, 1, 4]), ...x3([113, 1, 5]), ...x3([114, 1, 6]), [32, 1, 30], [67, 1, 30]],
+    note:'Der Prophet ﷺ schlief nicht, bevor er as-Sadschda und al-Mulk gelesen hatte.', ref:'Bukhari 2311 · Bukhari 5009 · Bukhari 5017 · Tirmidhi 2892 – sahih'},
+  {id:'kahf', ic:'🕌', t:'al-Kahf', d:'Die ganze Sure (110 Verse) – Sunnah am Freitag', items:[[18, 1, 110]], note:'„Wer am Freitag die Sure al-Kahf liest, dem leuchtet ein Licht zwischen den beiden Freitagen.“', ref:'al-Hakim – sahih (al-Albani)'},
+  {id:'mulk', ic:'👑', t:'al-Mulk', d:'30 Verse', items:[[67, 1, 30]], note:'„Eine Sure von dreißig Versen trat für einen Mann ein, bis ihm vergeben wurde.“', ref:'Tirmidhi 2891 – hasan'},
+  {id:'amma', ic:'📗', t:'Juz ‘Amma', d:'Sure 78 bis 114 – zum Lernen und Mithören', items:Array.from({length:37}, (_, i) => [78 + i, 1, SURAS[77 + i][2]]), note:'Ideal, um die kurzen Suren für das Gebet auswendig zu lernen.', ref:''},
+];
+const qSleep = {min:0, end:0, t:null};
+function qPlayList(id){
+  const P = PLAYLISTS.find(x => x.id === id); if (!P) return;
+  const [first, ...rest] = P.items;
+  qPlay(first[0], first[1], {to:first[2], inline:true, pl:id, queue:rest.map(x => [...x])});
+  buzz(10); openPl();
+}
+function setSleep(m){
+  clearTimeout(qSleep.t); qSleep.min = m; qSleep.end = m ? Date.now() + m * 6e4 : 0;
+  if (m) qSleep.t = setTimeout(() => { qStop(); $('#qdark').hidden = true; keepAwake(false); toast('⏲ Schlaf-Timer: Rezitation beendet – gute Nacht'); }, m * 6e4);
+  renderPl();
+}
+function openPl(){ $('#qpl').hidden = false; renderPl(); }
+function renderPl(){
+  const el = $('#qpl-body'); if (!el || $('#qpl').hidden) return;
+  const a = QAS && QAS.pl ? QAS : null, P = a && PLAYLISTS.find(x => x.id === a.pl);
+  el.innerHTML = `${a ? `<div class="card qcard qpl-now"><div class="qc-t"><small>🎧 Läuft gerade · ${P.ic} ${esc(P.t)}</small><b>${esc(qName(a.s))} ${a.s}:${a.bism ? '0 (Bismillāh)' : a.v}</b><small>Teil ${(a.idx || 0) + 1} von ${P.items.length}${qSleep.end ? ` · ⏲ stoppt um ${hm(new Date(qSleep.end))}` : ''}</small></div>
+      <div class="qpl-c"><button class="qbtn" data-qplp="1">${QA.paused ? '▶ Weiter' : '⏸ Pause'}</button><button class="qbtn qbtn2" data-qpls="1">⏹ Stopp</button></div></div>` : ''}
+    <div class="dh" style="margin-top:0"><div class="dh-k">Zuhören ist Barmherzigkeit</div><div class="dh-t">„Und wenn der Quran vorgetragen wird, so hört zu und schweigt, auf dass ihr Barmherzigkeit findet.“</div><div class="dh-r">Quran 7:204</div></div>
+    ${PLAYLISTS.map(P => `<div class="hp"><span class="hp-i">${P.ic}</span><div><b>${esc(P.t)}</b><p>${esc(P.d)}</p>${P.note ? `<p class="sub">${esc(P.note)}</p>` : ''}${P.ref ? `<span class="gref">${esc(P.ref)}</span> ` : ''}<button class="mbtn go" data-qpl="${P.id}">${a && a.pl === P.id ? '↻ Von vorn' : '▶ Abspielen'}</button></div></div>`).join('')}
+    <h4 class="rg-h">⏲ Schlaf-Timer</h4>
+    <div class="chips">${[0, 15, 30, 60].map(m => `<button class="chip ${qSleep.min === m ? 'on' : ''}" data-qsleep="${m}">${m ? m + ' Min' : 'Aus'}</button>`).join('')}</div>
+    <button class="btn" data-qdark="1">🌙 Bildschirm abdunkeln – Rezitation läuft weiter</button>
+    <p class="sub">Tipp zum Einschlafen: Playlist starten, Schlaf-Timer setzen, Bildschirm abdunkeln und das Handy neben dich legen. Rezitation: Mishary Alafasy.</p>`;
+}
+
+// ---------- 🧭 Istikhara: Allah um die richtige Entscheidung bitten ----------
+const IST_STEPS = [
+  ['🎯', 'Wofür?', 'Für erlaubte Dinge, bei denen du unsicher bist: Job, Studium, Umzug, Heirat, eine große Anschaffung. Nicht für Pflichten (die tust du sowieso) und nicht für Verbotenes.'],
+  ['💧', 'Wudu machen', 'Wie für jedes Gebet.'],
+  ['🧎', 'Zwei freiwillige Rak’at beten', 'Nicht das Pflichtgebet, mit der Absicht der Istikhara. Am besten nicht in den Zeiten, in denen freiwilliges Gebet unerwünscht ist (z. B. bei Sonnenaufgang).'],
+  ['🤲', 'Danach das Du’a sprechen', 'Beginne mit Lob Allahs und Salawat. An der markierten Stelle nennst du deine Sache – auch auf Deutsch.'],
+  ['➡️', 'Dann handeln und vertrauen', 'Geh deinen Weg weiter. Du brauchst keinen Traum und kein Zeichen: Ist die Sache gut, erleichtert Allah sie dir; ist sie es nicht, wendet Er sie ab – und du bist mit Seiner Wahl zufrieden.'],
+  ['🔁', 'Unsicher? Wiederholen und beraten', 'Du darfst die Istikhara wiederholen. Und frag kluge, gottesfürchtige Menschen um Rat: „… und berate dich mit ihnen in den Angelegenheiten. Wenn du dich entschlossen hast, dann verlasse dich auf Allah.“ (Quran 3:159)'],
+];
+function openIst(){
+  const m = db.istikhara || '', mark = `<mark>${m ? esc(m) : 'hier deine Sache nennen'}</mark>`;
+  $('#ist-body').innerHTML = `<div class="dh" style="margin-top:0"><div class="dh-k">So lehrte es der Prophet ﷺ</div><div class="dh-t">Dschābir (ra) sagte: „Der Prophet ﷺ lehrte uns die Istikhara in allen Angelegenheiten, so wie er uns eine Sure des Quran lehrte.“</div><div class="dh-r">Bukhari 1162</div></div>
+    ${IST_STEPS.map(([i, t, d], n) => `<div class="hp"><span class="hp-i">${i}</span><div><b>${n + 1}. ${t}</b><p>${esc(d)}</p></div></div>`).join('')}
+    <h4 class="rg-h">✍️ Worum geht es bei dir?</h4>
+    <div class="inp"><input id="ist-m" value="${esc(m)}" placeholder="z. B. „die Stelle bei der Firma X“" maxlength="80" autocomplete="off"></div>
+    <h4 class="rg-h">🤲 Das Du’a der Istikhara</h4>
+    <div class="say ist"><div class="tr">Allāhumma innī astakhīruka bi-‘ilmik, wa astaqdiruka bi-qudratik, wa as’aluka min fadlikal-‘azīm, fa-innaka taqdiru wa lā aqdir, wa ta‘lamu wa lā a‘lam, wa anta ‘allāmul-ghuyūb. Allāhumma in kunta ta‘lamu anna hādhal-amra ${mark} khayrun lī fī dīnī wa ma‘āschī wa ‘āqibati amrī, fa-qdurhu lī wa yassirhu lī, thumma bārik lī fīh. Wa in kunta ta‘lamu anna hādhal-amra ${mark} scharrun lī fī dīnī wa ma‘āschī wa ‘āqibati amrī, fa-srifhu ‘annī wa-srifnī ‘anhu, wa-qdur liyal-khayra haythu kān, thumma ardinī bih.</div>
+      <div class="de">„O Allah, ich bitte Dich durch Dein Wissen um das Gute, durch Deine Macht um Kraft, und ich bitte Dich um Deine gewaltige Huld. Denn Du vermagst es, und ich vermag es nicht; Du weißt, und ich weiß nicht; und Du bist der Allwissende des Verborgenen. O Allah, wenn Du weißt, dass diese Sache – ${mark} – gut für mich ist in meiner Religion, meinem Leben und dem Ausgang meiner Angelegenheit, dann bestimme sie für mich, erleichtere sie mir und segne sie mir. Und wenn Du weißt, dass diese Sache – ${mark} – schlecht für mich ist in meiner Religion, meinem Leben und dem Ausgang meiner Angelegenheit, dann wende sie von mir ab und wende mich von ihr ab, bestimme mir das Gute, wo immer es ist, und mach mich dann damit zufrieden.“</div></div>
+    <span class="gref">Bukhari 1162</span>
+    <button class="btn p" data-istdone="1" style="margin-top:12px">✓ Istikhara gebetet</button>
+    <p class="sub">Dein Anliegen bleibt nur auf diesem Handy. Was Allah wählt, ist besser als das, was du dir selbst gewählt hättest: „… vielleicht ist euch etwas zuwider, und es ist gut für euch.“ <span class="gref">Quran 2:216</span></p>`;
+  $('#ist').hidden = false; $('#ist').scrollTop = 0;
+}
+
+// ---------- 🧩 Quiz: spielerisch lernen – allein oder zu zweit ----------
+const QUIZ_FIX = [
+  ['Wie viele Pflichtgebete gibt es am Tag?', '5', ['3', '4', '7'], 'Bukhari 46, Muslim 11'],
+  ['Wie viele Rak’at hat das Pflichtgebet von Fajr?', '2', ['3', '4', '1'], ''],
+  ['Wie viele Rak’at hat das Pflichtgebet von Maghrib?', '3', ['2', '4', '5'], ''],
+  ['Um wie viel ist das Gebet in Gemeinschaft besser als allein?', '27-fach', ['2-fach', '10-fach', '70-fach'], 'Bukhari 645, Muslim 650'],
+  ['Wie viele Hasanat gibt es für einen Buchstaben des Quran?', '10', ['1', '5', '100'], 'Tirmidhi 2910 – sahih'],
+  ['Welche Sure entspricht einem Drittel des Quran?', 'al-Ikhlās', ['al-Fātiha', 'al-Kauthar', 'an-Nās'], 'Bukhari 5013'],
+  ['Welcher ist der gewaltigste Vers im Quran?', 'Āyat al-Kursī', ['Der erste Vers der Fātiha', 'Der letzte Vers von al-Baqara', 'Der erste Vers von al-‘Alaq'], 'Muslim 810'],
+  ['Wie oft sagt man SubhānAllāh nach dem Pflichtgebet?', '33', ['10', '99', '100'], 'Muslim 597'],
+  ['An welchen Wochentagen fastete der Prophet ﷺ gern?', 'Montag und Donnerstag', ['Freitag und Samstag', 'Mittwoch und Sonntag', 'Dienstag und Freitag'], 'Tirmidhi 745 – sahih'],
+  ['Welches Gebet ist nach dem Pflichtgebet das beste?', 'Das Nachtgebet', ['Das Duha-Gebet', 'Das Gebet vor Dhuhr', 'Das Eid-Gebet'], 'Muslim 1163'],
+  ['Was löscht eine schlechte Tat aus?', 'Eine gute Tat, die man ihr folgen lässt', ['Ein Fastentag im Jahr', 'Nur die Pilgerfahrt', 'Gar nichts'], 'Tirmidhi 1987 – hasan'],
+  ['Welche Worte sind die „Pflanzen des Paradieses“?', 'SubhānAllāh, Alhamdulillāh, Lā ilāha illallāh, Allāhu akbar', ['Bismillāh und Āmīn', 'Nur Astaghfirullāh', 'InschāAllāh und MāschāAllāh'], 'Tirmidhi 3462 – hasan'],
+  ['Was ist „ein Schatz aus den Schätzen des Paradieses“?', 'Lā hawla wa lā quwwata illā billāh', ['Bismillāh', 'Alhamdulillāh', 'Allāhu akbar'], 'Bukhari 6384, Muslim 2704'],
+  ['Wann ist der Diener seinem Herrn am nächsten?', 'In der Niederwerfung', ['Im Stehen', 'Beim Wudu', 'Beim Adhan'], 'Muslim 482'],
+  ['Welche Nacht ist besser als tausend Monate?', 'Laylat al-Qadr', ['Die Nacht zum Freitag', 'Die Nacht der Himmelsreise', 'Die erste Nacht des Ramadan'], 'Quran 97:3'],
+  ['Was sagt man, wenn einen ein Unglück trifft?', 'Innā lillāhi wa innā ilayhi rādschi‘ūn', ['SubhānAllāh', 'MāschāAllāh', 'Bismillāh'], 'Quran 2:156'],
+  ['Wer sagte „Hasbunallāhu wa ni‘mal-wakīl“, als er ins Feuer geworfen wurde?', 'Ibrāhīm (as)', ['Mūsā (as)', 'Nūh (as)', 'Yūsuf (as)'], 'Bukhari 4563'],
+  ['Welcher Prophet rief im Bauch des Fisches: „Lā ilāha illā anta subhānaka …“?', 'Yūnus (as)', ['Ayyūb (as)', 'Zakariyyā (as)', 'Ādam (as)'], 'Quran 21:87'],
+  ['Wie viele Rak’at Sunnah am Tag bauen dir ein Haus im Paradies?', '12', ['2', '7', '40'], 'Muslim 728'],
+  ['Wie viele Namen Allahs – wer sie erfasst, kommt ins Paradies?', '99', ['33', '70', '1000'], 'Bukhari 2736, Muslim 2677'],
+  ['Was wird dem vergeben, der 100× „SubhānAllāhi wa bihamdihī“ sagt?', 'Seine Sünden – selbst wie Meeresschaum', ['Nur die Sünden eines Tages', 'Gar nichts', 'Nur kleine Sünden der Augen'], 'Bukhari 6405'],
+  ['Welche Sure ist Sunnah am Freitag?', 'al-Kahf', ['Yā-Sīn', 'al-Mulk', 'ar-Rahmān'], ''],
+  ['Welche Sure mit 30 Versen tritt für ihren Leser ein, bis ihm vergeben wird?', 'al-Mulk', ['al-Kauthar', 'al-Fīl', 'al-Masad'], 'Tirmidhi 2891 – hasan'],
+  ['Wann steigt Allah zum untersten Himmel herab und fragt: „Wer ruft Mich an?“', 'Im letzten Drittel der Nacht', ['Direkt nach Maghrib', 'Genau um Mitternacht', 'Zum Dhuhr-Gebet'], 'Bukhari 1145, Muslim 758'],
+  ['Was sagte der Prophet ﷺ über Sadaqa und Vermögen?', 'Sadaqa vermindert das Vermögen nicht', ['Sadaqa verdoppelt sofort das Gehalt', 'Sadaqa ersetzt das Gebet', 'Sadaqa zählt nur im Ramadan'], 'Muslim 2588'],
+  ['Was ist das Lächeln für deinen Bruder?', 'Sadaqa', ['Pflicht', 'Unerwünscht', 'Nichts Besonderes'], 'Tirmidhi 1956 – sahih'],
+  ['Wie viele Säulen hat der Islam?', '5', ['3', '6', '7'], 'Bukhari 8, Muslim 16'],
+  ['Woran glaubt ein Muslim nach dem Hadith Dschibril – wie viele Glaubensinhalte?', '6', ['5', '4', '7'], 'Muslim 8'],
+  ['Was ist Ihsan?', 'Allah so zu dienen, als ob man Ihn sieht', ['Viel Geld zu spenden', 'Den Quran auswendig zu können', 'Jeden Tag zu fasten'], 'Muslim 8'],
+  ['In welchem Monat wurde der Quran herabgesandt?', 'Ramadan', ['Schawwāl', 'Muharram', 'Radschab'], 'Quran 2:185'],
+];
+const shuf = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const pick = (a, n, not) => shuf(a.filter(x => x !== not)).slice(0, n);
+function quizQuestions(n){
+  const S = SURAS.map(([name, de, cnt, mk], i) => ({i:i + 1, name, de, mk})).filter(x => qNorm(x.de) !== qNorm(x.name.replace(/^(a[a-z]{0,3}-)/i, '')));
+  const gen = [
+    () => { const q = pick(QUIZ_FIX, 1)[0]; return {q:q[0], a:q[1], o:[q[1], ...q[2]], r:q[3]}; },
+    () => { const x = pick(S, 1)[0]; return {q:`Was bedeutet der Surenname „${x.name}“?`, a:x.de, o:[x.de, ...pick(S, 3, x).map(y => y.de)], r:`Quran ${x.i}:1`}; },
+    () => { const [n, d] = pick(NAMES, 1)[0]; return {q:`Was bedeutet der Name Allahs „${n}“?`, a:d, o:[d, ...pick(NAMES.filter(y => y[1] !== d), 3).map(y => y[1])], r:''}; },
+    () => { const [n, d] = pick(NAMES, 1)[0]; return {q:`Welcher Name Allahs bedeutet „${d}“?`, a:n, o:[n, ...pick(NAMES.filter(y => y[0] !== n), 3).map(y => y[0])], r:''}; },
+    () => { const h = pick(NAWAWI, 1)[0], txt = h[1].length > 150 ? h[1].slice(0, 150).replace(/\s+\S*$/, '') + ' …' : h[1]; return {q:`Um welches Thema geht es in diesem Hadith?\n${txt}`, a:h[0], o:[h[0], ...pick(NAWAWI, 3, h).map(y => y[0])], r:h[2]}; },
+    () => { const x = pick(SURAS.map((s, i) => ({i:i + 1, name:s[0], mk:s[3]})), 1)[0], a = x.mk === 'M' ? 'Mekka' : 'Medina'; return {q:`Wo wurde die Sure „${x.name}“ offenbart?`, a, o:['Mekka', 'Medina'], r:`Quran ${x.i}:1`, keep:true}; },
+  ];
+  const plan = shuf([0, 0, 0, 0, 1, 1, 2, 3, 4, 5, 0, 1]).slice(0, n), seen = new Set(), out = [];
+  for (const g of plan) { let q, tries = 0; do { q = gen[g](); } while (seen.has(q.q) && ++tries < 8); seen.add(q.q); out.push({...q, o:q.keep ? q.o : shuf([...new Set(q.o)])}); }
+  return out;
+}
+let QZ = null;
+db.quiz = db.quiz || {rounds:0, best:0, right:0};
+function openQuiz(){
+  QZ = null;
+  const P = db.partner;
+  $('#qz-body').innerHTML = `<div class="dh" style="margin-top:0"><div class="dh-k">Wissen ist ein Weg ins Paradies</div><div class="dh-t">„Wer einen Weg geht, um Wissen zu suchen, dem erleichtert Allah einen Weg ins Paradies.“</div><div class="dh-r">Muslim 2699</div></div>
+    <p>10 Fragen aus Quran, Sunnah, den 99 Namen und den 40 Hadith – mit Quelle zu jeder Antwort. Bis zu <b>+20 XP</b> am Tag.</p>
+    <button class="btn p" data-qzgo="solo">🧩 Allein spielen</button>
+    <h4 class="rg-h">👥 Zu zweit – an einem Handy</h4>
+    <div class="inp"><input id="qz-a" value="${esc(db.settings.name || '')}" placeholder="Spieler 1" maxlength="20" autocomplete="off"><input id="qz-b" value="${esc(P ? P.n : '')}" placeholder="Spieler 2" maxlength="20" autocomplete="off"></div>
+    <button class="btn" data-qzgo="duo">⚔️ Zu zweit spielen (je 6 Fragen, abwechselnd)</button>
+    <p class="sub">Bisher: ${db.quiz.rounds} Runden · Bestes Ergebnis: ${db.quiz.best}/10 · ${db.quiz.right} richtige Antworten insgesamt</p>`;
+  $('#qz').hidden = false; $('#qz').scrollTop = 0;
+}
+function quizStart(mode){
+  const duo = mode === 'duo', names = duo ? [($('#qz-a').value || '').trim() || 'Spieler 1', ($('#qz-b').value || '').trim() || 'Spieler 2'] : [db.settings.name || 'Du'];
+  QZ = {duo, names, qs:quizQuestions(duo ? 12 : 10), i:0, score:duo ? [0, 0] : [0], ans:null};
+  renderQuiz();
+}
+function renderQuiz(){
+  const Z = QZ, q = Z.qs[Z.i], pl = Z.duo ? Z.i % 2 : 0, done = Z.ans !== null;
+  $('#qz-body').innerHTML = `<div class="qz-top"><small>Frage ${Z.i + 1} von ${Z.qs.length}${Z.duo ? ` · <b>${esc(Z.names[pl])}</b> ist dran` : ''}</small><span>${Z.duo ? Z.names.map((n, k) => `${esc(n)} ${Z.score[k]}`).join(' : ') : `✓ ${Z.score[0]}`}</span></div>
+    <div class="bar"><i style="width:${Z.i / Z.qs.length * 100}%"></i></div>
+    <h3 class="qz-q">${esc(q.q).replace(/\n/, '<br><span class="qz-h">')}${q.q.includes('\n') ? '</span>' : ''}</h3>
+    ${q.o.map((o, j) => `<button class="qz-o ${done ? (o === q.a ? 'ok' : j === Z.ans ? 'no' : 'off') : ''}" data-qzo="${j}" ${done ? 'disabled' : ''}>${esc(o)}</button>`).join('')}
+    ${done ? `<p class="qz-fb">${q.o[Z.ans] === q.a ? '✓ Richtig – MāschāAllāh!' : `✗ Richtig ist: <b>${esc(q.a)}</b>`} ${q.r ? `<span class="gref">${esc(q.r)}</span>` : ''}</p>
+      <button class="btn p" data-qznext="1">${Z.i === Z.qs.length - 1 ? 'Ergebnis ›' : 'Weiter ›'}</button>` : ''}`;
+}
+function quizAnswer(j){
+  const Z = QZ; if (!Z || Z.ans !== null) return;
+  Z.ans = j; const right = Z.qs[Z.i].o[j] === Z.qs[Z.i].a;
+  if (right) Z.score[Z.duo ? Z.i % 2 : 0]++;
+  buzz(right ? [20, 40, 20] : 60); renderQuiz();
+}
+function quizNext(){
+  const Z = QZ; if (!Z) return;
+  if (Z.i < Z.qs.length - 1) { Z.i++; Z.ans = null; renderQuiz(); $('#qz').scrollTop = 0; return; }
+  // Ergebnis: XP nur für den Besitzer des Handys (Spieler 1)
+  const mine = Z.score[0], max = Z.duo ? 6 : 10, ten = Math.round(mine / max * 10);
+  const x = db.days[today] = db.days[today] || {}, before = x.qz || 0;
+  x.qz = Math.max(before, ten); x.qzr = (x.qzr || 0) + 1;
+  db.quiz.rounds++; db.quiz.best = Math.max(db.quiz.best, ten); db.quiz.right += Z.score.reduce((a, b) => a + b, 0);
+  save(); render();
+  const xp = (x.qz - before) * 2;
+  const msg = Z.duo
+    ? (Z.score[0] === Z.score[1] ? '🤝 Unentschieden – ihr seid beide Gewinner!' : `🏆 ${esc(Z.names[Z.score[0] > Z.score[1] ? 0 : 1])} gewinnt!`)
+    : ten === 10 ? '🏆 Perfekt – 10 von 10, MāschāAllāh!' : ten >= 7 ? '🌟 Stark, BārakAllāhu fīk!' : ten >= 4 ? '👍 Gut – jede Runde macht dich klüger.' : '🌱 Jeder Anfang zählt – nochmal?';
+  $('#qz-body').innerHTML = `<div class="qz-end"><div class="qz-score">${Z.duo ? Z.names.map((n, k) => `<div><b>${Z.score[k]}</b><small>${esc(n)}</small></div>`).join('') : `<div><b>${mine}/10</b><small>richtig</small></div>`}</div>
+    <h3>${msg}</h3>${xp ? `<p>+${xp} XP</p>` : '<p class="sub">Heute zählt dein bestes Ergebnis für XP – du hast es schon erreicht.</p>'}
+    <button class="btn p" data-qzgo="${Z.duo ? 'duo' : 'solo'}">↻ Nochmal</button><button class="btn" data-qzhome="1">Zur Übersicht</button>
+    <p class="sub">„Der Beste von euch ist, wer den Quran lernt und lehrt.“ <span class="gref">Bukhari 5027</span></p></div>`;
+  if (ten === 10 && !Z.duo) buzz([30, 40, 30, 40, 80]);
+  QZ = null;
+}
+
+// ---------- Klicks ----------
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-qpl],[data-qplo],[data-qplp],[data-qpls],[data-qsleep],[data-qdark],[data-ist],[data-istdone],[data-qz],[data-qzgo],[data-qzo],[data-qznext],[data-qzhome]'); if (!b) return;
+  const d = b.dataset;
+  if (d.qpl) { $('#qrl').hidden = true; qPlayList(d.qpl); }
+  else if (d.qplo) { $('#qrl').hidden = true; openPl(); }
+  else if (d.qplp) { if (QA.paused) QA.play().catch(() => {}); else QA.pause(); setTimeout(renderPl, 50); }
+  else if (d.qpls) qStop();
+  else if (d.qsleep !== undefined) setSleep(+d.qsleep);
+  else if (d.qdark) { $('#qdark').hidden = false; keepAwake(true); }
+  else if (d.ist) openIst();
+  else if (d.istdone) { const x = db.days[today] = db.days[today] || {}; x['d:x_ist'] = (x['d:x_ist'] || 0) + 1; save(); render(); buzz([30, 50, 30]); toast('🤲 Möge Allah dir das Beste bestimmen und dich damit zufrieden machen'); }
+  else if (d.qz) openQuiz();
+  else if (d.qzgo) quizStart(d.qzgo);
+  else if (d.qzo !== undefined) quizAnswer(+d.qzo);
+  else if (d.qznext) quizNext();
+  else if (d.qzhome) openQuiz();
+});
+document.addEventListener('input', e => { if (e.target.id === 'ist-m') { db.istikhara = e.target.value.trim().slice(0, 80); save(); document.querySelectorAll('#ist mark').forEach(m => { m.textContent = db.istikhara || 'hier deine Sache nennen'; }); } });
+$('#qdark').addEventListener('click', () => { $('#qdark').hidden = true; keepAwake(false); });
+$('#qpl').addEventListener('click', e => { if (e.target.closest('#qpl-close')) $('#qpl').hidden = true; });
+$('#ist').addEventListener('click', e => { if (e.target.closest('#ist-close')) $('#ist').hidden = true; });
+$('#qz').addEventListener('click', e => { if (e.target.closest('#qz-close')) { $('#qz').hidden = true; QZ = null; } });
 
 // ---------- Interaktion ----------
 function setCount(id, v){
@@ -4634,7 +4885,8 @@ $('#b-import').onchange = async e => {
       db.qurb.n = Math.max(db.qurb.n || 0, data.qurb.n || 0, Object.keys(db.qurb.log).length);
     }
     if (data.struggle && !db.struggle) db.struggle = data.struggle;
-    for (const k of ['qread', 'qmark']) if (data[k] && !db[k]) db[k] = data[k];
+    for (const k of ['qread', 'qmark', 'istikhara']) if (data[k] && !db[k]) db[k] = data[k];
+    if (data.quiz && !db.quiz.rounds) db.quiz = data.quiz;
     if (data.partner && !db.partner) db.partner = data.partner;
     if (data.challenge && !db.challenge) db.challenge = data.challenge;
     if (Array.isArray(data.favs)) db.favs = [...db.favs, ...data.favs.filter(f => !db.favs.some(o => o.id === f.id))];
