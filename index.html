@@ -466,6 +466,23 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
 .tl-c b{display:block;font-size:.92rem;margin:2px 0}
 .tl-c p{margin:.3em 0;font-size:.84rem}
 .tl-c .mbtn{margin-top:6px}
+.gfield{position:relative;height:220px;border-radius:16px;overflow:hidden;background:linear-gradient(180deg,#bfe3c6 0%,#7cc48b 55%,#4d9a5e 100%);margin-bottom:10px}
+.gfield span{position:absolute;transform:translate(-50%,-50%);line-height:1;filter:drop-shadow(0 2px 2px rgba(0,0,0,.18))}
+.gempty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:#1d3b26;font-weight:600;margin:0}
+.gstat{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;text-align:center;margin-bottom:8px}
+.gstat b{display:block;font-size:.9rem;font-variant-numeric:tabular-nums}
+.gstat small{font-size:.62rem;color:var(--muted)}
+.gitem{display:flex;gap:10px;align-items:flex-start;border-top:1px solid var(--line);padding:10px 0}
+.gitem>span{font-size:1.6rem}
+.gitem div{flex:1;min-width:0}
+.gitem b{display:block;font-size:.88rem}
+.gitem p{margin:.3em 0;font-size:.82rem}
+.gmini{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid #7cc48b;background:var(--card);color:var(--ink);border-radius:16px;padding:8px;margin-top:10px;font:inherit}
+.gmini-f{position:relative;flex:none;width:86px;height:56px;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#bfe3c6,#4d9a5e)}
+.gmini-f span{position:absolute;transform:translate(-50%,-50%) scale(.55);line-height:1}
+.gmini-t{flex:1;min-width:0;display:flex;flex-direction:column}
+.gmini-t small{color:var(--muted);font-size:.76rem}
+.gmini>i{font-style:normal;color:var(--accent);font-size:1.3rem}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -486,6 +503,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <div class="card" id="sday"></div>
     <div class="card" id="situ"></div>
     <div id="rank"></div>
+    <div id="gcard"></div>
     <div class="card" id="missions"></div>
     <div class="card" id="coopcard" hidden></div>
     <div class="card" id="ramcard" hidden></div>
@@ -536,9 +554,10 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
   <section class="page" id="p-hist">
     <div class="ptitle"><b>🏆 Fortschritt</b><span>Rang, Statistik und deine Tagebücher</span></div>
     <div class="segc c4" id="hseg">
-      <button class="sg on" data-hs="rank"><span>🏆</span>Rang</button><button class="sg" data-hs="coop"><span>👥</span>Zusammen</button><button class="sg" data-hs="over"><span>📊</span>Statistik</button><button class="sg" data-hs="badges"><span>🏅</span>Abzeichen</button><button class="sg" data-hs="quran"><span>📖</span>Quran</button><button class="sg" data-hs="sadaqa"><span>🤲</span>Sadaqa</button><button class="sg" data-hs="qada"><span>🔁</span>Nachholen</button>
+      <button class="sg on" data-hs="rank"><span>🏆</span>Rang</button><button class="sg" data-hs="garden"><span>🌴</span>Garten</button><button class="sg" data-hs="coop"><span>👥</span>Zusammen</button><button class="sg" data-hs="over"><span>📊</span>Statistik</button><button class="sg" data-hs="badges"><span>🏅</span>Abzeichen</button><button class="sg" data-hs="quran"><span>📖</span>Quran</button><button class="sg" data-hs="sadaqa"><span>🤲</span>Sadaqa</button><button class="sg" data-hs="qada"><span>🔁</span>Nachholen</button>
     </div>
     <div class="hpn" data-h="rank"><div id="rank2"></div><div id="pathinline"></div></div>
+    <div class="hpn" data-h="garden" hidden><h2>🌴 Dein Garten im Paradies</h2><div class="card" id="garden"></div></div>
     <div class="hpn" data-h="coop" hidden><h2>👥 Zusammen</h2><div class="card" id="coop"></div></div>
     <div class="hpn" data-h="over" hidden>
       <h2>Letzte 14 Tage · erledigte Schritte</h2>
@@ -581,7 +600,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 30 (31.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 31 (31.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -1183,7 +1202,7 @@ function renderQuick(){
     </div>`;
   }).join('');
 }
-function render(){ renderStats(); renderCoopCard(); renderPrayersTop(); renderHelpBanner(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); $('#now').hidden = true; }
+function render(){ renderStats(); renderCoopCard(); renderGardenCard(); renderPrayersTop(); renderHelpBanner(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); $('#now').hidden = true; }
 
 // ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
 const SPECIAL = [
@@ -2639,6 +2658,7 @@ function showK(k){
   $('#scroller').scrollTop = 0;
 }
 function showH(h){
+  if (h === 'garden') renderGarden($('#garden'));
   if (h === 'coop') renderCoop();
   if (h === 'rank') $('#pathinline').innerHTML = pathHTML();
   document.querySelectorAll('#hseg .sg').forEach(c => c.classList.toggle('on', c.dataset.hs === h));
@@ -3305,6 +3325,49 @@ function sunnahGo(i){
 }
 $('#sdaysh').addEventListener('click', e => { if (e.target.closest('#sday-close')) $('#sdaysh').hidden = true; });
 
+// ---------- 🌴 Dein Garten im Paradies ----------
+function gardenCounts(){
+  const G = {palm:0, plant:0, house:0, treasure:0, ikhlas:0};
+  for (const k in db.days) {
+    const x = db.days[k];
+    G.palm += x['q:q_palm'] || 0;
+    G.plant += (x['q:q_subhan'] || 0) + (x.subhan100 || 0) + (x['q:q_hamd'] || 0) + (x['q:q_four'] || 0) * 4 + (x['q:q_tahlil10'] || 0) + (x.tahlil100 || 0);
+    for (const key in x) if (key.startsWith('a:') && key.endsWith(':subhan')) G.plant += x[key];
+    G.treasure += (x['q:q_hawqala'] || 0) + (x.hawqala || 0);
+    if ((x.rawatib || 0) >= 12) G.house++;
+    if ((x.ikhlas || 0) + (x['q:q_ikhlas'] || 0) >= 10) G.ikhlas++;
+  }
+  return G;
+}
+const GARDEN = [
+  ['palm', '🌴', 'Palmen', 'SubhānAllāhil-‘Azīmi wa bihamdihī', '„Wer sagt: SubhānAllāhil-‘Azīmi wa bihamdihī, dem wird eine Dattelpalme im Paradies gepflanzt.“', 'Tirmidhi 3464 – sahih (al-Albani)', {quick:'q_palm'}],
+  ['plant', '🌿', 'Pflanzen', 'SubhānAllāh · Alhamdulillāh · Lā ilāha illallāh · Allāhu akbar', 'Ibrahim (as) ließ der Umma ausrichten: „Das Paradies hat gute Erde und süßes Wasser, es ist eine weite Ebene, und seine Pflanzen sind: SubhānAllāh, Alhamdulillāh, Lā ilāha illallāh, Allāhu akbar.“', 'Tirmidhi 3462 – hasan', {quick:'q_four'}],
+  ['treasure', '💎', 'Schätze', 'Lā hawla wa lā quwwata illā billāh', '„Es ist einer der Schätze des Paradieses.“', 'Bukhari 6384, Muslim 2704', {quick:'q_hawqala'}],
+  ['house', '🏡', 'Häuser', '12 Rawatib an einem Tag', '„Wer an einem Tag und einer Nacht zwölf Rak’at betet, dem wird dafür ein Haus im Paradies gebaut.“', 'Muslim 728', {deed:'rawatib'}],
+  ['ikhlas', '🏰', 'Häuser durch al-Ikhlas', '10× Qul huwallāhu ahad an einem Tag', '„Wer Qul huwallāhu ahad zehnmal liest, dem baut Allah ein Haus im Paradies.“', 'Ahmad 15610 – hasan (al-Albani)', {quick:'q_ikhlas'}],
+];
+// stabile, „zufällige“ Positionen, damit der Garten nicht springt
+function gardenField(G){
+  const items = [];
+  const add = (ic, n, max) => { for (let i = 0; i < Math.min(n, max); i++) items.push(ic); };
+  // hinten die Pflanzen, vorne Palmen und Häuser
+  add('🌿', Math.ceil(G.plant / 10), 120); add('💎', G.treasure, 20); add('🌴', G.palm, 40); add('🏡', G.house, 10); add('🏰', G.ikhlas, 6);
+  let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+  return items.map(ic => { const big = ic === '🏡' || ic === '🏰' || ic === '🌴', home = ic === '🏡' || ic === '🏰'; return `<span style="left:${(4 + rnd() * 88).toFixed(1)}%;top:${(10 + rnd() * 78).toFixed(1)}%;font-size:${home ? 2 + rnd() * .4 : big ? 1.6 + rnd() * .5 : .9 + rnd() * .4}rem;z-index:${home ? 3 : big ? 2 : 1}">${ic}</span>`; }).join('');
+}
+function renderGarden(el){
+  const G = gardenCounts(), total = G.palm + G.plant + G.treasure + G.house + G.ikhlas;
+  el.innerHTML = `<div class="gfield">${total ? gardenField(G) : '<p class="gempty">Dein Garten ist noch leer – sag ein SubhānAllāh, und die erste Pflanze wächst. 🌱</p>'}</div>
+    <div class="gstat">${GARDEN.map(([k, ic, name]) => `<div><b>${ic} ${fmt(G[k])}</b><small>${name}</small></div>`).join('')}</div>
+    ${GARDEN.map(([k, ic, name, say, txt, ref, go], i) => `<div class="gitem"><span>${ic}</span><div><b>${name}: ${esc(say)}</b><p>${esc(txt)}</p><span class="gref">${esc(ref)}</span></div><button class="mbtn" data-ggo="${i}">+ Jetzt</button></div>`).join('')}
+    <p class="sub">So beschreiben es Quran und Sunnah – wie es wirklich aussieht und ob es angenommen wurde, weiß nur Allah. Die Pflanzen zählen dein SubhānAllāh, Alhamdulillāh, Lā ilāha illallāh und Allāhu akbar aus allen Bereichen der App (🌿 = 10 Worte).</p>`;
+}
+function renderGardenCard(){
+  const G = gardenCounts();
+  $('#gcard').innerHTML = `<button class="gmini" data-hs-go="garden"><span class="gmini-f">${gardenField({...G, plant:Math.min(G.plant, 200)})}</span>
+    <span class="gmini-t"><b>🌴 Dein Garten im Paradies</b><small>🌴 ${fmt(G.palm)} · 🌿 ${fmt(G.plant)} · 💎 ${fmt(G.treasure)} · 🏡 ${fmt(G.house + G.ikhlas)}</small></span><i>›</i></button>`;
+}
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -3324,7 +3387,8 @@ document.addEventListener('click', e => {
     const id = b.dataset.q || b.dataset.qu, q = QUICK.find(x => x.id === id);
     const x = db.days[today] = db.days[today] || {}, k = 'q:' + id;
     x[k] = Math.max(0, (x[k] || 0) + (b.dataset.q ? 1 : -1));
-    save(); renderStats(); renderQuick();
+    save(); renderStats(); renderQuick(); renderGardenCard();
+    if (b.dataset.q === 'q_palm') toast('🌴 Eine Palme im Paradies gepflanzt (Tirmidhi 3464)');
     if (b.dataset.q){
       buzz(q.goal && x[k] % q.goal === 0 ? [40,60,40] : 8);
       if (q.goal && x[k] % q.goal === 0) toast(`✨ ${q.mult} – MashaAllah`);
@@ -3341,6 +3405,7 @@ document.addEventListener('click', e => {
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
+  else if (b.dataset.ggo) goTo(GARDEN[+b.dataset.ggo][6]);
   else if (b.dataset.sday) openSunnahDay();
   else if (b.dataset.sgo) sunnahGo(+b.dataset.sgo);
   else if (b.dataset.tawba) { $('#jr').hidden = true; renderTawba(); }
