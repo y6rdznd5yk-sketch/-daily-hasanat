@@ -662,6 +662,10 @@ button.readb{border:0;font:inherit;font-size:.82rem;font-weight:700;cursor:point
 .qz-score div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 18px;min-width:90px}
 .qz-score b{display:block;font-size:1.8rem;color:var(--accent)}
 .qz-score small{color:var(--muted)}
+.hzt-c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:10px 0 0}
+.hzt-c small{color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.hzt-c.on{border-color:var(--accent);background:var(--accent-soft)}
+a.mrow{text-decoration:none;color:inherit}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -776,12 +780,12 @@ button.readb{border:0;font:inherit;font-size:.82rem;font-weight:700;cursor:point
     <div class="ptitle"><b>☰ Mehr</b><span>Werkzeuge, Einstellungen &amp; Daten</span></div>
     <div id="mlist">
       <h2>Werkzeuge</h2>
-      <div class="mgrp"><button class="mrow" data-qurb="1"><span>💫</span><div><b>Näher zu Allah</b><small>7 Minuten mit Allah · Licht · Schatzkammer</small></div><i>›</i></button><button class="mrow" data-qibla="1"><span>🧭</span><div><b>Qibla-Kompass</b><small>Richtung nach Mekka</small></div><i>›</i></button><button class="mrow" data-mk="ptimes"><span>🕌</span><div><b>Gebetszeiten</b><small>Heute und morgen</small></div><i>›</i></button><button class="mrow" data-mk="events"><span>📅</span><div><b>Besondere Tage</b><small>Fasten, Ramadan, Eid …</small></div><i>›</i></button><button class="mrow" data-dm="1"><span>🤲</span><div><b>Der Du’a-Meister</b><small>Adab, Zeiten, vollständige Du’a</small></div><i>›</i></button><button class="mrow" data-ist="1"><span>🧭</span><div><b>Istikhara</b><small>Wenn du dich entscheiden musst</small></div><i>›</i></button><button class="mrow" data-jr="1"><span>🌙</span><div><b>Abend-Rückblick</b><small>Dankbarkeit & Muhasaba</small></div><i>›</i></button><button class="mrow" data-tawba="1"><span>🤍</span><div><b>Neuanfang</b><small>Tawba, Sünde & Sucht, Notfall-Hilfe</small></div><i>›</i></button><button class="mrow" data-mk="zakat"><span>💰</span><div><b>Zakat-Rechner</b><small>2,5 % · Nisab</small></div><i>›</i></button></div>
+      <div class="mgrp"><button class="mrow" data-qurb="1"><span>💫</span><div><b>Näher zu Allah</b><small>7 Minuten mit Allah · Licht · Schatzkammer</small></div><i>›</i></button><button class="mrow" data-qibla="1"><span>🧭</span><div><b>Qibla-Kompass</b><small>Richtung nach Mekka</small></div><i>›</i></button><button class="mrow" data-mk="ptimes"><span>🕌</span><div><b>Gebetszeiten</b><small>Heute und morgen</small></div><i>›</i></button><button class="mrow" data-mk="events"><span>📅</span><div><b>Besondere Tage</b><small>Fasten, Ramadan, Eid …</small></div><i>›</i></button><button class="mrow" data-dm="1"><span>🤲</span><div><b>Der Du’a-Meister</b><small>Adab, Zeiten, vollständige Du’a</small></div><i>›</i></button><button class="mrow" data-ist="1"><span>🧭</span><div><b>Istikhara</b><small>Wenn du dich entscheiden musst</small></div><i>›</i></button><button class="mrow" data-remind="1"><span>🔔</span><div><b>Erinnerungen</b><small>al-Kahf, Fasten, weiße Tage – über den iPhone-Kalender</small></div><i>›</i></button><a class="mrow" href="https://maps.apple.com/?q=Moschee" target="_blank" rel="noopener"><span>🕌</span><div><b>Moschee in der Nähe</b><small>Öffnet die Karten-App</small></div><i>↗</i></a><button class="mrow" data-jr="1"><span>🌙</span><div><b>Abend-Rückblick</b><small>Dankbarkeit & Muhasaba</small></div><i>›</i></button><button class="mrow" data-tawba="1"><span>🤍</span><div><b>Neuanfang</b><small>Tawba, Sünde & Sucht, Notfall-Hilfe</small></div><i>›</i></button><button class="mrow" data-mk="zakat"><span>💰</span><div><b>Zakat-Rechner</b><small>2,5 % · Nisab</small></div><i>›</i></button></div>
       <h2>Einstellungen</h2>
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 37 (31.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 38 (31.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -1005,6 +1009,18 @@ button.readb{border:0;font:inherit;font-size:.82rem;font-weight:700;cursor:point
   </div>
 </div>
 <div id="qdark" hidden><p>Rezitation läuft · zum Beenden tippen</p></div>
+<div class="sheet" id="hzt" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>🧠 Auswendig-Training</h3><button class="x" id="hzt-close" aria-label="schließen">✕</button></div>
+    <div id="hzt-body"></div>
+  </div>
+</div>
+<div class="sheet" id="rem" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>🔔 Erinnerungen</h3><button class="x" id="rem-close" aria-label="schließen">✕</button></div>
+    <div id="rem-body"></div>
+  </div>
+</div>
 <script src="prayer.js"></script>
 
 <script>
@@ -1509,7 +1525,7 @@ function renderDaily(){
   const pool = [...DEEDS, ...QUICK, ...SPECIAL];
   const n = Math.floor(new Date(today + 'T12:00') / 864e5);
   const d = pool[n % pool.length];
-  $('#daily').innerHTML = `<div class="dh-k">📖 Hadith des Tages</div><div class="dh-t">${esc(d.reward)}</div><div class="dh-r">${esc(d.ref)} · <span>${esc(d.title)}</span></div>`;
+  $('#daily').innerHTML = `<div class="dh-k">📖 Hadith des Tages</div><div class="dh-t">${esc(d.reward)}</div><div class="dh-r">${esc(d.ref)} · <span>${esc(d.title)}</span></div><button class="lnk" data-dshare="1" style="margin-top:4px">📤 Teilen</button>`;
 }
 
 // ---------- Gebetszeiten ----------
@@ -2320,6 +2336,29 @@ const GUIDE = [
     <p><b>Zweifel an der Anzahl:</b> Geh von der sicheren, kleineren Zahl aus, bete den Rest und mach vor dem Salam zwei Niederwerfungen. ${G_REF('Muslim 571')}</p>
     <p><b>Gebet verschlafen oder vergessen:</b> „Wer ein Gebet vergisst oder verschläft, soll es beten, sobald er sich daran erinnert.“ ${G_REF('Bukhari 597, Muslim 684')}</p>
     <p><b>Das Gebet wird ungültig</b> durch: absichtliches Sprechen, Essen/Trinken, lautes Lachen, Verlust des Wudu, Weglassen einer Säule (z. B. Fatiha, Ruku’, Sujud) oder bewusstes Abwenden von der Qibla.</p>`],
+  ['⚰️ Totengebet (Salat al-Janaza)', `
+    <p>Das Totengebet ist eine <b>Gemeinschaftspflicht</b> (Fard Kifaya): Beten es einige, ist die Pflicht für alle erfüllt. „Wer beim Totengebet dabei ist, bis gebetet wurde, bekommt ein Qirat; wer bis zur Beerdigung bleibt, zwei Qirat – jedes wie ein gewaltiger Berg.“ ${G_REF('Bukhari 1325, Muslim 945')}</p>
+    <p>Es wird <b>im Stehen</b> gebetet – ohne Ruku’ und ohne Niederwerfung – mit <b>vier Takbir</b>:</p>
+    <ol class="gl">
+      <li><b>1. Takbir</b> (Hände heben), dann leise <b>al-Fātiha</b>. ${G_REF('Bukhari 1335')}</li>
+      <li><b>2. Takbir</b>, dann die <b>Salawat</b> wie im Taschahhud (Allāhumma salli ‘alā Muhammad …).</li>
+      <li><b>3. Takbir</b>, dann <b>Du’a für den Verstorbenen</b>, z. B.: <i>Allāhummaghfir lahū warhamhu, wa ‘āfihi wa‘fu ‘anhu, wa akrim nuzulahū, wa wassi‘ mudkhalahū …</i> – „O Allah, vergib ihm, erbarme Dich seiner, gewähre ihm Wohlergehen und verzeih ihm, gib ihm eine edle Aufnahme und mach seinen Eingang weit …“ ${G_REF('Muslim 963')} Für eine Frau: lahā, warhamhā …</li>
+      <li><b>4. Takbir</b>, kurz innehalten (oder ein kurzes Du’a), dann <b>Salam</b> nach rechts.</li>
+    </ol>
+    <p class="sub">Diese Reihenfolge (Fātiha, Salawat, Du’a) überliefert Abu Umama als Sunnah. ${G_REF('al-Bayhaqi, al-Hakim – sahih (al-Albani)')}</p>
+    <p><b>Bei einer Todesnachricht:</b> <i>Innā lillāhi wa innā ilayhi rādschi‘ūn, Allāhumma‘dschurnī fī musībatī wa akhlif lī khayran minhā</i> – „Wir gehören Allah, und zu Ihm kehren wir zurück. O Allah, belohne mich in meinem Unglück und gib mir Besseres dafür.“ ${G_REF('Muslim 918')}</p>
+    <p><b>Beileid aussprechen:</b> <i>Inna lillāhi mā akhadha wa lahū mā a‘tā, wa kullu schay’in ‘indahū bi-adschalin musammā</i> – „Allah gehört, was Er nimmt, und Ihm gehört, was Er gibt, und alles hat bei Ihm eine festgesetzte Frist.“ Dazu: Sei geduldig und hoffe auf den Lohn. ${G_REF('Bukhari 1284')}</p>`],
+  ['🌙 Eid-Gebet', `
+    <p><b>2 Rak’at</b> am Morgen des Eid – wenn die Sonne etwas gestiegen ist, bis vor Dhuhr. <b>Ohne Adhan und ohne Iqama</b>; die Khutba kommt <b>nach</b> dem Gebet. ${G_REF('Muslim 885')}</p>
+    <p><b>Zusätzliche Takbir:</b> in der 1. Rak’at 7 nach dem Eröffnungs-Takbir, in der 2. Rak’at 5 vor der Fātiha. ${G_REF('Abu Dawud 1151 – hasan')} In der hanafitischen Schule je 3 – beides wird praktiziert, folge deinem Imam.</p>
+    <p><b>Sunnah am Eid:</b> Ghusl und schöne Kleidung · am Eid al-Fitr vor dem Gebet eine ungerade Zahl Datteln essen ${G_REF('Bukhari 953')} · am Eid al-Adha erst nach dem Gebet essen ${G_REF('Tirmidhi 542 – sahih')} · auf dem Weg Takbir sprechen ${G_REF('Quran 2:185')} · auf einem anderen Weg zurückgehen ${G_REF('Bukhari 986')}</p>
+    <p><b>Zakat al-Fitr</b> vor dem Eid-Gebet geben – ein Sa‘ (ca. 2,5–3 kg) Grundnahrungsmittel pro Person. ${G_REF('Bukhari 1503')}</p>`],
+  ['✈️ Auf Reisen beten (Qasr & Jam‘)', `
+    <p><b>Verkürzen (Qasr):</b> Auf Reisen werden die Gebete mit 4 Rak’at (Dhuhr, Asr, Isha) mit <b>2 Rak’at</b> gebetet. Fajr (2) und Maghrib (3) bleiben gleich. ${G_REF('Quran 4:101 · Bukhari 1090')}</p>
+    <p><b>Zusammenlegen (Jam‘):</b> Dhuhr + Asr und Maghrib + Isha dürfen auf Reisen zusammen gebetet werden – zur Zeit des ersten oder des zweiten Gebets. ${G_REF('Bukhari 1107, Muslim 704')}</p>
+    <p><b>Ab wann bin ich Reisender?</b> Nach der Mehrheit der Gelehrten ab etwa 80 km, sobald du deinen Wohnort verlassen hast. Wer länger an einem Ort bleibt (nach vielen Gelehrten mehr als 4 Tage, nach den Hanafiten 15 Tage), betet wieder vollständig. Die Rechtsschulen unterscheiden sich hier – im Zweifel frag deinen Imam.</p>
+    <p><b>Sunnah-Gebete:</b> Die Rawatib lässt man auf Reisen meist weg – die 2 Rak’at vor Fajr und das Witr betete der Prophet ﷺ aber auch auf Reisen.</p>
+    <p class="sub">„Allah liebt es, dass Seine Erleichterungen angenommen werden, so wie Er es verabscheut, dass Ungehorsam begangen wird.“ ${G_REF('Ahmad 5866 – sahih')}</p>`],
 ];
 function openGuide(){
   $('#guide-body').innerHTML = GUIDE.map(([t, html], i) => `<details class="gd" ${i === 0 ? 'open' : ''}><summary>${t}</summary><div class="gb">${html}</div></details>`).join('')
@@ -3203,6 +3242,7 @@ function renderHifz(){
   const n = hifzDone(), learning = Object.values(db.hifz).filter(v => v === 1).length;
   $('#hifz').innerHTML = `<p>Fang mit den kurzen Suren an – sie sind auch für dein Gebet die wichtigsten. Tippe: <b>○ offen → 📖 lerne gerade → ✓ kann ich</b>.</p>
     <p>Auswendig: <b>${n} von ${HIFZ.length}</b>${learning ? ` · ${learning} in Arbeit` : ''}</p><div class="bar"><i style="width:${n / HIFZ.length * 100}%;background:var(--gold)"></i></div>
+    <button class="btn p" data-hzt="1" style="margin-top:10px">🧠 Auswendig-Training – wie geht es weiter?</button>
     <div class="hz">${HIFZ.slice().sort((a, b) => (a[0] === 1 ? -1 : b[0] === 1 ? 1 : b[0] - a[0])).map(([nr, name, ay]) => {
       const v = db.hifz[nr] || 0;
       return `<div class="hzr s${v}"><button class="hzb" data-hz="${nr}"><i>${v === 2 ? '✓' : v === 1 ? '📖' : '○'}</i><span><b>${nr}. ${name}</b><small>${ay} Verse</small></span></button><button class="x hzl" data-qr="${nr}" data-qrepset="3" aria-label="Sure ${name} lesen und anhören">▶</button></div>`;
@@ -4025,7 +4065,7 @@ const DOORS = [
   ['fard', '🕌', 'Pflichtgebete', x => (x.fard || 0) >= 5, '„Mein Diener nähert sich Mir mit nichts, das Mir lieber ist, als mit dem, was Ich ihm zur Pflicht gemacht habe.“', 'Bukhari 6502', {prayers:1}, x => `${x.fard || 0}/5`],
   ['nafl', '✨', 'Freiwilliges Gebet & Fasten', x => anyOf(x, ['rawatib', 'fajrsunna', 'duha', 'wudu', 'qiyam', 's_tarawih', 's_monthu', 's_white', 's_arafa', 's_ashura', 's_tasua', 's_muharram', 's_shawwal', 's_dhulhijja']), '„… und Mein Diener nähert sich Mir weiter mit freiwilligen Taten, bis Ich ihn liebe.“', 'Bukhari 6502', {deed:'duha'}],
   ['dhikr', '📿', 'Gedenken', x => dhikrCount(x) >= 33, '„So gedenkt Meiner, dann gedenke Ich euer.“', 'Quran 2:152', {quick:'q_subhan'}],
-  ['quran', '📖', 'Quran', x => anyOf(x, ['quran', 'ikhlas', 'kursi', 'baqara', 's_kahf', 'q:q_ikhlas']), '„Lest den Quran, denn er wird am Tag der Auferstehung als Fürsprecher für seine Leute kommen.“', 'Muslim 804', {deed:'quran'}],
+  ['quran', '📖', 'Quran', x => anyOf(x, ['quran', 'ikhlas', 'kursi', 'baqara', 's_kahf', 'q:q_ikhlas', 'hzt']), '„Lest den Quran, denn er wird am Tag der Auferstehung als Fürsprecher für seine Leute kommen.“', 'Muslim 804', {deed:'quran'}],
   ['dua', '🤲', 'Du’a', x => Object.keys(x).some(k => k.startsWith('d:') && x[k] > 0) || anyOf(x, ['rizq1', 'rizq2', 'rizq3', 'rizq4']), '„Wenn dich Meine Diener nach Mir fragen: Ich bin nahe. Ich erhöre den Ruf des Rufenden, wenn er Mich anruft.“', 'Quran 2:186', {dua:1}],
   ['heart', '💫', 'Ein Moment nur mit Allah', x => !!x.qb, '„Ich bin bei Meinem Diener, wenn er Meiner gedenkt … Kommt er zu Mir gehend, komme Ich zu ihm eilend.“', 'Bukhari 7405, Muslim 2675', {qurb:1}],
   ['ihsan', '🤝', 'Gutes für die Menschen', x => anyOf(x, ['sadaqa', 'rahim', 'kalima', 'salam', 'harm', 'family', 'qt']), '„Allah steht dem Diener bei, solange der Diener seinem Bruder beisteht.“', 'Muslim 2699', {deed:'sadaqa'}],
@@ -4702,6 +4742,110 @@ $('#qpl').addEventListener('click', e => { if (e.target.closest('#qpl-close')) $
 $('#ist').addEventListener('click', e => { if (e.target.closest('#ist-close')) $('#ist').hidden = true; });
 $('#qz').addEventListener('click', e => { if (e.target.closest('#qz-close')) { $('#qz').hidden = true; QZ = null; } });
 
+// ---------- 🧠 Auswendig-Training: Wie geht es weiter? ----------
+let HZT = null;
+function openHzt(s){
+  const mine = HIFZ.filter(([nr]) => (db.hifz[nr] || 0) >= 1), list = mine.length ? mine : HIFZ.filter(([nr]) => [1, 112, 113, 114].includes(nr));
+  if (!s) {
+    $('#hzt-body').innerHTML = `<div class="dh" style="margin-top:0"><div class="dh-k">Wiederholen hält den Quran fest</div><div class="dh-t">„Haltet euch an den Quran, denn er entweicht schneller als ein Kamel aus seiner Fessel.“</div><div class="dh-r">Bukhari 5033, Muslim 791</div></div>
+      <p>So geht’s: Du siehst einen Vers – sag den <b>nächsten Vers</b> laut oder leise auf, dann deck ihn auf. Ehrlich bewerten, Allah sieht es. 😉</p>
+      ${mine.length ? '' : '<p class="sub">Noch keine Sure als „📖 lerne ich“ oder „✓ kann ich“ markiert – hier sind die kurzen Suren für den Anfang. Markieren kannst du unter „Suren auswendig“.</p>'}
+      ${list.map(([nr, name, ay]) => `<button class="qsr" data-hzts="${nr}"><span class="qsr-n">${nr}</span><span class="qsr-t"><b>${esc(name)}</b><small>${ay} Verse · ${(db.hifz[nr] || 0) === 2 ? '✓ kann ich' : (db.hifz[nr] || 0) === 1 ? '📖 lerne ich' : 'zum Anfangen'}</small></span><i>›</i></button>`).join('')}`;
+    $('#hzt').hidden = false; $('#hzt').scrollTop = 0; return;
+  }
+  HZT = {s:+s, ok:0, n:0, v:0, shown:false, data:null};
+  $('#hzt-body').innerHTML = '<p class="sub" style="text-align:center;margin-top:30px">🧠 Lade Sure …</p>';
+  $('#hzt').hidden = false;
+  Promise.all([qFetch(QED.tr, HZT.s), qFetch(QED.de, HZT.s)]).then(([tr, de]) => { if (!HZT || HZT.s !== +s) return; HZT.data = {tr, de}; hztNext(); })
+    .catch(() => { $('#hzt-body').innerHTML = `<p class="qerr">📡 Für das Training braucht die Sure einmal Internet – danach geht es offline.</p><button class="btn" data-hzt="1">‹ Zurück</button>`; });
+}
+function hztNext(){
+  const Z = HZT, cnt = SURAS[Z.s - 1][2];
+  let v; do { v = Math.floor(Math.random() * cnt); } while (cnt > 2 && v === Z.v);   // v = 0: Anfang der Sure
+  Z.v = v; Z.shown = false; renderHzt();
+}
+function renderHzt(){
+  const Z = HZT, cnt = SURAS[Z.s - 1][2], tr = i => qTr(Z.data.tr[i - 1].text), de = i => Z.data.de[i - 1] ? Z.data.de[i - 1].text : '';
+  $('#hzt-body').innerHTML = `<div class="qz-top"><small>🧠 ${esc(qName(Z.s))} · gewusst ${Z.ok} von ${Z.n}</small><button class="lnk" data-hzt="1">Sure wechseln</button></div>
+    <div class="hzt-c"><small>${Z.v ? `Vers ${Z.v}` : 'Die Sure beginnt mit …'}</small>${Z.v ? `<p class="qv-tr">${esc(tr(Z.v))}</p>` : `<p class="qv-tr">${Z.s === 1 ? '(Anfang der Sure)' : 'Bismillāhir-rahmānir-rahīm …'}</p>`}</div>
+    <p style="text-align:center;margin:10px 0">⬇️ Wie geht es weiter? <b>Vers ${Z.v + 1}</b> aufsagen</p>
+    ${Z.shown ? `<div class="hzt-c on"><small>Vers ${Z.v + 1}</small><p class="qv-tr">${esc(tr(Z.v + 1))}</p><p class="qv-de">${esc(de(Z.v + 1))}</p></div>
+      <div class="qb-row" style="margin:8px 0"><button class="mbtn" data-hztplay="${Z.v + 1}">🔊 Anhören</button></div>
+      <div class="qpl-c"><button class="btn p" data-hztok="1">✓ Gewusst</button><button class="btn" data-hztno="1">↻ Noch üben</button></div>`
+      : `<button class="btn p" data-hztshow="1">👁 Aufdecken</button>`}
+    <p class="sub">„Wer den Quran mit Mühe stockend liest, hat doppelten Lohn.“ <span class="gref">Bukhari 4937, Muslim 798</span></p>`;
+}
+
+// ---------- 🔔 Erinnerungen über den iPhone-Kalender ----------
+const REMIND = [
+  ['kahf', '🕌', 'Freitag: al-Kahf & Salawat', 'jeden Freitag 10:00', 'RRULE:FREQ=WEEKLY;BYDAY=FR', '1000', 'Freitag – lies Surah al-Kahf und sprich viel Salawat 💚'],
+  ['dua', '🤲', 'Freitag: Stunde der Erhörung', 'jeden Freitag 16:30', 'RRULE:FREQ=WEEKLY;BYDAY=FR', '1630', 'Freitag nach Asr – die Stunde der Erhörung. Mach Du’a!'],
+  ['fast', '🌙', 'Morgen Sunnah-Fasten (Mo/Do)?', 'sonntags & mittwochs 20:30', 'RRULE:FREQ=WEEKLY;BYDAY=SU,WE', '2030', 'Morgen ist Montag/Donnerstag – Sunnah-Fasten? Denk an Suhur.'],
+  ['white', '🌕', 'Die weißen Tage (13.–15.)', 'am Vorabend, die nächsten 12 Monate', null, '2030', 'Morgen beginnen die weißen Tage (13.–15. des Mondmonats) – Sunnah-Fasten.'],
+  ['morning', '🌅', 'Morgen-Adhkar', 'täglich 07:30', 'RRULE:FREQ=DAILY', '0730', 'Zeit für deine Morgen-Adhkar – Schutz für den ganzen Tag.'],
+  ['evening', '🌇', 'Abend-Adhkar', 'täglich 17:30', 'RRULE:FREQ=DAILY', '1730', 'Zeit für deine Abend-Adhkar.'],
+  ['sleep', '😴', 'Schlaf-Sunnah & al-Mulk', 'täglich 22:00', 'RRULE:FREQ=DAILY', '2200', 'Vor dem Schlafen: Wudu, die Quls, Āyat al-Kursī, al-Mulk – und Witr.'],
+];
+function openRemind(){
+  const on = db.remind || ['kahf', 'fast', 'white', 'sleep'];
+  $('#rem-body').innerHTML = `<p>Die App kann keine Push-Nachrichten schicken – aber dein <b>iPhone-Kalender</b> kann es. Wähle aus, tippe auf „In Kalender übernehmen“ und bestätige auf dem iPhone mit „Alle hinzufügen“. Dann klingelt es zur richtigen Zeit.</p>
+    ${REMIND.map(([id, ic, t, when]) => `<label class="sosr"><input type="checkbox" data-rem="${id}" ${on.includes(id) ? 'checked' : ''}><span>${ic}</span><div><b>${esc(t)}</b><small>${esc(when)}</small></div></label>`).join('')}
+    <button class="btn p" data-remgo="1">📅 In Kalender übernehmen</button>
+    <p class="sub">Uhrzeiten änderst du danach direkt im Kalender. Gebetszeiten als Kalender gibt es unter Mehr → Standort &amp; Berechnung.</p>`;
+  $('#rem').hidden = false; $('#rem').scrollTop = 0;
+}
+function remindIcs(ids){
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z', d0 = dkey(new Date()).replace(/-/g, '');
+  const L = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Daily Hasanat//DE', 'CALSCALE:GREGORIAN', 'X-WR-CALNAME:Daily Hasanat'];
+  const ie = t => String(t).replace(/[\\,;]/g, m => '\\' + m);
+  const ev = (uid, day, hhmm, sum, desc, rule) => L.push('BEGIN:VEVENT', `UID:${uid}@daily-hasanat`, `DTSTAMP:${stamp}`, `DTSTART:${day}T${hhmm}00`, `DTEND:${day}T${hhmm.slice(0, 2)}${String(Math.min(59, +hhmm.slice(2) + 15)).padStart(2, '0')}00`,
+    `SUMMARY:${ie(sum)}`, `DESCRIPTION:${ie(desc)}`, ...(rule ? [rule] : []), 'BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${ie(sum)}`, 'TRIGGER:PT0M', 'END:VALARM', 'END:VEVENT');
+  for (const [id, ic, t, , rule, hhmm, desc] of REMIND) {
+    if (!ids.includes(id)) continue;
+    if (id === 'white') {
+      const d = new Date(); let n = 0;
+      for (let i = 0; i < 380 && n < 12; i++, d.setDate(d.getDate() + 1)) if (hijri(d).hd === 12) { ev(`white-${dkey(d)}`, dkey(d).replace(/-/g, ''), hhmm, `${ic} ${t}`, desc); n++; }
+    } else ev(`${id}-${d0}`, d0, hhmm, `${ic} ${t}`, desc, rule);
+  }
+  L.push('END:VCALENDAR');
+  return L.join('\r\n');
+}
+
+// ---------- 📤 Hadith des Tages teilen ----------
+async function shareText(text){
+  try { if (navigator.share) { await navigator.share({text}); return; } } catch(err) { if (err && err.name === 'AbortError') return; }
+  try { await navigator.clipboard.writeText(text); toast('📋 Kopiert – jetzt einfügen und teilen'); } catch(_) { prompt('Zum Kopieren:', text); }
+}
+
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-hzt],[data-hzts],[data-hztshow],[data-hztok],[data-hztno],[data-hztplay],[data-remind],[data-remgo],[data-dshare]'); if (!b) return;
+  const d = b.dataset;
+  if (d.hzt) { HZT = null; openHzt(); }
+  else if (d.hzts) openHzt(d.hzts);
+  else if (d.hztshow) { HZT.shown = true; renderHzt(); buzz(8); }
+  else if (d.hztok || d.hztno) {
+    HZT.n++; if (d.hztok) HZT.ok++;
+    const x = db.days[today] = db.days[today] || {}; x.hzt = (x.hzt || 0) + 1; save();
+    buzz(d.hztok ? [20, 40, 20] : 30);
+    if (HZT.n % 10 === 0) toast(`🧠 ${HZT.ok} von ${HZT.n} gewusst – BārakAllāhu fīk!`);
+    hztNext();
+  }
+  else if (d.hztplay) { if (QAS && QAS.inline) qStop(); qPlay(HZT.s, +d.hztplay, {to:+d.hztplay, inline:true}); }
+  else if (d.remind) openRemind();
+  else if (d.remgo) {
+    const ids = [...document.querySelectorAll('#rem [data-rem]')].filter(x => x.checked).map(x => x.dataset.rem);
+    if (!ids.length) return toast('Bitte mindestens eine Erinnerung wählen');
+    db.remind = ids; save();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([remindIcs(ids)], {type:'text/calendar'}));
+    a.download = 'daily-hasanat-erinnerungen.ics'; a.click();
+    toast('📅 Kalender-Datei erstellt – auf dem iPhone „Alle hinzufügen“ tippen');
+  }
+  else if (d.dshare) { const el = $('#daily'); shareText(`${el.querySelector('.dh-t').textContent}\n– ${el.querySelector('.dh-r').textContent}\n\n(geteilt aus Daily Hasanat)`); }
+});
+$('#hzt').addEventListener('click', e => { if (e.target.closest('#hzt-close')) { $('#hzt').hidden = true; HZT = null; if (QAS && QAS.inline) qStop(); } });
+$('#rem').addEventListener('click', e => { if (e.target.closest('#rem-close')) $('#rem').hidden = true; });
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -4885,7 +5029,7 @@ $('#b-import').onchange = async e => {
       db.qurb.n = Math.max(db.qurb.n || 0, data.qurb.n || 0, Object.keys(db.qurb.log).length);
     }
     if (data.struggle && !db.struggle) db.struggle = data.struggle;
-    for (const k of ['qread', 'qmark', 'istikhara']) if (data[k] && !db[k]) db[k] = data[k];
+    for (const k of ['qread', 'qmark', 'istikhara', 'remind']) if (data[k] && !db[k]) db[k] = data[k];
     if (data.quiz && !db.quiz.rounds) db.quiz = data.quiz;
     if (data.partner && !db.partner) db.partner = data.partner;
     if (data.challenge && !db.challenge) db.challenge = data.challenge;
