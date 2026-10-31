@@ -434,6 +434,12 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
 .sit summary small{display:block;color:var(--gold);font-weight:700;font-size:.72rem}
 .sit summary b::after{content:" ›";color:var(--muted)}
 .sit[open] summary b::after{content:" ⌄"}
+.sosr{display:flex;align-items:flex-start;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:6px}
+.sosr input{width:22px;height:22px;flex:none;margin-top:2px}
+.sosr>span{font-size:1.3rem}
+.sosr b{display:block;font-size:.9rem}
+.sosr small{color:var(--muted);font-size:.8rem}
+.sosr:has(input:checked){opacity:.55}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -482,6 +488,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <div class="card" id="cust"></div>
     </div>
     <div id="duawrap" hidden>
+      <button class="tsb" data-tawba="1" style="border-color:var(--accent);background:var(--accent-soft)"><span>🤍</span><div><b>Neuanfang: Tawba, Sünde & Sucht</b><small>Wenn du gerade kämpfst oder gefallen bist – Du’as, Schritte, Notfall-Hilfe</small></div><i>›</i></button>
       <button class="tsb" data-reg="1"><span>📒</span><div><b>Register: Was sage ich wann?</b><small>Aufwachen, Essen, Haus verlassen, Regen, Wut, Sorge, Krankheit …</small></div><i>›</i></button>
       <h2>🤲 Du’a-Sammlung aus Quran &amp; Sunnah</h2><div class="card" id="duac"></div>
       <h2>📝 Meine Du’as</h2><div class="card" id="duas"></div>
@@ -542,12 +549,12 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <div class="ptitle"><b>☰ Mehr</b><span>Werkzeuge, Einstellungen &amp; Daten</span></div>
     <div id="mlist">
       <h2>Werkzeuge</h2>
-      <div class="mgrp"><button class="mrow" data-qibla="1"><span>🧭</span><div><b>Qibla-Kompass</b><small>Richtung nach Mekka</small></div><i>›</i></button><button class="mrow" data-mk="ptimes"><span>🕌</span><div><b>Gebetszeiten</b><small>Heute und morgen</small></div><i>›</i></button><button class="mrow" data-mk="events"><span>📅</span><div><b>Besondere Tage</b><small>Fasten, Ramadan, Eid …</small></div><i>›</i></button><button class="mrow" data-mk="zakat"><span>💰</span><div><b>Zakat-Rechner</b><small>2,5 % · Nisab</small></div><i>›</i></button></div>
+      <div class="mgrp"><button class="mrow" data-qibla="1"><span>🧭</span><div><b>Qibla-Kompass</b><small>Richtung nach Mekka</small></div><i>›</i></button><button class="mrow" data-mk="ptimes"><span>🕌</span><div><b>Gebetszeiten</b><small>Heute und morgen</small></div><i>›</i></button><button class="mrow" data-mk="events"><span>📅</span><div><b>Besondere Tage</b><small>Fasten, Ramadan, Eid …</small></div><i>›</i></button><button class="mrow" data-tawba="1"><span>🤍</span><div><b>Neuanfang</b><small>Tawba, Sünde & Sucht, Notfall-Hilfe</small></div><i>›</i></button><button class="mrow" data-mk="zakat"><span>💰</span><div><b>Zakat-Rechner</b><small>2,5 % · Nisab</small></div><i>›</i></button></div>
       <h2>Einstellungen</h2>
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 27 (30.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 28 (31.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -685,6 +692,21 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
   <div class="wrap">
     <div class="sheet-h"><h3>📒 Was sage ich wann?</h3><button class="x" id="reg-close" aria-label="schließen">✕</button></div>
     <div id="reg-body"></div>
+  </div>
+</div>
+<div class="sheet" id="tawba" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>🤍 Neuanfang</h3><button class="x" id="tawba-close" aria-label="schließen">✕</button></div>
+    <div id="tawba-body"></div>
+  </div>
+</div>
+<div class="sheet" id="sos" hidden>
+  <div class="wrap" style="text-align:center">
+    <div class="sheet-h"><h3>🆘 Halte durch</h3><button class="x" id="sos-close" aria-label="schließen">✕</button></div>
+    <div id="sos-time" style="font-size:3rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums">10:00</div>
+    <p id="sos-msg"></p>
+    <div id="sos-steps" style="text-align:left"></div>
+    <p class="sub">„Wer sich bemüht, Keuschheit zu bewahren, dem gibt Allah Keuschheit.“ (Bukhari 1469, Muslim 1053)</p>
   </div>
 </div>
 <script src="prayer.js"></script>
@@ -3037,6 +3059,92 @@ document.addEventListener('change', e => {
   renderSitu();
 });
 
+// ---------- 🤍 Neuanfang: Tawba, Kampf gegen Sünden & Sucht ----------
+SITU.push(
+  {id:'t_lust', cat:'🤍 Sünde, Sucht & Neuanfang', title:'Gegen die Begierde (Augen, Zunge, Herz)', tr:'Allāhumma innī a‘ūdhu bika min scharri sam‘ī, wa min scharri basarī, wa min scharri lisānī, wa min scharri qalbī, wa min scharri maniyyī', de:'O Allah, ich suche Zuflucht bei Dir vor dem Übel meines Hörens, dem Übel meines Sehens, dem Übel meiner Zunge, dem Übel meines Herzens und dem Übel meiner Begierde.', note:'Diese Bitte lehrte der Prophet ﷺ selbst, als man ihn um ein Du’a zum Schutz bat.', ref:'Abu Dawud 1551, Tirmidhi 3492 – sahih'},
+  {id:'t_desires', cat:'🤍 Sünde, Sucht & Neuanfang', title:'Gegen schlechte Gewohnheiten & Gelüste', tr:'Allāhumma innī a‘ūdhu bika min munkarātil-akhlāqi wal-a‘māli wal-ahwā’', de:'O Allah, ich suche Zuflucht bei Dir vor schlechtem Charakter, schlechten Taten und schlechten Gelüsten.', ref:'Tirmidhi 3591 – sahih'},
+  {id:'t_nafs', cat:'🤍 Sünde, Sucht & Neuanfang', title:'Um Reinigung der Seele bitten', tr:'Allāhumma āti nafsī taqwāhā, wa zakkihā anta khayru man zakkāhā, anta waliyyuhā wa mawlāhā', de:'O Allah, gib meiner Seele ihre Gottesfurcht und reinige sie – Du bist der Beste, der sie reinigt; Du bist ihr Beschützer und Herr.', ref:'Muslim 2722'},
+  {id:'t_heart', cat:'🤍 Sünde, Sucht & Neuanfang', title:'Reines Herz, geschützte Keuschheit', tr:'Allāhummaghfir dhanbī, wa tahhir qalbī, wa hassin fardschī', de:'O Allah, vergib meine Sünde, reinige mein Herz und schütze meine Keuschheit.', note:'Der Prophet ﷺ sprach dies für einen jungen Mann, der mit seiner Begierde kämpfte – ohne ihn bloßzustellen; danach wandte sich dieser nie wieder dem zu.', ref:'Ahmad 22211 – sahih (al-Albani)'},
+  {id:'t_100', cat:'🤍 Sünde, Sucht & Neuanfang', title:'Vergebung, wie der Prophet ﷺ sie 100× in einer Sitzung erbat', tr:'Rabbighfir lī wa tub ‘alayya innaka antat-tawwābur-rahīm', de:'Mein Herr, vergib mir und nimm meine Reue an; Du bist der Reue-Annehmende, der Barmherzige.', ref:'Abu Dawud 1516, Tirmidhi 3434 – sahih'},
+  {id:'t_relapse', cat:'🤍 Sünde, Sucht & Neuanfang', title:'Wenn du rückfällig geworden bist', tr:'Allāhummaghfir lī dhanbī', de:'O Allah, vergib mir meine Sünde.', note:'Ein Diener sündigte und sagte: „O Herr, vergib mir.“ Allah sagte: „Mein Diener weiß, dass er einen Herrn hat, der vergibt …“ Er sündigte wieder, bereute wieder – und Allah vergab ihm jedes Mal. Gib niemals auf, wieder umzukehren.', ref:'Bukhari 7507, Muslim 2758'},
+);
+SITU.forEach(x => x.cat2 = x.cat);
+
+db.struggle = db.struggle || null;
+const daysBetween = (a, b) => Math.max(0, Math.round((new Date(b + 'T12:00') - new Date(a + 'T12:00')) / 864e5));
+function renderTawba(){
+  const st = db.struggle, clean = st ? daysBetween(st.start, today) : 0;
+  $('#tawba-body').innerHTML = `
+    <div class="dh" style="margin-top:0"><div class="dh-k">Zuerst: Hoffnung</div>
+      <div class="dh-t">„Sag: O Meine Diener, die ihr gegen euch selbst maßlos gewesen seid, verzweifelt nicht an der Barmherzigkeit Allahs. Gewiss, Allah vergibt alle Sünden.“</div><div class="dh-r">Quran 39:53</div></div>
+    <p>Dass es dich stört und du umkehren willst, ist schon ein Zeichen von Iman. „Alle Kinder Adams machen Fehler, und die besten von ihnen sind die, die bereuen.“ <span class="gref">Tirmidhi 2499 – hasan</span> Wer aufrichtig bereut, dessen schlechte Taten wandelt Allah sogar in gute um. <span class="gref">Quran 25:70</span></p>
+
+    <h4 class="rg-h">🚨 Gerade jetzt in Versuchung?</h4>
+    <button class="btn p" data-sos="1">🆘 Hilf mir jetzt (10 Minuten)</button>
+
+    <h4 class="rg-h">🔁 Nach einer Sünde – so kehrst du um</h4>
+    <ol class="gl">
+      <li><b>Sofort aufhören</b> und es bereuen – Reue (Nadam) ist der Kern der Tawba.</li>
+      <li><b>Wudu machen und zwei Rak’at beten</b>, dann um Vergebung bitten: „… ohne dass Allah ihm vergibt.“ <span class="gref">Abu Dawud 1521, Tirmidhi 406 – sahih</span></li>
+      <li><b>Fest vornehmen, es nicht zu wiederholen</b> – und wenn du doch fällst: wieder umkehren. Allah wird nicht müde zu vergeben. <span class="gref">Bukhari 7507, Muslim 2758</span></li>
+      <li><b>Eine gute Tat folgen lassen</b> – sie löscht die schlechte aus. <span class="gref">Tirmidhi 1987 – hasan</span></li>
+      <li><b>Nicht öffentlich machen</b> – Allah hat es verhüllt, erzähl es nicht herum. <span class="gref">Bukhari 6069, Muslim 2990</span> Rat suchen bei einer Vertrauensperson oder Fachleuten ist etwas anderes und gut.</li>
+      <li>Wenn Rechte von Menschen betroffen sind: zurückgeben bzw. um Verzeihung bitten.</li>
+    </ol>
+
+    <h4 class="rg-h">🛡️ Was die Sunnah gegen Versuchungen empfiehlt</h4>
+    <ul class="gl">
+      <li><b>Den Blick senken</b> – der erste Schritt fängt beim Sehen an. <span class="gref">Quran 24:30–31</span></li>
+      <li><b>Fasten</b> ist ein Schutzschild für den, der mit seiner Begierde kämpft. <span class="gref">Bukhari 5066, Muslim 1400</span></li>
+      <li><b>Umgebung und Freunde wechseln</b>: Der Mann, der 99 Menschen getötet hatte, sollte sein Land verlassen und zu guten Menschen ziehen – und Allah vergab ihm. <span class="gref">Bukhari 3470, Muslim 2766</span> Lösch Apps, Kontakte und Wege, die dich zur Sünde führen.</li>
+      <li><b>Gute Gesellschaft</b>: „Der Mensch folgt der Religion seines Freundes.“ <span class="gref">Abu Dawud 4833 – hasan</span></li>
+      <li><b>Allein sein ist die Gefahr</b>: Die meisten Rückfälle passieren nachts, allein, mit dem Handy. Geh raus, ruf jemanden an, bleib unter Menschen.</li>
+      <li><b>Hilfe holen ist erlaubt</b>: „Allah hat keine Krankheit herabgesandt, ohne ihr ein Heilmittel herabzusenden.“ <span class="gref">Bukhari 5678</span> Bei Sucht (Drogen, Alkohol, Glücksspiel, Pornografie) helfen Suchtberatungsstellen – anonym und kostenlos.</li>
+    </ul>
+
+    <h4 class="rg-h">📈 Dein privater Neuanfang-Zähler</h4>
+    ${st ? `<div class="chal"><b>${st.label ? esc(st.label) : 'Mein Kampf'}: ${clean} Tag${clean === 1 ? '' : 'e'} geschafft</b>
+        <small>Bester Lauf: ${Math.max(st.best || 0, clean)} Tage · Neuanfänge: ${(st.relapses || []).length}</small>
+        <div class="bar"><i style="width:${Math.min(100, clean / 40 * 100)}%;background:var(--accent)"></i></div>
+        <p class="sub">Ziel: 40 Tage – dann ist eine neue Gewohnheit gewachsen. Nur auf deinem Handy gespeichert, wird nie geteilt.</p>
+        <button class="btn" data-relapse="1">Ich bin gefallen – neu anfangen</button>
+        <button class="lnk" data-strend="1">Zähler beenden</button></div>`
+      : `<p class="sub">Nur für dich: ein Zähler, wie viele Tage du schon durchhältst. Wird nur auf diesem Handy gespeichert, nicht geteilt und nicht im „Zusammen“-Code verschickt.</p>
+         <div class="inp"><input id="st-label" placeholder="Wogegen? (optional, z. B. „Handy nachts“)" maxlength="30" autocomplete="off"></div>
+         <button class="btn p" data-ststart="1">Neuanfang starten</button>`}
+
+    <h4 class="rg-h">🤲 Du’as für den Kampf</h4>
+    ${SITU.filter(x => x.cat === '🤍 Sünde, Sucht & Neuanfang').map(x => situHTML(x)).join('')}
+    ${['tawba','doubt','guidance'].map(id => SITU.find(x => x.id === id)).filter(Boolean).map(x => situHTML(x)).join('')}
+
+    <p class="sub" style="margin-top:14px">Wenn es dir sehr schlecht geht: TelefonSeelsorge, kostenlos, anonym und rund um die Uhr: <b>0800 111 0 111</b> oder <b>0800 111 0 222</b>.</p>`;
+  $('#tawba').hidden = false;
+}
+// 🆘 Notfall: 10 Minuten durchhalten – der Drang geht vorbei
+const SOS = [
+  ['🛡️', 'Zuflucht suchen', 'A‘ūdhu billāhi minasch-schaytānir-radschīm – sag es laut.'],
+  ['📵', 'Weg vom Auslöser', 'Leg das Handy weg / schließ die App / verlass den Raum. Geh dorthin, wo Menschen sind.'],
+  ['💧', 'Wudu machen', 'Kaltes Wasser, langsam, jeden Schritt bewusst.'],
+  ['🤲', 'Du’a sprechen', 'Allāhumma innī a‘ūdhu bika min scharri sam‘ī, wa min scharri basarī, wa min scharri qalbī … (Abu Dawud 1551)'],
+  ['📿', 'Dhikr bis der Timer abläuft', 'Astaghfirullāh – Lā hawla wa lā quwwata illā billāh – so oft du kannst.'],
+];
+let sosT = null;
+function openSos(){
+  const end = Date.now() + 10 * 6e4;
+  $('#sos').hidden = false; keepAwake(true);
+  $('#sos-steps').innerHTML = SOS.map(([i, t, d], n) => `<label class="sosr"><input type="checkbox"><span>${i}</span><div><b>${n + 1}. ${t}</b><small>${esc(d)}</small></div></label>`).join('');
+  const tick = () => {
+    const ms = Math.max(0, end - Date.now()), m = Math.floor(ms / 6e4), sec = Math.floor(ms % 6e4 / 1000);
+    $('#sos-time').textContent = `${m}:${String(sec).padStart(2, '0')}`;
+    if (!ms) { clearInterval(sosT); $('#sos-time').textContent = '✓'; $('#sos-msg').textContent = 'Geschafft – der Drang ist vorbeigegangen. Allah liebt die, die standhaft bleiben. Mach jetzt etwas Gutes (Tirmidhi 1987).'; buzz([40,60,40,60,120]); }
+  };
+  clearInterval(sosT); sosT = setInterval(tick, 1000); tick();
+  $('#sos-msg').textContent = 'Ein Drang ist wie eine Welle: Er steigt an und geht vorbei. Halte 10 Minuten durch.';
+}
+function closeSos(){ clearInterval(sosT); $('#sos').hidden = true; keepAwake(false); }
+$('#sos').addEventListener('click', e => { if (e.target.closest('#sos-close')) closeSos(); });
+$('#tawba').addEventListener('click', e => { if (e.target.closest('#tawba-close')) $('#tawba').hidden = true; });
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -3073,6 +3181,14 @@ document.addEventListener('click', e => {
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
+  else if (b.dataset.tawba) renderTawba();
+  else if (b.dataset.sos) openSos();
+  else if (b.dataset.ststart) { db.struggle = {label:($('#st-label').value || '').trim().slice(0, 30), start:today, best:0, relapses:[]}; save(); renderTawba(); toast('🤍 Bismillah – neuer Anfang'); }
+  else if (b.dataset.relapse) {
+    const st = db.struggle; st.best = Math.max(st.best || 0, daysBetween(st.start, today)); st.relapses = [...(st.relapses || []), today]; st.start = today; save(); renderTawba();
+    toast('Allah vergibt dem, der umkehrt – immer wieder. Steh auf. 🤍'); $('#tawba').scrollTop = 0;
+  }
+  else if (b.dataset.strend) { if (confirm('Zähler wirklich beenden?')) { db.struggle = null; save(); renderTawba(); } }
   else if (b.dataset.reg) openReg();
   else if (b.dataset.regcat) { regCat = b.dataset.regcat; openReg(); }
   else if (b.dataset.wx) { db.settings.weather = true; save(); loadWeather(); renderSitu(); toast('🌧️ Wetter-Hinweise aktiv'); }
