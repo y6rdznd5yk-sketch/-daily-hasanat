@@ -595,6 +595,50 @@ textarea.qb-in{min-height:120px;resize:vertical}
 #nz-back{background:rgba(255,255,255,.14);color:#fff}
 #nz-next{background:linear-gradient(90deg,#f6d27a,#fff1c4);color:#1b2550}
 @media (prefers-reduced-motion:reduce){.nur-c,.qb-orb{animation:none}}
+button.readb{border:0;font:inherit;font-size:.82rem;font-weight:700;cursor:pointer}
+.qb-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.qsr{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:none;color:var(--ink);padding:10px 2px;font:inherit}
+.qsr-n{flex:none;width:34px;height:34px;border-radius:10px;background:var(--accent-soft);color:var(--accent);font-weight:800;font-size:.85rem;display:flex;align-items:center;justify-content:center}
+.qsr-t{flex:1;min-width:0}
+.qsr-t b{display:block}
+.qsr-t small{color:var(--muted);font-size:.76rem}
+.qsr em{font-style:normal;font-size:.7rem;color:var(--accent);font-weight:700;white-space:nowrap}
+.qsr i{font-style:normal;color:var(--muted)}
+#qrv{position:fixed;inset:0;z-index:56;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+#qrv[hidden]{display:none}
+.qrv-top{position:fixed;top:0;left:0;right:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--line);padding:calc(env(safe-area-inset-top) + 8px) 12px 8px}
+.qrv-r{display:flex;align-items:center;gap:8px;max-width:640px;margin:0 auto}
+.qrv-b{flex:none;border:0;background:none;color:var(--accent);font:inherit;font-weight:700;padding:8px 4px;min-width:44px}
+.qrv-t{flex:1;min-width:0;text-align:center}
+.qrv-t b{display:block;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qrv-t small{display:block;color:var(--muted);font-size:.72rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qrv-tb{display:flex;gap:6px;max-width:640px;margin:6px auto 0}
+.qrv-tb button{flex:1;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px 4px;font:inherit;font-size:.8rem;font-weight:700;white-space:nowrap}
+.qrv-tb button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+#qrv-body{padding-top:calc(env(safe-area-inset-top) + 112px);padding-bottom:calc(env(safe-area-inset-bottom) + 84px)}
+.qrv-foot{position:fixed;left:0;right:0;bottom:0;z-index:2;background:var(--card);border-top:1px solid var(--line);padding:8px 14px calc(env(safe-area-inset-bottom) + 8px);font-size:.8rem;color:var(--muted);text-align:center}
+.qrv-foot b{color:var(--ink)}
+.qrv-foot small{display:block;font-size:.66rem;margin-top:1px}
+.qbism{text-align:center;margin:6px 0 10px}
+.qbism b{display:block;font-size:1.05rem}
+.qbism small{color:var(--muted);font-size:.78rem}
+.qpg{display:flex;align-items:center;gap:8px;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:14px 0 2px}
+.qpg::before,.qpg::after{content:'';flex:1;height:1px;background:var(--line)}
+.qv{padding:12px 2px;border-bottom:1px solid var(--line);scroll-margin-top:calc(env(safe-area-inset-top) + 120px);transition:background .3s}
+.qv.hl,.qv.play{border-radius:12px;padding:12px 10px;margin:0 -8px}
+.qv.hl{background:var(--gold-soft)}
+.qv.play{background:var(--accent-soft)}
+.qv-h{display:flex;align-items:center;gap:6px;margin-bottom:2px}
+.qv-n{font-size:.72rem;font-weight:800;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 8px}
+.qv-s{font-size:.7rem;color:var(--gold);font-weight:700}
+.qv-b{border:0;background:none;color:var(--muted);font-size:.95rem;padding:4px 8px;min-width:36px}
+.qv-h .qv-b:first-of-type{margin-left:auto}
+.qv-ar{font-size:1.55rem;line-height:2.1;text-align:right;margin:4px 0;font-family:"Geeza Pro","Noto Naskh Arabic","Amiri",serif}
+.qv-tr{font-weight:700;line-height:1.5;margin:2px 0}
+.qv-de{color:var(--muted);line-height:1.5;margin:4px 0 0}
+.qnav{display:flex;gap:8px;margin:16px 0 6px}
+.qnav .btn{margin:0}
+.qerr{text-align:center;margin-top:30px}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -714,7 +758,7 @@ textarea.qb-in{min-height:120px;resize:vertical}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 35 (31.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 36 (31.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -912,6 +956,13 @@ textarea.qb-in{min-height:120px;resize:vertical}
     <div id="nzs-body"></div>
   </div>
 </div>
+<div class="sheet" id="qrl" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>📖 Quran lesen &amp; hören</h3><button class="x" id="qrl-close" aria-label="schließen">✕</button></div>
+    <div id="qrl-body"></div>
+  </div>
+</div>
+<div id="qrv" hidden><div class="qrv-top" id="qrv-top"></div><div class="wrap" id="qrv-body"></div><div class="qrv-foot" id="qrv-foot"></div></div>
 <script src="prayer.js"></script>
 
 <script>
@@ -1761,7 +1812,7 @@ function renderKhatm(){
     : `<p><b>Seite ${Math.min(st.done, PAGES)} von ${PAGES}</b> · noch ${st.daysLeft} Tag${st.daysLeft === 1 ? '' : 'e'}</p>
        <div class="bar"><i style="width:${pct}%;background:var(--gold)"></i></div>
        ${juzGrid(st.done)}
-       <p>Heutiges Ziel: <b>${st.plan} Seiten</b> (${fmt(st.plan * PER_PAGE)} Hasanat ≈). Eintragen bei „Quran lesen“ unter 🏠 Heute.</p>
+       <p>Heutiges Ziel: <b>${st.plan} Seiten</b> (${fmt(st.plan * PER_PAGE)} Hasanat ≈). Im 📖 Quran-Leser zählen die Seiten automatisch mit.</p>
        <button class="btn" data-khatm="stop">Khatm beenden</button>`;
 }
 
@@ -2446,6 +2497,7 @@ function buildSearch(){
     ...NAWAWI.map(([t, b, r], i) => ({k:`40 Hadith Nr. ${i + 1}`, t, b, r})),
     ...NAMES.map(([t, d], i) => ({k:`Name Nr. ${i + 1}`, t, b:d, r:''})),
     ...GUIDE.map(([t, h]) => ({k:'Gebets-Anleitung', t, b:strip(h), r:''})),
+    ...SURAS.map(([n, de, cnt, mk], i) => ({k:'Sure', t:`${i + 1}. ${n}`, b:`${de} · ${cnt} Verse · ${mk === 'M' ? 'Mekka' : 'Medina'}`, r:'', qr:i + 1})),
   ].map(e => ({...e, n:norm(e.t + ' ' + e.b + ' ' + e.r)}));
 }
 function runSearch(q){
@@ -2456,7 +2508,7 @@ function runSearch(q){
   el.innerHTML = hits.length ? hits.map(e => {
     const i = norm(e.b).indexOf(w[0]), start = Math.max(0, i - 60);
     const snip = (start ? '… ' : '') + e.b.slice(start, start + 200) + (e.b.length > start + 200 ? ' …' : '');
-    return `<details class="sr"><summary><small>${esc(e.k)}</small>${esc(e.t)}</summary><p>${esc(i >= 0 ? snip : e.b.slice(0, 200))}</p>${e.r ? `<span class="gref">${esc(e.r)}</span>` : ''}</details>`;
+    return `<details class="sr"><summary><small>${esc(e.k)}</small>${esc(e.t)}</summary><p>${esc(i >= 0 ? snip : e.b.slice(0, 200))}</p>${e.r ? `<span class="gref">${esc(e.r)}</span>` : ''}${e.qr ? `<button class="mbtn go" data-qr="${e.qr}">📖 Lesen ›</button>` : ''}</details>`;
   }).join('') + `<p class="sub">${hits.length >= 25 ? 'Die ersten 25 Treffer' : hits.length + ' Treffer'}</p>` : '<p class="sub">Nichts gefunden – versuch ein anderes Wort (z. B. „Rizq“, „Schulden“, „Eltern“, „Witr“).</p>';
 }
 document.addEventListener('input', e => { if (e.target.id === 'search') runSearch(e.target.value); });
@@ -2485,7 +2537,7 @@ const juzEnd = n => n < 30 ? 21 + 20 * (n - 1) : PAGES;
 const juzOf = p => Math.min(30, p <= 21 ? 1 : Math.floor((p - 22) / 20) + 2);
 function juzGrid(done){
   const cur = Math.min(PAGES, done + 1);
-  return `<p>📍 Weiter bei <b>Seite ${cur}</b> · Juz ${juzOf(cur)}</p><div class="jz">${Array.from({length:30}, (_, i) => {
+  return `<p>📍 Weiter bei <b>Seite ${cur}</b> · Juz ${juzOf(cur)} <button class="lnk" data-qr="p${cur}">📖 Jetzt lesen ›</button></p><div class="jz">${Array.from({length:30}, (_, i) => {
     const n = i + 1, full = done >= juzEnd(n), part = !full && done >= (n === 1 ? 0 : juzEnd(n - 1));
     return `<span class="${full ? 'on' : part ? 'part' : ''}">${n}</span>`;
   }).join('')}</div>`;
@@ -2527,7 +2579,7 @@ function parseRefs(text){
     for (const n of nums) {
       if (col === 'quran') {
         const [su, ay] = n.split(':'); if (!ay) continue;
-        out.push({label:`Quran ${su}:${ay}`, url:`https://quran.com/${su}/${ay.replace('–', '-')}`});
+        out.push({label:`Quran ${su}:${ay}`, url:`https://quran.com/${su}/${ay.replace('–', '-')}`, qr:`${su}:${ay.replace('–', '-')}`});
       } else {
         const slug = REF_SLUG[col]; if (!slug) continue;
         out.push({label:`${REF_NAME[slug]} ${n}`, url:`https://sunnah.com/${slug}:${n}`});
@@ -2537,8 +2589,8 @@ function parseRefs(text){
   return out.filter((r, i, a) => a.findIndex(x => x.url === r.url) === i);
 }
 function openRefs(links){
-  if (links.length === 1) { window.open(links[0].url, '_blank', 'noopener'); return; }
-  $('#refpop-body').innerHTML = links.map(l => `<a class="btn" href="${l.url}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`).join('');
+  if (links.length === 1) { if (links[0].qr) openQr(links[0].qr); else window.open(links[0].url, '_blank', 'noopener'); return; }
+  $('#refpop-body').innerHTML = links.map(l => l.qr ? `<button class="btn" data-qr="${l.qr}">📖 ${esc(l.label)} – lesen</button>` : `<a class="btn" href="${l.url}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`).join('');
   $('#refpop').hidden = false;
 }
 document.addEventListener('click', e => {
@@ -2741,6 +2793,7 @@ function goTo(g){
   else if (g.hpath) { showPage('info'); showK('hpath'); setTimeout(() => flash($('#hpath')), 50); }
   else if (g.jr) { openJournal(); }
   else if (g.qurb) { startQurb(); }
+  else if (g.qr) { openQr(g.qr); }
   else if (g.dua) { dmGuide(); }
   else if (g.names) { showPage('info'); showK('names'); $('#fc').hidden = false; nextCard(); }
 }
@@ -2767,6 +2820,7 @@ const HELP = [
   ['🌅', 'Morgen-, Abend-, Schlaf-Adhkar', 'Reiter „📿 Dhikr“ → oben Morgen / Abend / Schlaf wählen und jede Karte antippen.', 'Set komplett = Schritt erledigt (+10)', {seg:'m'}],
   ['📚', 'Wissens-Pfad', 'Reiter „📖 Lernen“ → Wissens-Pfad: Hadith lesen, verinnerlichen, „Gelernt ✓“ tippen.', '+20 XP pro Hadith', {hpath:1}],
   ['🌟', '99 Namen Allahs', 'Reiter „📖 Lernen“ → 99 Namen → Lernmodus: Name ansehen, Bedeutung zeigen, „Kann ich ✓“.', '+5 XP pro Name', {names:1}],
+  ['📖', 'Quran lesen', 'Bei „Quran lesen“ auf „📖 Weiterlesen“ tippen oder unter „📖 Lernen“ → „Quran lesen & hören“: Umschrift, Deutsch und Rezitation. Gelesene Seiten zählen automatisch.', '+5 XP pro Seite', {qr:'resume'}],
   ['💫', 'Näher zu Allah', 'Unter „Heute“ die dunkle Karte: „▶ 7 Minuten mit Allah“ – Herz wählen, kurz innehalten, Name Allahs, Vers, Danke, Du’a, eine Tat für Allah.', '+30 XP pro Tag · +20 für deine erledigte Tat', {qurb:1}],
 ];
 function openHelp(){
@@ -2790,11 +2844,12 @@ function renderHelpBanner(){
 let curK = null;
 function renderTiles(){
   const T = [
+    ['📖', 'Quran lesen & hören', 'Umschrift · Deutsch · Rezitation', 'data-qlist="1"'],
     ['🎓', 'Wissens-Pfad', `${Object.keys(db.hadith).length}/42 Hadith gelernt`, 'data-kt="hpath"'],
     ['🌟', '99 Namen Allahs', `${Object.keys(db.names).length}/99 gelernt`, 'data-kt="names"'],
     ['📚', 'Hadith-Bibliothek', 'Alle Sunan, Bukhari, Muslim', 'data-libopen="1"'],
     ['🧠', 'Suren auswendig', `${hifzDone()}/${HIFZ.length} · Fatiha & Juz ‘Amma`, 'data-kt="hifz"'],
-    ['📖', 'Gebets-Anleitung', 'Wudu, Rak’at, Adhan, Schritt für Schritt', 'data-guide="1"'],
+    ['🧎', 'Gebets-Anleitung', 'Wudu, Rak’at, Adhan, Schritt für Schritt', 'data-guide="1"'],
     ['📈', 'Multiplikatoren & Rizq', '×10 bis ×700 · Quellen', 'data-kt="mult"'],
     ['🔎', 'Alles durchsuchen', 'Hadith, Du’as, Adhkar …', 'data-focus-search="1"'],
   ];
@@ -3100,9 +3155,9 @@ function renderHifz(){
     <p>Auswendig: <b>${n} von ${HIFZ.length}</b>${learning ? ` · ${learning} in Arbeit` : ''}</p><div class="bar"><i style="width:${n / HIFZ.length * 100}%;background:var(--gold)"></i></div>
     <div class="hz">${HIFZ.slice().sort((a, b) => (a[0] === 1 ? -1 : b[0] === 1 ? 1 : b[0] - a[0])).map(([nr, name, ay]) => {
       const v = db.hifz[nr] || 0;
-      return `<div class="hzr s${v}"><button class="hzb" data-hz="${nr}"><i>${v === 2 ? '✓' : v === 1 ? '📖' : '○'}</i><span><b>${nr}. ${name}</b><small>${ay} Verse</small></span></button><a href="https://quran.com/${nr}" target="_blank" rel="noopener" class="x hzl" aria-label="Sure ${name} auf quran.com öffnen">↗</a></div>`;
+      return `<div class="hzr s${v}"><button class="hzb" data-hz="${nr}"><i>${v === 2 ? '✓' : v === 1 ? '📖' : '○'}</i><span><b>${nr}. ${name}</b><small>${ay} Verse</small></span></button><button class="x hzl" data-qr="${nr}" data-qrepset="3" aria-label="Sure ${name} lesen und anhören">▶</button></div>`;
     }).join('')}</div>
-    <p class="sub">„Wer den Quran gut beherrscht, ist mit den edlen, gehorsamen Schreiber-Engeln; und wer ihn mit Mühe stockend liest, hat doppelten Lohn.“ (Bukhari 4937, Muslim 798) · +15 XP pro auswendig gelernter Sure · ↗ öffnet die Sure mit Rezitation auf quran.com</p>`;
+    <p class="sub">„Wer den Quran gut beherrscht, ist mit den edlen, gehorsamen Schreiber-Engeln; und wer ihn mit Mühe stockend liest, hat doppelten Lohn.“ (Bukhari 4937, Muslim 798) · +15 XP pro auswendig gelernter Sure · ▶ öffnet die Sure im Quran-Leser – mit Rezitation, jeder Vers 3× zum Auswendiglernen</p>`;
 }
 
 
@@ -3116,7 +3171,7 @@ function readUrl(id){
   }
   return READ[id] ? `https://quran.com/${READ[id]}` : null;
 }
-const readBtn = id => { const u = readUrl(id); return u ? `<a class="readb" href="${u}" target="_blank" rel="noopener">📖 ${id === 'quran' ? 'Weiterlesen' : 'Lesen'} ›</a>` : ''; };
+const readBtn = id => { const r = id === 'quran' ? 'resume' : READ[id]; return r ? `<button class="readb" data-qr="${r}">📖 ${id === 'quran' ? 'Weiterlesen' : 'Lesen'} ›</button>` : ''; };
 
 // ---------- 📒 Register: Was sage ich wann? (automatisch passend zur Situation) ----------
 const SITU = [
@@ -3997,7 +4052,7 @@ function renderQB(){
   else if (st === 'verse') { const v = P.v; html = `<p class="qb-k">3 · Allah spricht zu dir</p><p class="qb-v">„${esc(v[0])}“</p><small class="gref">${esc(v[1])}</small>
     ${v[3] ? `<p class="qb-soft">${esc(v[3])}</p>` : ''}
     <p class="qb-q">Lies den Vers langsam noch einmal. Was will Allah dir heute damit sagen?</p>
-    <button class="qb-l" data-qbl="${v[2]}">🔊 Auf Arabisch anhören (quran.com)</button>`; }
+    <div class="qb-row"><button class="qb-l" data-qbl="${v[2]}">🔊 Rezitation anhören</button><button class="qb-l" data-qr="${v[2]}">📖 Im Quran-Leser</button></div>`; }
   else if (st === 'shukr') html = `<p class="qb-k">4 · Danke</p><h2>Wofür bist du dankbar?</h2>
     <p class="qb-soft">„Wenn ihr dankbar seid, werde Ich euch gewiss mehr geben.“ <span class="gref">Quran 14:7</span></p>
     ${['z. B. dass ich atmen und sehen kann', 'z. B. ein Mensch, der mich liebt', 'z. B. dass ich heute beten konnte'].map((p, i) => `<input class="qb-in" data-qbg="${i}" value="${esc(QB.g[i] || '')}" placeholder="${p}" maxlength="120" autocomplete="off">`).join('')}
@@ -4023,7 +4078,7 @@ function renderQB(){
   $('#nz-body').innerHTML = html;
   $('#nz .qb-nav').style.display = st === 'heart' ? 'none' : '';
   $('#nz-back').style.display = st === 'end' ? 'none' : '';
-  $('#nz-body').classList.toggle('top', st === 'heart');
+  $('#nz-body').classList.toggle('top', st === 'heart'); qSync();
   $('#nz-next').textContent = st === 'end' ? 'Fertig ✓' : st === 'arrive' ? 'Ich bin da ›' : st === 'act' && (QB.act !== null || QB.own) ? 'Vornehmen & weiter ›' : 'Weiter ›';
 }
 function qbCollect(){
@@ -4054,7 +4109,7 @@ function qbNext(d){
   if (QB_STEPS[QB.i] === 'end') { qbSave(); buzz([40,60,40,60,120]); } else buzz(6);
   renderQB(); $('#nz').scrollTop = 0;
 }
-function closeQB(){ $('#nz').hidden = true; keepAwake(false); if (QB && QB.saved) render(); }
+function closeQB(){ $('#nz').hidden = true; keepAwake(false); if (QAS && QAS.inline) qStop(); if (QB && QB.saved) render(); }
 function qbActDone(){
   const x = db.days[today] = db.days[today] || {};
   if (x.qt) delete x.qt; else { x.qt = 1; buzz([30,50,30]); toast('🎯 MashaAllah – möge Allah es annehmen'); }
@@ -4094,7 +4149,7 @@ $('#nz').addEventListener('click', e => {
   if (e.target.closest('#nz-back')) return qbNext(-1);
   if (e.target.closest('#nz-next')) return qbNext(1);
   const hb = e.target.closest('[data-qbh]'); if (hb) return qbHeart(hb.dataset.qbh);
-  const l = e.target.closest('[data-qbl]'); if (l) { window.open(`https://quran.com/${l.dataset.qbl}`, '_blank', 'noopener'); return; }
+  const l = e.target.closest('[data-qbl]'); if (l) { qInline(l.dataset.qbl); return; }
   if (e.target.closest('[data-qbc]')) { QB.dc = Math.min(3, QB.dc + 1); buzz(QB.dc === 3 ? [30,50,30] : 10); return renderQB(); }
   const a = e.target.closest('[data-qba]'); if (a) { QB.own = ($('#nz-own').value || '').trim(); const i = +a.dataset.qba; QB.act = QB.act === i ? null : i; buzz(8); return renderQB(); }
   if (e.target.closest('[data-tawba]')) closeQB();
@@ -4113,6 +4168,288 @@ document.addEventListener('click', e => {
   const b = e.target.closest('[data-qurb],[data-qbgo],[data-qtdone]'); if (!b) return;
   if (b.dataset.qbgo) startQurb(); else if (b.dataset.qtdone) qbActDone(); else openQurbSheet();
 });
+
+// 114 Suren: [Name, Bedeutung, Verse, M = Mekka / D = Medina] · Seiten, Juz und Niederwerfungen nach dem Madina-Mushaf (604 Seiten)
+const SURAS = [['al-Fātiha','Die Eröffnung',7,'M'],['al-Baqara','Die Kuh',286,'D'],['Āl ‘Imrān','Die Sippe ‘Imrāns',200,'D'],['an-Nisā’','Die Frauen',176,'D'],['al-Mā’ida','Der Tisch',120,'D'],['al-An‘ām','Das Vieh',165,'M'],['al-A‘rāf','Die Höhen',206,'M'],['al-Anfāl','Die Beute',75,'D'],['at-Tauba','Die Reue',129,'D'],['Yūnus','Jonas',109,'M'],['Hūd','Hud',123,'M'],['Yūsuf','Josef',111,'M'],['ar-Ra‘d','Der Donner',43,'D'],['Ibrāhīm','Abraham',52,'M'],['al-Hidschr','Die Felsengegend',99,'M'],['an-Nahl','Die Biene',128,'M'],['al-Isrā’','Die Nachtreise',111,'M'],['al-Kahf','Die Höhle',110,'M'],['Maryam','Maria',98,'M'],['Tā-Hā','Ta-Ha',135,'M'],['al-Anbiyā’','Die Propheten',112,'M'],['al-Hadsch','Die Pilgerfahrt',78,'D'],['al-Mu’minūn','Die Gläubigen',118,'M'],['an-Nūr','Das Licht',64,'D'],['al-Furqān','Die Unterscheidung',77,'M'],['asch-Schu‘arā’','Die Dichter',227,'M'],['an-Naml','Die Ameisen',93,'M'],['al-Qasas','Die Geschichte',88,'M'],['al-‘Ankabūt','Die Spinne',69,'M'],['ar-Rūm','Die Römer',60,'M'],['Luqmān','Luqman',34,'M'],['as-Sadschda','Die Niederwerfung',30,'M'],['al-Ahzāb','Die Gruppierungen',73,'D'],['Saba’','Saba',54,'M'],['Fātir','Der Erschaffer',45,'M'],['Yā-Sīn','Ya-Sin',83,'M'],['as-Sāffāt','Die sich Reihenden',182,'M'],['Sād','Sad',88,'M'],['az-Zumar','Die Scharen',75,'M'],['Ghāfir','Der Vergebende',85,'M'],['Fussilat','Ausführlich dargelegt',54,'M'],['asch-Schūrā','Die Beratung',53,'M'],['az-Zukhruf','Der Prunk',89,'M'],['ad-Dukhān','Der Rauch',59,'M'],['al-Dschāthiya','Die Kniende',37,'M'],['al-Ahqāf','Die Sanddünen',35,'M'],['Muhammad','Muhammad',38,'D'],['al-Fath','Der Sieg',29,'D'],['al-Hudschurāt','Die Gemächer',18,'D'],['Qāf','Qaf',45,'M'],['adh-Dhāriyāt','Die Aufwirbelnden',60,'M'],['at-Tūr','Der Berg',49,'M'],['an-Nadschm','Der Stern',62,'M'],['al-Qamar','Der Mond',55,'M'],['ar-Rahmān','Der Allerbarmer',78,'D'],['al-Wāqi‘a','Das eintreffende Ereignis',96,'M'],['al-Hadīd','Das Eisen',29,'D'],['al-Mudschādala','Die Streitende',22,'D'],['al-Haschr','Die Versammlung',24,'D'],['al-Mumtahana','Die Geprüfte',13,'D'],['as-Saff','Die Reihe',14,'D'],['al-Dschumu‘a','Der Freitag',11,'D'],['al-Munāfiqūn','Die Heuchler',11,'D'],['at-Taghābun','Die gegenseitige Übervorteilung',18,'D'],['at-Talāq','Die Scheidung',12,'D'],['at-Tahrīm','Das Verbieten',12,'D'],['al-Mulk','Die Herrschaft',30,'M'],['al-Qalam','Das Schreibrohr',52,'M'],['al-Hāqqa','Die fällige Stunde',52,'M'],['al-Ma‘āridsch','Die Aufstiegswege',44,'M'],['Nūh','Noah',28,'M'],['al-Dschinn','Die Dschinn',28,'M'],['al-Muzzammil','Der Eingehüllte',20,'M'],['al-Muddaththir','Der Zugedeckte',56,'M'],['al-Qiyāma','Die Auferstehung',40,'M'],['al-Insān','Der Mensch',31,'D'],['al-Mursalāt','Die Entsandten',50,'M'],['an-Naba’','Die Kunde',40,'M'],['an-Nāzi‘āt','Die Entreißenden',46,'M'],['‘Abasa','Er runzelte die Stirn',42,'M'],['at-Takwīr','Das Umschlingen',29,'M'],['al-Infitār','Das Zerbrechen',19,'M'],['al-Mutaffifīn','Die das Maß Kürzenden',36,'M'],['al-Inschiqāq','Das Zerreißen',25,'M'],['al-Burūdsch','Die Türme',22,'M'],['at-Tāriq','Der Pochende',17,'M'],['al-A‘lā','Der Höchste',19,'M'],['al-Ghāschiya','Die Überdeckende',26,'M'],['al-Fadschr','Die Morgendämmerung',30,'M'],['al-Balad','Die Ortschaft',20,'M'],['asch-Schams','Die Sonne',15,'M'],['al-Lail','Die Nacht',21,'M'],['ad-Duhā','Der Vormittag',11,'M'],['asch-Scharh','Das Weiten',8,'M'],['at-Tīn','Die Feige',8,'M'],['al-‘Alaq','Das Anhängsel',19,'M'],['al-Qadr','Die Bestimmung',5,'M'],['al-Bayyina','Der klare Beweis',8,'D'],['az-Zalzala','Das Beben',8,'D'],['al-‘Ādiyāt','Die Rennenden',11,'M'],['al-Qāri‘a','Das Verhängnis',11,'M'],['at-Takāthur','Die Vermehrung',8,'M'],['al-‘Asr','Die Zeit',3,'M'],['al-Humaza','Der Stichler',9,'M'],['al-Fīl','Der Elefant',5,'M'],['Quraisch','Quraisch',4,'M'],['al-Mā‘ūn','Die Hilfeleistung',7,'M'],['al-Kauthar','Die Fülle',3,'M'],['al-Kāfirūn','Die Ungläubigen',6,'M'],['an-Nasr','Die Hilfe',3,'D'],['al-Masad','Die Palmfaser',5,'M'],['al-Ikhlās','Die Aufrichtigkeit',4,'M'],['al-Falaq','Das Frühlicht',5,'M'],['an-Nās','Die Menschen',6,'M']];
+const QPAGES = '1:1,2:1,2:6,2:17,2:25,2:30,2:38,2:49,2:58,2:62,2:70,2:77,2:84,2:89,2:94,2:102,2:106,2:113,2:120,2:127,2:135,2:142,2:146,2:154,2:164,2:170,2:177,2:182,2:187,2:191,2:197,2:203,2:211,2:216,2:220,2:225,2:231,2:234,2:238,2:246,2:249,2:253,2:257,2:260,2:265,2:270,2:275,2:282,2:283,3:1,3:10,3:16,3:23,3:30,3:38,3:46,3:53,3:62,3:71,3:78,3:84,3:92,3:101,3:109,3:116,3:122,3:133,3:141,3:149,3:154,3:158,3:166,3:174,3:181,3:187,3:195,4:1,4:7,4:12,4:15,4:20,4:24,4:27,4:34,4:38,4:45,4:52,4:60,4:66,4:75,4:80,4:87,4:92,4:95,4:102,4:106,4:114,4:122,4:128,4:135,4:141,4:148,4:155,4:163,4:171,4:176,5:3,5:6,5:10,5:14,5:18,5:24,5:32,5:37,5:42,5:46,5:51,5:58,5:65,5:71,5:77,5:83,5:90,5:96,5:104,5:109,5:114,6:1,6:9,6:19,6:28,6:36,6:45,6:53,6:60,6:69,6:74,6:82,6:91,6:95,6:102,6:111,6:119,6:125,6:132,6:138,6:143,6:147,6:152,6:158,7:1,7:12,7:23,7:31,7:38,7:44,7:52,7:58,7:68,7:74,7:82,7:88,7:96,7:105,7:121,7:131,7:138,7:144,7:150,7:156,7:160,7:164,7:171,7:179,7:188,7:196,8:1,8:9,8:17,8:26,8:34,8:41,8:46,8:53,8:62,8:70,9:1,9:7,9:14,9:21,9:27,9:32,9:37,9:41,9:48,9:55,9:62,9:69,9:73,9:80,9:87,9:94,9:100,9:107,9:112,9:118,9:123,10:1,10:7,10:15,10:21,10:26,10:34,10:43,10:54,10:62,10:71,10:79,10:89,10:98,10:107,11:6,11:13,11:20,11:29,11:38,11:46,11:54,11:63,11:72,11:82,11:89,11:98,11:109,11:118,12:5,12:15,12:23,12:31,12:38,12:44,12:53,12:64,12:70,12:79,12:87,12:96,12:104,13:1,13:6,13:14,13:19,13:29,13:35,13:43,14:6,14:11,14:19,14:25,14:34,14:43,15:1,15:16,15:32,15:52,15:71,15:91,16:7,16:15,16:27,16:35,16:43,16:55,16:65,16:73,16:80,16:88,16:94,16:103,16:111,16:119,17:1,17:8,17:18,17:28,17:39,17:50,17:59,17:67,17:76,17:87,17:97,17:105,18:5,18:16,18:21,18:28,18:35,18:46,18:54,18:62,18:75,18:84,18:98,19:1,19:12,19:26,19:39,19:52,19:65,19:77,19:96,20:13,20:38,20:52,20:65,20:77,20:88,20:99,20:114,20:126,21:1,21:11,21:25,21:36,21:45,21:58,21:73,21:82,21:91,21:102,22:1,22:6,22:16,22:24,22:31,22:39,22:47,22:56,22:65,22:73,23:1,23:18,23:28,23:43,23:60,23:75,23:90,23:105,24:1,24:11,24:21,24:28,24:32,24:37,24:44,24:54,24:59,24:62,25:3,25:12,25:21,25:33,25:44,25:56,25:68,26:1,26:20,26:40,26:61,26:84,26:112,26:137,26:160,26:184,26:207,27:1,27:14,27:23,27:36,27:45,27:56,27:64,27:77,27:89,28:6,28:14,28:22,28:29,28:36,28:44,28:51,28:60,28:71,28:78,28:85,29:7,29:15,29:24,29:31,29:39,29:46,29:53,29:64,30:6,30:16,30:25,30:33,30:42,30:51,31:1,31:12,31:20,31:29,32:1,32:12,32:21,33:1,33:7,33:16,33:23,33:31,33:36,33:44,33:51,33:55,33:63,34:1,34:8,34:15,34:23,34:32,34:40,34:49,35:4,35:12,35:19,35:31,35:39,35:45,36:13,36:28,36:41,36:55,36:71,37:1,37:25,37:52,37:77,37:103,37:127,37:154,38:1,38:17,38:27,38:43,38:62,38:84,39:6,39:11,39:22,39:32,39:41,39:48,39:57,39:68,39:75,40:8,40:17,40:26,40:34,40:41,40:50,40:59,40:67,40:78,41:1,41:12,41:21,41:30,41:39,41:47,42:1,42:11,42:16,42:23,42:32,42:45,42:52,43:11,43:23,43:34,43:48,43:61,43:74,44:1,44:19,44:40,45:1,45:14,45:23,45:33,46:6,46:15,46:21,46:29,47:1,47:12,47:20,47:30,48:1,48:10,48:16,48:24,48:29,49:5,49:12,50:1,50:16,50:36,51:7,51:31,51:52,52:15,52:32,53:1,53:27,53:45,54:7,54:28,54:50,55:17,55:41,55:68,56:17,56:51,56:77,57:4,57:12,57:19,57:25,58:1,58:7,58:12,58:22,59:4,59:10,59:17,60:1,60:6,60:12,61:6,62:1,62:9,63:5,64:1,64:10,65:1,65:6,66:1,66:8,67:1,67:13,67:27,68:16,68:43,69:9,69:35,70:11,70:40,71:11,72:1,72:14,73:1,73:20,74:18,74:48,75:20,76:6,76:26,77:20,78:1,78:31,79:16,80:1,81:1,82:1,83:7,83:35,85:1,86:1,87:16,89:1,89:24,91:1,92:15,95:1,97:1,98:8,100:10,103:1,106:1,109:1,112:1';
+const QJUZ = '1:1,2:142,2:253,3:93,4:24,4:148,5:82,6:111,7:88,8:41,9:93,11:6,12:53,15:1,17:1,18:75,21:1,23:1,25:21,27:56,29:46,33:31,36:28,39:32,41:47,46:1,51:31,58:1,67:1,78:1';
+const QSAJDA = '7:206,13:15,16:50,17:109,19:58,22:18,22:77,25:60,27:26,32:15,38:24,41:38,53:62,84:21,96:19';
+// ---------- 📖 Quran-Leser: Umschrift, Deutsch, Rezitation – Seiten zählen automatisch ----------
+// Text: freier Datensatz fawazahmed0/quran-api (Tanzil/QuranEnc) · wird pro Sure geladen und offline gespeichert
+let QBASES = ['https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1', 'https://raw.githubusercontent.com/fawazahmed0/quran-api/1'];
+try { const o = localStorage.getItem('quran-base'); if (o) QBASES = [o]; } catch(e) {}
+const QKEY = 'https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1', QCACHE = 'quran-text-v1';
+const QED = {tr:'ara-quranphoneticst-la', de:'deu-frankbubenheima', ar:'ara-quransimple'};
+const pad3 = n => String(n).padStart(3, '0');
+const qPair = t => t.split(',').map(x => x.split(':').map(Number));
+const QP = qPair(QPAGES), QJ = qPair(QJUZ), QS = new Set(QSAJDA.split(','));
+const QPS = new Map(QP.map(([s, v], i) => [s + ':' + v, i + 1])), QJS = new Map(QJ.map(([s, v], i) => [s + ':' + v, i + 1]));
+const QCUM = SURAS.reduce((a, x, i) => (a.push(a[i] + x[2]), a), [0]);
+const qGlobal = (s, v) => QCUM[s - 1] + v;
+const qCmp = (a, b) => a[0] - b[0] || a[1] - b[1];
+const qFind = (L, s, v) => { let lo = 0, hi = L.length - 1; while (lo < hi) { const m = (lo + hi + 1) >> 1; if (qCmp(L[m], [s, v]) <= 0) lo = m; else hi = m - 1; } return lo + 1; };
+const qPage = (s, v) => qFind(QP, s, v), qJuz = (s, v) => qFind(QJ, s, v);
+const qSuraPages = s => [qPage(s, 1), qPage(s, SURAS[s - 1][2])];
+function qPageVerses(p){
+  const [s1, v1] = QP[p - 1], end = p < QP.length ? QP[p] : [115, 1], out = [];
+  let s = s1, v = v1;
+  while (s < end[0] || (s === end[0] && v < end[1])) { out.push(s + ':' + v); if (v < SURAS[s - 1][2]) v++; else { s++; v = 1; } }
+  return out;
+}
+// Lesbare Umschrift: ‘ für ‘Ain, ’ für Hamza, Tanwīn „-an“ statt „-aan“
+const qTr = t => String(t || '').replace(/aan\b/g, 'an').replace(/`/g, '‘').replace(/'/g, '’').replace(/đ/g, 'd').replace(/Đ/g, 'D');
+const QMEM = {};
+async function qFetch(ed, s){
+  const path = `/editions/${ed}/${s}.min.json`, key = QKEY + path;
+  if (QMEM[key]) return QMEM[key];
+  let cache = null;
+  try { cache = await caches.open(QCACHE); const hit = await cache.match(key); if (hit) return (QMEM[key] = (await hit.json()).chapter); } catch(e) {}
+  for (const b of QBASES) {
+    try {
+      const r = await fetch(b + path); if (!r.ok) continue;
+      const j = await r.clone().json(); if (!Array.isArray(j.chapter) || !j.chapter.length) continue;
+      if (cache) cache.put(key, r).catch(() => {});
+      return (QMEM[key] = j.chapter);
+    } catch(e) {}
+  }
+  throw new Error('offline');
+}
+
+// Heute gelesene Verse (nur für heute, nicht im Backup): Verse + Sekunden pro Seite
+let QSEEN = {k:today, v:new Set(), t:{}};
+try { const o = JSON.parse(localStorage.getItem('qseen')); if (o && o.k === today) QSEEN = {k:o.k, v:new Set(o.v), t:o.t || {}}; } catch(e) {}
+function qSeenSave(){
+  if (QSEEN.k !== today) QSEEN = {k:today, v:new Set(), t:{}};
+  try { localStorage.setItem('qseen', JSON.stringify({k:QSEEN.k, v:[...QSEEN.v], t:QSEEN.t})); } catch(e) {}
+}
+
+let QR = null;
+const qName = s => SURAS[s - 1][0];
+// "18" · "2:255" · "2/285-286" · "p293" · "resume"
+function qSpec(spec){
+  spec = String(spec || '');
+  if (spec === 'resume') {
+    const st = typeof khatmState === 'function' ? khatmState() : null;
+    if (st && !st.finished) { const [s, v] = QP[Math.min(QP.length, st.done + 1) - 1]; return {s, v}; }
+    return db.qread ? {s:db.qread.s, v:db.qread.v} : {s:1, v:1};
+  }
+  if (spec[0] === 'p') { const [s, v] = QP[Math.min(QP.length, Math.max(1, +spec.slice(1) || 1)) - 1]; return {s, v}; }
+  const m = spec.match(/^(\d+)(?:[:/](\d+)(?:[-–](\d+))?)?$/); if (!m) return {s:1, v:1};
+  const s = Math.min(114, Math.max(1, +m[1])), n = SURAS[s - 1][2];
+  const v = m[2] ? Math.min(n, Math.max(1, +m[2])) : 1;
+  return {s, v, hl:m[2] ? [v, m[3] ? Math.min(n, +m[3]) : v] : null};
+}
+function openQr(spec, o = {}){ const q = qSpec(spec); openSura(q.s, q.v, {...o, hl:q.hl}); }
+
+async function openSura(s, v = 1, o = {}){
+  $('#qrl').hidden = true; $('#refpop').hidden = true;
+  if (QR && QR.io) QR.io.disconnect();
+  if (QAS && !QAS.inline && QAS.s !== s) qStop();
+  QR = {s, v, hl:o.hl || null, rep:o.rep || db.settings.qrep || 1, vis:new Set(), prev:new Set(), tr:null, de:null, ar:null};
+  const [n, de, cnt, mk] = SURAS[s - 1], [p1, p2] = qSuraPages(s);
+  $('#qrv-top').innerHTML = `<div class="qrv-r"><button class="qrv-b" data-qlist="1">‹ Suren</button><div class="qrv-t"><b>${s}. ${esc(n)}</b><small>${esc(de)} · ${cnt} Verse · ${p1 === p2 ? `Seite ${p1}` : `S. ${p1}–${p2}`}</small></div><button class="qrv-b" data-qclose="1" aria-label="schließen">✕</button></div>
+    <div class="qrv-tb"><button data-qpa="1">▶ Anhören</button><button data-qrep="1">🔁 ${QR.rep}×</button><button data-qar="1" class="${showAr ? 'on' : ''}">ع Arabisch</button></div>`;
+  $('#qrv-body').innerHTML = '<p class="sub" style="text-align:center;margin-top:30px">📖 Lade Sure …</p>';
+  $('#qrv').hidden = false; $('#qrv').scrollTop = 0; keepAwake(true); qFoot(); qSync();
+  try {
+    const [tr, dt, ar] = await Promise.all([qFetch(QED.tr, s), qFetch(QED.de, s), showAr ? qFetch(QED.ar, s).catch(() => null) : null]);
+    if (!QR || QR.s !== s) return;
+    Object.assign(QR, {tr, de:dt, ar});
+    renderSura(v);
+  } catch(e) {
+    if (!QR || QR.s !== s) return;
+    $('#qrv-body').innerHTML = `<div class="qerr"><p>📡 Diese Sure ist noch nicht offline gespeichert, und gerade ist keine Internetverbindung da.</p>
+      <button class="btn p" data-qr="${s}">Nochmal versuchen</button><a class="btn" href="https://quran.com/${s}" target="_blank" rel="noopener">Auf quran.com öffnen ↗</a>
+      <p class="sub">Tipp: Unter „Suren“ kannst du den ganzen Quran einmal offline speichern.</p></div>`;
+  }
+}
+function renderSura(v){
+  const s = QR.s, cnt = SURAS[s - 1][2], hl = QR.hl;
+  let h = s !== 1 && s !== 9 ? '<div class="qbism"><b>Bismillāhir-rahmānir-rahīm</b><small>Im Namen Allahs, des Allerbarmers, des Barmherzigen</small></div>' : '';
+  for (let i = 1; i <= cnt; i++) {
+    const k = s + ':' + i, pg = QPS.get(k), jz = QJS.get(k), sj = QS.has(k), on = hl && i >= hl[0] && i <= hl[1];
+    if (pg && (i > 1 || pg > 1)) h += `<div class="qpg">Seite ${pg}${jz ? ` · Juz ${jz}` : ''}</div>`;
+    h += `<div class="qv${on ? ' hl' : ''}" id="qv-${i}" data-v="${i}"><div class="qv-h"><span class="qv-n">${s}:${i}</span>${sj ? '<span class="qv-s">۩ Niederwerfung (Sajdat at-Tilāwa)</span>' : ''}<button class="qv-b" data-qplay="${i}" aria-label="ab hier anhören">▶</button><button class="qv-b" data-qmark="${i}" aria-label="Lesezeichen setzen">🔖</button></div>
+      ${QR.ar && QR.ar[i - 1] ? `<p class="qv-ar" dir="rtl" lang="ar">${esc(QR.ar[i - 1].text)}</p>` : ''}<p class="qv-tr">${esc(qTr(QR.tr[i - 1] && QR.tr[i - 1].text))}</p><p class="qv-de">${esc(QR.de[i - 1] ? QR.de[i - 1].text : '')}</p></div>`;
+  }
+  h += `<div class="qnav">${s > 1 ? `<button class="btn" data-qr="${s - 1}">‹ ${esc(qName(s - 1))}</button>` : ''}${s < 114 ? `<button class="btn p" data-qr="${s + 1}">${esc(qName(s + 1))} ›</button>` : ''}</div>
+    <p class="sub" style="text-align:center">Übersetzung: Bubenheim &amp; Elyas · Umschrift als Lesehilfe – die genaue Aussprache lernst du am besten durchs Zuhören. <a href="https://quran.com/${s}" target="_blank" rel="noopener">Arabisch &amp; mehr auf quran.com ↗</a></p>`;
+  $('#qrv-body').innerHTML = h;
+  if (v > 1) { const el = $(`#qv-${v}`); if (el) el.scrollIntoView({block:'start'}); }
+  qTrack(); qMark();
+}
+function qTrack(){
+  if (QR.io) QR.io.disconnect();
+  const top = $('#qrv-top').offsetHeight, foot = $('#qrv-foot').offsetHeight;
+  QR.io = new IntersectionObserver(es => {
+    for (const e of es) {
+      const v = +e.target.dataset.v, big = e.rootBounds && e.intersectionRect.height >= e.rootBounds.height * .5;
+      if (e.isIntersecting && (e.intersectionRatio >= .5 || big)) QR.vis.add(v); else QR.vis.delete(v);
+    }
+  }, {root:$('#qrv'), rootMargin:`-${top}px 0px -${foot}px 0px`, threshold:[0, .25, .5, .75, 1]});
+  document.querySelectorAll('#qrv .qv').forEach(el => QR.io.observe(el));
+  clearInterval(qTrack.t); qTrack.t = setInterval(qTick, 1000);
+}
+// jede Sekunde: Verse, die länger als 1 s sichtbar sind, gelten als gelesen
+function qTick(){
+  if (!QR || !QR.tr || $('#qrv').hidden || document.hidden) return;
+  if (QSEEN.k !== today) QSEEN = {k:today, v:new Set(), t:{}};
+  const now = [...QR.vis]; let ch = false;
+  for (const v of now) if (QR.prev.has(v)) { const k = QR.s + ':' + v; if (!QSEEN.v.has(k)) { QSEEN.v.add(k); ch = true; } }
+  QR.prev = new Set(now);
+  for (const p of new Set(now.map(v => qPage(QR.s, v)))) { QSEEN.t[p] = (QSEEN.t[p] || 0) + 1; ch = true; }
+  if (now.length) { const v = Math.min(...now); if (!db.qread || db.qread.s !== QR.s || db.qread.v !== v) { db.qread = {s:QR.s, v}; QR.dirty = (QR.dirty || 0) + 1; if (QR.dirty > 8) { save(); QR.dirty = 0; } } }
+  if (ch) { qSeenSave(); qCredit(); }
+  qFoot();
+}
+// Eine Seite zählt, wenn 70 % ihrer Verse gelesen wurden und sie mind. 20 s auf dem Bildschirm war
+function qCredit(){
+  const x = db.days[today] = db.days[today] || {}, qp = x.qp || [], [p1, p2] = qSuraPages(QR.s), got = [];
+  for (let p = p1; p <= p2; p++) {
+    if (qp.includes(p) || (QSEEN.t[p] || 0) < 20) continue;
+    const vs = qPageVerses(p);
+    if (vs.filter(k => QSEEN.v.has(k)).length >= Math.ceil(vs.length * .7)) got.push(p);
+  }
+  if (!got.length) return;
+  const before = x.quran || 0, goal = findDeed('quran').target;
+  x.qp = [...qp, ...got]; x.quran = before + got.length; save();
+  toast(got.length === 1 ? `📖 Seite ${got[0]} gelesen · +5 XP` : `📖 ${got.length} Seiten gelesen · +${got.length * 5} XP`);
+  if (before < goal && x.quran >= goal) setTimeout(() => toast('✓ Quran-Tagesziel erreicht – BarakAllahu fik'), 1900);
+  buzz(15); QR.credited = true; renderStats();
+}
+function qFoot(){
+  if (!QR) return;
+  const x = day(today), n = x.quran || 0, v = QR.vis.size ? Math.min(...QR.vis) : QR.v;
+  $('#qrv-foot').innerHTML = `📖 Heute <b>${n}</b> ${n === 1 ? 'Seite' : 'Seiten'} gelesen · Seite ${qPage(QR.s, v)} · Juz ${qJuz(QR.s, v)}<small>Seiten zählen automatisch, während du liest oder mitliest (+5 XP je Seite)</small>`;
+}
+function closeQr(){
+  if (!QR) { $('#qrv').hidden = true; return; }
+  if (QR.io) QR.io.disconnect(); clearInterval(qTrack.t);
+  if (QAS && !QAS.inline) qStop();
+  const credited = QR.credited; QR = null;
+  $('#qrv').hidden = true; keepAwake(false); save();
+  if (credited) render();
+}
+
+// Surenliste
+function openQList(){
+  if (QR) closeQr();
+  const x = day(today), st = typeof khatmState === 'function' ? khatmState() : null, fri = new Date().getDay() === 5;
+  const R = db.qread, M = db.qmark;
+  const quick = [['1', 'al-Fātiha'], ['18', fri ? '🕌 al-Kahf (Freitag)' : 'al-Kahf'], ['36', 'Yā-Sīn'], ['67', 'al-Mulk'], ['2:255', 'Āyat al-Kursī'], ['2:285-286', 'Ende al-Baqara'], ['78', 'Juz ‘Amma']];
+  $('#qrl-body').innerHTML = `${R ? `<button class="tsb" data-qr="${R.s}:${R.v}"><span>📍</span><div><b>Weiterlesen</b><small>${esc(qName(R.s))} ${R.s}:${R.v} · Seite ${qPage(R.s, R.v)}</small></div><i>›</i></button>` : ''}
+    ${st && !st.finished ? `<button class="tsb" data-qr="p${Math.min(PAGES, st.done + 1)}"><span>🎯</span><div><b>Khatm: weiter bei Seite ${Math.min(PAGES, st.done + 1)}</b><small>Heutiges Ziel: ${st.plan} Seiten</small></div><i>›</i></button>` : ''}
+    ${M ? `<button class="tsb" data-qr="${M.s}:${M.v}" style="border-color:var(--line);background:var(--card)"><span>🔖</span><div><b>Lesezeichen</b><small>${esc(qName(M.s))} ${M.s}:${M.v}</small></div><i>›</i></button>` : ''}
+    <p class="sub">📖 Heute gelesen: <b>${x.quran || 0}</b> ${(x.quran || 0) === 1 ? 'Seite' : 'Seiten'}. Im Leser zählen die Seiten automatisch mit – du musst nichts eintragen.</p>
+    <div class="chips">${quick.map(([q, t]) => `<button class="chip" data-qr="${q}">${t}</button>`).join('')}</div>
+    <div class="inp"><input id="qr-q" placeholder="Sure suchen – Name, Bedeutung oder Nummer" autocomplete="off"></div>
+    <div id="qr-list">${qListHTML('')}</div>
+    <button class="btn" data-qdl="1">📥 Ganzen Quran offline speichern (≈ 2 MB)</button><p class="sub" id="qr-dl">${db.qoff ? '✓ Der ganze Quran ist offline gespeichert.' : 'Jede Sure, die du einmal öffnest, bleibt automatisch offline verfügbar.'}</p>
+    <p class="sub">Übersetzung: Frank Bubenheim &amp; Nadeem Elyas · Umschrift: phonetisch (Tanzil) · Rezitation: Mishary Alafasy · Text-Daten: fawazahmed0/quran-api (frei). Die Umschrift ist eine Lesehilfe; „Wer den Quran mit Mühe stockend liest, hat doppelten Lohn.“ <span class="gref">Bukhari 4937, Muslim 798</span></p>`;
+  $('#qrl').hidden = false; $('#qrl').scrollTop = 0;
+}
+const qNorm = t => String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’‘'`-]/g, '');
+function qListHTML(q){
+  const w = qNorm(q.trim()), read = new Set((day(today).qp || []).flatMap(p => qPageVerses(p).map(k => +k.split(':')[0])));
+  return SURAS.map(([n, de, cnt, mk], i) => [i + 1, n, de, cnt, mk]).filter(([nr, n, de]) => !w || String(nr) === w || qNorm(n + ' ' + de).includes(w))
+    .map(([nr, n, de, cnt, mk]) => `<button class="qsr" data-qr="${nr}"><span class="qsr-n">${nr}</span><span class="qsr-t"><b>${esc(n)}</b><small>${esc(de)} · ${cnt} Verse · ${mk === 'M' ? 'Mekka' : 'Medina'}</small></span>${read.has(nr) ? '<em>✓ heute</em>' : ''}<i>›</i></button>`).join('')
+    || '<p class="sub">Keine Sure gefunden.</p>';
+}
+async function qDownloadAll(btn){
+  const el = $('#qr-dl'); btn.disabled = true; let done = 0, fail = 0, next = 1;
+  const work = async () => { while (next <= 114) { const s = next++; for (const ed of [QED.tr, QED.de]) { try { await qFetch(ed, s); } catch(e) { fail++; } } done++; el.textContent = `📥 Lade … ${done}/114 Suren`; } };
+  await Promise.all([work(), work(), work(), work()]);
+  db.qoff = !fail; save(); btn.disabled = false;
+  el.textContent = fail ? `⚠️ ${fail} Teile konnten nicht geladen werden – bitte später nochmal versuchen.` : '✓ Der ganze Quran ist jetzt offline gespeichert.';
+  for (const k in QMEM) delete QMEM[k];   // Speicher freigeben – liegt jetzt im Offline-Cache
+}
+
+// Rezitation (Mishary Alafasy) – Vers für Vers, mit Wiederholung zum Auswendiglernen
+const QA = new Audio(); QA.preload = 'auto';
+let QAS = null;
+const QA_URLS = [
+  (s, v) => `https://everyayah.com/data/Alafasy_128kbps/${pad3(s)}${pad3(v)}.mp3`,
+  (s, v) => `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${qGlobal(s, v)}.mp3`,
+  (s, v) => `https://verses.quran.com/Alafasy/mp3/${pad3(s)}${pad3(v)}.mp3`,
+];
+function qPlay(s, v, o = {}){
+  const rep = o.rep || 1;
+  QAS = {s, v, to:o.to || SURAS[s - 1][2], src:QAS ? QAS.src : 0, rep, left:rep, inline:!!o.inline, bism:o.bism ?? (!o.inline && v === 1 && s !== 1 && s !== 9)};
+  qLoad();
+}
+function qLoad(){
+  const a = QAS, [s, v] = a.bism ? [1, 1] : [a.s, a.v];
+  QA.src = QA_URLS[a.src](s, v);
+  QA.play().catch(err => { if (err && err.name === 'NotAllowedError') { qStop(); toast('Tippe nochmal auf ▶'); } });
+  qMark(true); qSync();
+  if ('mediaSession' in navigator) try { navigator.mediaSession.metadata = new MediaMetadata({title:`${qName(a.s)} ${a.s}:${a.v}`, artist:'Mishary Alafasy', album:'Quran'}); } catch(e) {}
+}
+function qStop(){
+  QAS = null; QA.pause(); QA.removeAttribute('src'); try { QA.load(); } catch(e) {}
+  qMark(); qSync();
+}
+QA.addEventListener('ended', () => {
+  const a = QAS; if (!a) return;
+  if (a.bism) { a.bism = false; return qLoad(); }
+  if (a.left > 1) { a.left--; return qLoad(); }
+  if (a.v < a.to) { a.v++; a.left = a.rep; return qLoad(); }
+  qStop();
+});
+QA.addEventListener('error', () => {
+  const a = QAS; if (!a || !QA.getAttribute('src')) return;
+  if (a.src < QA_URLS.length - 1) { a.src++; qLoad(); } else { qStop(); toast('🔇 Rezitation gerade nicht erreichbar – Internet?'); }
+});
+QA.addEventListener('play', () => qSync()); QA.addEventListener('pause', () => qSync());
+if ('mediaSession' in navigator) try {
+  navigator.mediaSession.setActionHandler('pause', () => QA.pause());
+  navigator.mediaSession.setActionHandler('play', () => QA.play().catch(() => {}));
+  navigator.mediaSession.setActionHandler('stop', () => qStop());
+} catch(e) {}
+// aktuellen Vers markieren und mitscrollen
+function qMark(scroll){
+  document.querySelectorAll('#qrv .qv.play').forEach(el => el.classList.remove('play'));
+  if (!QAS || QAS.inline || !QR || QR.s !== QAS.s || QAS.bism) return;
+  const el = $(`#qv-${QAS.v}`); if (!el) return;
+  el.classList.add('play'); if (scroll) el.scrollIntoView({block:'center', behavior:'smooth'});
+}
+function qSync(){
+  const on = QAS && !QA.paused;
+  const b = $('#qrv [data-qpa]'); if (b) b.textContent = QAS && !QAS.inline ? (on ? '⏸ Pause' : '▶ Weiter') : '▶ Anhören';
+  if (b) b.classList.toggle('on', !!(QAS && !QAS.inline && on));
+  document.querySelectorAll('[data-qbl]').forEach(x => { x.textContent = QAS && QAS.inline && on ? '⏸ Rezitation anhalten' : '🔊 Rezitation anhören'; });
+}
+// Vers-Bereich direkt abspielen (z. B. in „Näher zu Allah“)
+function qInline(spec){
+  if (QAS && QAS.inline) return qStop();
+  const q = qSpec(String(spec).replace('/', ':'));
+  qPlay(q.s, q.v, {to:q.hl ? q.hl[1] : q.v, inline:true});
+}
+
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-qr],[data-qlist],[data-qclose],[data-qpa],[data-qplay],[data-qmark],[data-qrep],[data-qar],[data-qdl]'); if (!b) return;
+  const d = b.dataset;
+  if (d.qr) { e.preventDefault(); openQr(d.qr, {rep:+d.qrepset || 0}); }
+  else if (d.qlist) openQList();
+  else if (d.qclose) closeQr();
+  else if (d.qpa) {
+    if (!QR) return;
+    if (QAS && !QAS.inline) { if (QA.paused) QA.play().catch(() => {}); else QA.pause(); }
+    else qPlay(QR.s, QR.vis.size ? Math.min(...QR.vis) : 1, {rep:QR.rep});
+  }
+  else if (d.qplay) { if (QR) qPlay(QR.s, +d.qplay, {rep:QR.rep}); }
+  else if (d.qmark) { if (!QR) return; db.qmark = {s:QR.s, v:+d.qmark}; save(); buzz(10); toast(`🔖 Lesezeichen: ${qName(QR.s)} ${QR.s}:${d.qmark}`); }
+  else if (d.qrep) { if (!QR) return; QR.rep = {1:3, 3:5, 5:10}[QR.rep] || 1; db.settings.qrep = QR.rep; save(); if (QAS && !QAS.inline) { QAS.rep = QR.rep; QAS.left = Math.min(QAS.left, QR.rep); } b.textContent = `🔁 ${QR.rep}×`; toast(QR.rep === 1 ? 'Jeder Vers einmal' : `Jeder Vers ${QR.rep}× – ideal zum Auswendiglernen`); }
+  else if (d.qar) {
+    if (!QR) return;
+    showAr = !showAr; try { localStorage.setItem('show-arabic', showAr ? '1' : '0'); } catch(_) {}
+    b.classList.toggle('on', showAr); const keep = QR.vis.size ? Math.min(...QR.vis) : 1, s = QR.s;
+    (showAr && !QR.ar ? qFetch(QED.ar, s).then(a => { if (QR && QR.s === s) QR.ar = a; }).catch(() => toast('Arabischer Text gerade nicht erreichbar')) : Promise.resolve())
+      .then(() => { if (QR && QR.s === s && QR.tr) { if (!showAr) QR.ar = null; renderSura(keep); } });
+  }
+  else if (d.qdl) qDownloadAll(b);
+});
+document.addEventListener('input', e => { if (e.target.id === 'qr-q') $('#qr-list').innerHTML = qListHTML(e.target.value); });
+$('#qrl').addEventListener('click', e => { if (e.target.closest('#qrl-close')) $('#qrl').hidden = true; });
 
 // ---------- Interaktion ----------
 function setCount(id, v){
@@ -4291,6 +4628,13 @@ $('#b-import').onchange = async e => {
     if (data.hadith) db.hadith = {...data.hadith, ...db.hadith};
     if (data.hifz) db.hifz = {...data.hifz, ...db.hifz};
     if (data.journal) db.journal = {...data.journal, ...db.journal};
+    if (data.qurb && data.qurb.log) {
+      db.qurb.log = {...data.qurb.log, ...db.qurb.log};
+      for (const h in data.qurb.c || {}) db.qurb.c[h] = Math.max(db.qurb.c[h] || 0, data.qurb.c[h]);
+      db.qurb.n = Math.max(db.qurb.n || 0, data.qurb.n || 0, Object.keys(db.qurb.log).length);
+    }
+    if (data.struggle && !db.struggle) db.struggle = data.struggle;
+    for (const k of ['qread', 'qmark']) if (data[k] && !db[k]) db[k] = data[k];
     if (data.partner && !db.partner) db.partner = data.partner;
     if (data.challenge && !db.challenge) db.challenge = data.challenge;
     if (Array.isArray(data.favs)) db.favs = [...db.favs, ...data.favs.filter(f => !db.favs.some(o => o.id === f.id))];
