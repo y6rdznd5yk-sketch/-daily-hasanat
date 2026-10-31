@@ -483,6 +483,31 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
 .gmini-t{flex:1;min-width:0;display:flex;flex-direction:column}
 .gmini-t small{color:var(--muted);font-size:.76rem}
 .gmini>i{font-style:normal;color:var(--accent);font-size:1.3rem}
+#wrap{color:#fff;justify-content:flex-start;padding-top:calc(env(safe-area-inset-top) + 18px)}
+#wrap-bars{display:flex;gap:4px;width:100%;max-width:520px}
+#wrap-bars i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.3)}
+#wrap-bars i.on,#wrap-bars i.cur{background:#fff}
+#wrap-close{position:absolute;top:calc(env(safe-area-inset-top) + 28px);right:16px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:1rem;z-index:2}
+#wrap-slide{flex:1;width:100%;max-width:520px;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:10px 6px}
+#wrap-slide h2{color:#fff;text-transform:none;letter-spacing:0;font-size:1.5rem;margin:0 0 14px}
+#wrap-slide p{margin:.45em 0;font-size:1rem;line-height:1.45}
+#wrap-slide small{color:rgba(255,255,255,.7);font-size:.78rem}
+#wrap .wn{display:block;font-size:4rem;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
+#wrap .wbig{font-size:1.5rem;font-weight:800}
+#wrap .wq{font-style:italic;font-size:1.05rem}
+#wrap-slide.in .wb{animation:wrapin .5s ease-out}
+@keyframes wrapin{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.wgar{position:relative;height:180px;border-radius:16px;overflow:hidden;background:linear-gradient(180deg,#bfe3c6,#4d9a5e);margin-bottom:10px}
+.wgar span{position:absolute;transform:translate(-50%,-50%);line-height:1}
+.wk{display:flex;gap:6px;margin:6px 0}
+.wk button{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);color:#fff;border-radius:999px;padding:5px 12px;font:inherit;font-size:.8rem}
+#wrap-next{padding:10px 0 calc(env(safe-area-inset-bottom) + 12px);font-weight:700;opacity:.85}
+.wteaser{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;background:linear-gradient(135deg,#6b4fa3,#24577a);color:#fff;border-radius:16px;padding:12px;margin-top:12px;font:inherit}
+.wteaser>span{font-size:1.8rem}
+.wteaser div{flex:1;min-width:0}
+.wteaser b{display:block}
+.wteaser small{opacity:.85;font-size:.78rem}
+.wteaser i{font-style:normal;font-size:1.3rem}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -500,6 +525,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
   <section class="page on" id="p-today">
     <div id="intro"></div>
     <div id="helpbanner"></div>
+    <div id="wrapt"></div>
     <div class="card" id="sday"></div>
     <div class="card" id="situ"></div>
     <div id="rank"></div>
@@ -556,7 +582,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <div class="segc c4" id="hseg">
       <button class="sg on" data-hs="rank"><span>🏆</span>Rang</button><button class="sg" data-hs="garden"><span>🌴</span>Garten</button><button class="sg" data-hs="coop"><span>👥</span>Zusammen</button><button class="sg" data-hs="over"><span>📊</span>Statistik</button><button class="sg" data-hs="badges"><span>🏅</span>Abzeichen</button><button class="sg" data-hs="quran"><span>📖</span>Quran</button><button class="sg" data-hs="sadaqa"><span>🤲</span>Sadaqa</button><button class="sg" data-hs="qada"><span>🔁</span>Nachholen</button>
     </div>
-    <div class="hpn" data-h="rank"><div id="rank2"></div><div id="pathinline"></div></div>
+    <div class="hpn" data-h="rank"><button class="wteaser" data-wrap="week" style="margin-bottom:10px"><span>✨</span><div><b>Dein Rückblick</b><small>Woche · Monat · Jahr · Gesamt – als Geschichte</small></div><i>›</i></button><div id="rank2"></div><div id="pathinline"></div></div>
     <div class="hpn" data-h="garden" hidden><h2>🌴 Dein Garten im Paradies</h2><div class="card" id="garden"></div></div>
     <div class="hpn" data-h="coop" hidden><h2>👥 Zusammen</h2><div class="card" id="coop"></div></div>
     <div class="hpn" data-h="over" hidden>
@@ -600,7 +626,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 31 (31.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 32 (31.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -766,6 +792,13 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <div class="sheet-h"><h3>🕋 Dein Sunnah-Tag</h3><button class="x" id="sday-close" aria-label="schließen">✕</button></div>
     <div id="sday-body"></div>
   </div>
+</div>
+<div class="tzo" id="wrap" hidden>
+  <div id="wrap-bars"></div>
+  <button id="wrap-close" aria-label="schließen">✕</button>
+  <div id="wrap-slide"></div>
+  <div class="wk"><button data-wk="week">Woche</button><button data-wk="month">Monat</button><button data-wk="year">Jahr</button><button data-wk="all">Gesamt</button></div>
+  <div id="wrap-next">Weiter ›</div>
 </div>
 <script src="prayer.js"></script>
 
@@ -1202,7 +1235,7 @@ function renderQuick(){
     </div>`;
   }).join('');
 }
-function render(){ renderStats(); renderCoopCard(); renderGardenCard(); renderPrayersTop(); renderHelpBanner(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); $('#now').hidden = true; }
+function render(){ renderStats(); renderCoopCard(); renderGardenCard(); renderWrapTeaser(); renderPrayersTop(); renderHelpBanner(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); $('#now').hidden = true; }
 
 // ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
 const SPECIAL = [
@@ -3368,6 +3401,94 @@ function renderGardenCard(){
     <span class="gmini-t"><b>🌴 Dein Garten im Paradies</b><small>🌴 ${fmt(G.palm)} · 🌿 ${fmt(G.plant)} · 💎 ${fmt(G.treasure)} · 🏡 ${fmt(G.house + G.ikhlas)}</small></span><i>›</i></button>`;
 }
 
+// ---------- ✨ Dein Rückblick: Woche · Monat · Jahr · Gesamt ----------
+function wrapRange(kind){
+  const end = today, d = new Date(today + 'T12:00');
+  if (kind === 'week') d.setDate(d.getDate() - 6);
+  else if (kind === 'month') d.setDate(d.getDate() - 29);
+  else if (kind === 'year') d.setDate(d.getDate() - 364);
+  const keys = Object.keys(db.days).sort(), start = kind === 'all' ? (keys[0] || today) : dkey(d);
+  return {start, end, days:daysBetween(start, end) + 1, label:{week:'deine Woche', month:'deine letzten 30 Tage', year:'dein Jahr', all:'deine ganze Reise'}[kind]};
+}
+function wrapData(kind){
+  const R = wrapRange(kind), W = {fard:0, jamaa:0, fajr:0, salawat:0, dhikr:0, pages:0, adhM:0, adhE:0, duas:0, active:0, xp:0, has:0, best:null, sad:0, grat:[], jr:0};
+  for (const k of Object.keys(db.days)) {
+    if (k < R.start || k > R.end) continue;
+    const x = db.days[k], s = dayStats(k), xp = dayXP(k);
+    W.fard += x.fard || 0; W.jamaa += x.jamaa || 0; W.fajr += prState(x, 'fajr') >= 1 ? 1 : 0;
+    W.salawat += sumKeys(x, ['q:q_salawat', 'salawat', 's_jsalawat']);
+    for (const key in x) if (/^(q|a|d):/.test(key)) { W.dhikr += x[key]; if (key.startsWith('d:')) W.duas += x[key]; }
+    W.pages += x.quran || 0;
+    if (adhCount(x, 'm') >= adhItems('m').length) W.adhM++;
+    if (adhCount(x, 'e') >= adhItems('e').length) W.adhE++;
+    if (active(k)) W.active++;
+    W.xp += xp; W.has += s.has;
+    if (!W.best || xp > W.best.xp) W.best = {k, xp};
+    if (db.journal[k]) { W.jr++; for (const g of db.journal[k].g || []) if (g) W.grat.push(g); }
+  }
+  W.sad = (db.sadaqa || []).filter(e => e.k >= R.start && e.k <= R.end).reduce((a, e) => a + e.amt, 0);
+  W.G = gardenCounts(); W.R = R;
+  W.prayRate = Math.round(W.fard / Math.max(1, R.days * 5) * 100);
+  W.fajrRate = Math.round(W.fajr / Math.max(1, R.days) * 100);
+  return W;
+}
+function wrapSlides(W){
+  const n = v => `<b class="wn" data-to="${v}">0</b>`, R = W.R;
+  // die schwächste Stelle als Ziel für die nächste Zeit
+  const goals = [
+    [W.fajrRate, 'Fajr', 'Fajr und Isha in Gemeinschaft sind wie eine ganze Nacht im Gebet.', 'Muslim 656'],
+    [Math.round(W.adhM / Math.max(1, R.days) * 100), 'Morgen-Adhkar', 'Schutz für den ganzen Tag – 5 Minuten nach Fajr.', 'Abu Dawud 5088'],
+    [Math.round(W.jr / Math.max(1, R.days) * 100), 'Abend-Rückblick', '„Wenn ihr dankbar seid, werde Ich euch gewiss mehr geben.“', 'Quran 14:7'],
+    [Math.min(100, Math.round(W.pages / Math.max(1, R.days) * 50)), 'Quran', 'Schon 2 Seiten am Tag sind eine Khatm in 10 Monaten.', 'Tirmidhi 2910'],
+  ].sort((a, b) => a[0] - b[0])[0];
+  const uniq = [...new Set(W.grat.slice().reverse())], grat = uniq.length ? uniq.slice(0, 3) : null;
+  return [
+    {bg:'#1f6f5c', h:`✨ Das war ${R.label}`, body:`<p class="wbig">${new Date(R.start + 'T12:00').toLocaleDateString('de-DE', {day:'numeric', month:'long'})} – ${new Date(R.end + 'T12:00').toLocaleDateString('de-DE', {day:'numeric', month:'long', year:'numeric'})}</p><p>„Wer auch nur ein Stäubchen Gutes tut, wird es sehen.“</p><small>Quran 99:7</small>`},
+    {bg:'#24577a', h:'🕌 Deine Gebete', body:`${n(W.fard)}<p>Pflichtgebete gebetet</p><p>davon <b>${fmt(W.jamaa)}</b> in Gemeinschaft (×27) · <b>${W.prayRate} %</b> aller Gebete</p><p>🌅 Fajr an <b>${fmt(W.fajr)}</b> von ${R.days} Tagen</p>`},
+    {bg:'#6b4fa3', h:'📿 Dein Gedenken', body:`${n(W.dhikr)}<p>Mal Dhikr, Adhkar & Du’a gesprochen</p><p>💚 <b>${fmt(W.salawat)}</b> Salawat – Allah hat dich dafür <b>${fmt(W.salawat * 10)}</b>-mal gesegnet</p><small>Muslim 408</small>`},
+    {bg:'#2e7d4f', h:'🌴 Dein Garten wächst', body:`<div class="wgar">${gardenField({...W.G, plant:Math.min(W.G.plant, 400)})}</div><p>🌴 <b>${fmt(W.G.palm)}</b> Palmen · 🌿 <b>${fmt(W.G.plant)}</b> Pflanzen · 💎 <b>${fmt(W.G.treasure)}</b> Schätze · 🏡 <b>${fmt(W.G.house + W.G.ikhlas)}</b> Häuser</p><small>insgesamt · Tirmidhi 3462, 3464</small>`},
+    {bg:'#8a5a17', h:'📖 Quran & Wissen', body:`${n(W.pages)}<p>Seiten Quran gelesen – das sind ca. <b>${fmt(W.pages * PER_PAGE)}</b> Hasanat</p><p>🎓 ${Object.keys(db.hadith).length}/42 Hadith · 🌟 ${Object.keys(db.names).length}/99 Namen · 🧠 ${hifzDone()}/38 Suren auswendig</p><small>Tirmidhi 2910</small>`},
+    {bg:'#a23e48', h:'🤲 Dein Herz', body:`${n(W.duas)}<p>Du’as gesprochen</p>${grat ? `<p>Du warst dankbar für:</p>${grat.map(g => `<p class="wq">„${esc(g)}“</p>`).join('')}` : `<p>Probier den 🌙 Abend-Rückblick – Dankbarkeit bringt mehr (Quran 14:7).</p>`}${W.sad ? `<p>🤲 <b>${eur(W.sad)}</b> Sadaqa gegeben – „Sadaqa vermindert das Vermögen nicht.“</p><small>Muslim 2588</small>` : ''}`},
+    {bg:'#1f6f5c', h:'🔥 Beständigkeit', body:`${n(W.active)}<p>von ${R.days} Tagen warst du aktiv</p><p>🔥 längste Serie: <b>${bestStreak()}</b> Tage · ${RANKS[db.rank || 0].icon} Rang: <b>${RANKS[db.rank || 0].name}</b></p>${W.best ? `<p>⭐ Dein bester Tag: <b>${new Date(W.best.k + 'T12:00').toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long'})}</b> (${fmt(W.best.xp)} XP)</p>` : ''}<p>„Die liebsten Taten bei Allah sind die beständigen, auch wenn sie wenig sind.“</p><small>Bukhari 6464, Muslim 783</small>`},
+    {bg:'#b07d1e', h:'💎 Hasanat', body:`${n(Math.round(W.has))}<p>Hasanat (mindestens) – und ${fmt(W.xp)} XP</p><p>„Wer eine gute Tat tut, dem wird sie zehnfach bis siebenhundertfach geschrieben – und Allah vervielfacht, wem Er will.“</p><small>Bukhari 6491, Muslim 131</small>`},
+    {bg:'#24577a', h:'🎯 Dein nächstes Ziel', body:`<p class="wbig">${goals[1]}</p><p>Hier ist am meisten Luft nach oben (${goals[0]} %). ${goals[2]}</p><small>${goals[3]}</small><p style="margin-top:18px">Allāhumma a‘innī ‘alā dhikrika wa schukrika wa husni ‘ibādatik</p><p>„O Allah, hilf mir, Deiner zu gedenken, Dir zu danken und Dir auf schönste Weise zu dienen.“</p><small>Abu Dawud 1522 – sahih</small>`},
+  ];
+}
+let WR = null;
+function openWrap(kind = 'week'){
+  WR = {kind, i:0, slides:wrapSlides(wrapData(kind))};
+  $('#wrap').hidden = false; keepAwake(true); showSlide();
+}
+function showSlide(){
+  const s = WR.slides[WR.i];
+  $('#wrap').style.background = `linear-gradient(160deg, ${s.bg}, #0f1a17)`;
+  $('#wrap-bars').innerHTML = WR.slides.map((_, i) => `<i class="${i < WR.i ? 'on' : i === WR.i ? 'cur' : ''}"></i>`).join('');
+  $('#wrap-slide').innerHTML = `<h2>${s.h}</h2><div class="wb">${s.body}</div>`;
+  $('#wrap-slide').classList.remove('in'); void $('#wrap-slide').offsetWidth; $('#wrap-slide').classList.add('in');
+  // Zahlen hochzählen
+  document.querySelectorAll('#wrap .wn').forEach(el => {
+    const to = +el.dataset.to, t0 = performance.now();
+    const step = t => { const p = Math.min(1, (t - t0) / 900); el.textContent = fmt(to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  });
+  $('#wrap-next').textContent = WR.i === WR.slides.length - 1 ? 'Fertig ✓' : 'Weiter ›';
+  buzz(6);
+}
+function closeWrap(){ $('#wrap').hidden = true; keepAwake(false); db.wrapSeen = today; save(); renderWrapTeaser(); }
+$('#wrap').addEventListener('click', e => {
+  if (e.target.closest('#wrap-close')) return closeWrap();
+  const kb = e.target.closest('[data-wk]'); if (kb) return openWrap(kb.dataset.wk);
+  const left = e.clientX < innerWidth * .3;
+  if (left && WR.i > 0) WR.i--;
+  else if (!left) { if (WR.i === WR.slides.length - 1) return closeWrap(); WR.i++; }
+  showSlide();
+});
+// Freitags (nach dem Jumu’a) und am Monatsanfang erscheint der Rückblick oben
+function renderWrapTeaser(){
+  const d = new Date(), show = (d.getDay() === 5 && d.getHours() >= 14 || d.getDate() === 1) && db.wrapSeen !== today && Object.keys(db.days).length >= 3;
+  $('#wrapt').innerHTML = show ? `<button class="wteaser" data-wrap="${d.getDate() === 1 ? 'month' : 'week'}"><span>✨</span><div><b>Dein ${d.getDate() === 1 ? 'Monats' : 'Wochen'}-Rückblick ist da</b><small>Gebete, Dhikr, Garten, Herz – in einer Minute</small></div><i>›</i></button>` : '';
+}
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -3405,6 +3526,7 @@ document.addEventListener('click', e => {
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
+  else if (b.dataset.wrap) openWrap(b.dataset.wrap);
   else if (b.dataset.ggo) goTo(GARDEN[+b.dataset.ggo][6]);
   else if (b.dataset.sday) openSunnahDay();
   else if (b.dataset.sgo) sunnahGo(+b.dataset.sgo);
