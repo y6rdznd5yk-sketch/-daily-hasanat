@@ -508,6 +508,21 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
 .wteaser b{display:block}
 .wteaser small{opacity:.85;font-size:.78rem}
 .wteaser i{font-style:normal;font-size:1.3rem}
+#dmg{background:linear-gradient(160deg,#5b3f8f,#0f1a17);color:#fff;justify-content:flex-start;padding-top:calc(env(safe-area-inset-top) + 18px);overflow-y:auto}
+#dmg-bars{display:flex;gap:3px;width:100%;max-width:520px}
+#dmg-bars i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.3)}
+#dmg-bars i.on{background:#fff}
+#dmg-close{position:absolute;top:calc(env(safe-area-inset-top) + 28px);right:16px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff}
+#dmg-body{flex:1;width:100%;max-width:520px;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:24px 4px}
+#dmg-body h2{color:#fff;text-transform:none;letter-spacing:0;font-size:1.25rem;margin:0 0 14px}
+#dmg-body small{color:rgba(255,255,255,.7);font-size:.78rem;margin-top:12px}
+.dmg-tr{font-size:1.15rem;font-weight:700;line-height:1.5;color:#d6f5e9}
+.dmg-de{font-style:italic;color:rgba(255,255,255,.85)}
+.dmg-own{background:rgba(255,255,255,.12);border-radius:12px;padding:10px;margin:6px 0;text-align:left}
+.dmg-nav{display:flex;gap:10px;width:100%;max-width:520px;padding-bottom:calc(env(safe-area-inset-bottom) + 12px)}
+.dmg-nav button{flex:1;border:0;border-radius:14px;padding:14px;font:inherit;font-weight:700}
+#dmg-back{background:rgba(255,255,255,.15);color:#fff}
+#dmg-next{background:#fff;color:#5b3f8f}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -559,6 +574,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <div class="card" id="cust"></div>
     </div>
     <div id="duawrap" hidden>
+      <button class="tsb" data-dm="1" style="border-color:var(--gold)"><span>🤲</span><div><b>Der Du’a-Meister</b><small>So geht Du’a · beste Zeiten · die vollständige Du’a Schritt für Schritt · Propheten · Gelehrte</small></div><i>›</i></button>
       <button class="tsb" data-tawba="1" style="border-color:var(--accent);background:var(--accent-soft)"><span>🤍</span><div><b>Neuanfang: Tawba, Sünde & Sucht</b><small>Wenn du gerade kämpfst oder gefallen bist – Du’as, Schritte, Notfall-Hilfe</small></div><i>›</i></button>
       <button class="tsb" data-reg="1"><span>📒</span><div><b>Register: Was sage ich wann?</b><small>Aufwachen, Essen, Haus verlassen, Regen, Wut, Sorge, Krankheit …</small></div><i>›</i></button>
       <h2>🤲 Du’a-Sammlung aus Quran &amp; Sunnah</h2><div class="card" id="duac"></div>
@@ -621,12 +637,12 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <div class="ptitle"><b>☰ Mehr</b><span>Werkzeuge, Einstellungen &amp; Daten</span></div>
     <div id="mlist">
       <h2>Werkzeuge</h2>
-      <div class="mgrp"><button class="mrow" data-qibla="1"><span>🧭</span><div><b>Qibla-Kompass</b><small>Richtung nach Mekka</small></div><i>›</i></button><button class="mrow" data-mk="ptimes"><span>🕌</span><div><b>Gebetszeiten</b><small>Heute und morgen</small></div><i>›</i></button><button class="mrow" data-mk="events"><span>📅</span><div><b>Besondere Tage</b><small>Fasten, Ramadan, Eid …</small></div><i>›</i></button><button class="mrow" data-jr="1"><span>🌙</span><div><b>Abend-Rückblick</b><small>Dankbarkeit & Muhasaba</small></div><i>›</i></button><button class="mrow" data-tawba="1"><span>🤍</span><div><b>Neuanfang</b><small>Tawba, Sünde & Sucht, Notfall-Hilfe</small></div><i>›</i></button><button class="mrow" data-mk="zakat"><span>💰</span><div><b>Zakat-Rechner</b><small>2,5 % · Nisab</small></div><i>›</i></button></div>
+      <div class="mgrp"><button class="mrow" data-qibla="1"><span>🧭</span><div><b>Qibla-Kompass</b><small>Richtung nach Mekka</small></div><i>›</i></button><button class="mrow" data-mk="ptimes"><span>🕌</span><div><b>Gebetszeiten</b><small>Heute und morgen</small></div><i>›</i></button><button class="mrow" data-mk="events"><span>📅</span><div><b>Besondere Tage</b><small>Fasten, Ramadan, Eid …</small></div><i>›</i></button><button class="mrow" data-dm="1"><span>🤲</span><div><b>Der Du’a-Meister</b><small>Adab, Zeiten, vollständige Du’a</small></div><i>›</i></button><button class="mrow" data-jr="1"><span>🌙</span><div><b>Abend-Rückblick</b><small>Dankbarkeit & Muhasaba</small></div><i>›</i></button><button class="mrow" data-tawba="1"><span>🤍</span><div><b>Neuanfang</b><small>Tawba, Sünde & Sucht, Notfall-Hilfe</small></div><i>›</i></button><button class="mrow" data-mk="zakat"><span>💰</span><div><b>Zakat-Rechner</b><small>2,5 % · Nisab</small></div><i>›</i></button></div>
       <h2>Einstellungen</h2>
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 32 (31.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 33 (31.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -799,6 +815,18 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
   <div id="wrap-slide"></div>
   <div class="wk"><button data-wk="week">Woche</button><button data-wk="month">Monat</button><button data-wk="year">Jahr</button><button data-wk="all">Gesamt</button></div>
   <div id="wrap-next">Weiter ›</div>
+</div>
+<div class="sheet" id="dm" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>🤲 Der Du’a-Meister</h3><button class="x" id="dm-close" aria-label="schließen">✕</button></div>
+    <div id="dm-body"></div>
+  </div>
+</div>
+<div class="tzo" id="dmg" hidden>
+  <div id="dmg-bars"></div>
+  <button id="dmg-close" aria-label="schließen">✕</button>
+  <div id="dmg-body"></div>
+  <div class="dmg-nav"><button id="dmg-back">‹ Zurück</button><button id="dmg-next">Weiter ›</button></div>
 </div>
 <script src="prayer.js"></script>
 
@@ -3112,6 +3140,8 @@ function situNow(){
   if ((t ? after('isha') : H >= 20) && H >= 19 && !db.journal[today]) out.unshift(['__jr', '🌙 Zeit für deinen Abend-Rückblick']);
   if (H >= 20 && H < 23) out.push(['majlis', '🗣️ Nach dem Abend mit Freunden']);
   if (h.hm === 12 && h.hd === 9) out.unshift(['arafah', '🕋 Heute ist der Tag von Arafa – das beste Du’a']);
+  const lastThird = t && (() => { const y = new Date(now); y.setDate(y.getDate() - 1); const tm = new Date(now); tm.setDate(tm.getDate() + 1); const n = now < t.fajr ? [times(y).maghrib, t.fajr] : now >= t.maghrib ? [t.maghrib, times(tm).fajr] : null; return n && now >= new Date(+n[1] - (n[1] - n[0]) / 3) && now < n[1]; })();
+  if (lastThird || (dow === 5 && t && after('asr') && before('maghrib'))) out.unshift(['__dm', lastThird ? '🌌 Letztes Drittel der Nacht – Zeit der Erhörung' : '📅 Freitag nach Asr – die Stunde der Erhörung']);
   if (t && ['fajr','dhuhr','asr','maghrib','isha'].some(k => now >= t[k] && now < new Date(+t[k] + 15 * 6e4))) out.unshift(['iqama', '🕌 Gebetszeit hat begonnen – Du’a vor der Iqama wird nicht zurückgewiesen']);
   if (!out.some(([id]) => id === 'guidance')) out.push(['guidance', '🧭 Bitte jeden Tag um Rechtleitung']);
   return out.slice(0, 4);
@@ -3126,7 +3156,7 @@ function situHTML(x, label){
 function renderSitu(){
   const list = situNow();
   $('#situ').innerHTML = `<div class="mh"><b>🧭 Passend für jetzt</b><button class="lnk" data-reg="1">Register ›</button></div>`
-    + list.map(([id, label]) => id === '__jr' ? `<button class="tsb" data-jr="1" style="margin:8px 0 4px"><span>🌙</span><div><b>${label}</b><small>3× Dankbarkeit · was lief gut · was morgen besser – 1 Minute</small></div><i>›</i></button>` : situHTML(SITU.find(x => x.id === id), label)).join('')
+    + list.map(([id, label]) => id === '__dm' ? `<button class="tsb" data-dmgo="1" style="margin:8px 0 4px;border-color:var(--gold)"><span>🤲</span><div><b>${label}</b><small>Jetzt die vollständige Du’a Schritt für Schritt</small></div><i>›</i></button>` : id === '__jr' ? `<button class="tsb" data-jr="1" style="margin:8px 0 4px"><span>🌙</span><div><b>${label}</b><small>3× Dankbarkeit · was lief gut · was morgen besser – 1 Minute</small></div><i>›</i></button>` : situHTML(SITU.find(x => x.id === id), label)).join('')
     + (!db.settings.weather && db.settings.lat != null ? `<p class="sub" style="margin:6px 0 0">🌧️ Soll die App Regen, Gewitter und Sturm automatisch erkennen? <button class="lnk" data-wx="1">Einschalten</button></p>` : '');
 }
 let regCat = 'Alle';
@@ -3489,6 +3519,124 @@ function renderWrapTeaser(){
   $('#wrapt').innerHTML = show ? `<button class="wteaser" data-wrap="${d.getDate() === 1 ? 'month' : 'week'}"><span>✨</span><div><b>Dein ${d.getDate() === 1 ? 'Monats' : 'Wochen'}-Rückblick ist da</b><small>Gebete, Dhikr, Garten, Herz – in einer Minute</small></div><i>›</i></button>` : '';
 }
 
+// ---------- 🤲 Der Du'a-Meister: Adab, Zeiten, vollständige Du'a, Propheten-Du'as, Gelehrte ----------
+const DM_ADAB = [
+  ['💚', 'Aufrichtigkeit & Halal', 'Bitte nur Allah – und achte darauf, dass dein Essen, Trinken und Geld halal sind. Der Mann mit haram Versorgung hebt die Hände: „Wie soll er erhört werden?“', 'Quran 40:14; Muslim 1015'],
+  ['💧', 'Wudu machen (empfohlen)', 'Der Prophet ﷺ machte Wudu, bevor er die Hände zum Du’a für Abu ‘Amir hob. Pflicht ist es nicht, aber Sunnah.', 'Bukhari 4323'],
+  ['🧭', 'Richtung Qibla', 'Bei Badr wandte er ﷺ sich zur Qibla, streckte die Hände aus und rief seinen Herrn an.', 'Muslim 1763'],
+  ['🙌', 'Die Hände heben', '„Euer Herr ist schamhaft und großzügig; Er schämt sich, die Hände Seines Dieners leer zurückzuweisen, wenn er sie zu Ihm hebt.“', 'Abu Dawud 1488, Tirmidhi 3556 – sahih'],
+  ['🌟', 'Mit Lob Allahs beginnen, dann Salawat', '„Wenn einer von euch bittet, soll er mit dem Lob seines Herrn beginnen, dann Segen auf den Propheten sprechen und dann bitten, was er will.“', 'Abu Dawud 1481, Tirmidhi 3477 – sahih'],
+  ['✨', 'Bei Seinen schönsten Namen rufen', '„Allah hat die schönsten Namen – so ruft Ihn damit an.“ Der Prophet ﷺ hörte einen Mann mit „…al-Ahad as-Samad…“ bitten und sagte: „Er hat Allah mit Seinem größten Namen angerufen, mit dem Er gibt, wenn man Ihn darum bittet.“', 'Quran 7:180; Abu Dawud 1493, Tirmidhi 3475 – sahih'],
+  ['🤍', 'Schwäche und Sünden eingestehen', 'Wie Yunus im Bauch des Wals: „Lā ilāha illā anta subhānaka innī kuntu minaz-zālimīn“ – kein Muslim bittet damit, ohne erhört zu werden.', 'Quran 21:87; Tirmidhi 3505 – sahih'],
+  ['💪', 'Mit Entschlossenheit und Gewissheit bitten', '„Sagt nicht: O Allah, vergib mir, wenn Du willst – sondern bittet entschlossen.“ – „Ruft Allah an, gewiss, dass Er erhört.“', 'Bukhari 6339, Muslim 2679; Tirmidhi 3479 – hasan'],
+  ['🔁', 'Dreimal wiederholen & beharrlich sein', 'Wenn er ﷺ Du’a machte, wiederholte er es dreimal.', 'Muslim 1794'],
+  ['⏳', 'Nicht ungeduldig werden', '„Ihr werdet erhört, solange ihr nicht ungeduldig werdet und sagt: Ich habe gebetet, aber wurde nicht erhört.“', 'Bukhari 6340, Muslim 2735'],
+  ['🌙', 'Leise, demütig, zwischen Hoffnung und Furcht', '„Ruft euren Herrn demütig und im Verborgenen an.“ – „Sie riefen Uns an in Sehnsucht und Ehrfurcht.“', 'Quran 7:55; 21:90'],
+  ['🏔️', 'Um Großes bitten', '„Wenn ihr Allah bittet, so bittet Ihn um al-Firdaus – es ist das beste und höchste Paradies.“', 'Bukhari 2790'],
+  ['👥', 'Für andere bitten', 'Bitte für deinen Bruder in seiner Abwesenheit – der Engel sagt: „Und dir das Gleiche.“', 'Muslim 2732'],
+  ['🤲', 'Mit Salawat abschließen', '„Jedes Du’a bleibt zwischen Himmel und Erde zurückgehalten, bis du Segen auf deinen Propheten ﷺ sprichst.“ (Aussage ‘Umars)', 'Tirmidhi 486 – hasan (mawquf)'],
+];
+const DM_TIMES = [
+  ['🌌', 'Das letzte Drittel der Nacht', 'Bukhari 1145, Muslim 758'],
+  ['🌙', 'Wenn du nachts aufwachst und Allah gedenkst', 'Bukhari 1154'],
+  ['🕌', 'Zwischen Adhan und Iqama', 'Abu Dawud 521, Tirmidhi 212 – sahih'],
+  ['🙇', 'In der Niederwerfung (Sujud)', 'Muslim 482'],
+  ['🕋', 'Am Ende der Pflichtgebete (vor dem Salam) und nachts', 'Tirmidhi 3499 – hasan'],
+  ['📅', 'Die Stunde am Freitag – besonders die letzte nach Asr', 'Bukhari 935; Abu Dawud 1048 – sahih'],
+  ['🍽️', 'Als Fastender bis zum Fastenbrechen', 'Tirmidhi 3598 – hasan'],
+  ['🧳', 'Auf Reisen', 'Tirmidhi 1905 – hasan'],
+  ['👨‍👩‍👧', 'Die Du’a der Eltern für ihr Kind', 'Tirmidhi 1905 – hasan'],
+  ['⚖️', 'Die Du’a des Unterdrückten', 'Tirmidhi 3598 – hasan; Bukhari 1496'],
+  ['🌧️', 'Wenn es regnet', 'Abu Dawud 2540 – hasan (al-Albani)'],
+  ['🗻', 'Am Tag von Arafa', 'Tirmidhi 3585 – hasan'],
+  ['✨', 'In Laylat al-Qadr', 'Quran 97:3; Tirmidhi 3513'],
+  ['💧', 'Beim Trinken von Zamzam', 'Ibn Majah 3062 – sahih (al-Albani)'],
+  ['🐓', 'Wenn der Hahn kräht', 'Bukhari 3303, Muslim 2729'],
+];
+// Die vollständige Du'a – aus authentischen Bausteinen, in der Reihenfolge der Sunnah
+const DM_STEPS = [
+  {h:'1 · Allah loben', tr:'Alhamdu lillāhi rabbil-‘ālamīn. Allāhumma innī as’aluka bi annī asch-hadu annaka antallāhu lā ilāha illā ant, al-ahadus-samad, alladhī lam yalid wa lam yūlad wa lam yakun lahū kufuwan ahad', de:'Alles Lob gebührt Allah, dem Herrn der Welten. O Allah, ich bitte Dich, indem ich bezeuge, dass Du Allah bist, es gibt keinen Gott außer Dir, der Eine, der Absolute, der nicht zeugt und nicht gezeugt wurde und dem niemand gleich ist.', ref:'Abu Dawud 1493, Tirmidhi 3475 – sahih (der „größte Name“)'},
+  {h:'2 · Salawat auf den Propheten ﷺ', tr:'Allāhumma salli ‘alā Muhammadin wa ‘alā āli Muhammad, kamā sallayta ‘alā Ibrāhīma wa ‘alā āli Ibrāhīm, innaka hamīdun madschīd. Allāhumma bārik ‘alā Muhammadin wa ‘alā āli Muhammad, kamā bārakta ‘alā Ibrāhīma wa ‘alā āli Ibrāhīm, innaka hamīdun madschīd', de:'O Allah, segne Muhammad und seine Familie, wie Du Ibrahim und seine Familie gesegnet hast …', ref:'Bukhari 3370; Abu Dawud 1481'},
+  {h:'3 · Bei Seinen Namen rufen', tr:'Yā Hayyu yā Qayyūm, bi rahmatika astaghīth. Yā Dhal-Dschalāli wal-Ikrām. Yā Badī‘as-samāwāti wal-ard', de:'O Lebendiger, o Beständiger, bei Deiner Barmherzigkeit suche ich Hilfe. O Besitzer der Majestät und Ehre. O Schöpfer der Himmel und der Erde.', ref:'Tirmidhi 3524, 3525; Abu Dawud 1495 – sahih'},
+  {h:'4 · Sünden eingestehen & um Vergebung bitten', tr:'Lā ilāha illā anta subhānaka innī kuntu minaz-zālimīn. Rabbanā zalamnā anfusanā wa in lam taghfir lanā wa tarhamnā lanakūnanna minal-khāsirīn', de:'Es gibt keinen Gott außer Dir, gepriesen bist Du, ich war einer der Ungerechten. Unser Herr, wir haben uns selbst Unrecht getan; wenn Du uns nicht vergibst und Dich unser nicht erbarmst, sind wir verloren.', ref:'Quran 21:87; 7:23; Tirmidhi 3505'},
+  {h:'5 · Das Umfassende erbitten', tr:'Allāhumma innī as’aluka minal-khayri kullihī ‘ādschilihī wa ādschilih, mā ‘alimtu minhu wa mā lam a‘lam, wa a‘ūdhu bika minasch-scharri kullihī ‘ādschilihī wa ādschilih, mā ‘alimtu minhu wa mā lam a‘lam. Allāhumma innī as’alukal-dschannata wa mā qarraba ilayhā min qawlin aw ‘amal, wa a‘ūdhu bika minan-nāri wa mā qarraba ilayhā min qawlin aw ‘amal', de:'O Allah, ich bitte Dich um alles Gute, das baldige und das spätere, was ich davon weiß und was nicht, und suche Zuflucht bei Dir vor allem Übel … Ich bitte Dich um das Paradies und um jedes Wort und jede Tat, die ihm nahebringen, und suche Zuflucht vor dem Feuer und allem, was ihm nahebringt.', ref:'Ibn Majah 3846 – sahih (al-Albani)'},
+  {h:'6 · Rechtleitung, Rizq & Wohlergehen', tr:'Allāhumma innī as’alukal-hudā wat-tuqā wal-‘afāfa wal-ghinā. Allāhummak-finī bi halālika ‘an harāmik, wa aghninī bi fadlika ‘amman siwāk. Allāhumma innī as’alukal-‘afwa wal-‘āfiyata fid-dunyā wal-ākhirah', de:'O Allah, ich bitte Dich um Rechtleitung, Gottesfurcht, Keuschheit und Unabhängigkeit. Lass mich mit Deinem Erlaubten genügen und mach mich durch Deine Güte unabhängig von allen außer Dir. Ich bitte Dich um Vergebung und Wohlergehen im Diesseits und Jenseits.', ref:'Muslim 2721; Tirmidhi 3563; Abu Dawud 5074'},
+  {h:'7 · Deine eigenen Anliegen', own:true, ref:'Abu Dawud 1481: „… dann bitte, was er will.“'},
+  {h:'8 · Für Eltern, Familie & alle Muslime', tr:'Rabbir-hamhumā kamā rabbayānī saghīrā. Rabbanā hab lanā min azwādschinā wa dhurriyyātinā qurrata a‘yunin wadsch‘alnā lil-muttaqīna imāmā. Rabbanaghfir lanā wa li-ikhwāninalladhīna sabaqūnā bil-īmān', de:'Mein Herr, erbarme Dich ihrer, wie sie mich klein aufgezogen haben. Unser Herr, schenke uns an Ehepartnern und Kindern Augentrost … Unser Herr, vergib uns und unseren Geschwistern, die uns im Glauben vorausgegangen sind.', ref:'Quran 17:24; 25:74; 59:10; Muslim 2732'},
+  {h:'9 · Das Gute beider Welten', tr:'Rabbanā ātinā fid-dunyā hasanatan wa fil-ākhirati hasanatan wa qinā ‘adhāban-nār', de:'Unser Herr, gib uns im Diesseits Gutes und im Jenseits Gutes und bewahre uns vor der Strafe des Feuers.', ref:'Quran 2:201; Bukhari 6389 (sein häufigstes Du’a ﷺ)'},
+  {h:'10 · Abschluss: Salawat, Lob & Āmīn', tr:'Allāhumma salli ‘alā Muhammad. Subhāna rabbika rabbil-‘izzati ‘ammā yasifūn, wa salāmun ‘alal-mursalīn, wal-hamdu lillāhi rabbil-‘ālamīn. Āmīn', de:'O Allah, segne Muhammad. Gepriesen sei dein Herr, der Herr der Macht, über das, was sie (Ihm) zuschreiben, Friede sei auf den Gesandten, und alles Lob gebührt Allah, dem Herrn der Welten. Āmīn.', ref:'Quran 37:180–182; Tirmidhi 486'},
+];
+const DM_PROPHETS = [
+  ['Adam & Hawwa', 'Rabbanā zalamnā anfusanā wa in lam taghfir lanā wa tarhamnā lanakūnanna minal-khāsirīn', 'Unser Herr, wir haben uns selbst Unrecht getan …', 'Quran 7:23'],
+  ['Nuh', 'Annī maghlūbun fantasir', 'Ich bin überwältigt, so hilf (mir).', 'Quran 54:10'],
+  ['Ibrahim', 'Rabbidsch‘alnī muqīmas-salāti wa min dhurriyyatī, rabbanā wa taqabbal du‘ā’', 'Mein Herr, mach, dass ich und meine Nachkommen das Gebet verrichten; unser Herr, nimm mein Du’a an.', 'Quran 14:40'],
+  ['Ibrahim & Isma‘il', 'Rabbanā taqabbal minnā innaka antas-samī‘ul-‘alīm', 'Unser Herr, nimm es von uns an …', 'Quran 2:127'],
+  ['Yusuf', 'Tawaffanī musliman wa alhiqnī bis-sālihīn', 'Lass mich als Muslim sterben und vereine mich mit den Rechtschaffenen.', 'Quran 12:101'],
+  ['Musa', 'Rabbi innī limā anzalta ilayya min khayrin faqīr', 'Mein Herr, ich bin bedürftig nach allem Guten, das Du mir herabsendest.', 'Quran 28:24'],
+  ['Musa (Reue)', 'Rabbi innī zalamtu nafsī faghfir lī', 'Mein Herr, ich habe mir selbst Unrecht getan, so vergib mir.', 'Quran 28:16'],
+  ['Musa (Mut)', 'Rabbisch-rah lī sadrī, wa yassir lī amrī, wahlul ‘uqdatan min lisānī, yafqahū qawlī', 'Mein Herr, weite meine Brust, erleichtere meine Aufgabe, löse den Knoten meiner Zunge …', 'Quran 20:25–28'],
+  ['Ayyub', 'Annī massaniyad-durru wa anta arhamur-rāhimīn', 'Mich hat Not getroffen, und Du bist der Barmherzigste der Barmherzigen.', 'Quran 21:83'],
+  ['Yunus', 'Lā ilāha illā anta subhānaka innī kuntu minaz-zālimīn', 'Es gibt keinen Gott außer Dir …', 'Quran 21:87'],
+  ['Zakariya', 'Rabbi lā tadharnī fardan wa anta khayrul-wārithīn', 'Mein Herr, lass mich nicht allein, und Du bist der beste Erbe.', 'Quran 21:89'],
+  ['Sulayman', 'Rabbi awzi‘nī an aschkura ni‘matakallatī an‘amta ‘alayya wa ‘alā wālidayya wa an a‘mala sālihan tardāh', 'Mein Herr, gib mir ein, dankbar zu sein für Deine Gnade an mir und meinen Eltern, und Gutes zu tun, das Dir gefällt.', 'Quran 27:19'],
+  ['Muhammad ﷺ', 'Rabbanā ātinā fid-dunyā hasanatan wa fil-ākhirati hasanatan wa qinā ‘adhāban-nār', 'Unser Herr, gib uns im Diesseits Gutes und im Jenseits Gutes …', 'Quran 2:201; Bukhari 6389'],
+];
+const DM_SCHOLARS = [
+  ['Der Prophet ﷺ', '„Das Du’a ist der Gottesdienst (‘Ibada).“ Dann rezitierte er: „Euer Herr sagt: Ruft Mich an, so erhöre Ich euch.“', 'Abu Dawud 1479, Tirmidhi 2969 – sahih; Quran 40:60'],
+  ['Der Prophet ﷺ', '„Kein Muslim spricht ein Du’a ohne Sünde und ohne Abbruch der Verwandtschaft, ohne dass Allah ihm eines von drei Dingen gibt: Er erfüllt es schnell, oder Er bewahrt es für ihn im Jenseits auf, oder Er wendet ein gleiches Übel von ihm ab.“ – „Dann machen wir viel Du’a!“ – „Allah gibt noch mehr.“', 'Ahmad 11133 – hasan (al-Albani)'],
+  ['‘Umar ibn al-Khattab', '„Ich trage nicht die Sorge um die Erhörung, sondern die Sorge um das Du’a. Wenn mir das Du’a eingegeben wird, kommt die Erhörung mit ihm.“', 'überliefert/zugeschrieben, zitiert bei Ibn Taymiyya'],
+  ['Sufyan ibn ‘Uyayna', '„Niemand soll das Du’a lassen wegen dessen, was er von sich selbst (seinen Sünden) weiß – denn Allah hat sogar Iblis erhört, als er sagte: Gewähre mir Aufschub.“', 'überliefert; vgl. Quran 7:14–15'],
+  ['Ibn al-Qayyim', '„Wenn sich im Du’a vereinen: Gegenwart des Herzens, ein Zeitpunkt der Erhörung, Demut und Bedürftigkeit, Qibla, Reinheit, erhobene Hände, Beginn mit Lob und Salawat, vorher Reue und Istighfar, beharrliches Bitten mit Seinen Namen und Sadaqa davor – dann wird dieses Du’a kaum je zurückgewiesen.“ (sinngemäß)', 'Ibn al-Qayyim, al-Dschawāb al-Kāfī'],
+  ['Ibn ‘Abbas (Tafsir)', 'Zu „Ruft Mich an, so erhöre Ich euch“: Betet zu Mir (in Tawhid), so vergebe Ich euch und belohne euch.', 'Tafsir at-Tabari zu Quran 40:60'],
+  ['Hinweis der Gelehrten', 'Das Abstreichen des Gesichts mit den Händen nach dem Du’a beruht auf schwachen Überlieferungen; manche Gelehrte erlauben es, andere lassen es. Beides ist kein Muss.', 'u. a. al-Albani, Ibn Baz'],
+];
+
+let DMG = null;
+function openDM(tab){
+  tab = tab || 'how';
+  const T = {how:'So geht’s', when:'Wann & wo', full:'Die vollständige Du’a', prophets:'Propheten', scholars:'Gelehrte'};
+  let body = '';
+  if (tab === 'how') body = `<p>Die Adab (Etikette) des Du’a, wie Quran, Sunnah und die Gelehrten sie beschreiben – in der Reihenfolge, wie du vorgehst:</p>`
+    + DM_ADAB.map(([i, t, d, r], n) => `<div class="hp"><span class="hp-i">${i}</span><div><b>${n + 1}. ${t}</b><p>${esc(d)}</p><span class="gref">${esc(r)}</span></div></div>`).join('');
+  if (tab === 'when') body = `<p>Zeiten, Orte und Zustände, in denen die Sunnah die Erhörung besonders verspricht:</p>`
+    + DM_TIMES.map(([i, t, r]) => `<div class="li"><span>${i} ${esc(t)}</span><span class="gref">${esc(r)}</span></div>`).join('');
+  if (tab === 'full') body = `<div class="dh" style="margin-top:0"><div class="dh-k">Die vollständige Du’a</div><div class="dh-t">10 Schritte aus authentischen Bausteinen, in der Reihenfolge der Sunnah: loben, Salawat, Namen, Reue, das Umfassende, deine Anliegen, für andere, Abschluss. Am besten mit Wudu, Richtung Qibla, mit erhobenen Händen – und zu einer Zeit der Erhörung.</div></div>
+    <button class="btn p" data-dmgo="1">▶ Jetzt Schritt für Schritt beten</button>`
+    + DM_STEPS.map(s => `<details class="sit"><summary><b>${esc(s.h)}</b></summary>${s.own ? '<p>Hier sprichst du deine eigenen Anliegen – in jeder Sprache. Deine Liste „Meine Du’as“ wird im geführten Ablauf an dieser Stelle angezeigt.</p>' : `<div class="say"><div class="tr">${esc(s.tr)}</div><div class="de">„${esc(s.de)}“</div></div>`}<span class="gref">${esc(s.ref)}</span></details>`).join('');
+  if (tab === 'prophets') body = `<p>Die Du’as, mit denen die Propheten ihren Herrn angerufen haben – und mit denen Er sie erhört hat:</p>`
+    + DM_PROPHETS.map(([p, tr, de, r]) => `<div class="dua"><div class="dua-h"><b>${esc(p)}</b></div><div class="say"><div class="tr">${esc(tr)}</div><div class="de">„${esc(de)}“</div></div><span class="gref">${esc(r)}</span></div>`).join('');
+  if (tab === 'scholars') body = DM_SCHOLARS.map(([w, q, r]) => `<div class="hp"><span class="hp-i">📜</span><div><b>${esc(w)}</b><p>${esc(q)}</p><span class="gref">${esc(r)}</span></div></div>`).join('')
+    + '<p class="sub">Aussagen der Sahaba und Gelehrten sind keine Hadithe des Propheten ﷺ; wo eine Zuschreibung nicht sicher belegt ist, steht „überliefert/zugeschrieben“.</p>';
+  $('#dm-body').innerHTML = `<div class="chips">${Object.entries(T).map(([k, v]) => `<button class="chip ${k === tab ? 'on' : ''}" data-dmtab="${k}">${v}</button>`).join('')}</div>${body}
+    <p class="sub" style="margin-top:14px">Ob und wie ein Du’a erhört wird, liegt allein bei Allah. Doch keines geht verloren: erfüllt, aufbewahrt oder ein Übel abgewendet (Ahmad 11133).</p>`;
+  $('#dm').hidden = false; $('#dm').scrollTop = 0;
+}
+// Geführter Ablauf
+function dmGuide(){ DMG = {i:0}; $('#dmg').hidden = false; keepAwake(true); renderDMG(); }
+function renderDMG(){
+  const s = DM_STEPS[DMG.i], mine = (db.duas || []).filter(d => !d.done);
+  $('#dmg-bars').innerHTML = DM_STEPS.map((_, i) => `<i class="${i <= DMG.i ? 'on' : ''}"></i>`).join('');
+  $('#dmg-body').innerHTML = `<h2>${esc(s.h)}</h2>` + (s.own
+    ? `<p>Sprich jetzt deine Anliegen – mit Gewissheit, dreimal, in deiner Sprache.</p>${mine.length ? mine.map(d => `<p class="dmg-own">🤲 ${esc(d.text)}</p>`).join('') : '<p class="sub" style="color:rgba(255,255,255,.75)">Tipp: Unter 📿 Dhikr → 🤲 Du’as → „Meine Du’as“ kannst du deine Anliegen speichern – dann erscheinen sie hier.</p>'}`
+    : `<p class="dmg-tr">${esc(s.tr)}</p><p class="dmg-de">„${esc(s.de)}“</p>`) + `<small>${esc(s.ref)}</small>`;
+  $('#dmg-next').textContent = DMG.i === DM_STEPS.length - 1 ? 'Āmīn – fertig ✓' : 'Weiter ›';
+}
+function dmNext(d){
+  if (d < 0) { if (DMG.i > 0) DMG.i--; return renderDMG(); }
+  if (DMG.i === DM_STEPS.length - 1) {
+    const x = db.days[today] = db.days[today] || {}; x['d:x_master'] = (x['d:x_master'] || 0) + 1; save(); renderStats();
+    $('#dmg').hidden = true; keepAwake(false); buzz([40,60,40,60,120]);
+    toast('Āmīn 🤲 – möge Allah es annehmen'); return;
+  }
+  DMG.i++; buzz(6); renderDMG(); $('#dmg').scrollTop = 0;
+}
+$('#dm').addEventListener('click', e => { if (e.target.closest('#dm-close')) $('#dm').hidden = true; });
+$('#dmg').addEventListener('click', e => {
+  if (e.target.closest('#dmg-close')) { $('#dmg').hidden = true; keepAwake(false); return; }
+  if (e.target.closest('#dmg-back')) return dmNext(-1);
+  if (e.target.closest('#dmg-next')) return dmNext(1);
+});
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -3526,6 +3674,9 @@ document.addEventListener('click', e => {
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
+  else if (b.dataset.dm) openDM();
+  else if (b.dataset.dmtab) openDM(b.dataset.dmtab);
+  else if (b.dataset.dmgo) { $('#dm').hidden = true; dmGuide(); }
   else if (b.dataset.wrap) openWrap(b.dataset.wrap);
   else if (b.dataset.ggo) goTo(GARDEN[+b.dataset.ggo][6]);
   else if (b.dataset.sday) openSunnahDay();
