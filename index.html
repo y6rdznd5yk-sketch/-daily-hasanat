@@ -440,6 +440,32 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
 .sosr b{display:block;font-size:.9rem}
 .sosr small{color:var(--muted);font-size:.8rem}
 .sosr:has(input:checked){opacity:.55}
+#sday{margin-top:12px;border:2px solid var(--gold);background:linear-gradient(135deg,var(--gold-soft),var(--card))}
+.sday-h{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;color:var(--ink);text-align:left;font:inherit;padding:0}
+.sday-r{--p:0;flex:none;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--gold) calc(var(--p)*1%),var(--line) 0);position:relative}
+.sday-r::before{content:"";position:absolute;inset:6px;border-radius:50%;background:var(--card)}
+.sday-r b,.sday-r small{position:relative}
+.sday-r b{font-size:1.15rem}
+.sday-r small{font-size:.7rem;color:var(--muted)}
+.sday-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.sday-t b{font-size:.98rem}
+.sday-t small{font-size:.76rem;color:var(--muted)}
+.sday-t small:first-child{color:var(--gold);font-weight:700}
+.sday-h>i{font-style:normal;color:var(--gold);font-size:1.3rem}
+.tl{margin:12px 0;position:relative}
+.tl-i{display:flex;gap:10px;position:relative;padding-bottom:14px}
+.tl-i::before{content:"";position:absolute;left:13px;top:28px;bottom:0;width:2px;background:var(--line)}
+.tl-i:last-child::before{display:none}
+.tl-d{flex:none;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--card);border:2px solid var(--line);color:var(--muted);font-weight:800;font-size:.85rem;z-index:1}
+.tl-i.done .tl-d{background:var(--accent);border-color:var(--accent);color:#fff}
+.tl-i.now .tl-d{border-color:var(--gold);color:var(--gold)}
+.tl-i.past:not(.done){opacity:.55}
+.tl-c{flex:1;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.tl-i.cur .tl-c{border:2px solid var(--gold)}
+.tl-c small{display:block;color:var(--muted);font-size:.74rem;font-variant-numeric:tabular-nums}
+.tl-c b{display:block;font-size:.92rem;margin:2px 0}
+.tl-c p{margin:.3em 0;font-size:.84rem}
+.tl-c .mbtn{margin-top:6px}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -457,6 +483,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
   <section class="page on" id="p-today">
     <div id="intro"></div>
     <div id="helpbanner"></div>
+    <div class="card" id="sday"></div>
     <div class="card" id="situ"></div>
     <div id="rank"></div>
     <div class="card" id="missions"></div>
@@ -554,7 +581,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 29 (31.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 30 (31.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -713,6 +740,12 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
   <div class="wrap">
     <div class="sheet-h"><h3>🌙 Abend-Rückblick</h3><button class="x" id="jr-close" aria-label="schließen">✕</button></div>
     <div id="jr-body"></div>
+  </div>
+</div>
+<div class="sheet" id="sdaysh" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>🕋 Dein Sunnah-Tag</h3><button class="x" id="sday-close" aria-label="schließen">✕</button></div>
+    <div id="sday-body"></div>
   </div>
 </div>
 <script src="prayer.js"></script>
@@ -1150,7 +1183,7 @@ function renderQuick(){
     </div>`;
   }).join('');
 }
-function render(){ renderStats(); renderCoopCard(); renderPrayersTop(); renderHelpBanner(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); renderRamadanCard(); renderSitu(); }
+function render(){ renderStats(); renderCoopCard(); renderPrayersTop(); renderHelpBanner(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); $('#now').hidden = true; }
 
 // ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
 const SPECIAL = [
@@ -3202,6 +3235,76 @@ function saveJournal(){
 }
 $('#jr').addEventListener('click', e => { if (e.target.closest('#jr-close')) $('#jr').hidden = true; });
 
+// ---------- 🕋 Dein Sunnah-Tag: Live-Begleiter nach der Sunnah ----------
+function sunnahTimes(){
+  const now = new Date(), t = times(now), tm = new Date(now); tm.setDate(tm.getDate() + 1); const y = new Date(now); y.setDate(y.getDate() - 1);
+  const at = (h, m = 0) => { const d = new Date(now); d.setHours(h, m, 0, 0); return d; };
+  const T = t || {fajr:at(6), sunrise:at(7, 30), dhuhr:at(12, 30), asr:at(15, 30), maghrib:at(18), isha:at(19, 30)};
+  const fajrTm = t ? times(tm).fajr : new Date(+T.fajr + 864e5), maghY = t ? times(y).maghrib : new Date(+T.maghrib - 864e5);
+  // letztes Drittel der Nacht, die heute früh endet bzw. heute Abend beginnt
+  const third = (from, to) => new Date(+to - (to - from) / 3);
+  return {T, lastThirdMorning:third(maghY, T.fajr), lastThirdTonight:third(T.maghrib, fajrTm), fajrTm, approx:!t};
+}
+const M = 6e4, plus = (d, m) => new Date(+d + m * M);
+function sunnahStations(){
+  const {T, lastThirdMorning, approx} = sunnahTimes(), x = day(today), ad = s => adhCount(x, s) >= adhItems(s).length, pr = k => prState(x, k) >= 1;
+  return {approx, list:[
+    {ic:'🌌', t:'Nachtgebet & Du’a im letzten Drittel', from:lastThirdMorning, to:T.fajr, done:(x.qiyam || 0) >= 1, src:'Bukhari 1145, Muslim 758; Muslim 1163', txt:'Allah steigt herab und fragt: „Wer bittet Mich, dass Ich ihm gebe?“ Das beste Gebet nach dem Pflichtgebet ist das Nachtgebet.', go:{tick:'qiyam'}, btn:'Abhaken'},
+    {ic:'🌅', t:'Aufwachen: Siwak & Du’a', from:plus(T.fajr, -40), to:T.sunrise, done:!!x['d:x_wake'], src:'Bukhari 245; Bukhari 6312', txt:'Er ﷺ reinigte beim Aufstehen den Mund mit dem Siwak und sagte: „Alhamdu lillāhilladhī ahyānā …“', go:{reg:'wake'}, btn:'Du’a'},
+    {ic:'🕌', t:'Fajr + 2 Rak’at Sunnah davor', from:T.fajr, to:T.sunrise, done:pr('fajr'), src:'Muslim 725; Muslim 656', txt:'Die 2 Rak’at vor Fajr sind besser als die Welt und alles darin. Fajr und Isha in Gemeinschaft sind wie eine ganze Nacht im Gebet.', go:{prayers:1}, btn:'Gebete'},
+    {ic:'📿', t:'Morgen-Adhkar – sitzen bleiben bis Sonnenaufgang', from:T.fajr, to:plus(T.sunrise, 60), done:ad('m'), src:'Tirmidhi 586 – hasan (al-Albani)', txt:'Wer Fajr in Gemeinschaft betet, dann sitzt und Allahs gedenkt bis die Sonne aufgeht und zwei Rak’at betet, hat den Lohn einer vollständigen Hadsch und Umra.', go:{seg:'m'}, btn:'Adhkar'},
+    {ic:'💰', t:'Rizq-Du’a & früh starten', from:T.fajr, to:plus(T.sunrise, 150), done:!!x['d:x_fajr_rizq'], src:'Ibn Majah 925; Abu Dawud 2606, Tirmidhi 1212 – hasan', txt:'„O Allah, segne meiner Umma ihre frühen Morgenstunden.“ Bitte um nützliches Wissen, guten Rizq und angenommene Taten.', go:{reg:'fajr_rizq'}, btn:'Du’a'},
+    {ic:'☀️', t:'Duha-Gebet', from:plus(T.sunrise, 20), to:plus(T.dhuhr, -10), done:(x.duha || 0) >= 1, src:'Muslim 720', txt:'Für jedes deiner 360 Gelenke ist jeden Morgen eine Sadaqa fällig – zwei Rak’at Duha genügen dafür.', go:{tick:'duha'}, btn:'Abhaken'},
+    {ic:'💼', t:'Halal arbeiten & lernen', from:plus(T.sunrise, 60), to:T.dhuhr, done:(x.tawakkul || 0) >= 1 || (x.hl || 0) >= 1, src:'Bukhari 2072; Muslim 2699', txt:'„Niemand hat je besseres Essen gegessen als das von der Arbeit seiner Hände.“ Wer einen Weg des Wissens geht, dem erleichtert Allah den Weg ins Paradies.', go:{hpath:1}, btn:'Lernen'},
+    {ic:'🕌', t:'Dhuhr + Rawatib (4 davor, 2 danach)', from:T.dhuhr, to:T.asr, done:pr('dhuhr'), src:'Muslim 728; Tirmidhi 415 – hasan sahih', txt:'Wer täglich die 12 Rawatib betet, dem wird ein Haus im Paradies gebaut.', go:{prayers:1}, btn:'Gebete'},
+    {ic:'🕌', t:'Asr bewahren', from:T.asr, to:T.maghrib, done:pr('asr'), src:'Bukhari 552, Muslim 626', txt:'„Wer das Asr-Gebet verpasst, ist wie einer, der seine Familie und sein Vermögen verloren hat.“', go:{prayers:1}, btn:'Gebete'},
+    {ic:'🌇', t:'Abend-Adhkar', from:T.asr, to:T.isha, done:ad('e'), src:'Muslim 2723; Abu Dawud 5088', txt:'Schutz für die Nacht: „Wer morgens und abends dreimal Bismillāhilladhī lā yadurru … sagt, dem schadet nichts.“', go:{seg:'e'}, btn:'Adhkar'},
+    {ic:'🕌', t:'Maghrib + 2 Sunnah · Kinder ins Haus', from:T.maghrib, to:T.isha, done:pr('maghrib'), src:'Bukhari 3304, Muslim 2012', txt:'Bei Einbruch der Nacht die Kinder hereinholen und Bismillah sagen – dann breiten sich die Schayatin aus.', go:{prayers:1}, btn:'Gebete'},
+    {ic:'🕌', t:'Isha + Witr', from:T.isha, to:plus(T.isha, 180), done:pr('isha'), src:'Bukhari 998, Muslim 751', txt:'„Macht den Witr zu eurem letzten Gebet in der Nacht.“', go:{prayers:1}, btn:'Gebete'},
+    {ic:'🌙', t:'Abend-Rückblick (Muhasaba)', from:T.isha, to:plus(T.isha, 240), done:!!db.journal[today], src:'Quran 14:7', txt:'Dankbarkeit bringt mehr: „Wenn ihr dankbar seid, werde Ich euch gewiss mehr geben.“', go:{jr:1}, btn:'Rückblick'},
+    {ic:'😴', t:'Sunnah-Schlaf: Wudu, rechte Seite, Schlaf-Adhkar', from:plus(T.isha, 60), to:plus(T.isha, 300), done:ad('s'), src:'Bukhari 247; Bukhari 568', txt:'Er ﷺ mochte den Schlaf vor Isha und das Reden danach nicht – früh schlafen, mit Wudu, auf der rechten Seite.', go:{seg:'s'}, btn:'Adhkar'},
+  ]};
+}
+function sunnahNow(){
+  const now = new Date(), {list, approx} = sunnahStations();
+  const active = list.filter(s => now >= s.from && now < s.to);
+  // offene Pflichtgebete haben immer Vorrang
+  const open = active.filter(s => !s.done), cur = open.find(s => s.ic === '🕌') || open[0] || active[0] || null;
+  const next = list.filter(s => s.from > now).sort((a, b) => a.from - b.from)[0] || null;
+  return {list, cur, next, done:list.filter(s => s.done).length, approx};
+}
+function renderSunnahCard(){
+  const el = $('#sday'), {list, cur, next, done} = sunnahNow(), pct = done / list.length * 100;
+  el.innerHTML = `<button class="sday-h" data-sday="1"><span class="sday-r" style="--p:${pct}"><b>${done}</b><small>/${list.length}</small></span>
+      <span class="sday-t"><small>🕋 Dein Sunnah-Tag</small>
+        ${cur ? `<b>Jetzt: ${cur.ic} ${esc(cur.t)}</b><small>${cur.done ? '✓ erledigt' : `noch bis ${hm(cur.to)}`}</small>` : `<b>Gerade keine feste Station</b><small>Nutze die Zeit für Dhikr und Gutes</small>`}
+        ${next ? `<small>Danach: ${next.ic} ${esc(next.t)} · ${hm(next.from)}</small>` : ''}</span><i>›</i></button>
+    ${cur && !cur.done ? `<button class="adhbtn" data-sgo="${list.indexOf(cur)}" style="width:100%;margin-top:8px">${cur.ic} ${esc(cur.btn)} – jetzt</button>` : ''}`;
+}
+function openSunnahDay(){
+  const now = new Date(), {list, cur, done, approx} = sunnahNow();
+  const sorted = list.map((s, i) => ({...s, i})).sort((a, b) => a.from - b.from);
+  $('#sday-body').innerHTML = `<div class="dh" style="margin-top:0"><div class="dh-k">Euer Vorbild</div><div class="dh-t">„Im Gesandten Allahs habt ihr wahrlich ein schönes Vorbild.“</div><div class="dh-r">Quran 33:21</div></div>
+    <p><b>${done} von ${list.length}</b> Stationen heute erledigt${approx ? ' · <span class="sub">Zeiten geschätzt – lege deinen Standort fest für genaue Gebetszeiten</span>' : ''}</p>
+    <div class="bar"><i style="width:${done / list.length * 100}%;background:var(--gold)"></i></div>
+    <div class="tl">${sorted.map(s => {
+      const state = s.done ? 'done' : (now >= s.from && now < s.to) ? 'now' : now >= s.to ? 'past' : 'later';
+      return `<div class="tl-i ${state} ${cur && cur.t === s.t ? 'cur' : ''}"><div class="tl-d">${s.done ? '✓' : state === 'now' ? '●' : state === 'past' ? '–' : '○'}</div>
+        <div class="tl-c"><small>${hm(s.from)} – ${hm(s.to)}${state === 'now' && !s.done ? ' · <b>jetzt</b>' : ''}</small><b>${s.ic} ${esc(s.t)}</b><p>${esc(s.txt)}</p><span class="gref">${esc(s.src)}</span>
+        ${s.done ? '' : `<button class="mbtn ${state === 'now' ? '' : 'go'}" data-sgo="${s.i}">${esc(s.btn)} ›</button>`}</div></div>`;
+    }).join('')}</div>
+    <p class="sub">Die Stationen erkennen automatisch, was du in der App erledigst (Gebete, Adhkar, Duha, Du’as, Rückblick …). Verpasstes ist kein Grund aufzugeben – morgen ist ein neuer Sunnah-Tag.</p>`;
+  $('#sdaysh').hidden = false; $('#sdaysh').scrollTop = 0;
+}
+function sunnahGo(i){
+  const s = sunnahStations().list[i], g = s.go;
+  $('#sdaysh').hidden = true;
+  if (g.reg) { openReg(); setTimeout(() => { $('#reg-q').value = SITU.find(x => x.id === g.reg).title; $('#reg-q').dispatchEvent(new Event('input', {bubbles:true})); const d = $('#reg-res details'); if (d) d.open = true; }, 30); }
+  else if (g.tick) { const d = findDeed(g.tick); if (isHidden(d.id)) { db.hidden = db.hidden.filter(x => x !== d.id); db.settings.preset = 'custom'; clearStats(); } setCount(d.id, d.target); }
+  else goTo(g);
+}
+$('#sdaysh').addEventListener('click', e => { if (e.target.closest('#sday-close')) $('#sdaysh').hidden = true; });
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -3238,6 +3341,8 @@ document.addEventListener('click', e => {
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
+  else if (b.dataset.sday) openSunnahDay();
+  else if (b.dataset.sgo) sunnahGo(+b.dataset.sgo);
   else if (b.dataset.tawba) { $('#jr').hidden = true; renderTawba(); }
   else if (b.dataset.jr) openJournal();
   else if (b.dataset.jsave) saveJournal();
@@ -3409,7 +3514,7 @@ document.addEventListener('visibilitychange', () => {
 });
 setInterval(() => {
   if (dkey(new Date()) !== today) { today = dkey(new Date()); clearStats(); render(); renderRamadan(); renderEvents(); }
-  else { renderPrayer(); renderNow(); if (!document.querySelector('#situ details[open]')) renderSitu(); }
+  else { renderPrayer(); renderNow(); $('#now').hidden = true; renderSunnahCard(); if (!document.querySelector('#situ details[open]')) renderSitu(); }
 }, 30000);
 // Bittet den Browser, die Daten nicht automatisch zu löschen
 if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
