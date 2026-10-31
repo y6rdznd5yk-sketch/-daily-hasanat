@@ -549,12 +549,12 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <div class="ptitle"><b>☰ Mehr</b><span>Werkzeuge, Einstellungen &amp; Daten</span></div>
     <div id="mlist">
       <h2>Werkzeuge</h2>
-      <div class="mgrp"><button class="mrow" data-qibla="1"><span>🧭</span><div><b>Qibla-Kompass</b><small>Richtung nach Mekka</small></div><i>›</i></button><button class="mrow" data-mk="ptimes"><span>🕌</span><div><b>Gebetszeiten</b><small>Heute und morgen</small></div><i>›</i></button><button class="mrow" data-mk="events"><span>📅</span><div><b>Besondere Tage</b><small>Fasten, Ramadan, Eid …</small></div><i>›</i></button><button class="mrow" data-tawba="1"><span>🤍</span><div><b>Neuanfang</b><small>Tawba, Sünde & Sucht, Notfall-Hilfe</small></div><i>›</i></button><button class="mrow" data-mk="zakat"><span>💰</span><div><b>Zakat-Rechner</b><small>2,5 % · Nisab</small></div><i>›</i></button></div>
+      <div class="mgrp"><button class="mrow" data-qibla="1"><span>🧭</span><div><b>Qibla-Kompass</b><small>Richtung nach Mekka</small></div><i>›</i></button><button class="mrow" data-mk="ptimes"><span>🕌</span><div><b>Gebetszeiten</b><small>Heute und morgen</small></div><i>›</i></button><button class="mrow" data-mk="events"><span>📅</span><div><b>Besondere Tage</b><small>Fasten, Ramadan, Eid …</small></div><i>›</i></button><button class="mrow" data-jr="1"><span>🌙</span><div><b>Abend-Rückblick</b><small>Dankbarkeit & Muhasaba</small></div><i>›</i></button><button class="mrow" data-tawba="1"><span>🤍</span><div><b>Neuanfang</b><small>Tawba, Sünde & Sucht, Notfall-Hilfe</small></div><i>›</i></button><button class="mrow" data-mk="zakat"><span>💰</span><div><b>Zakat-Rechner</b><small>2,5 % · Nisab</small></div><i>›</i></button></div>
       <h2>Einstellungen</h2>
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 28 (31.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 29 (31.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -707,6 +707,12 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <p id="sos-msg"></p>
     <div id="sos-steps" style="text-align:left"></div>
     <p class="sub">„Wer sich bemüht, Keuschheit zu bewahren, dem gibt Allah Keuschheit.“ (Bukhari 1469, Muslim 1053)</p>
+  </div>
+</div>
+<div class="sheet" id="jr" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>🌙 Abend-Rückblick</h3><button class="x" id="jr-close" aria-label="schließen">✕</button></div>
+    <div id="jr-body"></div>
   </div>
 </div>
 <script src="prayer.js"></script>
@@ -970,7 +976,7 @@ function deedHasanat(d, c){
 let SC = {}, XC = {};
 const clearStats = () => { SC = {}; XC = {}; if (db) delete db._pc; };
 // gespeicherte Summen vergangener Tage: {k: heute, v: Formel-Version, n: Anzahl Tage, xp, streak}
-const PC_VER = 3;
+const PC_VER = 4;
 const pastN = () => { let n = 0; for (const k in db.days) if (k < today) n++; return n; };
 const pastCache = () => { const c = db._pc; return c && c.k === today && c.v === PC_VER && c.n === pastN() ? c : null; };
 function dayStats(k){
@@ -1719,7 +1725,7 @@ function prayerCard(){
   return `<div class="deed ${n === 5 ? 'done' : ''}" data-id="fard">
     <div class="row"><div class="t"><b>Die 5 Pflichtgebete</b><div class="tags"><span class="tag">beliebteste Tat</span><span class="tag">Jama’a ×27 Grade</span>${n ? `<span class="tag h">+${fmt(n * 10 + g * 10)}</span>` : ''}</div></div><span class="num">${n}/5</span></div>
     <div class="pw">${tiles}</div>
-    <p class="sub" style="margin:6px 0 0">Tippen: ○ offen → ✓ gebetet → 👥 in Gemeinschaft</p>
+    <p class="sub" style="margin:6px 0 0">Tippen: ○ offen → ✓ gebetet → 👥 in Gemeinschaft</p>${prayerStreakLine()}
     <button class="gbtn" data-guide="1">📖 Gebets-Anleitung: Rak’at, Adhan &amp; Iqama, Schritt für Schritt</button>
     <details><summary>Quelle &amp; Belohnung</summary><div class="src">${esc(f.reward)}<span class="ref">${esc(f.ref)}</span></div><div class="src">${esc(j.reward)}<span class="ref">${esc(j.ref)}</span></div></details>
   </div>`;
@@ -2108,6 +2114,7 @@ const MISSIONS = [
   ['Bete die 12 Rawatib', x => (x.rawatib || 0) >= 12],
   ['Sag den Dhikr der Juwayriya', x => (x['q:juwayriya'] || 0) >= 1],
   ['Lerne 3 Namen Allahs', x => (x.nl || 0) >= 3],
+  ['Mach deinen Abend-Rückblick', x => (x.jr || 0) >= 1],
 ];
 function missionsFor(k){
   // deterministisch pro Tag: jeden Tag drei andere Missionen
@@ -2121,7 +2128,7 @@ function missionsFor(k){
 function dayXPRaw(k){
   const x = day(k), s = dayStats(k), m = missionsFor(k).filter(([, ok]) => ok(x)).length;
   // Sofort-Feedback: jedes Gebet und jede Quran-Seite zählt einzeln
-  return (s.done + (s.bonus || 0)) * 10 + Math.floor(s.taps / 10) + (x.fard || 0) * 10 + (x.jamaa || 0) * 5 + ((x.fard || 0) >= 5 ? 20 : 0) + (x.quran || 0) * 5 + m * 15 + (m === 3 ? 25 : 0);
+  return (s.done + (s.bonus || 0)) * 10 + (x.jr ? 15 : 0) + Math.floor(s.taps / 10) + (x.fard || 0) * 10 + (x.jamaa || 0) * 5 + ((x.fard || 0) >= 5 ? 20 : 0) + (x.quran || 0) * 5 + m * 15 + (m === 3 ? 25 : 0);
 }
 const dayXP = k => k < today ? (XC[k] ?? (XC[k] = dayXPRaw(k))) : dayXPRaw(k);
 function totalXP(){
@@ -2496,7 +2503,7 @@ const MISSION_GO = [
   {prayers:1}, {prayers:1}, {seg:'m'}, {seg:'e'}, {seg:'s'},
   {quick:'q_salawat'}, {quick:'q_istighfar'}, {quick:'q_subhan'}, {deed:'quran'},
   {tick:'duha'}, {tick:'qiyam'}, {tick:'sadaqa'}, {tick:'rahim'},
-  {hpath:1}, {deed:'rawatib'}, {quick:'juwayriya'}, {names:1},
+  {hpath:1}, {deed:'rawatib'}, {quick:'juwayriya'}, {names:1}, {jr:1},
 ];
 function missionGo(i){ return MISSION_GO[MISSIONS.indexOf(missionsFor(today)[i])] || {}; }
 function renderMissions(){
@@ -2532,6 +2539,7 @@ function goTo(g){
   else if (g.seg) { seg = g.seg; segPicked = true; showPage('quick'); }
   else if (g.quick) { seg = 'quick'; segPicked = true; showPage('quick'); setTimeout(() => flash(document.querySelector(`.q[data-id="${g.quick}"]`)), 50); }
   else if (g.hpath) { showPage('info'); showK('hpath'); setTimeout(() => flash($('#hpath')), 50); }
+  else if (g.jr) { openJournal(); }
   else if (g.names) { showPage('info'); showK('names'); $('#fc').hidden = false; nextCard(); }
 }
 function renderPrayersTop(){ $('#prayers').innerHTML = isHidden('fard') ? '' : prayerCard(); }
@@ -3015,6 +3023,7 @@ function situNow(){
   if ((H >= 12 && H < 14) || (H >= 18 && H < 20)) out.push(['eat', '🍽️ Essenszeit? Bismillah nicht vergessen']), out.push(['ate', '🍽️ Nach dem Essen – Sünden vergeben']);
   if ((M === 11 || M <= 1) && (dow === 0 || dow === 3)) out.push(['winter', '❄️ Morgen Sunnah-Fasten – im Winter besonders leicht']);
   if (t ? (now >= new Date(+t.isha + 3 * 3600e3) || before('fajr', -20)) : (H >= 0 && H < 4)) out.unshift(['nightwake', '🌌 Nachts wach? Jetzt wird Du’a erhört']);
+  if ((t ? after('isha') : H >= 20) && H >= 19 && !db.journal[today]) out.unshift(['__jr', '🌙 Zeit für deinen Abend-Rückblick']);
   if (H >= 20 && H < 23) out.push(['majlis', '🗣️ Nach dem Abend mit Freunden']);
   if (h.hm === 12 && h.hd === 9) out.unshift(['arafah', '🕋 Heute ist der Tag von Arafa – das beste Du’a']);
   if (t && ['fajr','dhuhr','asr','maghrib','isha'].some(k => now >= t[k] && now < new Date(+t[k] + 15 * 6e4))) out.unshift(['iqama', '🕌 Gebetszeit hat begonnen – Du’a vor der Iqama wird nicht zurückgewiesen']);
@@ -3031,7 +3040,7 @@ function situHTML(x, label){
 function renderSitu(){
   const list = situNow();
   $('#situ').innerHTML = `<div class="mh"><b>🧭 Passend für jetzt</b><button class="lnk" data-reg="1">Register ›</button></div>`
-    + list.map(([id, label]) => situHTML(SITU.find(x => x.id === id), label)).join('')
+    + list.map(([id, label]) => id === '__jr' ? `<button class="tsb" data-jr="1" style="margin:8px 0 4px"><span>🌙</span><div><b>${label}</b><small>3× Dankbarkeit · was lief gut · was morgen besser – 1 Minute</small></div><i>›</i></button>` : situHTML(SITU.find(x => x.id === id), label)).join('')
     + (!db.settings.weather && db.settings.lat != null ? `<p class="sub" style="margin:6px 0 0">🌧️ Soll die App Regen, Gewitter und Sturm automatisch erkennen? <button class="lnk" data-wx="1">Einschalten</button></p>` : '');
 }
 let regCat = 'Alle';
@@ -3145,6 +3154,54 @@ function closeSos(){ clearInterval(sosT); $('#sos').hidden = true; keepAwake(fal
 $('#sos').addEventListener('click', e => { if (e.target.closest('#sos-close')) closeSos(); });
 $('#tawba').addEventListener('click', e => { if (e.target.closest('#tawba-close')) $('#tawba').hidden = true; });
 
+// ---------- 🔥 Serie pro Gebet ----------
+function prayerStreak(k){
+  let n = 0; const d = new Date();
+  if (!prState(day(dkey(d)), k)) d.setDate(d.getDate() - 1);   // heute zählt, sobald gebetet
+  while (prState(day(dkey(d)), k) >= 1) { n++; d.setDate(d.getDate() - 1); if (n > 999) break; }
+  return n;
+}
+function prayerStreakLine(){
+  const s = PRAYERS.map(k => [k, prayerStreak(k)]).filter(([, n]) => n >= 2);
+  return s.length ? `<p class="sub" style="margin:6px 0 0">🔥 ${s.map(([k, n]) => `${PNAMES[k]} ${n} Tage`).join(' · ')}</p>` : '';
+}
+
+// ---------- 🌙 Abend-Rückblick: Dankbarkeit & Muhasaba ----------
+db.journal = db.journal || {};
+function journalStreak(){
+  let n = 0; const d = new Date();
+  if (!db.journal[dkey(d)]) d.setDate(d.getDate() - 1);
+  while (db.journal[dkey(d)]) { n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
+function openJournal(){
+  const j = db.journal[today] || {g:['', '', ''], good:'', better:''};
+  const past = Object.keys(db.journal).filter(k => k < today).sort().reverse().slice(0, 7);
+  $('#jr-body').innerHTML = `<div class="dh" style="margin-top:0"><div class="dh-k">Dankbarkeit bringt mehr</div><div class="dh-t">„Wenn ihr dankbar seid, werde Ich euch gewiss mehr geben.“</div><div class="dh-r">Quran 14:7</div></div>
+    <h4 class="rg-h">🤲 Wofür bist du heute dankbar?</h4>
+    ${[0, 1, 2].map(i => `<div class="inp"><input data-jg="${i}" value="${esc(j.g[i] || '')}" placeholder="${['z. B. Gesundheit', 'z. B. ein gutes Gespräch', 'z. B. mein Essen heute'][i]}" maxlength="120" autocomplete="off"></div>`).join('')}
+    <h4 class="rg-h">✅ Was lief heute gut?</h4>
+    <div class="inp"><input data-jf="good" value="${esc(j.good || '')}" placeholder="z. B. Fajr pünktlich gebetet" maxlength="160" autocomplete="off"></div>
+    <h4 class="rg-h">🎯 Was mache ich morgen besser?</h4>
+    <div class="inp"><input data-jf="better" value="${esc(j.better || '')}" placeholder="z. B. weniger am Handy, früher schlafen" maxlength="160" autocomplete="off"></div>
+    <p class="sub">„Rechnet mit euch selbst ab, bevor mit euch abgerechnet wird.“ – ‘Umar ibn al-Khattab (überliefert bei Tirmidhi, nach Nr. 2459). Gab es heute eine Sünde? <button class="lnk" data-tawba="1">🤍 Neuanfang</button></p>
+    <button class="btn p" data-jsave="1">Speichern${db.journal[today] ? ' ✓' : ''}</button>
+    <p class="sub">🔥 Rückblick-Serie: <b>${journalStreak()}</b> Abende · Nur auf deinem Handy gespeichert.</p>
+    ${past.length ? `<h4 class="rg-h">Deine letzten Abende</h4>` + past.map(k => { const p = db.journal[k]; return `<details class="sit"><summary><b>${new Date(k + 'T12:00').toLocaleDateString('de-DE', {weekday:'short', day:'numeric', month:'long'})}</b></summary>
+      ${(p.g || []).filter(Boolean).length ? `<p>🤲 ${p.g.filter(Boolean).map(esc).join(' · ')}</p>` : ''}${p.good ? `<p>✅ ${esc(p.good)}</p>` : ''}${p.better ? `<p>🎯 ${esc(p.better)}</p>` : ''}</details>`; }).join('') : ''}`;
+  $('#jr').hidden = false; $('#jr').scrollTop = 0;
+}
+function saveJournal(){
+  const g = [0, 1, 2].map(i => ($(`[data-jg="${i}"]`).value || '').trim());
+  const good = ($('[data-jf="good"]').value || '').trim(), better = ($('[data-jf="better"]').value || '').trim();
+  if (!g.some(Boolean) && !good && !better) return toast('Schreib mindestens eine Sache auf');
+  const first = !db.journal[today];
+  db.journal[today] = {g, good, better}; save();
+  if (first) { const x = db.days[today] = db.days[today] || {}; x.jr = 1; save(); }
+  buzz([30,50,30]); toast('🌙 Gespeichert – Alhamdulillah'); openJournal(); render();
+}
+$('#jr').addEventListener('click', e => { if (e.target.closest('#jr-close')) $('#jr').hidden = true; });
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -3181,7 +3238,9 @@ document.addEventListener('click', e => {
   else if (b.dataset.qibla) openQibla();
   else if (b.dataset.pr) cyclePrayer(b.dataset.pr);
   else if (b.dataset.path) openPath();
-  else if (b.dataset.tawba) renderTawba();
+  else if (b.dataset.tawba) { $('#jr').hidden = true; renderTawba(); }
+  else if (b.dataset.jr) openJournal();
+  else if (b.dataset.jsave) saveJournal();
   else if (b.dataset.sos) openSos();
   else if (b.dataset.ststart) { db.struggle = {label:($('#st-label').value || '').trim().slice(0, 30), start:today, best:0, relapses:[]}; save(); renderTawba(); toast('🤍 Bismillah – neuer Anfang'); }
   else if (b.dataset.relapse) {
@@ -3311,6 +3370,7 @@ $('#b-import').onchange = async e => {
     if (data.names) db.names = {...data.names, ...db.names};
     if (data.hadith) db.hadith = {...data.hadith, ...db.hadith};
     if (data.hifz) db.hifz = {...data.hifz, ...db.hifz};
+    if (data.journal) db.journal = {...data.journal, ...db.journal};
     if (data.partner && !db.partner) db.partner = data.partner;
     if (data.challenge && !db.challenge) db.challenge = data.challenge;
     if (Array.isArray(data.favs)) db.favs = [...db.favs, ...data.favs.filter(f => !db.favs.some(o => o.id === f.id))];
