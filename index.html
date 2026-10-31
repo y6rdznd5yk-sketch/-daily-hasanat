@@ -523,6 +523,8 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
 .dmg-nav button{flex:1;border:0;border-radius:14px;padding:14px;font:inherit;font-weight:700}
 #dmg-back{background:rgba(255,255,255,.15);color:#fff}
 #dmg-next{background:#fff;color:#5b3f8f}
+.rankrow{display:grid;grid-template-columns:1fr;gap:0}
+@media (min-width:600px){.rankrow{grid-template-columns:1fr 1fr;gap:10px}}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -542,16 +544,15 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <div id="helpbanner"></div>
     <div id="wrapt"></div>
     <div class="card" id="sday"></div>
-    <div class="card" id="situ"></div>
-    <div id="rank"></div>
-    <div id="gcard"></div>
-    <div class="card" id="missions"></div>
-    <div class="card" id="coopcard" hidden></div>
-    <div class="card" id="ramcard" hidden></div>
-    <div class="nw" id="now" hidden></div>
-    <div class="tm" id="tomorrow" hidden></div>
     <div id="prayers"></div>
     <div id="prayer"></div>
+    <div class="card" id="missions"></div>
+    <div class="card" id="ramcard" hidden></div>
+    <div class="tm" id="tomorrow" hidden></div>
+    <div class="card" id="situ"></div>
+    <div class="rankrow"><div id="rank"></div><div id="gcard"></div></div>
+    <div class="card" id="coopcard" hidden></div>
+    <div class="nw" id="now" hidden></div>
     <div class="srow"><span>💎 <b id="s-has">0</b> Hasanat*</span><span>💧 <b id="s-rizq">0</b> Rizq</span><span>🔥 <b id="s-streak">0</b> Tage</span><span>✅ <b><span id="s-done">0</span>/<span id="s-total">0</span></b></span></div>
     <div class="bar"><i id="s-bar" style="width:0"></i></div>
     <div class="chips" id="chips"></div>
@@ -642,7 +643,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 33 (31.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 34 (31.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -1838,8 +1839,7 @@ function prayerCard(){
   return `<div class="deed ${n === 5 ? 'done' : ''}" data-id="fard">
     <div class="row"><div class="t"><b>Die 5 Pflichtgebete</b><div class="tags"><span class="tag">beliebteste Tat</span><span class="tag">Jama’a ×27 Grade</span>${n ? `<span class="tag h">+${fmt(n * 10 + g * 10)}</span>` : ''}</div></div><span class="num">${n}/5</span></div>
     <div class="pw">${tiles}</div>
-    <p class="sub" style="margin:6px 0 0">Tippen: ○ offen → ✓ gebetet → 👥 in Gemeinschaft</p>${prayerStreakLine()}
-    <button class="gbtn" data-guide="1">📖 Gebets-Anleitung: Rak’at, Adhan &amp; Iqama, Schritt für Schritt</button>
+    <p class="sub" style="margin:6px 0 0">Tippen: ○ → ✓ gebetet → 👥 Gemeinschaft · <button class="lnk" data-guide="1">📖 Anleitung</button></p>${prayerStreakLine()}
     <details><summary>Quelle &amp; Belohnung</summary><div class="src">${esc(f.reward)}<span class="ref">${esc(f.ref)}</span></div><div class="src">${esc(j.reward)}<span class="ref">${esc(j.ref)}</span></div></details>
   </div>`;
 }
@@ -3144,7 +3144,9 @@ function situNow(){
   if (lastThird || (dow === 5 && t && after('asr') && before('maghrib'))) out.unshift(['__dm', lastThird ? '🌌 Letztes Drittel der Nacht – Zeit der Erhörung' : '📅 Freitag nach Asr – die Stunde der Erhörung']);
   if (t && ['fajr','dhuhr','asr','maghrib','isha'].some(k => now >= t[k] && now < new Date(+t[k] + 15 * 6e4))) out.unshift(['iqama', '🕌 Gebetszeit hat begonnen – Du’a vor der Iqama wird nicht zurückgewiesen']);
   if (!out.some(([id]) => id === 'guidance')) out.push(['guidance', '🧭 Bitte jeden Tag um Rechtleitung']);
-  return out.slice(0, 4);
+  // was die Sunnah-Tag-Karte gerade schon zeigt, nicht doppelt anzeigen
+  let dup = null; try { const c = sunnahNow().cur; dup = c && c.go && c.go.reg; } catch(e) {}
+  return out.filter(([id]) => id !== dup).slice(0, 3);
 }
 function situHTML(x, label){
   const c = day(today)['d:x_' + x.id] || 0;
@@ -3389,17 +3391,19 @@ function sunnahGo(i){
 $('#sdaysh').addEventListener('click', e => { if (e.target.closest('#sday-close')) $('#sdaysh').hidden = true; });
 
 // ---------- 🌴 Dein Garten im Paradies ----------
+let GC = null;
 function gardenCounts(){
-  const G = {palm:0, plant:0, house:0, treasure:0, ikhlas:0};
-  for (const k in db.days) {
-    const x = db.days[k];
+  const add = (G, x) => {
     G.palm += x['q:q_palm'] || 0;
     G.plant += (x['q:q_subhan'] || 0) + (x.subhan100 || 0) + (x['q:q_hamd'] || 0) + (x['q:q_four'] || 0) * 4 + (x['q:q_tahlil10'] || 0) + (x.tahlil100 || 0);
     for (const key in x) if (key.startsWith('a:') && key.endsWith(':subhan')) G.plant += x[key];
     G.treasure += (x['q:q_hawqala'] || 0) + (x.hawqala || 0);
     if ((x.rawatib || 0) >= 12) G.house++;
     if ((x.ikhlas || 0) + (x['q:q_ikhlas'] || 0) >= 10) G.ikhlas++;
-  }
+  };
+  const n = pastN();
+  if (!GC || GC.k !== today || GC.n !== n) { const P = {palm:0, plant:0, house:0, treasure:0, ikhlas:0}; for (const k in db.days) if (k < today) add(P, db.days[k]); GC = {k:today, n, P}; }
+  const G = {...GC.P}; if (db.days[today]) add(G, db.days[today]);
   return G;
 }
 const GARDEN = [
