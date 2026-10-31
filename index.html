@@ -525,6 +525,76 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
 #dmg-next{background:#fff;color:#5b3f8f}
 .rankrow{display:grid;grid-template-columns:1fr;gap:0}
 @media (min-width:600px){.rankrow{grid-template-columns:1fr 1fr;gap:10px}}
+.qcard{background:linear-gradient(150deg,#27366f,#0d1626 72%);color:#fff;border:0;position:relative;overflow:hidden}
+.qcard::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.7;background-image:radial-gradient(1.5px 1.5px at 78% 16%,#fff,transparent),radial-gradient(1px 1px at 90% 50%,#fff,transparent),radial-gradient(1px 1px at 62% 28%,#fff,transparent),radial-gradient(1.5px 1.5px at 95% 84%,#fff,transparent),radial-gradient(1px 1px at 70% 74%,#fff,transparent),radial-gradient(1px 1px at 48% 10%,#fff,transparent)}
+.qc{display:flex;gap:12px;align-items:center;position:relative}
+.qc-t{flex:1;min-width:0}
+.qc-t small{display:block;color:rgba(255,255,255,.72);font-size:.75rem}
+.qc-t b{display:block;font-size:1.02rem;margin:2px 0}
+.qc-t small b{display:inline;font-size:inherit;color:#f6d27a}
+.qcard .lnk{color:#f6d27a}
+.nur{position:relative;width:96px;height:96px;flex:none;border:0;background:none;padding:0;display:block}
+.nur-c{position:absolute;left:50%;top:50%;width:calc(24px + var(--n) * 5px);height:calc(24px + var(--n) * 5px);border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,#fffbe9 0%,#f6d27a 42%,rgba(246,210,122,.15) 68%,transparent 72%);box-shadow:0 0 calc(6px + var(--n) * 4px) calc(var(--n) * 1px) rgba(246,210,122,.45);opacity:calc(.4 + var(--n) * .085);animation:nurb 5s ease-in-out infinite}
+@keyframes nurb{50%{transform:translate(-50%,-50%) scale(1.1)}}
+.nur-d{position:absolute;left:50%;top:50%;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;font-size:12px;line-height:24px;text-align:center;transform:rotate(var(--a)) translateY(-37px) rotate(calc(-1 * var(--a)));opacity:.38;filter:grayscale(1)}
+.nur-d.on{opacity:1;filter:none;background:rgba(246,210,122,.22);box-shadow:0 0 10px rgba(246,210,122,.55)}
+.qbtn{display:block;width:100%;margin-top:10px;border:0;border-radius:14px;padding:13px;font:inherit;font-weight:800;color:#1b2550;background:linear-gradient(90deg,#f6d27a,#fff1c4);position:relative}
+.qact{display:flex;gap:10px;align-items:center;margin-top:10px;background:rgba(255,255,255,.1);border-radius:12px;padding:10px;position:relative;font-size:.86rem;line-height:1.35}
+.qact span{flex:1;min-width:0}
+.qc-ok{margin:10px 0 0;font-size:.85rem;color:rgba(255,255,255,.85);position:relative}
+.qs-hero{margin-top:0}
+.qd-on{opacity:.72}
+.qh-row{display:flex;gap:2px;margin:6px 0 4px}
+.qh-row span{flex:1;text-align:center;font-size:1.1rem;line-height:1.3}
+.qh-row small{display:block;font-size:.6rem;color:var(--muted)}
+.qb-gift{background:var(--gold-soft);border-radius:12px;padding:10px 12px;margin:8px 0;font-size:.92rem}
+#nz{background:radial-gradient(ellipse at 50% -10%,#34489c 0%,#141f4a 42%,#060a16 100%);color:#fff;justify-content:flex-start;padding-top:calc(env(safe-area-inset-top) + 18px);overflow-y:auto;user-select:auto;-webkit-user-select:auto}
+#nz::before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.8;background-image:radial-gradient(1.5px 1.5px at 12% 14%,#fff,transparent),radial-gradient(1px 1px at 28% 32%,#fff,transparent),radial-gradient(1.5px 1.5px at 84% 10%,#fff,transparent),radial-gradient(1px 1px at 70% 26%,#fff,transparent),radial-gradient(1px 1px at 92% 44%,#fff,transparent),radial-gradient(1.5px 1.5px at 6% 58%,#fff,transparent),radial-gradient(1px 1px at 40% 8%,#fff,transparent),radial-gradient(1px 1px at 58% 16%,#fff,transparent),radial-gradient(1px 1px at 18% 84%,#fff,transparent),radial-gradient(1.5px 1.5px at 88% 76%,#fff,transparent)}
+#nz-bars{display:flex;gap:3px;width:100%;max-width:520px;position:relative}
+#nz-bars i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.25)}
+#nz-bars i.on{background:#f6d27a}
+#nz-close{position:absolute;top:calc(env(safe-area-inset-top) + 28px);right:16px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.15);color:#fff;z-index:2}
+#nz-body{flex:1;width:100%;max-width:520px;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:30px 4px 96px;position:relative}
+#nz-body h2{color:#fff;text-transform:none;letter-spacing:0;font-size:1.3rem;margin:0 0 10px}
+#nz-body p{margin:8px 0;line-height:1.5}
+#nz-body small{color:rgba(255,255,255,.65);font-size:.78rem}
+#nz .gref{color:rgba(255,255,255,.85);background:rgba(255,255,255,.13);font-size:.74rem;align-self:center}
+.qb-k{font-size:.72rem!important;text-transform:uppercase;letter-spacing:.12em;color:#f6d27a;font-weight:800;margin:0 0 6px!important}
+.qb-orb{width:110px;height:110px;margin:4px auto 14px;border-radius:50%;flex:none;background:radial-gradient(circle,#fffbe9 0%,#f6d27a 36%,rgba(246,210,122,.2) 60%,transparent 70%);box-shadow:0 0 60px 10px rgba(246,210,122,.22);animation:qbb 8s ease-in-out infinite}
+.qb-orb.big{width:150px;height:150px;animation:qbb 8s ease-in-out infinite,qbin 1.2s ease-out}
+@keyframes qbb{0%,100%{transform:scale(.8);opacity:.75}50%{transform:scale(1.1);opacity:1}}
+@keyframes qbin{from{transform:scale(.2);opacity:0}}
+.qb-h{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.qb-h button{display:flex;align-items:center;gap:8px;text-align:left;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;border-radius:14px;padding:10px 12px;font:inherit;font-weight:700;font-size:.92rem}
+.qb-h button span{font-size:1.45rem;line-height:1}
+.qb-orb.sm{width:72px;height:72px;margin-bottom:8px}
+#nz-body.top{padding-bottom:24px}
+@media (max-height:700px){.qb-orb.sm{display:none}}
+.qb-h button:active{background:rgba(246,210,122,.25)}
+.qb-name{font-size:2.1rem;font-weight:800;color:#f6d27a;margin:2px 0 0!important;line-height:1.2!important}
+.qb-mean{font-size:1.02rem;font-weight:600;margin-top:0!important}
+.qb-v{font-size:1.14rem;font-weight:600;line-height:1.55!important}
+.qb-q{background:rgba(246,210,122,.12);border-left:3px solid #f6d27a;border-radius:10px;padding:10px 12px;text-align:left;font-style:italic;margin-top:14px!important}
+.qb-soft{color:rgba(255,255,255,.78);font-size:.9rem}
+.qb-mem{background:rgba(255,255,255,.1);border-radius:12px;padding:10px 12px;text-align:left;font-size:.9rem}
+.qb-in{display:block;width:100%;box-sizing:border-box;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:12px;padding:11px 12px;font:inherit;font-size:16px;margin:6px 0;user-select:text;-webkit-user-select:text}
+.qb-in::placeholder{color:rgba(255,255,255,.5)}
+textarea.qb-in{min-height:120px;resize:vertical}
+.qb-chk{display:flex;gap:8px;align-items:center;justify-content:center;font-size:.88rem;color:rgba(255,255,255,.85)}
+.qb-chk input{width:20px;height:20px}
+.qb-l{align-self:center;background:none;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:8px 16px;font:inherit;font-size:.85rem;margin-top:12px}
+.qb-c{align-self:center;width:86px;height:86px;border-radius:50%;border:2px solid #f6d27a;background:rgba(246,210,122,.12);color:#fff;font:inherit;font-size:1.4rem;font-weight:800;margin:16px auto 4px}
+.qb-a{display:block;width:100%;text-align:left;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:14px;padding:12px;margin:6px 0;font:inherit;font-size:.92rem;line-height:1.4}
+.qb-a.on{border-color:#f6d27a;background:rgba(246,210,122,.2)}
+.qb-a small{display:block;margin-top:4px}
+.qb-sum{display:flex;gap:8px;margin:14px 0 6px}
+.qb-sum div{flex:1;background:rgba(255,255,255,.1);border-radius:12px;padding:10px 4px}
+.qb-sum b{display:block;font-size:1.25rem;color:#f6d27a}
+.qb-nav{display:flex;gap:10px;position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:560px;box-sizing:border-box;padding:16px 20px calc(env(safe-area-inset-bottom) + 12px);background:linear-gradient(to bottom,rgba(6,10,22,0),rgba(6,10,22,.94) 32%);z-index:3}
+.qb-nav button{flex:1;border:0;border-radius:14px;padding:14px;font:inherit;font-weight:700}
+#nz-back{background:rgba(255,255,255,.14);color:#fff}
+#nz-next{background:linear-gradient(90deg,#f6d27a,#fff1c4);color:#1b2550}
+@media (prefers-reduced-motion:reduce){.nur-c,.qb-orb{animation:none}}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -545,6 +615,7 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <div id="wrapt"></div>
     <div class="card" id="sday"></div>
     <div id="prayers"></div>
+    <div class="card qcard" id="qurb"></div>
     <div id="prayer"></div>
     <div class="card" id="missions"></div>
     <div class="card" id="ramcard" hidden></div>
@@ -638,12 +709,12 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
     <div class="ptitle"><b>☰ Mehr</b><span>Werkzeuge, Einstellungen &amp; Daten</span></div>
     <div id="mlist">
       <h2>Werkzeuge</h2>
-      <div class="mgrp"><button class="mrow" data-qibla="1"><span>🧭</span><div><b>Qibla-Kompass</b><small>Richtung nach Mekka</small></div><i>›</i></button><button class="mrow" data-mk="ptimes"><span>🕌</span><div><b>Gebetszeiten</b><small>Heute und morgen</small></div><i>›</i></button><button class="mrow" data-mk="events"><span>📅</span><div><b>Besondere Tage</b><small>Fasten, Ramadan, Eid …</small></div><i>›</i></button><button class="mrow" data-dm="1"><span>🤲</span><div><b>Der Du’a-Meister</b><small>Adab, Zeiten, vollständige Du’a</small></div><i>›</i></button><button class="mrow" data-jr="1"><span>🌙</span><div><b>Abend-Rückblick</b><small>Dankbarkeit & Muhasaba</small></div><i>›</i></button><button class="mrow" data-tawba="1"><span>🤍</span><div><b>Neuanfang</b><small>Tawba, Sünde & Sucht, Notfall-Hilfe</small></div><i>›</i></button><button class="mrow" data-mk="zakat"><span>💰</span><div><b>Zakat-Rechner</b><small>2,5 % · Nisab</small></div><i>›</i></button></div>
+      <div class="mgrp"><button class="mrow" data-qurb="1"><span>💫</span><div><b>Näher zu Allah</b><small>7 Minuten mit Allah · Licht · Schatzkammer</small></div><i>›</i></button><button class="mrow" data-qibla="1"><span>🧭</span><div><b>Qibla-Kompass</b><small>Richtung nach Mekka</small></div><i>›</i></button><button class="mrow" data-mk="ptimes"><span>🕌</span><div><b>Gebetszeiten</b><small>Heute und morgen</small></div><i>›</i></button><button class="mrow" data-mk="events"><span>📅</span><div><b>Besondere Tage</b><small>Fasten, Ramadan, Eid …</small></div><i>›</i></button><button class="mrow" data-dm="1"><span>🤲</span><div><b>Der Du’a-Meister</b><small>Adab, Zeiten, vollständige Du’a</small></div><i>›</i></button><button class="mrow" data-jr="1"><span>🌙</span><div><b>Abend-Rückblick</b><small>Dankbarkeit & Muhasaba</small></div><i>›</i></button><button class="mrow" data-tawba="1"><span>🤍</span><div><b>Neuanfang</b><small>Tawba, Sünde & Sucht, Notfall-Hilfe</small></div><i>›</i></button><button class="mrow" data-mk="zakat"><span>💰</span><div><b>Zakat-Rechner</b><small>2,5 % · Nisab</small></div><i>›</i></button></div>
       <h2>Einstellungen</h2>
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 34 (31.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 35 (31.10.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -828,6 +899,18 @@ body:not([data-page="today"]) .ptitle{margin-top:16px}
   <button id="dmg-close" aria-label="schließen">✕</button>
   <div id="dmg-body"></div>
   <div class="dmg-nav"><button id="dmg-back">‹ Zurück</button><button id="dmg-next">Weiter ›</button></div>
+</div>
+<div class="tzo" id="nz" hidden>
+  <div id="nz-bars"></div>
+  <button id="nz-close" aria-label="schließen">✕</button>
+  <div id="nz-body"></div>
+  <div class="qb-nav"><button id="nz-back">‹ Zurück</button><button id="nz-next">Weiter ›</button></div>
+</div>
+<div class="sheet" id="nzs" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>💫 Näher zu Allah</h3><button class="x" id="nzs-close" aria-label="schließen">✕</button></div>
+    <div id="nzs-body"></div>
+  </div>
 </div>
 <script src="prayer.js"></script>
 
@@ -1090,7 +1173,7 @@ function deedHasanat(d, c){
 let SC = {}, XC = {};
 const clearStats = () => { SC = {}; XC = {}; if (db) delete db._pc; };
 // gespeicherte Summen vergangener Tage: {k: heute, v: Formel-Version, n: Anzahl Tage, xp, streak}
-const PC_VER = 4;
+const PC_VER = 5;
 const pastN = () => { let n = 0; for (const k in db.days) if (k < today) n++; return n; };
 const pastCache = () => { const c = db._pc; return c && c.k === today && c.v === PC_VER && c.n === pastN() ? c : null; };
 function dayStats(k){
@@ -1117,7 +1200,7 @@ function dayStatsRaw(k){
   return {has, done, bonus, rizq, taps, total, rizqTotal:core.filter(d => d.rizq).length};
 }
 // ein Tag zählt für die Serie, sobald irgendetwas getan wurde – auch ein einzelnes Gebet oder eine Quran-Seite
-const active = k => { const s = dayStats(k), x = day(k); return s.done > 0 || s.bonus > 0 || s.taps > 0 || (x.fard || 0) > 0 || (x.quran || 0) > 0; };
+const active = k => { const s = dayStats(k), x = day(k); return s.done > 0 || s.bonus > 0 || s.taps > 0 || (x.fard || 0) > 0 || (x.quran || 0) > 0 || !!x.qb; };
 function streak(){
   // Serie bis gestern ist für heute fest – einmal rechnen, dann merken
   let c = pastCache(), base = c && c.streak != null ? c.streak : null;
@@ -1264,7 +1347,7 @@ function renderQuick(){
     </div>`;
   }).join('');
 }
-function render(){ renderStats(); renderCoopCard(); renderGardenCard(); renderWrapTeaser(); renderPrayersTop(); renderHelpBanner(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); $('#now').hidden = true; }
+function render(){ renderStats(); renderCoopCard(); renderGardenCard(); renderWrapTeaser(); renderPrayersTop(); renderHelpBanner(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); renderQurbCard(); $('#now').hidden = true; }
 
 // ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
 const SPECIAL = [
@@ -1740,6 +1823,7 @@ function lifetime(){
   L.jamaa5 = Object.values(db.days).filter(x => (x.jamaa || 0) >= 5).length;
   L.names = Object.keys(db.names || {}).length;
   L.hadith = Object.keys(db.hadith || {}).length;
+  L.qurb = Object.values(db.days).filter(x => x.qb).length;
   L.qiyam = Object.values(db.days).filter(x => (x.qiyam || 0) >= 1).length;
   L.best = bestStreak();
   return L;
@@ -1766,6 +1850,8 @@ const BADGES = [
   ['fard7', '🕌', 'Gebets-Woche', 'An 7 Tagen alle 5 Gebete', L => L.fard5 >= 7],
   ['jamaa5', '👥', 'Volle Gemeinschaft', 'Alle 5 Gebete in Jama’a an einem Tag', L => L.jamaa5 >= 1],
   ['names', '🌟', 'Die 99 Namen', 'Alle 99 Namen gelernt', L => L.names >= 99],
+  ['qb7', '💫', 'Nähe', 'An 7 Tagen einen Moment mit Allah', L => L.qurb >= 7],
+  ['qb40', '🌌', '40 Tage mit Allah', 'An 40 Tagen einen Moment mit Allah', L => L.qurb >= 40],
 ];
 db.badges = db.badges || {};
 function checkBadges(L){
@@ -2228,11 +2314,12 @@ const MISSIONS = [
   ['Sag den Dhikr der Juwayriya', x => (x['q:juwayriya'] || 0) >= 1],
   ['Lerne 3 Namen Allahs', x => (x.nl || 0) >= 3],
   ['Mach deinen Abend-Rückblick', x => (x.jr || 0) >= 1],
+  ['Nimm dir 7 Minuten mit Allah', x => (x.qb || 0) >= 1],
 ];
 function missionsFor(k){
   // deterministisch pro Tag: jeden Tag drei andere Missionen
   let seed = Math.floor(new Date(k + 'T12:00') / 864e5);
-  const idx = [...MISSIONS.keys()], out = [];
+  const idx = [...MISSIONS.keys()].slice(0, k < '2026-11-01' ? 18 : MISSIONS.length), out = [];
   while (out.length < 3) { seed = (seed * 9301 + 49297) % 233280; out.push(idx.splice(seed % idx.length, 1)[0]); }
   return out.map(i => MISSIONS[i]);
 }
@@ -2241,7 +2328,7 @@ function missionsFor(k){
 function dayXPRaw(k){
   const x = day(k), s = dayStats(k), m = missionsFor(k).filter(([, ok]) => ok(x)).length;
   // Sofort-Feedback: jedes Gebet und jede Quran-Seite zählt einzeln
-  return (s.done + (s.bonus || 0)) * 10 + (x.jr ? 15 : 0) + Math.floor(s.taps / 10) + (x.fard || 0) * 10 + (x.jamaa || 0) * 5 + ((x.fard || 0) >= 5 ? 20 : 0) + (x.quran || 0) * 5 + m * 15 + (m === 3 ? 25 : 0);
+  return (s.done + (s.bonus || 0)) * 10 + (x.jr ? 15 : 0) + (x.qb ? 30 : 0) + (x.qt ? 20 : 0) + Math.floor(s.taps / 10) + (x.fard || 0) * 10 + (x.jamaa || 0) * 5 + ((x.fard || 0) >= 5 ? 20 : 0) + (x.quran || 0) * 5 + m * 15 + (m === 3 ? 25 : 0);
 }
 const dayXP = k => k < today ? (XC[k] ?? (XC[k] = dayXPRaw(k))) : dayXPRaw(k);
 function totalXP(){
@@ -2616,7 +2703,7 @@ const MISSION_GO = [
   {prayers:1}, {prayers:1}, {seg:'m'}, {seg:'e'}, {seg:'s'},
   {quick:'q_salawat'}, {quick:'q_istighfar'}, {quick:'q_subhan'}, {deed:'quran'},
   {tick:'duha'}, {tick:'qiyam'}, {tick:'sadaqa'}, {tick:'rahim'},
-  {hpath:1}, {deed:'rawatib'}, {quick:'juwayriya'}, {names:1}, {jr:1},
+  {hpath:1}, {deed:'rawatib'}, {quick:'juwayriya'}, {names:1}, {jr:1}, {qurb:1},
 ];
 function missionGo(i){ return MISSION_GO[MISSIONS.indexOf(missionsFor(today)[i])] || {}; }
 function renderMissions(){
@@ -2653,6 +2740,8 @@ function goTo(g){
   else if (g.quick) { seg = 'quick'; segPicked = true; showPage('quick'); setTimeout(() => flash(document.querySelector(`.q[data-id="${g.quick}"]`)), 50); }
   else if (g.hpath) { showPage('info'); showK('hpath'); setTimeout(() => flash($('#hpath')), 50); }
   else if (g.jr) { openJournal(); }
+  else if (g.qurb) { startQurb(); }
+  else if (g.dua) { dmGuide(); }
   else if (g.names) { showPage('info'); showK('names'); $('#fc').hidden = false; nextCard(); }
 }
 function renderPrayersTop(){ $('#prayers').innerHTML = isHidden('fard') ? '' : prayerCard(); }
@@ -2678,6 +2767,7 @@ const HELP = [
   ['🌅', 'Morgen-, Abend-, Schlaf-Adhkar', 'Reiter „📿 Dhikr“ → oben Morgen / Abend / Schlaf wählen und jede Karte antippen.', 'Set komplett = Schritt erledigt (+10)', {seg:'m'}],
   ['📚', 'Wissens-Pfad', 'Reiter „📖 Lernen“ → Wissens-Pfad: Hadith lesen, verinnerlichen, „Gelernt ✓“ tippen.', '+20 XP pro Hadith', {hpath:1}],
   ['🌟', '99 Namen Allahs', 'Reiter „📖 Lernen“ → 99 Namen → Lernmodus: Name ansehen, Bedeutung zeigen, „Kann ich ✓“.', '+5 XP pro Name', {names:1}],
+  ['💫', 'Näher zu Allah', 'Unter „Heute“ die dunkle Karte: „▶ 7 Minuten mit Allah“ – Herz wählen, kurz innehalten, Name Allahs, Vers, Danke, Du’a, eine Tat für Allah.', '+30 XP pro Tag · +20 für deine erledigte Tat', {qurb:1}],
 ];
 function openHelp(){
   $('#help-body').innerHTML = `<p>Alles, was du abhakst, gibt XP – oben im Rang-Balken siehst du sofort „+XP“.</p>`
@@ -2832,6 +2922,9 @@ function buildRefIndex(){
     ...ADHKAR.map(a => [a.title, a.ref]), ...DUAS.map(d => [d.title, d.ref]), ...NAWAWI.map(([t, , r], i) => [`40 Hadith Nr. ${i + 1}: ${t}`, r]),
     ...MULT.map(([t, r]) => [t, r]), ...RIZQ.map(([t, r]) => [`Rizq: ${t}`, r]), ...RANKS.map(R => [`Rang ${R.name}`, R.ref]),
     ...GUIDE.map(([t, h]) => [`Gebets-Anleitung: ${t.replace(/^\S+\s/, '')}`, strip(h)]),
+    ...HEARTS.flatMap(h => [[`Näher zu Allah (${h.t})`, h.oref], ...h.names.map(n => [`Näher zu Allah: ${n[0]}`, n[3]]), ...h.verses.map(v => [`Näher zu Allah (${h.t}): Vers`, v[1]]),
+      ...h.duas.map(d => [`Näher zu Allah (${h.t}): Du’a`, d[2]]), ...h.acts.map(a => [`Näher zu Allah (${h.t}): Tat`, a[1]])]),
+    ...DOORS.map(D => [`Tür der Nähe: ${D[2]}`, D[5]]),
   ];
   const map = new Map();
   for (const [title, ref] of items) for (const l of parseRefs(ref || '')) {
@@ -3445,7 +3538,7 @@ function wrapRange(kind){
   return {start, end, days:daysBetween(start, end) + 1, label:{week:'deine Woche', month:'deine letzten 30 Tage', year:'dein Jahr', all:'deine ganze Reise'}[kind]};
 }
 function wrapData(kind){
-  const R = wrapRange(kind), W = {fard:0, jamaa:0, fajr:0, salawat:0, dhikr:0, pages:0, adhM:0, adhE:0, duas:0, active:0, xp:0, has:0, best:null, sad:0, grat:[], jr:0};
+  const R = wrapRange(kind), W = {fard:0, jamaa:0, fajr:0, salawat:0, dhikr:0, pages:0, adhM:0, adhE:0, duas:0, active:0, xp:0, has:0, best:null, sad:0, grat:[], jr:0, qb:0};
   for (const k of Object.keys(db.days)) {
     if (k < R.start || k > R.end) continue;
     const x = db.days[k], s = dayStats(k), xp = dayXP(k);
@@ -3459,6 +3552,7 @@ function wrapData(kind){
     W.xp += xp; W.has += s.has;
     if (!W.best || xp > W.best.xp) W.best = {k, xp};
     if (db.journal[k]) { W.jr++; for (const g of db.journal[k].g || []) if (g) W.grat.push(g); }
+    if (db.qurb.log[k]) { W.qb++; for (const g of db.qurb.log[k].g || []) if (g) W.grat.push(g); }
   }
   W.sad = (db.sadaqa || []).filter(e => e.k >= R.start && e.k <= R.end).reduce((a, e) => a + e.amt, 0);
   W.G = gardenCounts(); W.R = R;
@@ -3482,7 +3576,7 @@ function wrapSlides(W){
     {bg:'#6b4fa3', h:'📿 Dein Gedenken', body:`${n(W.dhikr)}<p>Mal Dhikr, Adhkar & Du’a gesprochen</p><p>💚 <b>${fmt(W.salawat)}</b> Salawat – Allah hat dich dafür <b>${fmt(W.salawat * 10)}</b>-mal gesegnet</p><small>Muslim 408</small>`},
     {bg:'#2e7d4f', h:'🌴 Dein Garten wächst', body:`<div class="wgar">${gardenField({...W.G, plant:Math.min(W.G.plant, 400)})}</div><p>🌴 <b>${fmt(W.G.palm)}</b> Palmen · 🌿 <b>${fmt(W.G.plant)}</b> Pflanzen · 💎 <b>${fmt(W.G.treasure)}</b> Schätze · 🏡 <b>${fmt(W.G.house + W.G.ikhlas)}</b> Häuser</p><small>insgesamt · Tirmidhi 3462, 3464</small>`},
     {bg:'#8a5a17', h:'📖 Quran & Wissen', body:`${n(W.pages)}<p>Seiten Quran gelesen – das sind ca. <b>${fmt(W.pages * PER_PAGE)}</b> Hasanat</p><p>🎓 ${Object.keys(db.hadith).length}/42 Hadith · 🌟 ${Object.keys(db.names).length}/99 Namen · 🧠 ${hifzDone()}/38 Suren auswendig</p><small>Tirmidhi 2910</small>`},
-    {bg:'#a23e48', h:'🤲 Dein Herz', body:`${n(W.duas)}<p>Du’as gesprochen</p>${grat ? `<p>Du warst dankbar für:</p>${grat.map(g => `<p class="wq">„${esc(g)}“</p>`).join('')}` : `<p>Probier den 🌙 Abend-Rückblick – Dankbarkeit bringt mehr (Quran 14:7).</p>`}${W.sad ? `<p>🤲 <b>${eur(W.sad)}</b> Sadaqa gegeben – „Sadaqa vermindert das Vermögen nicht.“</p><small>Muslim 2588</small>` : ''}`},
+    {bg:'#a23e48', h:'🤲 Dein Herz', body:`${n(W.duas)}<p>Du’as gesprochen</p>${W.qb ? `<p>💫 <b>${W.qb}</b> Tage mit einem Moment nur mit Allah</p>` : ''}${grat ? `<p>Du warst dankbar für:</p>${grat.map(g => `<p class="wq">„${esc(g)}“</p>`).join('')}` : `<p>Probier den 🌙 Abend-Rückblick – Dankbarkeit bringt mehr (Quran 14:7).</p>`}${W.sad ? `<p>🤲 <b>${eur(W.sad)}</b> Sadaqa gegeben – „Sadaqa vermindert das Vermögen nicht.“</p><small>Muslim 2588</small>` : ''}`},
     {bg:'#1f6f5c', h:'🔥 Beständigkeit', body:`${n(W.active)}<p>von ${R.days} Tagen warst du aktiv</p><p>🔥 längste Serie: <b>${bestStreak()}</b> Tage · ${RANKS[db.rank || 0].icon} Rang: <b>${RANKS[db.rank || 0].name}</b></p>${W.best ? `<p>⭐ Dein bester Tag: <b>${new Date(W.best.k + 'T12:00').toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long'})}</b> (${fmt(W.best.xp)} XP)</p>` : ''}<p>„Die liebsten Taten bei Allah sind die beständigen, auch wenn sie wenig sind.“</p><small>Bukhari 6464, Muslim 783</small>`},
     {bg:'#b07d1e', h:'💎 Hasanat', body:`${n(Math.round(W.has))}<p>Hasanat (mindestens) – und ${fmt(W.xp)} XP</p><p>„Wer eine gute Tat tut, dem wird sie zehnfach bis siebenhundertfach geschrieben – und Allah vervielfacht, wem Er will.“</p><small>Bukhari 6491, Muslim 131</small>`},
     {bg:'#24577a', h:'🎯 Dein nächstes Ziel', body:`<p class="wbig">${goals[1]}</p><p>Hier ist am meisten Luft nach oben (${goals[0]} %). ${goals[2]}</p><small>${goals[3]}</small><p style="margin-top:18px">Allāhumma a‘innī ‘alā dhikrika wa schukrika wa husni ‘ibādatik</p><p>„O Allah, hilf mir, Deiner zu gedenken, Dir zu danken und Dir auf schönste Weise zu dienen.“</p><small>Abu Dawud 1522 – sahih</small>`},
@@ -3639,6 +3733,385 @@ $('#dmg').addEventListener('click', e => {
   if (e.target.closest('#dmg-close')) { $('#dmg').hidden = true; keepAwake(false); return; }
   if (e.target.closest('#dmg-back')) return dmNext(-1);
   if (e.target.closest('#dmg-next')) return dmNext(1);
+});
+
+// ---------- 💫 Näher zu Allah: 7 Minuten mit Allah · Licht der Nähe · Schatzkammer ----------
+db.qurb = db.qurb || {log:{}, c:{}};
+db.qurb.log = db.qurb.log || {}; db.qurb.c = db.qurb.c || {};
+// Für jeden Herzenszustand: Trost zum Ankommen, je 3 Namen Allahs, 3 Verse, Du’as aus der Sunnah und 3 Taten
+// names: [Name, Bedeutung, Erklärung, Quelle, Frage zum Nachdenken, Anrufung]
+const HEARTS = [
+  {id:'sad', ic:'😔', t:'traurig', open:'Allah sieht deine Traurigkeit – auch die, die niemand sonst sieht. Ya‘qub (as) sagte: „Ich klage meinen Kummer und meine Trauer nur Allah.“ Du darfst hier alles ablegen.', oref:'Quran 12:86',
+    names:[
+      ['Al-Latīf', 'Der Feinfühlige, still Gütige', 'Er lenkt das Gute zu dir auf so feinen Wegen, dass du sie oft erst später erkennst. Nach Brunnen, Sklaverei und Gefängnis sagte Yusuf (as): „Mein Herr ist feinfühlig in dem, was Er will.“', 'Quran 12:100 · Quran 42:19', 'Denk an eine schwere Zeit, aus der Allah dich still herausgeführt hat. Wie hat Er das damals gefügt?', 'Yā Latīf'],
+      ['Al-Jabbār', 'Der Allgewaltige – der Gebrochenes wieder heilt', 'Jabr heißt auch: einen Bruch richten. Gelehrte wie as-Sa‘di erklären: Er ist es, der gebrochene Herzen heilt. Zwischen den zwei Niederwerfungen bat der Prophet ﷺ: „… wadschburnī“ – „und richte mich wieder auf“.', 'Quran 59:23 · Tirmidhi 284', 'Was ist in dir gerade gebrochen? Leg es vor Ihn hin – Er kann es heilen.', 'Yā Jabbār'],
+      ['Ar-Rahīm', 'Der Barmherzige', 'Allah hat die Barmherzigkeit in hundert Teile geteilt und nur einen davon auf die Erde gesandt – aus ihm kommt alles Erbarmen der Geschöpfe, bis die Stute ihren Huf von ihrem Fohlen hebt. 99 Teile hat Er bei Sich behalten.', 'Bukhari 6000, Muslim 2752', 'Wenn schon ein Hundertstel so viel Liebe in die Welt bringt – wie groß ist dann Seine Barmherzigkeit mit dir?', 'Yā Rahīm'],
+    ],
+    verses:[
+      ['Dein Herr hat dich weder verlassen noch verabscheut. Und das Jenseits ist wahrlich besser für dich als das Diesseits. Und dein Herr wird dir geben, und dann wirst du zufrieden sein.', 'Quran 93:3–5', '93/3-5'],
+      ['Denn gewiss, mit der Schwierigkeit kommt Erleichterung. Gewiss, mit der Schwierigkeit kommt Erleichterung.', 'Quran 94:5–6', '94/5-6'],
+      ['Sei nicht traurig, gewiss, Allah ist mit uns.', 'Quran 9:40', '9/40', 'Das sagte der Prophet ﷺ zu Abu Bakr in der Höhle, als die Verfolger direkt davorstanden.'],
+    ],
+    duas:[
+      ['Allāhumma innī ‘abduk, ibnu ‘abdik, ibnu amatik, nāsiyatī bi-yadik, mādin fiyya hukmuk, ‘adlun fiyya qadā’uk. As’aluka bi-kulli-smin huwa lak, sammayta bihī nafsak, aw anzaltahū fī kitābik, aw ‘allamtahū ahadan min khalqik, awista’tharta bihī fī ‘ilmil-ghaybi ‘indak, an tadsch‘alal-qur’āna rabī‘a qalbī, wa nūra sadrī, wa dschalā’a huznī, wa dhahāba hammī', 'O Allah, ich bin Dein Diener, Sohn Deines Dieners und Deiner Dienerin. Meine Stirn ist in Deiner Hand, Dein Urteil über mich geschieht, gerecht ist Deine Bestimmung über mich. Ich bitte Dich bei jedem Namen, der Dir gehört … mach den Quran zum Frühling meines Herzens, zum Licht meiner Brust, zum Ende meiner Trauer und zum Vergehen meiner Sorge.', 'Ahmad 3712 – sahih (al-Albani)'],
+      ['Allāhumma innī a‘ūdhu bika minal-hammi wal-hazan, wal-‘adschzi wal-kasal, wal-bukhli wal-dschubn, wa dala‘id-dayni wa ghalabatir-ridschāl', 'O Allah, ich suche Zuflucht bei Dir vor Sorge und Trauer, vor Schwäche und Faulheit, vor Geiz und Feigheit, vor der Last der Schulden und davor, von Menschen überwältigt zu werden.', 'Bukhari 6369'],
+    ],
+    acts:[
+      ['Nimm heute einem Menschen eine Sorge ab – wer einem Gläubigen eine Not nimmt, dem nimmt Allah eine Not am Tag der Auferstehung.', 'Muslim 2699'],
+      ['Lies heute Surah ad-Duha (93) langsam mit Bedeutung – sie kam herab, um den Propheten ﷺ zu trösten, als die Offenbarung eine Weile ausgeblieben war.', 'Bukhari 4950'],
+      ['Mach Wudu und bete 2 Rak’at – wenn den Propheten ﷺ etwas bedrückte, wandte er sich dem Gebet zu.', 'Abu Dawud 1319 – hasan'],
+    ]},
+  {id:'anx', ic:'😟', t:'besorgt', open:'Atme. Was dich sorgt, liegt in Allahs Hand – und Er ist barmherziger zu Seinen Dienern als eine Mutter zu ihrem Kind.', oref:'Bukhari 5999, Muslim 2754',
+    names:[
+      ['Al-Wakīl', 'Der Sachwalter, dem man alles anvertraut', 'Ein Wakil regelt deine Angelegenheiten, wenn du es selbst nicht kannst. Als Ibrahim (as) ins Feuer geworfen wurde, sagte er: „Hasbunallāhu wa ni‘mal-wakīl“ – und Allah machte das Feuer kühl.', 'Quran 3:173 · Bukhari 4563 · Quran 21:69', 'Welche Sorge kannst du heute ganz bewusst Al-Wakīl übergeben?', 'Yā Wakīl'],
+      ['Al-Hafīz', 'Der Behütende', 'Nichts entgeht Ihm und nichts geht bei Ihm verloren – weder du noch die, die du liebst. Ya‘qub (as) vertraute Ihm seinen Sohn an mit den Worten: „Allah ist der beste Hüter.“', 'Quran 12:64 · Quran 11:57', 'Wen oder was möchtest du heute in Seine Obhut geben?', 'Yā Hafīz'],
+      ['As-Salām', 'Der Frieden, die Quelle aller Sicherheit', 'Er ist frei von jedem Mangel, und aller Frieden kommt von Ihm. Nach jedem Pflichtgebet sagte der Prophet ﷺ: „Allāhumma antas-salām wa minkas-salām …“', 'Quran 59:23 · Muslim 591', 'Wo wünschst du dir gerade Frieden – in dir, in deiner Familie, in deinem Alltag? Bitte Ihn darum.', 'Yā Salām'],
+    ],
+    verses:[
+      ['Diejenigen, die glauben und deren Herzen im Gedenken Allahs Ruhe finden – wahrlich, im Gedenken Allahs finden die Herzen Ruhe.', 'Quran 13:28', '13/28'],
+      ['… Und wer Allah fürchtet, dem schafft Er einen Ausweg und versorgt ihn, von wo er nicht damit rechnet. Und wer sich auf Allah verlässt, dem genügt Er.', 'Quran 65:2–3', '65/2-3'],
+      ['Sag: Uns trifft nur, was Allah für uns bestimmt hat. Er ist unser Schutzherr. Und auf Allah sollen sich die Gläubigen verlassen.', 'Quran 9:51', '9/51'],
+    ],
+    duas:[
+      ['Lā ilāha illallāhul-‘azīmul-halīm, lā ilāha illallāhu rabbul-‘arschil-‘azīm, lā ilāha illallāhu rabbus-samāwāti wa rabbul-ardi wa rabbul-‘arschil-karīm', 'Es gibt keinen Gott außer Allah, dem Gewaltigen, dem Nachsichtigen. Es gibt keinen Gott außer Allah, dem Herrn des gewaltigen Throns. Es gibt keinen Gott außer Allah, dem Herrn der Himmel, dem Herrn der Erde und dem Herrn des edlen Throns.', 'Bukhari 6346, Muslim 2730'],
+      ['Allāhumma rahmataka ardschū, fa-lā takilnī ilā nafsī tarfata ‘ayn, wa aslih lī scha’nī kullah, lā ilāha illā ant', 'O Allah, auf Deine Barmherzigkeit hoffe ich – überlass mich nicht einen Augenblick mir selbst, und bring all meine Angelegenheiten in Ordnung. Es gibt keinen Gott außer Dir.', 'Abu Dawud 5090 – hasan'],
+      ['Hasbunallāhu wa ni‘mal-wakīl', 'Allah genügt uns, und welch vortrefflicher Sachwalter ist Er.', 'Quran 3:173 · Bukhari 4563'],
+    ],
+    acts:[
+      ['Schreib auf, was dich sorgt, und tu heute das, was in deiner Hand liegt – den Rest überlass Allah: „Binde dein Kamel an und vertraue auf Allah.“', 'Tirmidhi 2517 – hasan'],
+      ['Bete heute ein Gebet ganz ohne Eile – „O Bilal, verschaffe uns Ruhe durch das Gebet.“', 'Abu Dawud 4985 – sahih'],
+      ['Lies heute vor dem Schlafen Ayat al-Kursi – dann bleibt ein Beschützer von Allah bei dir bis zum Morgen.', 'Bukhari 2311'],
+    ]},
+  {id:'angry', ic:'😤', t:'gereizt', open:'Halt kurz an und sag: A‘ūdhu billāhi minasch-schaytānir-radschīm. „Der Starke ist nicht, wer andere niederringt, sondern wer sich im Zorn beherrscht.“', oref:'Bukhari 3282 · Bukhari 6114',
+    names:[
+      ['Al-Halīm', 'Der Nachsichtige', 'Er sieht jeden Fehler der Menschen – und straft nicht sofort, sondern lässt Zeit zur Umkehr. Auch mit dir war Er unzählige Male nachsichtig.', 'Quran 2:225 · Quran 35:41', 'Wie oft war Allah mit dir geduldig? Kannst du heute ein Stück davon an einen Menschen weitergeben?', 'Yā Halīm'],
+      ['Al-Hasīb', 'Der Abrechnende, der Genügende', 'Kein Unrecht geht bei Ihm verloren – Er wird es ausgleichen, gerechter, als du es je könntest. Du musst nicht alles selbst heimzahlen. „Und Allah genügt als Abrechner.“', 'Quran 4:6 · Quran 4:86', 'Was willst du heute Al-Hasīb überlassen, statt es selbst zu vergelten?', 'Yā Hasīb'],
+      ['Al-Hakīm', 'Der Allweise', 'Nichts geschieht ohne Weisheit – auch nicht das, was dich gerade aufregt. „Vielleicht ist euch etwas zuwider, und es ist gut für euch.“', 'Quran 2:32 · Quran 2:216', 'Welche Weisheit könnte in dem stecken, was dich gerade ärgert?', 'Yā Hakīm'],
+    ],
+    verses:[
+      ['… die ihren Grimm zurückhalten und den Menschen verzeihen – und Allah liebt die Gutes Tuenden.', 'Quran 3:134', '3/134'],
+      ['… Sie sollen verzeihen und nachsichtig sein. Liebt ihr es nicht, dass Allah euch vergibt? Und Allah ist allvergebend und barmherzig.', 'Quran 24:22', '24/22'],
+      ['Wehre das Schlechte mit dem ab, was besser ist; dann wird der, zwischen dem und dir Feindschaft war, wie ein enger Freund.', 'Quran 41:34', '41/34'],
+    ],
+    duas:[
+      ['A‘ūdhu billāhi minasch-schaytānir-radschīm', 'Ich suche Zuflucht bei Allah vor dem verfluchten Satan. – Der Prophet ﷺ sagte über einen Mann im Zorn: Würde er das sagen, würde von ihm weichen, was er spürt.', 'Bukhari 3282, Muslim 2610'],
+      ['Allāhumma innī as’aluka khaschyataka fil-ghaybi wasch-schahādah, wa as’aluka kalimatal-haqqi fir-ridā wal-ghadab', 'O Allah, ich bitte Dich um Ehrfurcht vor Dir im Verborgenen und im Offenen, und ich bitte Dich um das Wort der Wahrheit in Zufriedenheit und im Zorn.', 'Nasa’i 1305 – sahih'],
+    ],
+    acts:[
+      ['Verzeih heute einem Menschen – in deinem Herzen oder mit einer Nachricht.', 'Quran 24:22'],
+      ['Wenn heute Zorn kommt: Sag A‘ūdhu billāh … und setz dich hin, wenn du stehst.', 'Bukhari 3282 · Abu Dawud 4782 – sahih'],
+      ['Sag heute einem schwierigen Menschen ein gutes Wort – „Ein gutes Wort ist Sadaqa.“', 'Bukhari 2989, Muslim 1009'],
+    ]},
+  {id:'empty', ic:'😶', t:'leer / fern', open:'Auch ein leeres Herz darf zu Allah kommen. Er sagt: „Wer sich Mir eine Spanne nähert, dem nähere Ich Mich eine Elle.“ Du musst nichts fühlen – fang einfach an.', oref:'Bukhari 7405, Muslim 2675',
+    names:[
+      ['Al-Hayy al-Qayyūm', 'Der Lebendige, der alles Bestehende Erhaltende', 'Er stirbt nie, schläft nie, wird nie müde – und alles, auch dein Herz, besteht nur durch Ihn. Der Prophet ﷺ sagte: Wer seines Herrn gedenkt und wer es nicht tut, sind wie ein Lebender und ein Toter.', 'Quran 2:255 · Bukhari 6407', 'Was lässt dein Herz gerade leer werden – und was könnte es heute wieder lebendig machen?', 'Yā Hayyu yā Qayyūm'],
+      ['Al-Fattāh', 'Der Öffnende', 'Er öffnet, was verschlossen ist: Türen der Versorgung, der Barmherzigkeit – und verschlossene Herzen. „Was Allah den Menschen an Barmherzigkeit öffnet, das kann niemand zurückhalten.“', 'Quran 34:26 · Quran 35:2', 'Bitte Ihn ehrlich: „Yā Fattāh, öffne mein Herz.“ Was soll Er dir öffnen?', 'Yā Fattāh'],
+      ['Al-Hādī', 'Der Rechtleitende', 'Jede Rechtleitung kommt von Ihm – auch das leise Ziehen in dir, das dich gerade hierhergebracht hat. „Und dein Herr genügt als Rechtleiter und Helfer.“', 'Quran 25:31 · Quran 1:6', 'In jeder Rak’at bittest du: „Leite uns den geraden Weg.“ Wohin soll Er dich heute leiten?', 'Yā Hādī'],
+    ],
+    verses:[
+      ['Ist es nicht an der Zeit für die Gläubigen, dass ihre Herzen demütig werden beim Gedenken Allahs und vor der Wahrheit, die herabgesandt wurde?', 'Quran 57:16', '57/16'],
+      ['Wir haben den Menschen erschaffen und wissen, was seine Seele ihm einflüstert, und Wir sind ihm näher als seine Halsschlagader.', 'Quran 50:16', '50/16'],
+      ['So gedenkt Meiner, dann gedenke Ich euer. Seid Mir dankbar und seid nicht undankbar.', 'Quran 2:152', '2/152'],
+    ],
+    duas:[
+      ['Yā muqallibal-qulūb, thabbit qalbī ‘alā dīnik', 'O Du, der die Herzen wendet, festige mein Herz auf Deiner Religion.', 'Tirmidhi 2140 – sahih'],
+      ['Allāhumma a‘innī ‘alā dhikrika wa schukrika wa husni ‘ibādatik', 'O Allah, hilf mir, Deiner zu gedenken, Dir zu danken und Dir auf schöne Weise zu dienen.', 'Abu Dawud 1522 – sahih'],
+      ['Allāhumma musarrifal-qulūb, sarrif qulūbanā ‘alā tā‘atik', 'O Allah, Du Lenker der Herzen, lenke unsere Herzen zu Deinem Gehorsam.', 'Muslim 2654'],
+    ],
+    acts:[
+      ['Lies heute eine Seite Quran mit Bedeutung, ohne Handy daneben – „Denken sie denn nicht über den Quran nach, oder sind an ihren Herzen Schlösser?“', 'Quran 47:24'],
+      ['Bete ein Gebet heute so, als wäre es dein letztes – „Wenn du betest, dann bete wie einer, der Abschied nimmt.“', 'Ibn Majah 4171 – hasan'],
+      ['Besuche heute einen Kranken oder einen Friedhof – beides weckt das Herz.', 'Muslim 2568 · Muslim 976'],
+    ]},
+  {id:'guilt', ic:'😞', t:'schuldig', open:'Dass es dir leidtut, ist schon der Anfang: „Die Reue ist das Bedauern.“ Und Allah freut sich über deine Umkehr mehr als jemand, der sein verlorenes Kamel in der Wüste wiederfindet.', oref:'Ibn Majah 4252 – sahih · Bukhari 6309, Muslim 2747',
+    names:[
+      ['At-Tawwāb', 'Der die Reue immer wieder annimmt', 'Tawwāb heißt: Er nimmt die Reue nicht einmal an, sondern immer wieder. Allah streckt Seine Hand in der Nacht aus, damit der umkehrt, der am Tag gesündigt hat – und am Tag für den, der in der Nacht gesündigt hat.', 'Quran 2:37 · Muslim 2759', 'Was willst du heute hinter dir lassen? Sag es Ihm – Er wartet auf deine Umkehr.', 'Yā Tawwāb'],
+      ['Al-Ghaffār', 'Der immer wieder Vergebende', 'Allah sagt: „O Sohn Adams, selbst wenn deine Sünden bis zu den Wolken des Himmels reichten und du Mich dann um Vergebung bätest, würde Ich dir vergeben – und es kümmert Mich nicht.“', 'Quran 20:82 · Tirmidhi 3540 – hasan', 'Glaubst du, dass Allah dir vergeben kann? Er sagt es selbst – nimm Ihn beim Wort.', 'Yā Ghaffār'],
+      ['Al-‘Afuww', 'Der die Sünde ganz auslöscht', '‘Afw heißt: die Spur vollständig tilgen – als wäre es nie geschehen. Für die Nacht der Bestimmung lehrte der Prophet ﷺ: „Allāhumma innaka ‘afuwwun tuhibbul-‘afwa fa‘fu ‘annī.“', 'Quran 4:43 · Tirmidhi 3513 – sahih', 'Stell dir vor, deine Sünde wäre ganz aus deinem Buch gelöscht. Genau darum darfst du Ihn bitten.', 'Yā ‘Afuww'],
+    ],
+    verses:[
+      ['Sag: O Meine Diener, die ihr gegen euch selbst maßlos gewesen seid, verzweifelt nicht an der Barmherzigkeit Allahs. Gewiss, Allah vergibt alle Sünden. Er ist ja der Allvergebende, der Barmherzige.', 'Quran 39:53', '39/53'],
+      ['Wer Böses tut oder sich selbst Unrecht zufügt und dann Allah um Vergebung bittet, wird Allah allvergebend und barmherzig finden.', 'Quran 4:110', '4/110'],
+      ['… außer dem, der bereut, glaubt und rechtschaffen handelt: Ihnen wird Allah ihre schlechten Taten in gute umwandeln. Und Allah ist allvergebend und barmherzig.', 'Quran 25:70', '25/70'],
+    ],
+    duas:[
+      ['Allāhumma anta rabbī, lā ilāha illā ant, khalaqtanī wa ana ‘abduk, wa ana ‘alā ‘ahdika wa wa‘dika mastata‘t, a‘ūdhu bika min scharri mā sana‘t, abū’u laka bi-ni‘matika ‘alayy, wa abū’u bi-dhanbī, faghfir lī, fa-innahū lā yaghfirudh-dhunūba illā ant', 'O Allah, Du bist mein Herr, es gibt keinen Gott außer Dir. Du hast mich erschaffen, und ich bin Dein Diener. Ich halte an Deinem Bund und Versprechen fest, so gut ich kann. Ich suche Zuflucht bei Dir vor dem Übel dessen, was ich getan habe. Ich bekenne Dir Deine Gnade über mich und ich bekenne meine Sünde – so vergib mir, denn niemand vergibt die Sünden außer Dir.', 'Bukhari 6306'],
+      ['Rabbanā zalamnā anfusanā wa in lam taghfir lanā wa tarhamnā la-nakūnanna minal-khāsirīn', 'Unser Herr, wir haben uns selbst Unrecht getan. Wenn Du uns nicht vergibst und Dich unser nicht erbarmst, werden wir gewiss zu den Verlierern gehören.', 'Quran 7:23'],
+      ['Allāhumma innaka ‘afuwwun tuhibbul-‘afwa fa‘fu ‘annī', 'O Allah, Du bist der Auslöschende Verzeiher, Du liebst das Verzeihen, so verzeih mir.', 'Tirmidhi 3513 – sahih'],
+    ],
+    acts:[
+      ['Lass der schlechten Tat heute eine gute folgen – sie löscht sie aus.', 'Tirmidhi 1987 – hasan'],
+      ['Mach Wudu, bete 2 Rak’at und bitte danach um Vergebung.', 'Abu Dawud 1521 – sahih'],
+      ['Entferne heute eine Sache, die dich zur Sünde führt – eine App, einen Kontakt, einen Weg.', 'Bukhari 3470, Muslim 2766'],
+    ]},
+  {id:'calm', ic:'🙂', t:'ruhig', open:'Ein ruhiges Herz ist ein Geschenk – nutze es für Allah. „Zwei Gaben, bei denen viele Menschen betrogen werden: Gesundheit und freie Zeit.“', oref:'Bukhari 6412',
+    names:[
+      ['Al-Karīm', 'Der Großzügige, Edle', 'Er gibt, ohne dass du fragst, mehr, als du verdienst, und verzeiht, ohne es dir vorzuhalten. „O Mensch, was hat dich gegenüber deinem edlen Herrn getäuscht?“', 'Quran 82:6', 'Zähl drei Dinge auf, die Allah dir gegeben hat, ohne dass du je darum gebeten hast.', 'Yā Karīm'],
+      ['Ar-Razzāq', 'Der Versorger', 'Jeder Bissen, jeder Atemzug, jedes gute Wort ist Rizq von Ihm. „Würdet ihr euch wirklich auf Allah verlassen, würde Er euch versorgen, wie Er die Vögel versorgt: Sie fliegen morgens hungrig aus und kehren abends satt zurück.“', 'Quran 51:58 · Tirmidhi 2344 – sahih', 'Wo hast du heute schon Seine Versorgung gesehen – nicht nur beim Geld?', 'Yā Razzāq'],
+      ['Al-Khāliq', 'Der Schöpfer', 'Er hat dich aus dem Nichts erschaffen, in schönster Gestalt – und jede Zelle in dir arbeitet gerade nach Seinem Befehl.', 'Quran 59:24 · Quran 95:4', 'Schau dich um: Was hat Allah erschaffen, das dich heute zum Staunen bringen kann?', 'Yā Khāliq'],
+    ],
+    verses:[
+      ['In der Erschaffung der Himmel und der Erde und im Wechsel von Nacht und Tag liegen wahrlich Zeichen für die Verständigen, die Allahs gedenken – im Stehen, im Sitzen und auf der Seite liegend – und über die Erschaffung der Himmel und der Erde nachdenken: „Unser Herr, Du hast dies nicht umsonst erschaffen.“', 'Quran 3:190–191', '3/190-191'],
+      ['Und Ich habe die Dschinn und die Menschen nur dazu erschaffen, dass sie Mir dienen.', 'Quran 51:56', '51/56'],
+      ['Und wenn dich Meine Diener nach Mir fragen: Ich bin nahe. Ich erhöre den Ruf des Rufenden, wenn er Mich anruft. So sollen sie auf Mich hören und an Mich glauben, damit sie recht geleitet werden.', 'Quran 2:186', '2/186'],
+    ],
+    duas:[
+      ['Allāhumma innī as’alukal-hudā wat-tuqā wal-‘afāfa wal-ghinā', 'O Allah, ich bitte Dich um Rechtleitung, Gottesfurcht, Keuschheit und Unabhängigkeit.', 'Muslim 2721'],
+      ['Rabbanā ātinā fid-dunyā hasanatan wa fil-ākhirati hasanatan wa qinā ‘adhāban-nār', 'Unser Herr, gib uns im Diesseits Gutes und im Jenseits Gutes und bewahre uns vor der Strafe des Feuers. – Das Du’a, das der Prophet ﷺ am häufigsten sprach.', 'Quran 2:201 · Bukhari 6389'],
+    ],
+    acts:[
+      ['Bete heute Duha (2 Rak’at) – sie gilt als Sadaqa für jedes deiner Gelenke.', 'Muslim 720'],
+      ['Lerne heute einen neuen Namen Allahs und rufe Ihn damit an.', 'Bukhari 2736 · Quran 7:180'],
+      ['Mach heute jemandem eine Freude – schon dein Lächeln ist Sadaqa.', 'Tirmidhi 1956 – sahih'],
+    ]},
+  {id:'grat', ic:'😊', t:'dankbar', open:'Alhamdulillah! „Wie wunderbar ist die Sache des Gläubigen – alles ist gut für ihn: Trifft ihn Gutes, ist er dankbar, und das ist gut für ihn.“', oref:'Muslim 2999',
+    names:[
+      ['Asch-Schakūr', 'Der Dankbare, der wenig mit viel belohnt', 'Er nimmt eine kleine Tat an und vervielfacht sie. Ein Mann gab einem durstigen Hund zu trinken – und Allah dankte es ihm und vergab ihm.', 'Quran 35:30 · Bukhari 2363', 'Welche kleine gute Tat von dir könnte Allah heute groß machen?', 'Yā Schakūr'],
+      ['Al-Wahhāb', 'Der Schenkende', 'Er schenkt ohne Gegenleistung und ohne Grenze. Sulayman (as) bat: „Schenke mir ein Königreich … Du bist ja der Schenkende.“', 'Quran 3:8 · Quran 38:35', 'Was ist das größte Geschenk, das Allah dir je gemacht hat?', 'Yā Wahhāb'],
+      ['Al-Barr', 'Der Gütige, Wohltätige', 'Die Bewohner des Paradieses sagen: „Wir pflegten Ihn zuvor anzurufen; Er ist ja der Gütige, der Barmherzige.“', 'Quran 52:28', 'Wie hat Allah dir heute Güte gezeigt – durch Menschen, Dinge oder Momente?', 'Yā Barr'],
+    ],
+    verses:[
+      ['Und als euer Herr verkündete: „Wenn ihr dankbar seid, werde Ich euch gewiss noch mehr geben.“', 'Quran 14:7', '14/7'],
+      ['Und wenn ihr die Gunst Allahs aufzählen wolltet, ihr könntet sie nicht erfassen. Allah ist wahrlich allvergebend und barmherzig.', 'Quran 16:18', '16/18'],
+      ['Und von der Gunst deines Herrn, davon erzähle.', 'Quran 93:11', '93/11'],
+    ],
+    duas:[
+      ['Rabbi awzi‘nī an aschkura ni‘matakallatī an‘amta ‘alayya wa ‘alā wālidayya, wa an a‘mala sālihan tardāh, wa adkhilnī bi-rahmatika fī ‘ibādikas-sālihīn', 'Mein Herr, gib mir ein, für Deine Gunst dankbar zu sein, die Du mir und meinen Eltern erwiesen hast, und rechtschaffen zu handeln, sodass Du Wohlgefallen daran hast. Und lass mich durch Deine Barmherzigkeit eingehen unter Deine rechtschaffenen Diener.', 'Quran 27:19'],
+      ['Allāhumma a‘innī ‘alā dhikrika wa schukrika wa husni ‘ibādatik', 'O Allah, hilf mir, Deiner zu gedenken, Dir zu danken und Dir auf schöne Weise zu dienen. – Der Prophet ﷺ sagte zu Mu‘adh: „Bei Allah, ich liebe dich“, und lehrte ihn dann dieses Du’a.', 'Abu Dawud 1522 – sahih'],
+    ],
+    acts:[
+      ['Danke heute einem Menschen ausdrücklich – „Wer den Menschen nicht dankt, dankt Allah nicht.“', 'Abu Dawud 4811 – sahih'],
+      ['Mach eine Niederwerfung des Dankes (Sajdat asch-Schukr) – der Prophet ﷺ warf sich nieder, wenn ihn etwas Erfreuliches erreichte.', 'Abu Dawud 2774 – hasan'],
+      ['Gib heute eine kleine Sadaqa aus Dankbarkeit – „Sadaqa mindert den Besitz nicht.“', 'Muslim 2588'],
+    ]},
+  {id:'long', ic:'🤲', t:'Sehnsucht', open:'Diese Sehnsucht ist selbst ein Geschenk von Ihm. „Wer die Begegnung mit Allah liebt, dessen Begegnung liebt Allah.“', oref:'Bukhari 6507, Muslim 2683',
+    names:[
+      ['Al-Qarīb', 'Der Nahe', 'Er hört dein leisestes Flüstern. Als die Gefährten beim Dhikr laut riefen, sagte der Prophet ﷺ: „Ihr ruft keinen Tauben und keinen Abwesenden an – ihr ruft einen Hörenden, Nahen.“', 'Quran 2:186 · Bukhari 2992', 'Wenn Er so nahe ist – was möchtest du Ihm jetzt leise sagen?', 'Yā Qarīb'],
+      ['Al-Wadūd', 'Der Liebende und Geliebte', 'Wenn Allah einen Diener liebt, ruft Er Jibril: „Ich liebe ihn, so liebe auch du ihn“ – dann lieben ihn die Bewohner des Himmels, und ihm wird Annahme auf der Erde gegeben.', 'Quran 85:14 · Bukhari 3209', 'Was liebst du an Allah? Sag es Ihm heute mit deinen eigenen Worten.', 'Yā Wadūd'],
+      ['Al-Mujīb', 'Der Erhörende', '„Mein Herr ist nahe und erhört.“ Allah ist schamhaft und großzügig: Er schämt Sich, die Hände Seines Dieners leer zurückzuweisen, wenn er sie zu Ihm erhebt.', 'Quran 11:61 · Abu Dawud 1488 – sahih', 'Welche Bitte trägst du schon lange in dir? Heute ist ein guter Tag, sie Ihm zu sagen.', 'Yā Mujīb'],
+    ],
+    verses:[
+      ['O du Seele, die du Ruhe gefunden hast, kehre zu deinem Herrn zurück, zufrieden und mit Wohlgefallen. Tritt ein unter Meine Diener, und tritt ein in Mein Paradies.', 'Quran 89:27–30', '89/27-30'],
+      ['Für die, die Gutes tun, gibt es das Beste – und noch mehr.', 'Quran 10:26', '10/26', 'Der Prophet ﷺ erklärte das „noch mehr“: den Blick auf das Angesicht Allahs im Paradies (Muslim 181).'],
+      ['… Wer nun auf die Begegnung mit seinem Herrn hofft, der soll rechtschaffen handeln und beim Dienst an seinem Herrn niemanden beigesellen.', 'Quran 18:110', '18/110'],
+    ],
+    duas:[
+      ['Allāhumma innī as’aluka hubbak, wa hubba man yuhibbuk, wa hubba ‘amalin yuqarribunī ilā hubbik', 'O Allah, ich bitte Dich um Deine Liebe, um die Liebe derer, die Dich lieben, und um die Liebe zu Taten, die mich Deiner Liebe näherbringen.', 'Tirmidhi 3235 – sahih'],
+      ['Allāhumma innī as’aluka ladhdhatan-nazari ilā wadschhik, wasch-schawqa ilā liqā’ik, fī ghayri darrā’a mudirra, wa lā fitnatin mudilla', 'O Allah, ich bitte Dich um die Wonne, Dein Angesicht zu schauen, und um die Sehnsucht nach der Begegnung mit Dir – ohne schadendes Unheil und ohne irreführende Versuchung.', 'Nasa’i 1305 – sahih'],
+      ['Allāhummadsch‘al fī qalbī nūran, wa fī basarī nūran, wa fī sam‘ī nūran, wa ‘an yamīnī nūran, wa ‘an yasārī nūran, wa fawqī nūran, wa tahtī nūran, wa amāmī nūran, wa khalfī nūran, wadsch‘al lī nūrā', 'O Allah, lege Licht in mein Herz, Licht in mein Sehen und Licht in mein Hören, Licht zu meiner Rechten und zu meiner Linken, Licht über mir und unter mir, vor mir und hinter mir – und gib mir Licht.', 'Bukhari 6316, Muslim 763'],
+    ],
+    acts:[
+      ['Steh heute Nacht im letzten Drittel auf, auch nur für 2 Rak’at – dann fragt Allah: „Wer ruft Mich an, dass Ich ihm antworte?“', 'Bukhari 1145, Muslim 758'],
+      ['Mach heute in einer Niederwerfung ein langes, persönliches Du’a – „Am nächsten ist der Diener seinem Herrn, wenn er sich niederwirft.“', 'Muslim 482'],
+      ['Faste morgen freiwillig – Allah sagt: „Das Fasten ist für Mich, und Ich belohne es.“', 'Bukhari 1904'],
+    ]},
+];
+// Die 7 Türen der Nähe – aus dem, was du heute in der App getan hast
+const dhikrCount = x => {
+  let n = 0;
+  for (const k in x) if (k.startsWith('q:') || k.startsWith('a:')) n += x[k];
+  for (const k of ['subhan100', 'tahlil100', 'bihamdihi', 'istighfar', 'salawat', 'hawqala']) n += x[k] || 0;
+  return n + ((x.afterprayer || 0) + (x.twowords || 0) + (x.sayyid || 0)) * 33;
+};
+const anyOf = (x, ks) => ks.some(k => (x[k] || 0) > 0);
+// [id, Icon, Name, offen?, Text, Quelle, Weg dorthin, Zusatz]
+const DOORS = [
+  ['fard', '🕌', 'Pflichtgebete', x => (x.fard || 0) >= 5, '„Mein Diener nähert sich Mir mit nichts, das Mir lieber ist, als mit dem, was Ich ihm zur Pflicht gemacht habe.“', 'Bukhari 6502', {prayers:1}, x => `${x.fard || 0}/5`],
+  ['nafl', '✨', 'Freiwilliges Gebet & Fasten', x => anyOf(x, ['rawatib', 'fajrsunna', 'duha', 'wudu', 'qiyam', 's_tarawih', 's_monthu', 's_white', 's_arafa', 's_ashura', 's_tasua', 's_muharram', 's_shawwal', 's_dhulhijja']), '„… und Mein Diener nähert sich Mir weiter mit freiwilligen Taten, bis Ich ihn liebe.“', 'Bukhari 6502', {deed:'duha'}],
+  ['dhikr', '📿', 'Gedenken', x => dhikrCount(x) >= 33, '„So gedenkt Meiner, dann gedenke Ich euer.“', 'Quran 2:152', {quick:'q_subhan'}],
+  ['quran', '📖', 'Quran', x => anyOf(x, ['quran', 'ikhlas', 'kursi', 'baqara', 's_kahf', 'q:q_ikhlas']), '„Lest den Quran, denn er wird am Tag der Auferstehung als Fürsprecher für seine Leute kommen.“', 'Muslim 804', {deed:'quran'}],
+  ['dua', '🤲', 'Du’a', x => Object.keys(x).some(k => k.startsWith('d:') && x[k] > 0) || anyOf(x, ['rizq1', 'rizq2', 'rizq3', 'rizq4']), '„Wenn dich Meine Diener nach Mir fragen: Ich bin nahe. Ich erhöre den Ruf des Rufenden, wenn er Mich anruft.“', 'Quran 2:186', {dua:1}],
+  ['heart', '💫', 'Ein Moment nur mit Allah', x => !!x.qb, '„Ich bin bei Meinem Diener, wenn er Meiner gedenkt … Kommt er zu Mir gehend, komme Ich zu ihm eilend.“', 'Bukhari 7405, Muslim 2675', {qurb:1}],
+  ['ihsan', '🤝', 'Gutes für die Menschen', x => anyOf(x, ['sadaqa', 'rahim', 'kalima', 'salam', 'harm', 'family', 'qt']), '„Allah steht dem Diener bei, solange der Diener seinem Bruder beisteht.“', 'Muslim 2699', {deed:'sadaqa'}],
+];
+const qbDoors = x => DOORS.map(D => !!D[3](x));
+function qbStreak(){
+  let n = 0; const d = new Date();
+  if (!db.qurb.log[dkey(d)]) d.setDate(d.getDate() - 1);
+  while (db.qurb.log[dkey(d)]) { n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
+// Schatzkammer: alle Gaben aus „Danke“ und dem Abend-Rückblick
+function qbTreasure(){
+  const out = [], seen = new Set();
+  const add = (k, g) => { const t = String(g || '').trim(); if (!t || seen.has(k + '|' + t.toLowerCase())) return; seen.add(k + '|' + t.toLowerCase()); out.push({k, t}); };
+  for (const k in db.journal || {}) for (const g of db.journal[k].g || []) add(k, g);
+  for (const k in db.qurb.log) for (const g of db.qurb.log[k].g || []) add(k, g);
+  return out.sort((a, b) => b.k.localeCompare(a.k));
+}
+const qbDate = k => new Date(k + 'T12:00').toLocaleDateString('de-DE', {day:'numeric', month:'long'});
+function qbTafakkur(){
+  const h = new Date().getHours();
+  if (h >= 21 || h < 4) return ['🌌', 'Wenn du kannst, schau kurz in den Nachthimmel.', '„In der Erschaffung der Himmel und der Erde und im Wechsel von Nacht und Tag liegen Zeichen für die Verständigen.“', 'Quran 3:190'];
+  if (h < 11) return ['🌅', 'Allah hat dir heute einen neuen Tag geschenkt.', 'Der Prophet ﷺ sagte beim Aufwachen: „Alles Lob gebührt Allah, der uns wieder lebendig gemacht hat, nachdem Er uns sterben ließ.“', 'Bukhari 6312'];
+  if (h < 17) return ['🖐️', 'Schau einen Moment auf deine Hände – jede ihrer Bewegungen ist ein Geschenk.', '„Und in euch selbst – seht ihr denn nicht?“', 'Quran 51:21'];
+  return ['🌇', 'Der Tag geht zu Ende – so wie einmal das Leben.', '„Bei der Zeit! Der Mensch ist wahrlich im Verlust – außer denen, die glauben und Gutes tun …“', 'Quran 103:1–3'];
+}
+
+// Karte unter „Heute“
+function renderQurbCard(){
+  const el = $('#qurb'); if (!el) return;
+  const x = day(today), on = qbDoors(x), n = on.filter(Boolean).length, L = db.qurb.log[today];
+  const next = DOORS.find((D, i) => !on[i] && D[0] !== 'heart');
+  el.innerHTML = `<div class="qc"><button class="nur" data-qurb="1" style="--n:${n}" aria-label="Die 7 Türen der Nähe ansehen"><span class="nur-c"></span>${DOORS.map((D, i) => `<span class="nur-d ${on[i] ? 'on' : ''}" style="--a:${Math.round(i * 360 / 7)}deg">${D[1]}</span>`).join('')}</button>
+    <div class="qc-t"><small>💫 Näher zu Allah</small><b>Dein Licht heute: ${n} von 7</b>
+      <small>${L && L.ya ? `Heute begleitet dich: <b>${esc(L.ya)}</b>` : next ? `Nächste Tür: ${next[1]} ${esc(next[2])}` : 'Fehlt nur noch: dein Moment mit Allah'}</small>
+      <button class="lnk" data-qurb="1">Die 7 Türen ›</button></div></div>
+    ${!x.qb ? '<button class="qbtn" data-qbgo="1">▶ 7 Minuten mit Allah</button>'
+      : L && L.a && !x.qt ? `<div class="qact"><span>🎯 <b>Deine Tat für Allah:</b> ${esc(L.a)}</span><button class="mbtn" data-qtdone="1">✓ Erledigt</button></div>`
+      : `<p class="qc-ok">${x.qt ? '✓ Deine Tat für Allah ist getan.' : '✓ Heute warst du mit Allah.'} „Kommt er zu Mir gehend, komme Ich zu ihm eilend.“ <button class="lnk" data-qbgo="1">Nochmal</button>${x.qt ? ' · <button class="lnk" data-qtdone="1">rückgängig</button>' : ''}</p>`}`;
+}
+
+// Der geführte Moment
+const QB_STEPS = ['heart', 'arrive', 'name', 'verse', 'shukr', 'talk', 'dua', 'act', 'end'];
+let QB = null;
+const qbH = () => HEARTS.find(h => h.id === QB.h);
+function startQurb(){
+  ['#nzs', '#help', '#dm'].forEach(s => { const el = $(s); if (el) el.hidden = true; });
+  const L = db.qurb.log[today];
+  QB = {i:0, h:null, g:L && L.g ? [...L.g.slice(-3), '', '', ''].slice(0, 3) : ['', '', ''], act:null, own:'', dc:0, talk:'', keep:false, kept:false, saved:false};
+  $('#nz').hidden = false; $('#nz').scrollTop = 0; keepAwake(true); renderQB();
+}
+function qbHeart(id){
+  const h = HEARTS.find(x => x.id === id); if (!h) return;
+  const r = db.qurb.c[id] || 0, T = qbTreasure().filter(e => e.k < today);
+  Object.assign(QB, {h:id, i:1, act:null, dc:0, pick:{nm:h.names[r % h.names.length], v:h.verses[r % h.verses.length], d:h.duas[r % h.duas.length]}, mem:T.length ? T[Math.floor(Math.random() * T.length)] : null});
+  buzz(10); renderQB(); $('#nz').scrollTop = 0;
+}
+function renderQB(){
+  const st = QB_STEPS[QB.i], h = QB.h ? qbH() : null, P = QB.pick, nm = db.settings.name;
+  $('#nz-bars').innerHTML = QB_STEPS.map((_, i) => `<i class="${i <= QB.i ? 'on' : ''}"></i>`).join('');
+  let html = '';
+  if (st === 'heart') html = `<div class="qb-orb sm"></div><p class="qb-k">💫 7 Minuten mit Allah</p><h2>Assalāmu ‘alaikum${nm ? ', ' + esc(nm) : ''}.</h2>
+    <p class="qb-soft">Dieser Moment gehört nur dir und Allah. Leg alles andere kurz weg.</p><p>Wie geht es deinem Herzen gerade?</p>
+    <div class="qb-h">${HEARTS.map(x => `<button data-qbh="${x.id}"><span>${x.ic}</span>${x.t}</button>`).join('')}</div>`;
+  else if (st === 'arrive') { const T = qbTafakkur(); html = `<div class="qb-orb"></div><p class="qb-k">1 · Ankommen</p><h2>Allah sieht dich – genau jetzt.</h2>
+    <p>${esc(h.open)} <span class="gref">${esc(h.oref)}</span></p>
+    <p class="qb-soft">Atme dreimal langsam ein und aus, im Takt des Lichts. Sag leise: <b>Yā Allāh</b>.</p>
+    <p class="qb-soft">${T[0]} ${esc(T[1])} ${esc(T[2])} <span class="gref">${esc(T[3])}</span></p>
+    <p class="qb-q">Ihsan heißt: „… dass du Allah dienst, als ob du Ihn sähest; und wenn du Ihn nicht siehst, so sieht Er dich doch.“ <span class="gref">Bukhari 50, Muslim 8</span></p>`; }
+  else if (st === 'name') { const n = P.nm; html = `<p class="qb-k">2 · Wer Er ist</p><p class="qb-name">${esc(n[0])}</p><p class="qb-mean">${esc(n[1])}</p>
+    <p>${esc(n[2])}</p><small class="gref">${esc(n[3])}</small>
+    <p class="qb-q">🤔 ${esc(n[4])}</p>
+    <p class="qb-soft">„Allah gehören die schönsten Namen, so ruft Ihn damit an.“ <span class="gref">Quran 7:180</span><br>Sag leise: <b>${esc(n[5])}</b></p>`; }
+  else if (st === 'verse') { const v = P.v; html = `<p class="qb-k">3 · Allah spricht zu dir</p><p class="qb-v">„${esc(v[0])}“</p><small class="gref">${esc(v[1])}</small>
+    ${v[3] ? `<p class="qb-soft">${esc(v[3])}</p>` : ''}
+    <p class="qb-q">Lies den Vers langsam noch einmal. Was will Allah dir heute damit sagen?</p>
+    <button class="qb-l" data-qbl="${v[2]}">🔊 Auf Arabisch anhören (quran.com)</button>`; }
+  else if (st === 'shukr') html = `<p class="qb-k">4 · Danke</p><h2>Wofür bist du dankbar?</h2>
+    <p class="qb-soft">„Wenn ihr dankbar seid, werde Ich euch gewiss mehr geben.“ <span class="gref">Quran 14:7</span></p>
+    ${['z. B. dass ich atmen und sehen kann', 'z. B. ein Mensch, der mich liebt', 'z. B. dass ich heute beten konnte'].map((p, i) => `<input class="qb-in" data-qbg="${i}" value="${esc(QB.g[i] || '')}" placeholder="${p}" maxlength="120" autocomplete="off">`).join('')}
+    ${QB.mem ? `<p class="qb-mem">💎 Aus deiner Schatzkammer: Am ${qbDate(QB.mem.k)} warst du dankbar für „${esc(QB.mem.t)}“.</p>` : '<p class="qb-soft">Alles, was du hier notierst, sammelt sich in deiner Schatzkammer der Gaben – für die Tage, an denen du es brauchst.</p>'}`;
+  else if (st === 'talk') html = `<p class="qb-k">5 · Sprich mit Ihm</p><p class="qb-v">„Wenn dich Meine Diener nach Mir fragen: Ich bin nahe. Ich erhöre den Ruf des Rufenden, wenn er Mich anruft.“</p><small class="gref">Quran 2:186</small>
+    <p>Erzähl Allah jetzt, was in dir ist – in deiner Sprache, laut, leise oder nur im Herzen. Er weiß es schon, und doch ist Ihm nichts edler als dein Du’a. <span class="gref">Tirmidhi 3370 – hasan</span></p>
+    <textarea id="nz-talk" class="qb-in" rows="5" placeholder="Nur zwischen dir und Allah – wird nicht gespeichert …">${esc(QB.talk)}</textarea>
+    <label class="qb-chk"><input type="checkbox" id="nz-keep" ${QB.keep ? 'checked' : ''}> Als Bitte in „Meine Du’as“ merken</label>
+    <p class="qb-soft">„Zwei Augen berührt das Feuer nicht: ein Auge, das aus Ehrfurcht vor Allah geweint hat …“ <span class="gref">Tirmidhi 1639 – sahih</span></p>`;
+  else if (st === 'dua') { const d = P.d; html = `<p class="qb-k">6 · Bitte Ihn</p><p class="dmg-tr">${esc(d[0])}</p><p class="dmg-de">„${esc(d[1])}“</p><small class="gref">${esc(d[2])}</small>
+    <button class="qb-c" data-qbc="1">${QB.dc >= 3 ? '✓' : `${QB.dc}/3`}</button>
+    <p class="qb-soft">Der Prophet ﷺ wiederholte sein Du’a gern dreimal – tippe bei jedem Mal. <span class="gref">Muslim 1794</span></p>`; }
+  else if (st === 'act') html = `<p class="qb-k">7 · Eine Tat für Allah</p><h2>Was tust du heute für Ihn?</h2>
+    <p class="qb-soft">„Die Taten, die Allah am meisten liebt, sind die beständigsten – auch wenn sie klein sind.“ <span class="gref">Bukhari 6464, Muslim 783</span></p>
+    ${h.acts.map(([t, r], i) => `<button class="qb-a ${QB.act === i ? 'on' : ''}" data-qba="${i}">${QB.act === i ? '✓ ' : ''}${esc(t)}<small>${esc(r)}</small></button>`).join('')}
+    <input class="qb-in" id="nz-own" value="${esc(QB.own)}" placeholder="… oder deine eigene Tat" maxlength="100" autocomplete="off">`;
+  else if (st === 'end') { const L = db.qurb.log[today] || {}; html = `<div class="qb-orb big"></div><p class="qb-k">Allah hat deiner gedacht</p>
+    <p class="qb-v">„Ich bin so, wie Mein Diener von Mir denkt, und Ich bin bei ihm, wenn er Meiner gedenkt … Nähert er sich Mir eine Spanne, nähere Ich Mich ihm eine Elle. Und kommt er zu Mir gehend, komme Ich zu ihm eilend.“</p><small class="gref">Bukhari 7405, Muslim 2675</small>
+    <div class="qb-sum"><div><b>${db.qurb.n || 1}</b><small>${(db.qurb.n || 1) === 1 ? 'Moment' : 'Momente'} mit Allah</small></div><div><b>🔥 ${qbStreak()}</b><small>${qbStreak() === 1 ? 'Tag' : 'Tage'} in Folge</small></div><div><b>${QB.first ? '+30' : '✓'}</b><small>XP</small></div></div>
+    <p>Heute begleitet dich: <b>${esc(P.nm[5])}</b> – sag es, wann immer du an Ihn denkst.</p>
+    ${L.a ? `<p class="qb-mem">🎯 Deine Tat für Allah: ${esc(L.a)}<br><small>Hake sie unter „Heute“ ab, sobald du sie getan hast (+20 XP).</small></p>` : ''}
+    ${h.id === 'guilt' ? '<button class="qb-l" data-tawba="1">🤍 Weiter zu „Neuanfang“</button>' : ''}`; }
+  $('#nz-body').innerHTML = html;
+  $('#nz .qb-nav').style.display = st === 'heart' ? 'none' : '';
+  $('#nz-back').style.display = st === 'end' ? 'none' : '';
+  $('#nz-body').classList.toggle('top', st === 'heart');
+  $('#nz-next').textContent = st === 'end' ? 'Fertig ✓' : st === 'arrive' ? 'Ich bin da ›' : st === 'act' && (QB.act !== null || QB.own) ? 'Vornehmen & weiter ›' : 'Weiter ›';
+}
+function qbCollect(){
+  const st = QB_STEPS[QB.i];
+  if (st === 'shukr') QB.g = [0, 1, 2].map(i => ($(`[data-qbg="${i}"]`).value || '').trim());
+  if (st === 'talk') { QB.talk = $('#nz-talk').value; QB.keep = $('#nz-keep').checked; }
+  if (st === 'act') QB.own = ($('#nz-own').value || '').trim();
+}
+function qbSave(){
+  if (QB.saved) return; QB.saved = true;
+  const h = qbH(), x = db.days[today] = db.days[today] || {}, prev = db.qurb.log[today] || {};
+  const act = QB.own || (QB.act !== null ? h.acts[QB.act][0].split(' – ')[0].replace(/[.“]+$/, '') : '');
+  QB.first = !x.qb;
+  db.qurb.log[today] = {h:h.id, g:[...new Set([...(prev.g || []), ...QB.g.filter(Boolean)])].slice(-12), a:act || prev.a || '', nm:QB.pick.nm[0], ya:QB.pick.nm[5], ns:[...new Set([...(prev.ns || (prev.nm ? [prev.nm] : [])), QB.pick.nm[0]])]};
+  db.qurb.c[h.id] = (db.qurb.c[h.id] || 0) + 1; db.qurb.n = (db.qurb.n || 0) + 1;
+  x.qb = 1; x['d:x_qurb'] = (x['d:x_qurb'] || 0) + 1;
+  save();
+}
+function qbNext(d){
+  qbCollect();
+  const st = QB_STEPS[QB.i];
+  if (d < 0) { if (QB.i > 0 && st !== 'end') QB.i--; renderQB(); $('#nz').scrollTop = 0; return; }
+  if (st === 'end') return closeQB();
+  if (st === 'talk' && QB.keep && QB.talk.trim() && !QB.kept) {
+    db.duas.push({id:Date.now().toString(36), text:QB.talk.trim().slice(0, 300), k:today}); QB.kept = true; save(); renderDuas(); toast('🤲 In „Meine Du’as“ gemerkt');
+  }
+  QB.i++;
+  if (QB_STEPS[QB.i] === 'end') { qbSave(); buzz([40,60,40,60,120]); } else buzz(6);
+  renderQB(); $('#nz').scrollTop = 0;
+}
+function closeQB(){ $('#nz').hidden = true; keepAwake(false); if (QB && QB.saved) render(); }
+function qbActDone(){
+  const x = db.days[today] = db.days[today] || {};
+  if (x.qt) delete x.qt; else { x.qt = 1; buzz([30,50,30]); toast('🎯 MashaAllah – möge Allah es annehmen'); }
+  save(); render();
+  if (!$('#nzs').hidden) openQurbSheet();
+}
+
+// Übersicht: Türen, Herz-Verlauf, Schatzkammer
+function openQurbSheet(){
+  const x = day(today), on = qbDoors(x), n = on.filter(Boolean).length, T = qbTreasure();
+  const last = []; for (let i = 13; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); last.push(dkey(d)); }
+  const cnt = {}; for (const k in db.qurb.log) if (k >= addDays(today, -29)) { const h = db.qurb.log[k].h; cnt[h] = (cnt[h] || 0) + 1; }
+  const top = Object.entries(cnt).sort((a, b) => b[1] - a[1])[0], topH = top && HEARTS.find(h => h.id === top[0]);
+  const names = [...new Set(Object.keys(db.qurb.log).sort().flatMap(k => db.qurb.log[k].ns || [db.qurb.log[k].nm]).filter(Boolean))];
+  const hic = k => { const l = db.qurb.log[k], h = l && HEARTS.find(x => x.id === l.h); return h ? h.ic : '·'; };
+  $('#nzs-body').innerHTML = `<div class="card qcard qs-hero"><div class="qc"><span class="nur" style="--n:${n}"><span class="nur-c"></span>${DOORS.map((D, i) => `<span class="nur-d ${on[i] ? 'on' : ''}" style="--a:${Math.round(i * 360 / 7)}deg">${D[1]}</span>`).join('')}</span>
+      <div class="qc-t"><small>Dein Licht heute</small><b>${n} von 7 Türen der Nähe offen</b><small>💫 ${db.qurb.n || 0} ${db.qurb.n === 1 ? 'Moment' : 'Momente'} mit Allah · 🔥 ${qbStreak()} ${qbStreak() === 1 ? 'Tag' : 'Tage'} in Folge</small></div></div>
+      <button class="qbtn" data-qbgo="1">▶ 7 Minuten mit Allah</button></div>
+    <div class="dh"><div class="dh-k">Der Weg der Nähe</div><div class="dh-t">Allah sagt: „… Mein Diener nähert sich Mir mit nichts, das Mir lieber ist, als mit dem, was Ich ihm zur Pflicht gemacht habe. Und Mein Diener nähert sich Mir weiter mit freiwilligen Taten, bis Ich ihn liebe. Und wenn Ich ihn liebe, bin Ich sein Gehör, mit dem er hört, sein Blick, mit dem er sieht, seine Hand, mit der er greift, und sein Fuß, mit dem er geht. Bittet er Mich, gebe Ich ihm gewiss, und sucht er Zuflucht bei Mir, gewähre Ich sie ihm gewiss.“</div><div class="dh-r">Bukhari 6502</div></div>
+    <h4 class="rg-h">🚪 Die 7 Türen der Nähe – heute</h4>
+    ${DOORS.map((D, i) => `<div class="hp ${on[i] ? 'qd-on' : ''}"><span class="hp-i">${D[1]}</span><div><b>${on[i] ? '✓ ' : ''}${esc(D[2])}${D[7] ? ` <small class="sub">${D[7](x)}</small>` : ''}</b><p>${esc(D[4])}</p><span class="gref">${esc(D[5])}</span>${on[i] ? '' : ` <button class="mbtn go" data-qdoor="${i}">Öffnen ›</button>`}</div></div>`).join('')}
+    ${x.qb && db.qurb.log[today] && db.qurb.log[today].a ? `<div class="chal"><b>🎯 Deine Tat für Allah heute</b><small>${esc(db.qurb.log[today].a)}</small><button class="btn ${x.qt ? '' : 'p'}" data-qtdone="1">${x.qt ? '✓ Erledigt – rückgängig' : '✓ Erledigt (+20 XP)'}</button></div>` : ''}
+    <h4 class="rg-h">💗 Dein Herz – die letzten 14 Tage</h4>
+    <div class="qh-row">${last.map(k => `<span><b>${hic(k)}</b><small>${new Date(k + 'T12:00').toLocaleDateString('de-DE', {weekday:'narrow'})}</small></span>`).join('')}</div>
+    ${topH ? `<p class="sub">Am häufigsten in den letzten 30 Tagen: ${topH.ic} ${esc(topH.t)} (${top[1]}×). ${esc(topH.open)} <span class="gref">${esc(topH.oref)}</span></p>` : '<p class="sub">Nach deinem ersten Moment mit Allah siehst du hier, wie es deinem Herzen ging.</p>'}
+    <h4 class="rg-h">💎 Schatzkammer der Gaben <small>(${T.length})</small></h4>
+    <div class="dh"><div class="dh-t">„Und wenn ihr die Gunst Allahs aufzählen wolltet, ihr könntet sie nicht erfassen.“</div><div class="dh-r">Quran 16:18</div></div>
+    ${T.length ? `<button class="btn" data-qbrand="1">🎲 Zeig mir eine Gabe</button><div id="nz-rand"></div>
+      <details class="sit"><summary><b>Alle ${T.length} Gaben ansehen</b></summary>${T.map(e => `<p>💎 ${esc(e.t)} <small class="sub">· ${qbDate(e.k)}</small></p>`).join('')}</details>`
+      : '<p class="sub">Noch leer. Jede Gabe, die du im Schritt „Danke“ oder im 🌙 Abend-Rückblick notierst, landet hier – lies sie an schweren Tagen.</p>'}
+    ${names.length ? `<h4 class="rg-h">🌟 Namen Allahs, die dich begleitet haben</h4><p>${names.map(esc).join(' · ')}</p>` : ''}
+    <p class="sub" style="margin-top:14px">Das Licht ist nur ein Spiegel deiner Taten von heute – kein Urteil. Was in deinem Herzen ist und was angenommen wird, weiß allein Allah.</p>`;
+  $('#nzs').hidden = false; $('#nzs').scrollTop = 0;
+}
+$('#nz').addEventListener('click', e => {
+  if (e.target.closest('#nz-close')) return closeQB();
+  if (e.target.closest('#nz-back')) return qbNext(-1);
+  if (e.target.closest('#nz-next')) return qbNext(1);
+  const hb = e.target.closest('[data-qbh]'); if (hb) return qbHeart(hb.dataset.qbh);
+  const l = e.target.closest('[data-qbl]'); if (l) { window.open(`https://quran.com/${l.dataset.qbl}`, '_blank', 'noopener'); return; }
+  if (e.target.closest('[data-qbc]')) { QB.dc = Math.min(3, QB.dc + 1); buzz(QB.dc === 3 ? [30,50,30] : 10); return renderQB(); }
+  const a = e.target.closest('[data-qba]'); if (a) { QB.own = ($('#nz-own').value || '').trim(); const i = +a.dataset.qba; QB.act = QB.act === i ? null : i; buzz(8); return renderQB(); }
+  if (e.target.closest('[data-tawba]')) closeQB();
+});
+$('#nz').addEventListener('input', e => { if (e.target.id === 'nz-own') { QB.own = e.target.value.trim(); $('#nz-next').textContent = QB.act !== null || QB.own ? 'Vornehmen & weiter ›' : 'Weiter ›'; } });
+$('#nzs').addEventListener('click', e => {
+  if (e.target.closest('#nzs-close')) { $('#nzs').hidden = true; return; }
+  const dr = e.target.closest('[data-qdoor]'); if (dr) { $('#nzs').hidden = true; goTo(DOORS[+dr.dataset.qdoor][6]); return; }
+  if (e.target.closest('[data-qbrand]')) {
+    const T = qbTreasure(), e2 = T[Math.floor(Math.random() * T.length)];
+    if (e2) $('#nz-rand').innerHTML = `<p class="qb-gift">💎 Am ${qbDate(e2.k)} warst du dankbar für:<br><b>„${esc(e2.t)}“</b></p>`;
+    buzz(10);
+  }
+});
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-qurb],[data-qbgo],[data-qtdone]'); if (!b) return;
+  if (b.dataset.qbgo) startQurb(); else if (b.dataset.qtdone) qbActDone(); else openQurbSheet();
 });
 
 // ---------- Interaktion ----------
