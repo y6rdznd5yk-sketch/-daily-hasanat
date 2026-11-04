@@ -670,6 +670,26 @@ a.mrow{text-decoration:none;color:inherit}
 .dtag{border-color:var(--gold)}
 .dtag .say{margin-top:6px}
 .li.pf .mbtn{flex:none}
+#ap{justify-content:flex-start;overflow-y:auto}
+#ap-bars{display:flex;gap:3px;width:100%;max-width:520px}
+#ap-bars i{flex:1;height:3px;border-radius:2px;background:var(--line)}
+#ap-bars i.on{background:var(--accent)}
+#ap-bars i.cur{background:var(--gold)}
+#ap-close{position:absolute;top:calc(env(safe-area-inset-top) + 28px);right:16px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);z-index:2}
+#ap-body{flex:1;width:100%;max-width:520px;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:30px 4px 16px;cursor:pointer}
+#ap-body h2{text-transform:none;letter-spacing:0;font-size:1.3rem;color:var(--ink);margin:6px 0;line-height:1.4}
+.ap-n{font-size:4rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.1}
+.ap-n span{font-size:1.6rem;color:var(--muted)}
+.ap-k{color:var(--muted)}
+.ap-tr{font-weight:700;line-height:1.5;margin:4px 0}
+.ap-de{color:var(--muted);font-style:italic;margin:6px 0}
+.ap-note{font-size:.9rem;margin:6px 0}
+.ap-hint{color:var(--muted);font-size:.8rem;margin-top:14px}
+#ap-body .gref{align-self:center}
+.ap-nav{width:100%;max-width:520px;padding-bottom:calc(env(safe-area-inset-bottom) + 8px)}
+#ap-skip{width:100%;border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:12px;padding:12px;font:inherit}
+#apbar{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 84px);transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:45;border:0;border-radius:999px;background:var(--accent);color:#fff;font:inherit;font-weight:700;padding:12px 20px;box-shadow:0 6px 20px rgba(0,0,0,.25);transition:opacity .3s,transform .3s;white-space:nowrap}
+#apbar.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -791,7 +811,7 @@ a.mrow{text-decoration:none;color:inherit}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 39 (4.11.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 40 (4.11.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -1033,6 +1053,13 @@ a.mrow{text-decoration:none;color:inherit}
     <div id="dlc-body"></div>
   </div>
 </div>
+<div class="tzo" id="ap" hidden>
+  <div id="ap-bars"></div>
+  <button id="ap-close" aria-label="schließen">✕</button>
+  <div id="ap-body"></div>
+  <div class="ap-nav"><button id="ap-skip">Überspringen ›</button></div>
+</div>
+<button id="apbar"></button>
 <script src="prayer.js"></script>
 
 <script>
@@ -1283,7 +1310,8 @@ const pad = n => String(n).padStart(2,'0');
 const dkey = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
 let today = dkey(new Date());
 const day = k => db.days[k] || {};
-const fmt = n => Math.round(n).toLocaleString('de-DE');
+// Formatierer einmal anlegen – toLocaleString baut sonst bei jedem Aufruf einen neuen
+const NUMF = new Intl.NumberFormat('de-DE'), fmt = n => NUMF.format(Math.round(n));
 
 function deedHasanat(d, c){
   if (!c) return 0;
@@ -1468,7 +1496,15 @@ function renderQuick(){
     </div>`;
   }).join('');
 }
-function render(){ renderStats(); renderCoopCard(); renderGardenCard(); renderWrapTeaser(); renderPrayersTop(); renderHelpBanner(); renderList(); renderQuick(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderAdhkar(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); renderQurbCard(); $('#now').hidden = true; }
+// Nur die sichtbare Seite neu zeichnen – versteckte Seiten werden beim Öffnen aktualisiert
+let staleToday = false, staleQuick = false;
+function render(){
+  renderStats();
+  const pg = document.body.dataset.page || 'today';
+  if (pg === 'today') renderToday(); else staleToday = true;
+  if (pg === 'quick') { staleQuick = false; renderQuick(); renderAdhkar(); } else staleQuick = true;
+}
+function renderToday(){ staleToday = false; renderCoopCard(); renderGardenCard(); renderWrapTeaser(); renderPrayersTop(); renderHelpBanner(); renderList(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); renderQurbCard(); $('#now').hidden = true; }
 
 // ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
 const SPECIAL = [
@@ -1543,7 +1579,7 @@ function renderDaily(){
 // ---------- Gebetszeiten ----------
 db.settings = db.settings || {};
 const PNAMES = {fajr:'Fajr', sunrise:'Shuruq', dhuhr:'Dhuhr', asr:'Asr', maghrib:'Maghrib', isha:'Isha'};
-const hm = d => d.toLocaleTimeString('de-DE', {hour:'2-digit', minute:'2-digit'});
+const HMF = new Intl.DateTimeFormat('de-DE', {hour:'2-digit', minute:'2-digit'}), hm = d => HMF.format(d);
 function times(date){
   const s = db.settings;
   if (s.lat == null) return null;
@@ -1763,7 +1799,8 @@ function showPage(pg){
   if (pg === 'hist') renderHist();
   if (pg === 'info') showK(null);
   if (pg === 'set') showM(null);
-  if (pg === 'quick') { if (!segPicked) seg = autoSeg(); renderSeg(); }
+  if (pg === 'today' && staleToday) renderToday();
+  if (pg === 'quick') { if (!segPicked) seg = autoSeg(); if (staleQuick) { staleQuick = false; renderQuick(); } renderSeg(); }
   $('#scroller').scrollTop = 0;
 }
 
@@ -2041,6 +2078,7 @@ function cyclePrayer(k){
   x.jamaa = PRAYERS.filter(p => prState(x, p) === 2).length;
   save(); render();
   buzz(v ? 15 : 5);
+  if (v === 1) offerAP(k);
   if (v === 1 && x.fard === 5) toast('Alle 5 Gebete – MashaAllah ✓');
   if (v === 2) toast(`${PNAMES[k]} in Gemeinschaft – ×27 Grade`);
 }
@@ -2055,7 +2093,7 @@ function prayerCard(){
   return `<div class="deed ${n === 5 ? 'done' : ''}" data-id="fard">
     <div class="row"><div class="t"><b>Die 5 Pflichtgebete</b><div class="tags"><span class="tag">beliebteste Tat</span><span class="tag">Jama’a ×27 Grade</span>${n ? `<span class="tag h">+${fmt(n * 10 + g * 10)}</span>` : ''}</div></div><span class="num">${n}/5</span></div>
     <div class="pw">${tiles}</div>
-    <p class="sub" style="margin:6px 0 0">Tippen: ○ → ✓ gebetet → 👥 Gemeinschaft · <button class="lnk" data-guide="1">📖 Anleitung</button></p>${prayerStreakLine()}
+    <p class="sub" style="margin:6px 0 0">Tippen: ○ → ✓ gebetet → 👥 Gemeinschaft · <button class="lnk" data-guide="1">📖 Anleitung</button> · <button class="lnk" data-ap="1">🤲 Adhkar danach</button></p>${prayerStreakLine()}
     <details><summary>Quelle &amp; Belohnung</summary><div class="src">${esc(f.reward)}<span class="ref">${esc(f.ref)}</span></div><div class="src">${esc(j.reward)}<span class="ref">${esc(j.ref)}</span></div></details>
   </div>`;
 }
@@ -2946,7 +2984,8 @@ function xpTick(){
   if (lastXP !== null && xp > lastXP) {
     const el = $('#xppop');
     el.textContent = `+${xp - lastXP} XP`;
-    el.classList.remove('on'); void el.offsetWidth; el.classList.add('on');
+    // Animation im nächsten Frame neu starten – ohne erzwungenes Layout mitten im Rendern
+    el.classList.remove('on'); cancelAnimationFrame(xpTick.r); xpTick.r = requestAnimationFrame(() => { xpTick.r = requestAnimationFrame(() => el.classList.add('on')); });
   }
   lastXP = xp;
 }
@@ -3568,11 +3607,17 @@ $('#sos').addEventListener('click', e => { if (e.target.closest('#sos-close')) c
 $('#tawba').addEventListener('click', e => { if (e.target.closest('#tawba-close')) $('#tawba').hidden = true; });
 
 // ---------- 🔥 Serie pro Gebet ----------
+// Serie bis gestern ändert sich am Tag nicht – einmal zählen, dann merken; heute zählt, sobald gebetet
+let PSC = null;
 function prayerStreak(k){
-  let n = 0; const d = new Date();
-  if (!prState(day(dkey(d)), k)) d.setDate(d.getDate() - 1);   // heute zählt, sobald gebetet
-  while (prState(day(dkey(d)), k) >= 1) { n++; d.setDate(d.getDate() - 1); if (n > 999) break; }
-  return n;
+  const n0 = pastN();
+  if (!PSC || PSC.k !== today || PSC.n !== n0) PSC = {k:today, n:n0, v:{}};
+  if (PSC.v[k] == null) {
+    let n = 0; const d = new Date(); d.setDate(d.getDate() - 1);
+    while (prState(day(dkey(d)), k) >= 1) { n++; d.setDate(d.getDate() - 1); if (n > 999) break; }
+    PSC.v[k] = n;
+  }
+  return PSC.v[k] + (prState(day(today), k) >= 1 ? 1 : 0);
 }
 function prayerStreakLine(){
   const s = PRAYERS.map(k => [k, prayerStreak(k)]).filter(([, n]) => n >= 2);
@@ -4990,6 +5035,66 @@ document.addEventListener('click', e => {
   else if (d.pfdel) { if (confirm('Von der Liste nehmen?')) { db.pray = db.pray.filter(p => p.id !== d.pfdel); save(); renderPrayFor(); } }
 });
 $('#dlc').addEventListener('click', e => { if (e.target.closest('#dlc-close')) { $('#dlc').hidden = true; if (QAS && QAS.inline) qStop(); } });
+
+// ---------- 🕌 Nach dem Gebet: die Adhkar der Sunnah, geführt ----------
+const AP_STEPS = [
+  {t:'Astaghfirullāh', n:3, de:'Ich bitte Allah um Vergebung.', ref:'Muslim 591'},
+  {t:'Allāhumma antas-salām wa minkas-salām, tabārakta yā dhal-dschalāli wal-ikrām', n:1, de:'O Allah, Du bist der Frieden, und von Dir kommt der Frieden. Gesegnet bist Du, o Besitzer der Majestät und der Ehre.', ref:'Muslim 591'},
+  {t:'SubhānAllāh', n:33, de:'Gepriesen sei Allah.', ref:'Muslim 597'},
+  {t:'Alhamdulillāh', n:33, de:'Alles Lob gebührt Allah.', ref:'Muslim 597'},
+  {t:'Allāhu akbar', n:33, de:'Allah ist der Größte.', ref:'Muslim 597'},
+  {t:'Lā ilāha illallāhu wahdahū lā scharīka lah, lahul-mulku wa lahul-hamd, wa huwa ‘alā kulli schay’in qadīr', n:1, de:'Es gibt keinen Gott außer Allah allein, ohne Partner. Ihm gehört die Herrschaft und Ihm gebührt das Lob, und Er hat Macht über alles.', note:'„… dem werden seine Sünden vergeben, auch wenn sie wie Meeresschaum wären.“', ref:'Muslim 597'},
+  {t:'Āyat al-Kursī', say:'kursi', n:1, note:'„Wer Āyat al-Kursī nach jedem Pflichtgebet liest, den hindert nur der Tod daran, ins Paradies einzutreten.“', ref:'an-Nasa’i (as-Sunan al-Kubra 9848) – sahih (al-Albani)', au:'Quran 2:255'},
+  {t:'al-Ikhlās, al-Falaq, an-Nās', say:'quls', n:1, note:'Der Prophet ﷺ trug auf, die Schutz-Suren nach jedem Gebet zu lesen.', ref:'Abu Dawud 1523 – sahih'},
+];
+let AP = null;
+function openAP(k){
+  AP = {k:k || null, i:0, c:0, done:false};
+  $('#apbar').classList.remove('on');
+  $('#ap').hidden = false; keepAwake(true); renderAP();
+}
+function renderAP(){
+  const S = AP_STEPS[AP.i], [tr, de] = S.say ? SAY[S.say] : [S.t, S.de];
+  $('#ap-bars').innerHTML = AP_STEPS.map((_, i) => `<i class="${i < AP.i ? 'on' : i === AP.i ? 'cur' : ''}"></i>`).join('');
+  $('#ap-body').innerHTML = AP.done
+    ? `<div class="ap-n">✓</div><h2>Fertig – möge Allah es annehmen</h2><p class="ap-de">„Wer nach jedem Gebet 33× SubhānAllāh, 33× Alhamdulillāh und 33× Allāhu akbar sagt und mit Lā ilāha illallāh abschließt, dem werden seine Sünden vergeben.“</p><small>Muslim 597</small>`
+    : `<small class="ap-k">${AP.k ? `Nach ${PNAMES[AP.k]} · ` : ''}${AP.i + 1} von ${AP_STEPS.length}</small>
+      <div class="ap-n">${S.n > 1 ? `${AP.c}<span>/${S.n}</span>` : AP.c ? '✓' : '○'}</div>
+      <h2>${esc(S.say ? S.t : tr)}</h2>${S.say ? `<p class="ap-tr">${esc(tr)}</p>` : ''}<p class="ap-de">„${esc(de)}“</p>
+      ${S.note ? `<p class="ap-note">${esc(S.note)}</p>` : ''}<small class="gref">${esc(S.ref)}</small>
+      ${S.au ? `<div style="margin-top:10px">${qAudioBtn(S.au)}</div>` : ''}
+      <p class="ap-hint">${S.n > 1 ? 'Tippe bei jedem Mal auf den Bildschirm' : 'Sprich es, dann tippe auf den Bildschirm'}</p>`;
+}
+function apTap(){
+  if (!AP || AP.done) return closeAP();
+  const S = AP_STEPS[AP.i]; AP.c++;
+  if (AP.c < S.n) { buzz(AP.c % 33 === 0 ? 30 : 6); return renderAP(); }
+  buzz([20, 40, 20]);
+  if (AP.i < AP_STEPS.length - 1) { AP.i++; AP.c = 0; return renderAP(); }
+  apFinish();
+}
+function apFinish(){
+  AP.done = true; renderAP();
+  const x = db.days[today] = db.days[today] || {};
+  if ((x.afterprayer || 0) < 5) { x.afterprayer = (x.afterprayer || 0) + 1; save(); render(); }
+  buzz([40, 60, 40, 60, 120]);
+}
+function closeAP(){ $('#ap').hidden = true; keepAwake(false); if (QAS && QAS.inline) qStop(); AP = null; }
+// kurz nach dem Abhaken eines Gebets anbieten
+function offerAP(k){
+  const b = $('#apbar'); b.dataset.k = k; b.innerHTML = `🤲 Adhkar nach ${PNAMES[k]} <b>›</b>`;
+  b.classList.add('on'); clearTimeout(offerAP.t); offerAP.t = setTimeout(() => b.classList.remove('on'), 9000);
+}
+$('#ap').addEventListener('click', e => {
+  if (e.target.closest('#ap-close')) return closeAP();
+  if (e.target.closest('#ap-skip')) { if (AP.done) return closeAP(); if (AP.i < AP_STEPS.length - 1) { AP.i++; AP.c = 0; renderAP(); } else apFinish(); return; }
+  if (e.target.closest('[data-qbl], .gref')) return;   // Anhören / Quelle: nicht mitzählen
+  apTap();
+});
+document.addEventListener('click', e => {
+  const b = e.target.closest('#apbar, [data-ap]'); if (!b) return;
+  openAP(b.id === 'apbar' ? b.dataset.k : null);
+});
 
 // ---------- Interaktion ----------
 function setCount(id, v){
