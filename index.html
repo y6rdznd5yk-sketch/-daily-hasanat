@@ -690,6 +690,11 @@ a.mrow{text-decoration:none;color:inherit}
 #ap-skip{width:100%;border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:12px;padding:12px;font:inherit}
 #apbar{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 84px);transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:45;border:0;border-radius:999px;background:var(--accent);color:#fff;font:inherit;font-weight:700;padding:12px 20px;box-shadow:0 6px 20px rgba(0,0,0,.25);transition:opacity .3s,transform .3s;white-space:nowrap}
 #apbar.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.pst{display:flex;align-items:center;gap:8px;margin:4px 0;font-size:.85rem}
+.pst span{width:62px;flex:none}
+.pst .bar{flex:1;margin:0}
+.pst b{width:44px;text-align:right;flex:none;font-variant-numeric:tabular-nums}
+#ycheck .li .mbtn{flex:none;margin-left:4px}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -710,6 +715,7 @@ a.mrow{text-decoration:none;color:inherit}
     <div id="wrapt"></div>
     <div class="card" id="sday"></div>
     <div id="prayers"></div>
+    <div class="card" id="ycheck" hidden></div>
     <div class="card qcard" id="qurb"></div>
     <div id="prayer"></div>
     <div class="card" id="missions"></div>
@@ -779,6 +785,7 @@ a.mrow{text-decoration:none;color:inherit}
         <div class="stat r"><b id="h-best">0</b><span>längste Serie</span></div>
       </div>
       <div class="card sub" id="h-week"></div>
+      <h2>🕌 Deine Gebete – letzte 30 Tage</h2><div class="card" id="pstat"></div>
       <h2>Kalender</h2><div class="card" id="cal"></div>
       <h2>Dein Dhikr insgesamt</h2><div class="card"><table id="totals"></table></div>
     </div>
@@ -811,7 +818,7 @@ a.mrow{text-decoration:none;color:inherit}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 40 (4.11.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 41 (4.11.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -1504,7 +1511,7 @@ function render(){
   if (pg === 'today') renderToday(); else staleToday = true;
   if (pg === 'quick') { staleQuick = false; renderQuick(); renderAdhkar(); } else staleQuick = true;
 }
-function renderToday(){ staleToday = false; renderCoopCard(); renderGardenCard(); renderWrapTeaser(); renderPrayersTop(); renderHelpBanner(); renderList(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); renderQurbCard(); $('#now').hidden = true; }
+function renderToday(){ staleToday = false; renderYCheck(); renderCoopCard(); renderGardenCard(); renderWrapTeaser(); renderPrayersTop(); renderHelpBanner(); renderList(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); renderQurbCard(); $('#now').hidden = true; }
 
 // ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
 const SPECIAL = [
@@ -2030,6 +2037,7 @@ function checkBadges(L){
 }
 function renderHistMore(){
   const L = checkBadges();
+  renderPStat();
   renderCal(); renderKhatm(); renderSadaqa(); renderQada();
   const wk = off => { let h = 0; const d = new Date(); d.setDate(d.getDate() - off); for (let i = 0; i < 7; i++) { h += dayStats(dkey(d)).has; d.setDate(d.getDate() - 1); } return h; };
   const w1 = wk(0), w0 = wk(7), diff = w0 ? Math.round((w1 - w0) / w0 * 100) : null;
@@ -5094,6 +5102,66 @@ $('#ap').addEventListener('click', e => {
 document.addEventListener('click', e => {
   const b = e.target.closest('#apbar, [data-ap]'); if (!b) return;
   openAP(b.id === 'apbar' ? b.dataset.k : null);
+});
+
+// ---------- 🌅 Gestern-Check: nicht abgehakte Gebete klären ----------
+function yMissing(){
+  const y = addDays(today, -1);
+  if (!Object.keys(db.days).some(k => k < y)) return null;          // neue Nutzer: nichts fragen
+  if (db.ych && db.ych.k === today && db.ych.off) return null;
+  const x = day(y), h = db.ych && db.ych.k === today ? db.ych.h : {};
+  const miss = PRAYERS.filter(k => !prState(x, k) && !h[k]);
+  return {y, miss, h};
+}
+function renderYCheck(){
+  const el = $('#ycheck'); if (!el) return;
+  const m = yMissing();
+  if (!m || !m.miss.length) { el.hidden = true; el.innerHTML = ''; return; }
+  el.hidden = false;
+  el.innerHTML = `<div class="mh"><b>🌅 Gestern noch offen</b><button class="lnk" data-ych="off">ausblenden</button></div>
+    <p class="sub" style="margin:0 0 6px">Nicht abgehakt – gebetet und nur vergessen, oder nachholen?</p>
+    ${m.miss.map(k => `<div class="li"><span><b>${PNAMES[k]}</b></span><button class="mbtn" data-ych="p:${k}">✓ gebetet</button><button class="mbtn go" data-ych="q:${k}">⏳ nachholen</button></div>`).join('')}
+    <p class="sub" style="margin:6px 0 0">„Wer ein Gebet verschläft oder vergisst, soll es beten, sobald er sich daran erinnert.“ <span class="gref">Bukhari 597, Muslim 684</span></p>`;
+}
+function yHandle(act, k){
+  if (!db.ych || db.ych.k !== today) db.ych = {k:today, h:{}};
+  if (act === 'off') { db.ych.off = true; save(); return renderYCheck(); }
+  const y = addDays(today, -1);
+  if (act === 'p') {
+    const x = db.days[y] = db.days[y] || {}; x['p:' + k] = 1;
+    x.fard = PRAYERS.filter(p => prState(x, p) >= 1).length; x.jamaa = PRAYERS.filter(p => prState(x, p) === 2).length;
+    clearStats(); PSC = null; GC = null;   // vergangener Tag geändert → Zwischenspeicher neu
+    toast(`✓ ${PNAMES[k]} gestern nachgetragen`);
+  } else {
+    db.qada[k] = (db.qada[k] || 0) + 1;
+    toast(`⏳ ${PNAMES[k]} steht jetzt unter „Nachholen“`);
+  }
+  db.ych.h[k] = act; save(); buzz(12); render();
+}
+
+// ---------- 🕌 Deine Gebete: welche Gebetszeit ist die schwächste? ----------
+const PTIPS = {
+  fajr:['Früh schlafen, Wecker außer Reichweite stellen, Wasser für Wudu bereitlegen.', '„Wer das Fajr-Gebet betet, steht unter dem Schutz Allahs.“', 'Muslim 657'],
+  dhuhr:['Plane deine Pause um Dhuhr – fünf Minuten reichen. Ein kleiner Gebetsteppich am Arbeitsplatz hilft.', '„Das Erste, wofür der Diener am Tag der Auferstehung zur Rechenschaft gezogen wird, ist das Gebet.“', 'Tirmidhi 413 – sahih'],
+  asr:['Stell dir eine Erinnerung zur Asr-Zeit – Asr geht im Alltag am leichtesten verloren.', '„Wer das Asr-Gebet versäumt, dessen Werk ist zunichte.“', 'Bukhari 553'],
+  maghrib:['Maghrib ist kurz: direkt nach Sonnenuntergang beten, bevor Essen oder Termine beginnen.', '„Die Taten, die Allah am meisten liebt: das Gebet zu seiner Zeit.“', 'Bukhari 527, Muslim 85'],
+  isha:['Bete Isha, bevor der Abend am Handy beginnt – danach wird es schwer.', '„Wer Isha in Gemeinschaft betet, ist wie einer, der die halbe Nacht im Gebet stand.“', 'Muslim 656'],
+};
+function renderPStat(){
+  const el = $('#pstat'); if (!el) return;
+  const keys = Object.keys(db.days).sort(), first = keys[0];
+  const days = []; for (let i = 1; i <= 30; i++) { const k = addDays(today, -i); if (first && k >= first) days.push(k); }
+  if (days.length < 3) { el.innerHTML = '<p class="sub">Nach ein paar Tagen siehst du hier, welche Gebetszeit dir am leichtesten fällt – und welche am schwersten.</p>'; return; }
+  const S = PRAYERS.map(k => { let n = 0, j = 0; for (const d of days) { const v = prState(day(d), k); if (v >= 1) n++; if (v === 2) j++; } return {k, p:Math.round(n / days.length * 100), j}; });
+  const weak = [...S].sort((a, b) => a.p - b.p)[0], all = S.every(s => s.p === 100);
+  el.innerHTML = S.map(s => `<div class="pst"><span>${PNAMES[s.k]}</span><div class="bar"><i style="width:${s.p}%;${s.k === weak.k && !all ? 'background:var(--gold)' : ''}"></i></div><b>${s.p} %</b></div>`).join('')
+    + `<p class="sub" style="margin:4px 0 8px">Grundlage: die letzten ${days.length} Tage · 👥 in Gemeinschaft: ${S.map(s => `${PNAMES[s.k]} ${s.j}`).join(' · ')}</p>`
+    + (all ? '<p>🏆 Alle fünf Gebete an jedem Tag – MāschāAllāh, bleib standhaft!</p>'
+      : `<div class="dh" style="margin:0"><div class="dh-k">Dein Fokus: ${PNAMES[weak.k]} (${weak.p} %)</div><div class="dh-t">💡 ${esc(PTIPS[weak.k][0])}</div><div class="dh-t">${esc(PTIPS[weak.k][1])}</div><div class="dh-r">${esc(PTIPS[weak.k][2])}</div></div>`);
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-ych]'); if (!b) return;
+  const [act, k] = b.dataset.ych.split(':'); yHandle(act, k);
 });
 
 // ---------- Interaktion ----------
