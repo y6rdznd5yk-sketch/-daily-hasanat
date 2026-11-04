@@ -666,6 +666,10 @@ button.readb{border:0;font:inherit;font-size:.82rem;font-weight:700;cursor:point
 .hzt-c small{color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
 .hzt-c.on{border-color:var(--accent);background:var(--accent-soft)}
 a.mrow{text-decoration:none;color:inherit}
+.qau{margin-left:6px}
+.dtag{border-color:var(--gold)}
+.dtag .say{margin-top:6px}
+.li.pf .mbtn{flex:none}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -720,8 +724,10 @@ a.mrow{text-decoration:none;color:inherit}
       <button class="tsb" data-dm="1" style="border-color:var(--gold)"><span>🤲</span><div><b>Der Du’a-Meister</b><small>So geht Du’a · beste Zeiten · die vollständige Du’a Schritt für Schritt · Propheten · Gelehrte</small></div><i>›</i></button>
       <button class="tsb" data-tawba="1" style="border-color:var(--accent);background:var(--accent-soft)"><span>🤍</span><div><b>Neuanfang: Tawba, Sünde & Sucht</b><small>Wenn du gerade kämpfst oder gefallen bist – Du’as, Schritte, Notfall-Hilfe</small></div><i>›</i></button>
       <button class="tsb" data-reg="1"><span>📒</span><div><b>Register: Was sage ich wann?</b><small>Aufwachen, Essen, Haus verlassen, Regen, Wut, Sorge, Krankheit …</small></div><i>›</i></button>
+      <div id="dextra"></div>
       <h2>🤲 Du’a-Sammlung aus Quran &amp; Sunnah</h2><div class="card" id="duac"></div>
       <h2>📝 Meine Du’as</h2><div class="card" id="duas"></div>
+      <h2>👥 Für andere beten</h2><div class="card" id="prayfor"></div>
     <h2>Wann Du’a besonders erhört wird</h2>
     <div class="card"><table>
       <tr><td>Im letzten Drittel der Nacht</td><td>Bukhari 1145, Muslim 758</td></tr>
@@ -785,7 +791,7 @@ a.mrow{text-decoration:none;color:inherit}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 38 (31.10.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 39 (4.11.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -1019,6 +1025,12 @@ a.mrow{text-decoration:none;color:inherit}
   <div class="wrap">
     <div class="sheet-h"><h3>🔔 Erinnerungen</h3><button class="x" id="rem-close" aria-label="schließen">✕</button></div>
     <div id="rem-body"></div>
+  </div>
+</div>
+<div class="sheet" id="dlc" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>🧠 Du’as auswendig lernen</h3><button class="x" id="dlc-close" aria-label="schließen">✕</button></div>
+    <div id="dlc-body"></div>
   </div>
 </div>
 <script src="prayer.js"></script>
@@ -1934,6 +1946,7 @@ function lifetime(){
   L.hadith = Object.keys(db.hadith || {}).length;
   L.qurb = Object.values(db.days).filter(x => x.qb).length;
   L.qz10 = Object.values(db.days).filter(x => x.qz >= 10).length;
+  L.dlearn = Object.keys(db.dlearn || {}).length;
   L.qiyam = Object.values(db.days).filter(x => (x.qiyam || 0) >= 1).length;
   L.best = bestStreak();
   return L;
@@ -1963,6 +1976,7 @@ const BADGES = [
   ['qb7', '💫', 'Nähe', 'An 7 Tagen einen Moment mit Allah', L => L.qurb >= 7],
   ['qb40', '🌌', '40 Tage mit Allah', 'An 40 Tagen einen Moment mit Allah', L => L.qurb >= 40],
   ['quiz10', '🧩', 'Quiz-Meister', '10 von 10 in einer Quiz-Runde', L => L.qz10 >= 1],
+  ['dua10', '🤲', '10 Du’as auswendig', 'aus Quran & Sunnah gelernt', L => L.dlearn >= 10],
 ];
 db.badges = db.badges || {};
 function checkBadges(L){
@@ -1996,10 +2010,15 @@ function renderHistMore(){
 // ---------- Meine Du'as ----------
 db.duas = db.duas || [];
 function renderDuas(){
-  $('#duas').innerHTML = (db.duas.length ? db.duas.map(d => `<div class="li ${d.done ? 'dn' : ''}"><span>${esc(d.text)}${d.done ? ' <em>– erhört, Alhamdulillah</em>' : ''}</span>
-      <button class="x" data-dua="done:${d.id}" aria-label="erhört">${d.done ? '↺' : '✓'}</button><button class="x" data-dua="del:${d.id}" aria-label="löschen">✕</button></div>`).join('')
-    : '<p class="sub">Noch keine Einträge. Schreib auf, worum du Allah bitten willst – dann vergisst du es in den besonderen Momenten nicht.</p>')
-    + `<div class="inp" style="margin-top:8px"><input id="dua-in" placeholder="Neues Du’a …"></div><button class="btn p" id="dua-add">Hinzufügen</button>`;
+  const open = db.duas.filter(d => !d.done), done = db.duas.filter(d => d.done);
+  const dt = k => new Date(k + 'T12:00').toLocaleDateString('de-DE', {day:'numeric', month:'short'});
+  $('#duas').innerHTML = (open.length ? open.map(d => `<div class="li"><span>${esc(d.text)}<small class="sub">${d.k ? ` · seit ${dt(d.k)}` : ''}${d.n ? ` · ${d.n}× gebetet` : ''}${d.last === today ? ' · heute ✓' : ''}</small></span>
+      <button class="x" data-dua="say:${d.id}" aria-label="heute dafür gebetet">🤲</button><button class="x" data-dua="done:${d.id}" aria-label="erhört">✓</button><button class="x" data-dua="del:${d.id}" aria-label="löschen">✕</button></div>`).join('')
+      + '<p class="sub">🤲 = heute dafür gebetet · ✓ = erhört</p>'
+    : '<p class="sub">Keine offenen Anliegen. Schreib auf, worum du Allah bitten willst – dann vergisst du es in den besonderen Momenten nicht (im Sujud, im letzten Drittel der Nacht, zwischen Adhan und Iqama).</p>')
+    + `<div class="inp" style="margin-top:8px"><input id="dua-in" placeholder="Neues Du’a …"></div><button class="btn p" id="dua-add">Hinzufügen</button>`
+    + (done.length ? `<details class="sit"><summary><b>✓ Erhörte Du’as (${done.length}) – Alhamdulillah</b></summary>${done.map(d => `<div class="li dn"><span>${esc(d.text)}<small class="sub">${typeof d.done === 'string' ? ` · erhört am ${dt(d.done)}${d.k ? ` (nach ${daysBetween(d.k, d.done)} Tagen)` : ''}` : ''}</small></span><button class="x" data-dua="done:${d.id}" aria-label="wieder öffnen">↺</button></div>`).join('')}
+      <p class="sub">Kein Du’a geht verloren: Allah erfüllt es, bewahrt es für das Jenseits auf oder wendet ein gleich großes Übel ab. <span class="gref">Ahmad 11133 – sahih</span></p></details>` : '');
   $('#dua-add').onclick = () => {
     const t = $('#dua-in').value.trim(); if (!t) return;
     db.duas.push({id:Date.now().toString(36), text:t, k:today}); save(); renderDuas();
@@ -2450,11 +2469,12 @@ const MISSIONS = [
   ['Mach deinen Abend-Rückblick', x => (x.jr || 0) >= 1],
   ['Nimm dir 7 Minuten mit Allah', x => (x.qb || 0) >= 1],
   ['Spiel eine Runde Quiz', x => (x.qzr || 0) >= 1],
+  ['Lerne ein Du’a auswendig', x => (x.dl || 0) >= 1],
 ];
 function missionsFor(k){
   // deterministisch pro Tag: jeden Tag drei andere Missionen
   let seed = Math.floor(new Date(k + 'T12:00') / 864e5);
-  const idx = [...MISSIONS.keys()].slice(0, k < '2026-11-01' ? 18 : MISSIONS.length), out = [];
+  const idx = [...MISSIONS.keys()].slice(0, k < '2026-11-01' ? 18 : k < '2026-11-05' ? 20 : MISSIONS.length), out = [];
   while (out.length < 3) { seed = (seed * 9301 + 49297) % 233280; out.push(idx.splice(seed % idx.length, 1)[0]); }
   return out.map(i => MISSIONS[i]);
 }
@@ -2472,7 +2492,7 @@ function totalXP(){
     past = Object.keys(db.days).filter(k => k < today).reduce((a, k) => a + dayXP(k), 0);
     c = db._pc = pastCache() || {k:today, v:PC_VER, n:pastN()}; c.xp = past;
   }
-  return past + (db.days[today] ? dayXP(today) : 0) + Object.keys(db.hadith).length * 20 + Object.keys(db.names).length * 5 + hifzDone() * 15;
+  return past + (db.days[today] ? dayXP(today) : 0) + Object.keys(db.hadith).length * 20 + Object.keys(db.names).length * 5 + Object.keys(db.dlearn || {}).length * 5 + hifzDone() * 15;
 }
 const RANKS = [
   {icon:'🎮', name:'Playboy', xp:0, gates:[], quote:'„Sag: O Meine Diener, die ihr gegen euch selbst maßlos gewesen seid, verzweifelt nicht an Allahs Barmherzigkeit. Allah vergibt alle Sünden.“', ref:'Quran 39:53'},
@@ -2551,19 +2571,53 @@ const DUAS = [
   {id:'family', cat:'👨‍👩‍👧 Familie', title:'Für Ehepartner und Kinder', tr:'Rabbanā hab lanā min azwājinā wa dhurriyyātinā qurrata a‘yunin waj‘alnā lil-muttaqīna imāmā', de:'Unser Herr, schenke uns an unseren Ehepartnern und Nachkommen Augentrost und mach uns zu einem Vorbild für die Gottesfürchtigen.', ref:'Quran 25:74'},
   {id:'salah', cat:'👨‍👩‍👧 Familie', title:'Das Gebet für mich und meine Kinder', tr:'Rabbij-‘alnī muqīmas-salāti wa min dhurriyyatī, rabbanā wa taqabbal du‘ā’', de:'Mein Herr, mach, dass ich das Gebet verrichte, und auch von meinen Nachkommen; unser Herr, nimm mein Du’a an.', ref:'Quran 14:40'},
   {id:'accept', cat:'🛡️ Standhaftigkeit', title:'Nimm es von uns an', tr:'Rabbanā taqabbal minnā innaka antas-samī‘ul-‘alīm', de:'Unser Herr, nimm es von uns an; Du bist der Allhörende, der Allwissende.', note:'Ibrahim und Isma‘il sprachen es beim Bau der Kaaba.', ref:'Quran 2:127'},
+  // --- Rabbanā & Rabbi: Du’as aus dem Quran (mit Rezitation) ---
+  {id:'rb_islam', cat:'🛡️ Standhaftigkeit', title:'Ergeben sein – wir und unsere Kinder (Ibrahim & Isma‘il)', tr:'Rabbanā wadsch‘alnā muslimayni lak, wa min dhurriyyatinā ummatan muslimatan lak, wa arinā manāsikanā wa tub ‘alaynā, innaka antat-tawwābur-rahīm', de:'Unser Herr, mach uns Dir ergeben und aus unserer Nachkommenschaft eine Dir ergebene Gemeinschaft. Zeig uns unsere Riten und nimm unsere Reue an. Du bist ja der Reue-Annehmende, der Barmherzige.', ref:'Quran 2:128'},
+  {id:'rb_sabr', cat:'🛡️ Standhaftigkeit', title:'Standhaftigkeit vor einer großen Prüfung', tr:'Rabbanā afrigh ‘alaynā sabran wa thabbit aqdāmanā wansurnā ‘alal-qawmil-kāfirīn', de:'Unser Herr, überschütte uns mit Standhaftigkeit, festige unsere Füße und hilf uns gegen das ungläubige Volk.', note:'Das sprachen die wenigen Gläubigen mit Talut vor dem Kampf gegen Dschalut – und Allah gab ihnen den Sieg.', ref:'Quran 2:250'},
+  {id:'rb_burden', cat:'🤲 Vergebung', title:'Die letzten Worte von al-Baqara', tr:'Rabbanā lā tu’ākhidhnā in nasīnā aw akhta’nā. Rabbanā wa lā tahmil ‘alaynā isran kamā hamaltahū ‘alalladhīna min qablinā. Rabbanā wa lā tuhammilnā mā lā tāqata lanā bih. Wa‘fu ‘annā, waghfir lanā, warhamnā, anta mawlānā fansurnā ‘alal-qawmil-kāfirīn', de:'Unser Herr, belange uns nicht, wenn wir vergessen oder einen Fehler begehen. Unser Herr, lege uns keine Last auf, wie Du sie denen vor uns auferlegt hast. Unser Herr, bürde uns nichts auf, wozu wir keine Kraft haben. Verzeih uns, vergib uns und erbarme Dich unser! Du bist unser Schutzherr, so hilf uns gegen das ungläubige Volk.', note:'Auf jede dieser Bitten antwortete Allah: „Ich habe es getan.“', ref:'Quran 2:286 · Muslim 126'},
+  {id:'rb_day', cat:'🌴 Jenseits & Paradies', title:'Gewissheit über den Tag der Versammlung', tr:'Rabbanā innaka dschāmi‘un-nāsi li-yawmin lā rayba fīh, innallāha lā yukhliful-mī‘ād', de:'Unser Herr, Du wirst die Menschen gewiss zu einem Tag versammeln, an dem es keinen Zweifel gibt. Allah bricht Sein Versprechen nicht.', ref:'Quran 3:9'},
+  {id:'rb_iman', cat:'🤲 Vergebung', title:'Wir glauben – so vergib uns', tr:'Rabbanā innanā āmannā faghfir lanā dhunūbanā wa qinā ‘adhāban-nār', de:'Unser Herr, wir glauben. So vergib uns unsere Sünden und bewahre uns vor der Strafe des Feuers.', ref:'Quran 3:16'},
+  {id:'rb_child', cat:'👨‍👩‍👧 Familie', title:'Um gute Nachkommen (Du’a des Zakariyya)', tr:'Rabbi hab lī min ladunka dhurriyyatan tayyibah, innaka samī‘ud-du‘ā’', de:'Mein Herr, schenke mir von Dir aus gute Nachkommenschaft. Du bist ja der Erhörer des Du’a.', ref:'Quran 3:38'},
+  {id:'rb_witness', cat:'🛡️ Standhaftigkeit', title:'Schreib uns zu den Bezeugenden', tr:'Rabbanā āmannā bimā anzalta wattaba‘nar-rasūla faktubnā ma‘asch-schāhidīn', de:'Unser Herr, wir glauben an das, was Du herabgesandt hast, und folgen dem Gesandten. So schreib uns auf unter die Bezeugenden.', ref:'Quran 3:53'},
+  {id:'rb_excess', cat:'🤲 Vergebung', title:'Vergebung für Sünden und Maßlosigkeit', tr:'Rabbanaghfir lanā dhunūbanā wa isrāfanā fī amrinā, wa thabbit aqdāmanā wansurnā ‘alal-qawmil-kāfirīn', de:'Unser Herr, vergib uns unsere Sünden und unsere Maßlosigkeit in unseren Angelegenheiten, festige unsere Füße und hilf uns gegen das ungläubige Volk.', ref:'Quran 3:147'},
+  {id:'rb_ulul', cat:'🌴 Jenseits & Paradies', title:'Die Du’as der Nachdenkenden (Āl ‘Imrān 191–194)', tr:'Rabbanā mā khalaqta hādhā bātilā, subhānaka fa-qinā ‘adhāban-nār. Rabbanā innaka man tudkhilin-nāra faqad akhzaytah, wa mā liz-zālimīna min ansār. Rabbanā innanā sami‘nā munādiyan yunādī lil-īmāni an āminū bi-rabbikum fa-āmannā. Rabbanā faghfir lanā dhunūbanā wa kaffir ‘annā sayyi’ātinā wa tawaffanā ma‘al-abrār. Rabbanā wa ātinā mā wa‘adtanā ‘alā rusulika wa lā tukhzinā yawmal-qiyāmah, innaka lā tukhliful-mī‘ād', de:'Unser Herr, Du hast dies nicht umsonst erschaffen. Preis sei Dir! Bewahre uns vor der Strafe des Feuers. Unser Herr, wen Du ins Feuer eingehen lässt, den hast Du in Schande gestürzt, und die Ungerechten haben keine Helfer. Unser Herr, wir hörten einen Rufer, der zum Glauben aufrief: „Glaubt an euren Herrn“ – da glaubten wir. Unser Herr, vergib uns unsere Sünden, tilge unsere schlechten Taten und lass uns mit den Gütigen sterben. Unser Herr, gib uns, was Du uns durch Deine Gesandten versprochen hast, und stürze uns nicht in Schande am Tag der Auferstehung. Du brichst Dein Versprechen nicht.', note:'Der Prophet ﷺ las die letzten Verse von Āl ‘Imrān, als er nachts aufstand und in den Himmel schaute.', ref:'Quran 3:191–194 · Bukhari 4569'},
+  {id:'rb_zalim', cat:'🌴 Jenseits & Paradies', title:'Nicht bei den Ungerechten', tr:'Rabbanā lā tadsch‘alnā ma‘al-qawmiz-zālimīn', de:'Unser Herr, lass uns nicht mit dem ungerechten Volk sein.', note:'Das sagen die Leute auf den Höhen (al-A‘rāf), wenn ihr Blick auf das Feuer fällt.', ref:'Quran 7:47'},
+  {id:'rb_muslim', cat:'🛡️ Standhaftigkeit', title:'Standhaft bis zum Ende (die Zauberer Pharaos)', tr:'Rabbanā afrigh ‘alaynā sabran wa tawaffanā muslimīn', de:'Unser Herr, überschütte uns mit Standhaftigkeit und lass uns als Dir Ergebene sterben.', note:'Die Zauberer Pharaos wurden gläubig und sprachen dies, als er ihnen mit Folter drohte.', ref:'Quran 7:126'},
+  {id:'rb_fitna', cat:'🔒 Schutz', title:'Keine Prüfung durch die Ungerechten (Leute des Musa)', tr:'‘Alallāhi tawakkalnā. Rabbanā lā tadsch‘alnā fitnatan lil-qawmiz-zālimīn, wa nadschdschinā bi-rahmatika minal-qawmil-kāfirīn', de:'Auf Allah verlassen wir uns. Unser Herr, mach uns nicht zu einer Prüfung für das ungerechte Volk, und errette uns durch Deine Barmherzigkeit vor dem ungläubigen Volk.', ref:'Quran 10:85–86'},
+  {id:'rb_nuh', cat:'🤲 Vergebung', title:'Schutz vor unwissenden Bitten (Du’a des Nuh)', tr:'Rabbi innī a‘ūdhu bika an as’alaka mā laysa lī bihī ‘ilm, wa illā taghfir lī wa tarhamnī akun minal-khāsirīn', de:'Mein Herr, ich suche Zuflucht bei Dir davor, Dich um etwas zu bitten, wovon ich kein Wissen habe. Wenn Du mir nicht vergibst und Dich meiner nicht erbarmst, werde ich zu den Verlierern gehören.', ref:'Quran 11:47'},
+  {id:'rb_shirk', cat:'🔒 Schutz', title:'Bewahre mich und meine Kinder vor Götzendienst (Ibrahim)', tr:'Rabbidsch‘al hādhal-balada āminan wadschnubnī wa baniyya an na‘budal-asnām', de:'Mein Herr, mach diese Ortschaft sicher und lass mich und meine Kinder es meiden, Götzen zu dienen.', ref:'Quran 14:35'},
+  {id:'rb_hisab', cat:'👨‍👩‍👧 Familie', title:'Vergebung für mich, meine Eltern und alle Gläubigen (Ibrahim)', tr:'Rabbanaghfir lī wa li-wālidayya wa lil-mu’minīna yawma yaqūmul-hisāb', de:'Unser Herr, vergib mir und meinen Eltern und den Gläubigen an dem Tag, an dem die Abrechnung stattfindet.', ref:'Quran 14:41'},
+  {id:'rb_sidq', cat:'🛡️ Standhaftigkeit', title:'Ein wahrhaftiger Anfang (neuer Job, neue Stadt, neuer Weg)', tr:'Rabbi adkhilnī mudkhala sidqin wa akhridschnī mukhradscha sidqin wadsch‘al lī min ladunka sultānan nasīrā', de:'Mein Herr, lass mich wahrhaftig eintreten und wahrhaftig hinausgehen, und gib mir von Dir aus eine helfende Macht.', ref:'Quran 17:80'},
+  {id:'rb_kahf', cat:'🫶 Sorgen', title:'Barmherzigkeit und der richtige Ausweg (die Leute der Höhle)', tr:'Rabbanā ātinā min ladunka rahmatan wa hayyi’ lanā min amrinā raschadā', de:'Unser Herr, gib uns Barmherzigkeit von Dir und bereite uns in unserer Angelegenheit den richtigen Weg.', ref:'Quran 18:10'},
+  {id:'rb_shaytan', cat:'🔒 Schutz', title:'Zuflucht vor den Einflüsterungen der Satane', tr:'Rabbi a‘ūdhu bika min hamazātisch-schayātīn, wa a‘ūdhu bika rabbi an yahdurūn', de:'Mein Herr, ich suche Zuflucht bei Dir vor den Aufstachelungen der Satane, und ich suche Zuflucht bei Dir, mein Herr, davor, dass sie mich aufsuchen.', ref:'Quran 23:97–98'},
+  {id:'rb_khayr', cat:'🤲 Vergebung', title:'Wir glauben – erbarme Dich unser', tr:'Rabbanā āmannā faghfir lanā warhamnā wa anta khayrur-rāhimīn', de:'Unser Herr, wir glauben, so vergib uns und erbarme Dich unser, denn Du bist der Beste der Barmherzigen.', ref:'Quran 23:109'},
+  {id:'rb_rahim', cat:'🤲 Vergebung', title:'Vergib und erbarme Dich', tr:'Rabbighfir warham wa anta khayrur-rāhimīn', de:'Mein Herr, vergib und erbarme Dich, denn Du bist der Beste der Barmherzigen.', ref:'Quran 23:118'},
+  {id:'rb_hell', cat:'🌴 Jenseits & Paradies', title:'Bewahre uns vor der Hölle', tr:'Rabbanasrif ‘annā ‘adhāba dschahannam, inna ‘adhābahā kāna gharāmā, innahā sā’at mustaqarran wa muqāmā', de:'Unser Herr, wende von uns die Strafe der Hölle ab. Ihre Strafe ist wahrlich bedrängend. Sie ist ein schlimmer Aufenthaltsort und eine schlimme Bleibe.', ref:'Quran 25:65–66'},
+  {id:'rb_hukm', cat:'🌴 Jenseits & Paradies', title:'Weisheit, gute Gesellschaft, das Paradies (Ibrahim)', tr:'Rabbi hab lī hukman wa alhiqnī bis-sālihīn, wadsch‘al lī lisāna sidqin fil-ākhirīn, wadsch‘alnī min warathati dschannatin-na‘īm', de:'Mein Herr, schenke mir Urteilskraft und nimm mich unter die Rechtschaffenen auf. Gib mir einen wahrhaftigen guten Ruf unter den Späteren, und mach mich zu einem der Erben des Gartens der Wonne.', ref:'Quran 26:83–85'},
+  {id:'rb_lut', cat:'🔒 Schutz', title:'Hilfe gegen die Unheilstifter (Lut)', tr:'Rabbinsurnī ‘alal-qawmil-mufsidīn', de:'Mein Herr, hilf mir gegen das Volk, das Unheil stiftet.', ref:'Quran 29:30'},
+  {id:'rb_salih', cat:'👨‍👩‍👧 Familie', title:'Um ein rechtschaffenes Kind (Ibrahim)', tr:'Rabbi hab lī minas-sālihīn', de:'Mein Herr, schenke mir (ein Kind) von den Rechtschaffenen.', ref:'Quran 37:100'},
+  {id:'rb_shukr', cat:'👨‍👩‍👧 Familie', title:'Dankbarkeit, gute Taten und gute Kinder', tr:'Rabbi awzi‘nī an aschkura ni‘matakallatī an‘amta ‘alayya wa ‘alā wālidayya wa an a‘mala sālihan tardāh, wa aslih lī fī dhurriyyatī, innī tubtu ilayka wa innī minal-muslimīn', de:'Mein Herr, gib mir ein, für Deine Gunst zu danken, die Du mir und meinen Eltern erwiesen hast, und rechtschaffen zu handeln, womit Du zufrieden bist. Und gib mir Rechtschaffenheit in meiner Nachkommenschaft. Ich wende mich Dir in Reue zu, und ich gehöre zu den Muslimen.', ref:'Quran 46:15'},
+  {id:'rb_ghill', cat:'🤲 Vergebung', title:'Kein Groll im Herzen – für die, die vor uns glaubten', tr:'Rabbanaghfir lanā wa li-ikhwāninalladhīna sabaqūnā bil-īmān, wa lā tadsch‘al fī qulūbinā ghillan lilladhīna āmanū, rabbanā innaka ra’ūfun rahīm', de:'Unser Herr, vergib uns und unseren Geschwistern, die uns im Glauben vorausgegangen sind, und lass in unseren Herzen keinen Groll gegen die Gläubigen sein. Unser Herr, Du bist ja gütig und barmherzig.', ref:'Quran 59:10'},
+  {id:'rb_tawakkul', cat:'🫶 Sorgen', title:'Auf Dich verlassen wir uns (Ibrahim)', tr:'Rabbanā ‘alayka tawakkalnā wa ilayka anabnā wa ilaykal-masīr', de:'Unser Herr, auf Dich verlassen wir uns, Dir wenden wir uns reuig zu, und zu Dir ist die Heimkehr.', ref:'Quran 60:4'},
+  {id:'rb_fitna2', cat:'🔒 Schutz', title:'Nicht zur Versuchung für die Ungläubigen', tr:'Rabbanā lā tadsch‘alnā fitnatan lilladhīna kafarū waghfir lanā rabbanā, innaka antal-‘azīzul-hakīm', de:'Unser Herr, mach uns nicht zu einer Versuchung für die Ungläubigen, und vergib uns, unser Herr. Du bist ja der Allmächtige, der Allweise.', ref:'Quran 60:5'},
+  {id:'rb_nur', cat:'🌴 Jenseits & Paradies', title:'Vollende unser Licht', tr:'Rabbanā atmim lanā nūranā waghfir lanā, innaka ‘alā kulli schay’in qadīr', de:'Unser Herr, vollende für uns unser Licht und vergib uns. Du hast ja Macht über alles.', note:'Das sagen die Gläubigen am Tag der Auferstehung, wenn ihr Licht vor ihnen her eilt.', ref:'Quran 66:8'},
+  {id:'rb_bayt', cat:'🌴 Jenseits & Paradies', title:'Ein Haus bei Dir im Paradies (Āsiya, Frau des Pharao)', tr:'Rabbibni lī ‘indaka baytan fil-dschannah, wa nadschdschinī min fir‘awna wa ‘amalih, wa nadschdschinī minal-qawmiz-zālimīn', de:'Mein Herr, bau mir bei Dir ein Haus im Paradies, und errette mich vor Pharao und seinem Tun, und errette mich vor dem Volk der Ungerechten.', ref:'Quran 66:11'},
+  {id:'rb_walid', cat:'👨‍👩‍👧 Familie', title:'Für mich, meine Eltern, mein Haus und alle Gläubigen (Nuh)', tr:'Rabbighfir lī wa li-wālidayya wa liman dakhala baytiya mu’minan wa lil-mu’minīna wal-mu’mināt', de:'Mein Herr, vergib mir und meinen Eltern und jedem, der als Gläubiger mein Haus betritt, und den gläubigen Männern und Frauen.', ref:'Quran 71:28'},
+  {id:'rb_hasbi', cat:'🫶 Sorgen', title:'Allah genügt mir', tr:'Hasbiyallāhu lā ilāha illā huwa, ‘alayhi tawakkaltu wa huwa rabbul-‘arschil-‘azīm', de:'Allah genügt mir. Es gibt keinen Gott außer Ihm. Auf Ihn verlasse ich mich, und Er ist der Herr des gewaltigen Thrones.', ref:'Quran 9:129'},
 ];
-const DUA_CATS = ['Alle', ...new Set(DUAS.map(d => d.cat))];
+const DUA_CATS = ['Alle', '📖 Aus dem Quran', ...new Set(DUAS.map(d => d.cat))];
 let duaCat = 'Alle';
 function renderDuaCollection(){
+  renderDuaExtras();
   const x = day(today);
   $('#duac').innerHTML = `<p class="sub" style="margin-top:0">„Das Du’a ist die Ibada (der Gottesdienst).“ (Abu Dawud 1479, Tirmidhi 2969 – sahih) · Jedes gesprochene Du’a zählt mit.</p>
     <div class="chips">${DUA_CATS.map(c => `<button class="chip ${c === duaCat ? 'on' : ''}" data-dcat="${esc(c)}">${esc(c)}</button>`).join('')}</div>`
-    + DUAS.filter(d => duaCat === 'Alle' || d.cat === duaCat).map(d => {
+    + DUAS.filter(d => duaCat === 'Alle' || d.cat === duaCat || (duaCat === '📖 Aus dem Quran' && /^Quran /.test(d.ref))).map(d => {
       const c = x['d:' + d.id] || 0;
       return `<div class="dua"><div class="dua-h"><b>${esc(d.title)}</b><small>${esc(d.cat)}</small></div>
         <div class="say"><div class="tr">${esc(d.tr)}</div><div class="de">„${esc(d.de)}“</div></div>
         ${d.note ? `<p class="sub" style="margin:4px 0">${esc(d.note)}</p>` : ''}<span class="gref">${esc(d.ref)}</span>
-        <div class="dua-b"><button class="adhbtn" data-dsay="${d.id}">🤲 Gesprochen${c ? ` (${c}×)` : ''}</button><button class="x" data-dsave="${d.id}">+ Meine Du’as</button></div></div>`;
+        <div class="dua-b"><button class="adhbtn" data-dsay="${d.id}">🤲 Gesprochen${c ? ` (${c}×)` : ''}</button>${qAudioBtn(d.ref)}<button class="x" data-dsave="${d.id}" aria-label="zu Meine Du’as hinzufügen">+ Merken</button></div></div>`;
     }).join('');
 }
 
@@ -2839,7 +2893,7 @@ const MISSION_GO = [
   {prayers:1}, {prayers:1}, {seg:'m'}, {seg:'e'}, {seg:'s'},
   {quick:'q_salawat'}, {quick:'q_istighfar'}, {quick:'q_subhan'}, {deed:'quran'},
   {tick:'duha'}, {tick:'qiyam'}, {tick:'sadaqa'}, {tick:'rahim'},
-  {hpath:1}, {deed:'rawatib'}, {quick:'juwayriya'}, {names:1}, {jr:1}, {qurb:1}, {quiz:1},
+  {hpath:1}, {deed:'rawatib'}, {quick:'juwayriya'}, {names:1}, {jr:1}, {qurb:1}, {quiz:1}, {dlearn:1},
 ];
 function missionGo(i){ return MISSION_GO[MISSIONS.indexOf(missionsFor(today)[i])] || {}; }
 function renderMissions(){
@@ -2879,6 +2933,7 @@ function goTo(g){
   else if (g.qurb) { startQurb(); }
   else if (g.qr) { openQr(g.qr); }
   else if (g.quiz) { openQuiz(); }
+  else if (g.dlearn) { showPage('quick'); openDLearn(); }
   else if (g.dua) { dmGuide(); }
   else if (g.names) { showPage('info'); showK('names'); $('#fc').hidden = false; nextCard(); }
 }
@@ -2907,6 +2962,7 @@ const HELP = [
   ['🌟', '99 Namen Allahs', 'Reiter „📖 Lernen“ → 99 Namen → Lernmodus: Name ansehen, Bedeutung zeigen, „Kann ich ✓“.', '+5 XP pro Name', {names:1}],
   ['📖', 'Quran lesen', 'Bei „Quran lesen“ auf „📖 Weiterlesen“ tippen oder unter „📖 Lernen“ → „Quran lesen & hören“: Umschrift, Deutsch und Rezitation. Gelesene Seiten zählen automatisch.', '+5 XP pro Seite', {qr:'resume'}],
   ['🧩', 'Quiz', 'Reiter „📖 Lernen“ → Quiz: 10 Fragen aus Quran, Sunnah, 99 Namen und 40 Hadith – allein oder zu zweit.', '+2 XP pro richtiger Antwort (bis 20 am Tag)', {quiz:1}],
+  ['🤲', 'Du’as auswendig lernen', 'Reiter „📿 Dhikr“ → „🤲 Du’as“ → „Du’as auswendig lernen“: Bedeutung lesen, auswendig aufsagen, aufdecken.', '+5 XP pro gelerntem Du’a', {dlearn:1}],
   ['💫', 'Näher zu Allah', 'Unter „Heute“ die dunkle Karte: „▶ 7 Minuten mit Allah“ – Herz wählen, kurz innehalten, Name Allahs, Vers, Danke, Du’a, eine Tat für Allah.', '+30 XP pro Tag · +20 für deine erledigte Tat', {qurb:1}],
 ];
 function openHelp(){
@@ -3392,7 +3448,7 @@ function situHTML(x, label){
   return `<details class="sit"><summary>${label ? `<small>${esc(label)}</small>` : ''}<b>${esc(x.title)}</b>${x.rizq ? ' <span class="tag r">Rizq</span>' : ''}</summary>
     ${x.tr ? `<div class="say"><div class="tr">${esc(x.tr)}</div><div class="de">„${esc(x.de)}“</div></div>` : `<p>${esc(x.de)}</p>`}
     ${x.note ? `<p class="sub" style="margin:4px 0">${esc(x.note)}</p>` : ''}<span class="gref">${esc(x.ref)}</span>
-    ${x.tr ? `<div class="dua-b"><button class="adhbtn" data-xsay="${x.id}">🤲 Gesprochen${c ? ` (${c}×)` : ''}</button></div>` : ''}</details>`;
+    ${x.tr ? `<div class="dua-b"><button class="adhbtn" data-xsay="${x.id}">🤲 Gesprochen${c ? ` (${c}×)` : ''}</button>${qAudioBtn(x.ref)}</div>` : ''}</details>`;
 }
 function renderSitu(){
   const list = situNow();
@@ -3848,7 +3904,7 @@ function openDM(tab){
     <button class="btn p" data-dmgo="1">▶ Jetzt Schritt für Schritt beten</button>`
     + DM_STEPS.map(s => `<details class="sit"><summary><b>${esc(s.h)}</b></summary>${s.own ? '<p>Hier sprichst du deine eigenen Anliegen – in jeder Sprache. Deine Liste „Meine Du’as“ wird im geführten Ablauf an dieser Stelle angezeigt.</p>' : `<div class="say"><div class="tr">${esc(s.tr)}</div><div class="de">„${esc(s.de)}“</div></div>`}<span class="gref">${esc(s.ref)}</span></details>`).join('');
   if (tab === 'prophets') body = `<p>Die Du’as, mit denen die Propheten ihren Herrn angerufen haben – und mit denen Er sie erhört hat:</p>`
-    + DM_PROPHETS.map(([p, tr, de, r]) => `<div class="dua"><div class="dua-h"><b>${esc(p)}</b></div><div class="say"><div class="tr">${esc(tr)}</div><div class="de">„${esc(de)}“</div></div><span class="gref">${esc(r)}</span></div>`).join('');
+    + DM_PROPHETS.map(([p, tr, de, r]) => `<div class="dua"><div class="dua-h"><b>${esc(p)}</b></div><div class="say"><div class="tr">${esc(tr)}</div><div class="de">„${esc(de)}“</div></div><span class="gref">${esc(r)}</span>${qAudioBtn(r) ? `<div class="dua-b">${qAudioBtn(r)}</div>` : ''}</div>`).join('');
   if (tab === 'scholars') body = DM_SCHOLARS.map(([w, q, r]) => `<div class="hp"><span class="hp-i">📜</span><div><b>${esc(w)}</b><p>${esc(q)}</p><span class="gref">${esc(r)}</span></div></div>`).join('')
     + '<p class="sub">Aussagen der Sahaba und Gelehrten sind keine Hadithe des Propheten ﷺ; wo eine Zuschreibung nicht sicher belegt ist, steht „überliefert/zugeschrieben“.</p>';
   $('#dm-body').innerHTML = `<div class="chips">${Object.entries(T).map(([k, v]) => `<button class="chip ${k === tab ? 'on' : ''}" data-dmtab="${k}">${v}</button>`).join('')}</div>${body}
@@ -4153,7 +4209,7 @@ function renderQB(){
     <textarea id="nz-talk" class="qb-in" rows="5" placeholder="Nur zwischen dir und Allah – wird nicht gespeichert …">${esc(QB.talk)}</textarea>
     <label class="qb-chk"><input type="checkbox" id="nz-keep" ${QB.keep ? 'checked' : ''}> Als Bitte in „Meine Du’as“ merken</label>
     <p class="qb-soft">„Zwei Augen berührt das Feuer nicht: ein Auge, das aus Ehrfurcht vor Allah geweint hat …“ <span class="gref">Tirmidhi 1639 – sahih</span></p>`;
-  else if (st === 'dua') { const d = P.d; html = `<p class="qb-k">6 · Bitte Ihn</p><p class="dmg-tr">${esc(d[0])}</p><p class="dmg-de">„${esc(d[1])}“</p><small class="gref">${esc(d[2])}</small>
+  else if (st === 'dua') { const d = P.d; html = `<p class="qb-k">6 · Bitte Ihn</p><p class="dmg-tr">${esc(d[0])}</p><p class="dmg-de">„${esc(d[1])}“</p><small class="gref">${esc(d[2])}</small>${qRefSpec(d[2]) ? `<div class="qb-row"><button class="qb-l" data-qbl="${qRefSpec(d[2])}">🔊 Rezitation anhören</button></div>` : ''}
     <button class="qb-c" data-qbc="1">${QB.dc >= 3 ? '✓' : `${QB.dc}/3`}</button>
     <p class="qb-soft">Der Prophet ﷺ wiederholte sein Du’a gern dreimal – tippe bei jedem Mal. <span class="gref">Muslim 1794</span></p>`; }
   else if (st === 'act') html = `<p class="qb-k">7 · Eine Tat für Allah</p><h2>Was tust du heute für Ihn?</h2>
@@ -4509,14 +4565,14 @@ function qSync(){
   const on = QAS && !QA.paused;
   const b = $('#qrv [data-qpa]'); if (b) b.textContent = QAS && !QAS.inline ? (on ? '⏸ Pause' : '▶ Weiter') : '▶ Anhören';
   if (b) b.classList.toggle('on', !!(QAS && !QAS.inline && on));
-  document.querySelectorAll('[data-qbl]').forEach(x => { x.textContent = QAS && QAS.inline && !QAS.pl && on ? '⏸ Rezitation anhalten' : '🔊 Rezitation anhören'; });
+  document.querySelectorAll('[data-qbl]').forEach(x => { const me = QAS && QAS.inline && !QAS.pl && on && QAS.spec === x.dataset.qbl; x.textContent = me ? (x.dataset.on || '⏸ Rezitation anhalten') : (x.dataset.off || '🔊 Rezitation anhören'); });
   renderPl();
 }
 // Vers-Bereich direkt abspielen (z. B. in „Näher zu Allah“)
 function qInline(spec){
-  if (QAS && QAS.inline) return qStop();
+  if (QAS && QAS.inline && !QAS.pl && QAS.spec === spec) return qStop();
   const q = qSpec(String(spec).replace('/', ':'));
-  qPlay(q.s, q.v, {to:q.hl ? q.hl[1] : q.v, inline:true});
+  qPlay(q.s, q.v, {to:q.hl ? q.hl[1] : q.v, inline:true}); QAS.spec = spec; qSync();
 }
 
 document.addEventListener('click', e => {
@@ -4846,6 +4902,95 @@ document.addEventListener('click', e => {
 $('#hzt').addEventListener('click', e => { if (e.target.closest('#hzt-close')) { $('#hzt').hidden = true; HZT = null; if (QAS && QAS.inline) qStop(); } });
 $('#rem').addEventListener('click', e => { if (e.target.closest('#rem-close')) $('#rem').hidden = true; });
 
+// ---------- 🤲 Du’a-Upgrade: Rezitation, Lernkarten, Für andere beten ----------
+// 🔊 Jeder Du’a aus dem Quran bekommt die Rezitation (Vers-Audio)
+const qRefSpec = ref => { const l = parseRefs(ref || '').find(x => x.qr); return l ? l.qr : null; };
+const qAudioBtn = ref => { const sp = qRefSpec(ref); return sp ? `<button class="mbtn go qau" data-qbl="${sp}" data-off="🔊 Anhören" data-on="⏸ Stopp">🔊 Anhören</button>` : ''; };
+document.addEventListener('click', e => { const l = e.target.closest('[data-qbl]'); if (l && !l.closest('#nz')) { e.preventDefault(); qInline(l.dataset.qbl); } });
+
+// ✨ Du’a des Tages + Einstieg Lernkarten
+db.dlearn = db.dlearn || {};
+db.pray = db.pray || [];
+function renderDuaExtras(){
+  const el = $('#dextra'); if (!el) return;
+  const n = Math.floor(new Date(today + 'T12:00') / 864e5), d = DUAS[n % DUAS.length], c = day(today)['d:' + d.id] || 0;
+  const L = DUAS.filter(x => db.dlearn[x.id]).length;
+  el.innerHTML = `<div class="card dtag"><div class="dh-k">✨ Du’a des Tages · ${esc(d.cat)}</div><b>${esc(d.title)}</b>
+      <div class="say"><div class="tr">${esc(d.tr)}</div><div class="de">„${esc(d.de)}“</div></div>${d.note ? `<p class="sub" style="margin:4px 0">${esc(d.note)}</p>` : ''}<span class="gref">${esc(d.ref)}</span>
+      <div class="dua-b"><button class="adhbtn" data-dsay="${d.id}">🤲 Gesprochen${c ? ` (${c}×)` : ''}</button>${qAudioBtn(d.ref)}</div></div>
+    <button class="tsb" data-dlearn="1"><span>🧠</span><div><b>Du’as auswendig lernen</b><small>${L} von ${DUAS.length} gelernt · +5 XP je Du’a</small></div><i>›</i></button>`;
+  renderPrayFor();
+}
+
+// 🧠 Lernkarten: Bedeutung lesen → auswendig aufsagen → aufdecken
+let DLC = null;
+function openDLearn(){
+  const pool = [...DUAS].sort((a, b) => a.tr.length - b.tr.length), open = pool.filter(d => !db.dlearn[d.id]);
+  DLC = {list:open.length ? open : pool, i:0, shown:false, all:!open.length};
+  renderDLC(); $('#dlc').hidden = false; $('#dlc').scrollTop = 0;
+}
+function renderDLC(){
+  const n = DUAS.filter(x => db.dlearn[x.id]).length;
+  if (!DLC.list.length) { DLC.list = [...DUAS]; DLC.all = true; }
+  const d = DLC.list[DLC.i % DLC.list.length], known = !!db.dlearn[d.id];
+  $('#dlc-body').innerHTML = `<p>Gelernt: <b>${n} von ${DUAS.length}</b>${DLC.all ? ' · 🎉 alle gelernt – jetzt wiederholen' : ' · die kürzesten zuerst'}</p><div class="bar"><i style="width:${n / DUAS.length * 100}%;background:var(--gold)"></i></div>
+    <div class="hzt-c"><small>${esc(d.cat)}</small><p style="margin:4px 0"><b>${esc(d.title)}</b></p><p class="qv-de">„${esc(d.de)}“</p></div>
+    <p style="text-align:center;margin:10px 0">Sag das Du’a auswendig auf – dann deck es auf.</p>
+    ${DLC.shown ? `<div class="hzt-c on"><small>Umschrift</small><p class="qv-tr">${esc(d.tr)}</p><span class="gref">${esc(d.ref)}</span></div>
+      ${qAudioBtn(d.ref) ? `<div class="qb-row" style="margin:8px 0">${qAudioBtn(d.ref)}</div>` : ''}
+      <div class="qpl-c" style="margin-top:8px"><button class="btn p" data-dlok="${d.id}">${known ? '✓ Sitzt noch' : '✓ Kann ich (+5 XP)'}</button><button class="btn" data-dlno="1">Noch üben</button></div>`
+      : `<button class="btn p" data-dlshow="1">👁 Aufdecken</button><button class="btn" data-dlskip="1">Überspringen ›</button>`}
+    <p class="sub">Tipp: Lies es dreimal laut mit der Umschrift, sag es dann ohne – und wiederhole es morgen. Ein Du’a, das du auswendig kannst, sprichst du überall: im Sujud, nachts, unterwegs.</p>`;
+}
+function dlcNext(drop){
+  if (drop) DLC.list.splice(DLC.i % DLC.list.length, 1); else DLC.i++;
+  DLC.shown = false; renderDLC(); $('#dlc').scrollTop = 0;
+}
+
+// 👥 Für andere beten – der Engel sagt: „Und dir das Gleiche“
+function renderPrayFor(){
+  const el = $('#prayfor'); if (!el) return;
+  const P = db.partner, done = db.pray.filter(p => p.last === today), rest = db.pray.filter(p => p.last !== today).sort((a, b) => (a.last || '').localeCompare(b.last || ''));
+  const due = [...done, ...rest].slice(0, Math.max(3, done.length));
+  const sugg = ['Meine Eltern', P && P.n, 'Meine Geschwister', 'Meine Freunde', 'Die Ummah', 'Kranke Menschen'].filter(Boolean).filter(n => !db.pray.some(p => p.n === n)).slice(0, 5);
+  el.innerHTML = `<div class="dh" style="margin-top:0"><div class="dh-t">„Kein Muslim betet für seinen Bruder in dessen Abwesenheit, ohne dass der Engel sagt: Und dir das Gleiche.“</div><div class="dh-r">Muslim 2732</div></div>
+    ${db.pray.length ? `<p class="sub" style="margin-bottom:4px">Heute dran:</p>${due.map(p => `<div class="li pf ${p.last === today ? 'dn' : ''}"><span><b>${esc(p.n)}</b>${p.w ? ` – ${esc(p.w)}` : ''}<small class="sub"> · ${p.c || 0}× gebetet</small></span><button class="mbtn ${p.last === today ? '' : 'go'}" data-pfy="${p.id}" ${p.last === today ? 'disabled' : ''}>${p.last === today ? '✓ Āmīn' : '🤲 Gebetet'}</button></div>`).join('')}
+      <p class="sub">Sprich in deinen Worten, z. B.: „O Allah, vergib ihr/ihm, leite sie/ihn recht, schenke Gesundheit, gute Versorgung und das Paradies.“ Für die Eltern: <i>Rabbirhamhumā kamā rabbayānī saghīrā</i> <span class="gref">Quran 17:24</span></p>
+      <details class="sit"><summary><b>Alle ${db.pray.length} auf deiner Liste</b></summary>${db.pray.map(p => `<div class="li"><span>${esc(p.n)}${p.w ? ` – ${esc(p.w)}` : ''}<small class="sub"> · ${p.c || 0}×</small></span><button class="x" data-pfdel="${p.id}" aria-label="entfernen">✕</button></div>`).join('')}</details>`
+      : '<p class="sub">Schreib die Menschen auf, für die du beten willst – jeden Tag schlägt dir die App drei vor, die am längsten dran sind.</p>'}
+    ${sugg.length ? `<div class="chips">${sugg.map(n => `<button class="chip" data-pfadd="${esc(n)}">+ ${esc(n)}</button>`).join('')}</div>` : ''}
+    <div class="inp"><input id="pf-n" placeholder="Name" maxlength="30" autocomplete="off"><input id="pf-w" placeholder="Anliegen (optional)" maxlength="60" autocomplete="off"></div>
+    <button class="btn" data-pfnew="1">+ Hinzufügen</button>`;
+}
+function pfAdd(n, w){
+  n = String(n || '').trim().slice(0, 30); if (!n) return toast('Bitte einen Namen eingeben');
+  if (db.pray.some(p => p.n.toLowerCase() === n.toLowerCase())) return toast('Steht schon auf deiner Liste');
+  db.pray.push({id:Date.now().toString(36) + Math.random().toString(36).slice(2, 5), n, w:String(w || '').trim().slice(0, 60), c:0, last:''}); save(); renderPrayFor(); buzz(8);
+}
+
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-dlearn],[data-dlshow],[data-dlok],[data-dlno],[data-dlskip],[data-pfy],[data-pfadd],[data-pfnew],[data-pfdel]'); if (!b) return;
+  const d = b.dataset;
+  if (d.dlearn) openDLearn();
+  else if (d.dlshow) { DLC.shown = true; renderDLC(); buzz(8); }
+  else if (d.dlok) {
+    const fresh = !db.dlearn[d.dlok];
+    if (fresh) { db.dlearn[d.dlok] = today; const x = db.days[today] = db.days[today] || {}; x.dl = (x.dl || 0) + 1; save(); renderStats(); toast('🧠 MāschāAllāh – Du’a gelernt · +5 XP'); buzz([20, 40, 20]); }
+    dlcNext(fresh && !DLC.all); renderDuaExtras();
+  }
+  else if (d.dlno || d.dlskip) dlcNext(false);
+  else if (d.pfy) {
+    const p = db.pray.find(p => p.id === d.pfy); if (!p || p.last === today) return;
+    p.c = (p.c || 0) + 1; p.last = today;
+    const x = db.days[today] = db.days[today] || {}; x['d:x_other'] = (x['d:x_other'] || 0) + 1;
+    save(); renderPrayFor(); renderStats(); buzz([20, 40, 20]); toast('🤲 Āmīn – und dir das Gleiche');
+  }
+  else if (d.pfadd) pfAdd(d.pfadd);
+  else if (d.pfnew) { pfAdd($('#pf-n').value, $('#pf-w').value); }
+  else if (d.pfdel) { if (confirm('Von der Liste nehmen?')) { db.pray = db.pray.filter(p => p.id !== d.pfdel); save(); renderPrayFor(); } }
+});
+$('#dlc').addEventListener('click', e => { if (e.target.closest('#dlc-close')) { $('#dlc').hidden = true; if (QAS && QAS.inline) qStop(); } });
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -4991,7 +5136,8 @@ document.addEventListener('click', e => {
   else if (b.dataset.dua) {
     const [act, id] = b.dataset.dua.split(':');
     if (act === 'del') { if (confirm('Du’a löschen?')) db.duas = db.duas.filter(d => d.id !== id); }
-    else { const d = db.duas.find(d => d.id === id); d.done = !d.done; if (d.done) toast('Alhamdulillah 🤲'); }
+    else if (act === 'say') { const d = db.duas.find(d => d.id === id); d.n = (d.n || 0) + 1; d.last = today; const x = db.days[today] = db.days[today] || {}; x['d:x_own'] = (x['d:x_own'] || 0) + 1; renderStats(); buzz(10); toast('🤲 Āmīn – Allah hört dich'); }
+    else { const d = db.duas.find(d => d.id === id); d.done = d.done ? false : today; if (d.done) { buzz([30, 50, 30]); toast('Alhamdulillah 🤲 – danke Allah dafür, z. B. mit einer Niederwerfung des Dankes'); } }
     save(); renderDuas();
   }
   else if (b.dataset.loc) locate();
@@ -5031,6 +5177,8 @@ $('#b-import').onchange = async e => {
     if (data.struggle && !db.struggle) db.struggle = data.struggle;
     for (const k of ['qread', 'qmark', 'istikhara', 'remind']) if (data[k] && !db[k]) db[k] = data[k];
     if (data.quiz && !db.quiz.rounds) db.quiz = data.quiz;
+    if (data.dlearn) db.dlearn = {...data.dlearn, ...db.dlearn};
+    if (Array.isArray(data.pray)) db.pray = [...db.pray, ...data.pray.filter(p => !db.pray.some(o => o.id === p.id))];
     if (data.partner && !db.partner) db.partner = data.partner;
     if (data.challenge && !db.challenge) db.challenge = data.challenge;
     if (Array.isArray(data.favs)) db.favs = [...db.favs, ...data.favs.filter(f => !db.favs.some(o => o.id === f.id))];
