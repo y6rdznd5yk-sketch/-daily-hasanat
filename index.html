@@ -703,6 +703,27 @@ a.mrow{text-decoration:none;color:inherit}
 .tcfgl{display:block;margin:6px auto 14px}
 .fnd{margin-bottom:6px;border-color:var(--line);background:var(--card)}
 .fnd i{color:var(--muted)}
+.lhead{display:flex;align-items:center;gap:8px;width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:12px 14px;font:inherit;margin:10px 0 8px}
+.lhead span{flex:1;text-align:left;font-weight:700}
+.lhead b{color:var(--accent);font-size:.85rem}
+.lhead i{font-style:normal;color:var(--muted)}
+.lcol{display:none!important}
+#wz{justify-content:flex-start;overflow-y:auto;z-index:70}
+#wz-bars{display:flex;gap:3px;width:100%;max-width:520px}
+#wz-bars i{flex:1;height:3px;border-radius:2px;background:var(--line)}
+#wz-bars i.on{background:var(--accent)}
+#wz-body{flex:1;width:100%;max-width:520px;display:flex;flex-direction:column;justify-content:center;text-align:left;padding:24px 4px}
+#wz-body h2{text-transform:none;letter-spacing:0;font-size:1.4rem;color:var(--ink);margin:4px 0 8px}
+.wz-ic{font-size:2.6rem}
+.wz-l{font-weight:700;margin:14px 0 4px}
+.wz-tab{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.wz-tab span{font-size:1.5rem}
+.wz-tab small{display:block;color:var(--muted);font-size:.8rem}
+.wz-p{display:block;width:100%;text-align:left;margin-bottom:8px}
+.wz-p.on{border-color:var(--accent);background:var(--accent-soft)}
+.wz-nav{width:100%;max-width:520px}
+#wz-back{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+#wz-next{background:var(--accent);color:#fff}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -736,6 +757,7 @@ a.mrow{text-decoration:none;color:inherit}
     <div class="nw" id="now" hidden></div>
     <div class="srow"><span>💎 <b id="s-has">0</b> Hasanat*</span><span>💧 <b id="s-rizq">0</b> Rizq</span><span>🔥 <b id="s-streak">0</b> Tage</span><span>✅ <b><span id="s-done">0</span>/<span id="s-total">0</span></b></span></div>
     <div class="bar"><i id="s-bar" style="width:0"></i></div>
+    <button class="lhead" id="lhead" aria-controls="list"></button>
     <div class="chips" id="chips"></div>
     <div id="list"></div>
     <div class="dh" id="daily"></div>
@@ -838,7 +860,7 @@ a.mrow{text-decoration:none;color:inherit}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-finder="1"><span>🧭</span><div><b>Wo finde ich was?</b><small>Alle Funktionen durchsuchen</small></div><i>›</i></button><button class="mrow" data-tcfg="1"><span>✎</span><div><b>Startseite anpassen</b><small>Karten ein- und ausblenden</small></div><i>›</i></button><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 44 (4.11.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 45 (4.11.2026)</p>
     </div>
     <div class="mp" data-m="pset" hidden><button class="kback" data-mk="">‹ Einstellungen</button><h2>📍 Standort &amp; Berechnung</h2>
     <button class="btn p" data-loc="1">📍 Aktuellen Standort verwenden</button>
@@ -1089,6 +1111,11 @@ a.mrow{text-decoration:none;color:inherit}
     <div class="sheet-h"><h3>✎ Startseite anpassen</h3><button class="x" id="tcfg-close" aria-label="schließen">✕</button></div>
     <div id="tcfg-body"></div>
   </div>
+</div>
+<div class="tzo" id="wz" hidden>
+  <div id="wz-bars"></div>
+  <div id="wz-body"></div>
+  <div class="dmg-nav wz-nav"><button id="wz-back">‹ Zurück</button><button id="wz-next">Weiter ›</button></div>
 </div>
 <script src="prayer.js"></script>
 
@@ -1534,7 +1561,7 @@ function render(){
   if (pg === 'today') renderToday(); else staleToday = true;
   if (pg === 'quick') { staleQuick = false; renderQuick(); renderAdhkar(); } else staleQuick = true;
 }
-function renderToday(){ staleToday = false; renderYCheck(); renderFast(); renderCoopCard(); renderGardenCard(); renderWrapTeaser(); renderPrayersTop(); renderHelpBanner(); renderList(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); renderQurbCard(); $('#now').hidden = true; applyCards(); }
+function renderToday(){ staleToday = false; renderYCheck(); renderFast(); renderCoopCard(); renderGardenCard(); renderWrapTeaser(); renderPrayersTop(); renderHelpBanner(); renderList(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); renderQurbCard(); $('#now').hidden = true; renderLHead(); applyCards(); }
 
 // ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
 const SPECIAL = [
@@ -2304,10 +2331,10 @@ function renderIntro(){
   }
   $('#intro').innerHTML = `<div class="card intro"><b>Assalāmu ‘alaykum 👋</b>
     <p>1. <b>📍 Standort festlegen</b> – für Gebetszeiten, Qibla und die passenden Adhkar zur richtigen Zeit.</p>
-    <p>🌱 Du startest mit dem Programm <b>Einsteiger</b> (10 Taten). Mehr geht jederzeit unter <b>☰ Ich → ⚙️ Einstellungen → Tagesprogramm</b>.</p>
+    <p>🌱 Du startest mit dem Programm <b>Einsteiger</b> (10 Taten). Mehr geht jederzeit unter <b>👤 Ich → ⚙️ Einstellungen → Tagesprogramm</b>.</p>
     <p>2. Im Reiter <b>📿 Dhikr</b> findest du Dhikr zum Antippen, die Morgen-, Abend- und Schlaf-Adhkar und Du’as.</p>
     <p>3. Jede Tat hat ihre <b>Quelle</b> – einfach „Quelle &amp; Belohnung“ aufklappen.</p>
-    <p>4. Ab und zu unter <b>☰ Ich → ⚙️ Einstellungen → Backup</b> sichern.</p>
+    <p>4. Ab und zu unter <b>👤 Ich → ⚙️ Einstellungen → Backup</b> sichern.</p>
     <button class="btn p" data-intro="1">Bismillah, los geht’s</button></div>`;
 }
 
@@ -2995,6 +3022,7 @@ function goTo(g){
   $('#help').hidden = true;
   if (g.prayers) { showPage('today'); setTimeout(() => flash($('#prayers')), 50); }
   else if (g.deed) {
+    db.settings.listOpen = true; renderLHead();
     filter = 'Alle'; editMode = false;
     const d = findDeed(g.deed);
     if (d && isHidden(d.id)) { db.hidden = db.hidden.filter(x => x !== d.id); db.settings.preset = 'custom'; clearStats(); save(); }
@@ -5261,7 +5289,7 @@ const TCARDS = [
   ['situ', '📒 Passend für jetzt (Register)'], ['rankrow', '🏆 Rang & 🌴 Garten'], ['coopcard', '👥 Zusammen'],
   ['list', '✅ Taten-Liste (Duha, Sadaqa, Dhikr … abhaken)'], ['daily', '📖 Hadith des Tages'],
 ];
-const TC_SEL = {rankrow:['#p-today > .rankrow'], list:['#p-today > .srow', '#p-today > .bar', '#chips', '#list', '#p-today > p.sub']};
+const TC_SEL = {rankrow:['#p-today > .rankrow'], list:['#p-today > .srow', '#p-today > .bar', '#lhead', '#chips', '#list', '#p-today > p.sub']};
 function applyCards(){
   const h = db.settings.hideCards || [];
   for (const [id] of TCARDS) for (const sel of TC_SEL[id] || ['#' + id]) document.querySelectorAll(sel).forEach(el => el.classList.toggle('uhide', h.includes(id)));
@@ -5349,6 +5377,61 @@ document.addEventListener('click', e => {
   const b = e.target.closest('[data-gohist],[data-gotoset],[data-gopset]'); if (!b) return;
   if (b.dataset.gohist) showPage('hist'); else { showPage('set'); showM(b.dataset.gopset ? 'pset' : null); }
 });
+// ---------- 👋 Willkommen: Einrichtung in 4 Schritten ----------
+let WZ = 0;
+function openWelcome(){ WZ = 0; $('#wz').hidden = false; renderWZ(); }
+function renderWZ(){
+  const s = db.settings, steps = 4;
+  $('#wz-bars').innerHTML = Array.from({length:steps}, (_, i) => `<i class="${i <= WZ ? 'on' : ''}"></i>`).join('');
+  let h = '';
+  if (WZ === 0) h = `<div class="wz-ic">☪︎</div><h2>Assalāmu ‘alaykum!</h2><p>Daily Hasanat begleitet dich durch den Tag – Gebete, Dhikr, Du’as, Quran. Jede Tat mit Quelle aus Quran und Sunnah.</p>
+    <p class="wz-l">Wie heißt du?</p><div class="inp"><input id="wz-name" value="${esc(s.name || '')}" placeholder="Dein Vorname" maxlength="20" autocomplete="off"></div>
+    <p class="sub">Nur für die Begrüßung und „Zusammen“ – bleibt auf deinem Handy.</p>`;
+  else if (WZ === 1) h = `<div class="wz-ic">📍</div><h2>Wo bist du?</h2><p>Für deine Gebetszeiten, die Qibla und die richtigen Adhkar zur richtigen Zeit.</p>
+    <button class="btn p" data-loc="1">📍 Standort automatisch</button>
+    <select class="btn" id="wz-city"><option value="">🏙️ … oder Stadt auswählen</option>${Object.entries(CITIES).map(([land, list]) => `<optgroup label="${land}">${list.map(([n, la, lo]) => `<option value="${la},${lo},${esc(n)}" ${s.place === n ? 'selected' : ''}>${esc(n)}</option>`).join('')}</optgroup>`).join('')}</select>
+    <p class="sub" id="wz-loc">${s.lat != null ? `✓ ${esc(s.place || 'Standort gesetzt')}` : 'Du kannst das auch später unter Gebet ändern.'}</p>`;
+  else if (WZ === 2) h = `<div class="wz-ic">🧭</div><h2>So ist die App aufgebaut</h2>
+    ${[['🏠', 'Heute', 'Dein Tag: Gebete abhaken, Missionen, Fasten'], ['🕌', 'Gebet', 'Zeiten, Qibla, Anleitung, Nachholen, Zakat'], ['📿', 'Dhikr', 'Zähler, Adhkar, Du’as, Herz & Seele'], ['📖', 'Quran', 'Lesen, hören, auswendig lernen, Wissen'], ['👤', 'Ich', 'Fortschritt, Rang, Zusammen, ⚙️ Einstellungen']]
+      .map(([i, t, d]) => `<div class="wz-tab"><span>${i}</span><div><b>${t}</b><small>${d}</small></div></div>`).join('')}
+    <p class="sub">Suchst du etwas? Oben auf „Heute“ das <b>?</b> antippen – „Wo finde ich was?“.</p>`;
+  else h = `<div class="wz-ic">🌱</div><h2>Womit startest du?</h2><p>Du kannst jederzeit wechseln (Ich → ⚙️ → Tagesprogramm).</p>
+    ${Object.entries(PRESETS).map(([k, P]) => `<button class="preset wz-p ${(s.preset || 'starter') === k ? 'on' : ''}" data-wzp="${k}"><b>${P.icon} ${P.name}</b><small>${P.desc}</small></button>`).join('')}`;
+  $('#wz-body').innerHTML = h;
+  $('#wz-back').style.visibility = WZ ? '' : 'hidden';
+  $('#wz-next').textContent = WZ === steps - 1 ? 'Bismillah, los geht’s ✓' : 'Weiter ›';
+}
+function wzNext(d){
+  if (WZ === 0) { const n = ($('#wz-name').value || '').trim().slice(0, 20); if (n) { db.settings.name = n; save(); } }
+  if (d < 0) { WZ = Math.max(0, WZ - 1); return renderWZ(); }
+  if (WZ < 3) { WZ++; return renderWZ(); }
+  db.seenIntro = true; db.seenHelp = true; save();
+  $('#wz').hidden = true; showPage('today'); render(); renderSettings();
+  toast(`Bismillah${db.settings.name ? ', ' + db.settings.name : ''} – möge Allah es dir leicht machen 🤲`);
+}
+$('#wz').addEventListener('click', e => {
+  if (e.target.closest('#wz-next')) return wzNext(1);
+  if (e.target.closest('#wz-back')) return wzNext(-1);
+  const p = e.target.closest('[data-wzp]'); if (p) { setPreset(p.dataset.wzp, true); db.settings.preset = p.dataset.wzp; save(); renderWZ(); }
+});
+$('#wz').addEventListener('change', e => {
+  if (e.target.id !== 'wz-city' || !e.target.value) return;
+  const [la, lo, ...n] = e.target.value.split(',');
+  Object.assign(db.settings, {lat:+la, lng:+lo, place:n.join(',')}); save();
+  $('#wz-loc').textContent = `✓ ${n.join(',')} – Gebetszeiten aktiv`;
+});
+
+// ---------- ✅ Taten-Liste einklappbar ----------
+function renderLHead(){
+  const el = $('#lhead'); if (!el) return;
+  const s = dayStats(today), open = !!db.settings.listOpen;
+  el.innerHTML = `<span>✅ Deine Taten heute</span><b>${s.done}/${s.total} erledigt</b><i>${open ? '▴' : '▾'}</i>`;
+  el.setAttribute('aria-expanded', open);
+  ['#chips', '#list'].forEach(q => $(q).classList.toggle('lcol', !open));
+}
+function setListOpen(on){ db.settings.listOpen = on; save(); renderLHead(); }
+document.addEventListener('click', e => { if (e.target.closest('#lhead')) { setListOpen(!db.settings.listOpen); buzz(6); } });
+
 // ---------- Interaktion ----------
 function setCount(id, v){
   const d = findDeed(id);
@@ -5589,6 +5672,7 @@ if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
 
 if (!db.settings.preset && !Object.keys(db.days).length) setPreset('starter', true);
 applyTheme(); applyFont(); renderChips(); render(); renderRamadan();
+if (!db.seenIntro && !Object.keys(db.days).length) openWelcome();
 // Was beim Start nicht sichtbar ist, erst nach dem ersten Bild vorbereiten
 setTimeout(() => {
   renderInfo(); renderSettings(); renderSeg(); renderDuas(); renderCustomForm(); renderEvents(); renderNames();
