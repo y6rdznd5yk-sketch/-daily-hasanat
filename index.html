@@ -698,6 +698,11 @@ a.mrow{text-decoration:none;color:inherit}
 .fastc{border-color:var(--gold)}
 .fc-big{font-size:1.02rem;margin:4px 0 6px}
 .fastc .mh span{color:var(--gold)}
+.uhide{display:none!important}
+.sheet .sheet-h{position:sticky;top:calc(-1 * (env(safe-area-inset-top) + 12px));z-index:6;background:var(--bg);margin-top:calc(-1 * (env(safe-area-inset-top) + 12px));padding:calc(env(safe-area-inset-top) + 12px) 0 8px}
+.tcfgl{display:block;margin:6px auto 14px}
+.fnd{margin-bottom:6px;border-color:var(--line);background:var(--card)}
+.fnd i{color:var(--muted)}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -705,7 +710,7 @@ a.mrow{text-decoration:none;color:inherit}
 <body data-page="today">
 <main id="scroller"><div class="wrap">
   <header>
-    <div class="hrow"><h1>Daily Hasanat ☪︎</h1><button class="hbtn" data-help="1" aria-label="Hilfe: So sammelst du XP">?</button></div>
+    <div class="hrow"><h1>Daily Hasanat ☪︎</h1><button class="hbtn" data-help="1" aria-label="Hilfe: Wo finde ich was? So sammelst du XP">?</button></div>
     <div class="sub" id="date"></div>
     <div class="np" id="nextp"></div>
     <div class="np" id="ramadan" style="color:var(--gold)"></div>
@@ -735,6 +740,7 @@ a.mrow{text-decoration:none;color:inherit}
     <div id="list"></div>
     <div class="dh" id="daily"></div>
     <p class="sub">* Nur Zahlen, die in der Quelle ausdrücklich genannt werden; sonst das Minimum von ×10 pro guter Tat (Bukhari 6491). Allah vervielfacht, wie Er will – der echte Lohn ist bei Ihm.</p>
+    <button class="lnk tcfgl" data-tcfg="1">✎ Startseite anpassen</button>
   </section>
 
   <!-- SCHNELL -->
@@ -821,8 +827,8 @@ a.mrow{text-decoration:none;color:inherit}
       <h2>Einstellungen</h2>
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
-      <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 42 (4.11.2026)</p>
+      <div class="mgrp"><button class="mrow" data-finder="1"><span>🧭</span><div><b>Wo finde ich was?</b><small>Alle Funktionen durchsuchen</small></div><i>›</i></button><button class="mrow" data-tcfg="1"><span>✎</span><div><b>Startseite anpassen</b><small>Karten ein- und ausblenden</small></div><i>›</i></button><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
+      <p class="sub" style="text-align:center">App-Version 43 (4.11.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -940,7 +946,7 @@ a.mrow{text-decoration:none;color:inherit}
 </div>
 <div class="sheet" id="help" hidden>
   <div class="wrap">
-    <div class="sheet-h"><h3>💡 So sammelst du XP</h3><button class="x" id="help-close" aria-label="schließen">✕</button></div>
+    <div class="sheet-h"><h3>💡 Hilfe</h3><button class="x" id="help-close" aria-label="schließen">✕</button></div>
     <div id="help-body"></div>
   </div>
 </div>
@@ -1071,6 +1077,12 @@ a.mrow{text-decoration:none;color:inherit}
   <div class="ap-nav"><button id="ap-skip">Überspringen ›</button></div>
 </div>
 <button id="apbar"></button>
+<div class="sheet" id="tcfg" hidden>
+  <div class="wrap">
+    <div class="sheet-h"><h3>✎ Startseite anpassen</h3><button class="x" id="tcfg-close" aria-label="schließen">✕</button></div>
+    <div id="tcfg-body"></div>
+  </div>
+</div>
 <script src="prayer.js"></script>
 
 <script>
@@ -1515,7 +1527,7 @@ function render(){
   if (pg === 'today') renderToday(); else staleToday = true;
   if (pg === 'quick') { staleQuick = false; renderQuick(); renderAdhkar(); } else staleQuick = true;
 }
-function renderToday(){ staleToday = false; renderYCheck(); renderFast(); renderCoopCard(); renderGardenCard(); renderWrapTeaser(); renderPrayersTop(); renderHelpBanner(); renderList(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); renderQurbCard(); $('#now').hidden = true; }
+function renderToday(){ staleToday = false; renderYCheck(); renderFast(); renderCoopCard(); renderGardenCard(); renderWrapTeaser(); renderPrayersTop(); renderHelpBanner(); renderList(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); renderQurbCard(); $('#now').hidden = true; applyCards(); }
 
 // ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
 const SPECIAL = [
@@ -3024,7 +3036,9 @@ const HELP = [
   ['💫', 'Näher zu Allah', 'Unter „Heute“ die dunkle Karte: „▶ 7 Minuten mit Allah“ – Herz wählen, kurz innehalten, Name Allahs, Vers, Danke, Du’a, eine Tat für Allah.', '+30 XP pro Tag · +20 für deine erledigte Tat', {qurb:1}],
 ];
 function openHelp(){
-  $('#help-body').innerHTML = `<p>Alles, was du abhakst, gibt XP – oben im Rang-Balken siehst du sofort „+XP“.</p>`
+  $('#help-body').innerHTML = `<h4 class="rg-h" style="margin-top:0">🧭 Wo finde ich was?</h4><div class="inp"><input id="fsearch" placeholder="🔎 z. B. Qibla, Fasten, Witr, Quran …" autocomplete="off"></div><div id="fres"></div>
+    <details class="sit"><summary><b>Alle ${FINDER.length} Funktionen anzeigen</b></summary>${finderHTML('')}</details>
+    <h4 class="rg-h">💡 So sammelst du XP</h4><p>Alles, was du abhakst, gibt XP – oben im Rang-Balken siehst du sofort „+XP“.</p>`
     + HELP.map(([icon, t, how, xp, g], i) => `<div class="hp"><span class="hp-i">${icon}</span><div><b>${t}</b><p>${how}</p><small>${xp}</small>${g ? `<button class="mbtn go" data-hgo="${i}">Zeig mir ›</button>` : ''}</div></div>`).join('')
     + '<p class="sub">Tipp: Die Ränge brauchen XP <b>und</b> echte Gewohnheiten (z. B. 3 Tage alle 5 Gebete) – tippe auf die Rang-Karte, um zu sehen, was dir noch fehlt.</p>';
   $('#help').hidden = false; $('#help').scrollTop = 0;
@@ -5131,6 +5145,7 @@ function renderYCheck(){
   el.hidden = false;
   el.innerHTML = `<div class="mh"><b>🌅 Gestern noch offen</b><button class="lnk" data-ych="off">ausblenden</button></div>
     <p class="sub" style="margin:0 0 6px">Nicht abgehakt – gebetet und nur vergessen, oder nachholen?</p>
+    ${m.miss.length > 1 ? '<button class="btn" data-ych="all" style="margin-bottom:6px">✓ Alle gebetet – nur vergessen einzutragen</button>' : ''}
     ${m.miss.map(k => `<div class="li"><span><b>${PNAMES[k]}</b></span><button class="mbtn" data-ych="p:${k}">✓ gebetet</button><button class="mbtn go" data-ych="q:${k}">⏳ nachholen</button></div>`).join('')}
     <p class="sub" style="margin:6px 0 0">„Wer ein Gebet verschläft oder vergisst, soll es beten, sobald er sich daran erinnert.“ <span class="gref">Bukhari 597, Muslim 684</span></p>`;
 }
@@ -5172,7 +5187,9 @@ function renderPStat(){
 }
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-ych]'); if (!b) return;
-  const [act, k] = b.dataset.ych.split(':'); yHandle(act, k);
+  const [act, k] = b.dataset.ych.split(':');
+  if (act === 'all') { const m = yMissing(); if (m) for (const p of m.miss) yHandle('p', p); return; }
+  yHandle(act, k);
 });
 
 // ---------- 🌙 Fasten-Modus: Suhur, Iftar-Countdown, Du’as ----------
@@ -5224,6 +5241,95 @@ function setFast(a){
 document.addEventListener('click', e => { const b = e.target.closest('[data-fast]'); if (b) setFast(b.dataset.fast); });
 // Countdown aktuell halten, solange „Heute“ offen ist
 setInterval(() => { if ((document.body.dataset.page || 'today') === 'today' && !document.hidden && day(today).fast) renderFast(); }, 30000);
+
+// ---------- ✎ Startseite anpassen: Karten ausblenden ----------
+const TCARDS = [
+  ['sday', '🕋 Dein Sunnah-Tag'], ['qurb', '💫 Näher zu Allah'], ['missions', '🎯 Tagesmissionen'],
+  ['situ', '📒 Passend für jetzt (Register)'], ['rankrow', '🏆 Rang & 🌴 Garten'], ['coopcard', '👥 Zusammen'],
+  ['list', '✅ Taten-Liste (Duha, Sadaqa, Dhikr … abhaken)'], ['daily', '📖 Hadith des Tages'],
+];
+const TC_SEL = {rankrow:['#p-today > .rankrow'], list:['#p-today > .srow', '#p-today > .bar', '#chips', '#list', '#p-today > p.sub']};
+function applyCards(){
+  const h = db.settings.hideCards || [];
+  for (const [id] of TCARDS) for (const sel of TC_SEL[id] || ['#' + id]) document.querySelectorAll(sel).forEach(el => el.classList.toggle('uhide', h.includes(id)));
+}
+function openTcfg(){
+  const h = db.settings.hideCards || [];
+  $('#tcfg-body').innerHTML = `<p>Blende aus, was du nicht brauchst – die Startseite wird kürzer. Die 5 Gebete bleiben immer oben.</p>
+    ${TCARDS.map(([id, n]) => `<label class="sosr"><input type="checkbox" data-tc="${id}" ${h.includes(id) ? '' : 'checked'}><span></span><div><b>${n}</b></div></label>`).join('')}
+    <p class="sub">Alles bleibt erreichbar – über die unteren Reiter und „? → Wo finde ich was?“.</p>`;
+  $('#tcfg').hidden = false;
+}
+document.addEventListener('change', e => {
+  const id = e.target.dataset && e.target.dataset.tc; if (!id) return;
+  const h = new Set(db.settings.hideCards || []); if (e.target.checked) h.delete(id); else h.add(id);
+  db.settings.hideCards = [...h]; save(); applyCards();
+});
+
+// ---------- 🧭 Wo finde ich was? Alle Funktionen durchsuchbar ----------
+const hs = k => () => { showPage('hist'); showH(k); };
+const FINDER = [
+  ['🕌', 'Gebete abhaken', 'Heute', 'gebet salah namaz fajr isha', () => goTo({prayers:1})],
+  ['🤲', 'Adhkar nach dem Gebet (33/33/33, Āyat al-Kursī)', 'Heute → Gebetskarte', 'tasbih nach dem gebet', () => openAP()],
+  ['🌅', 'Gestern vergessene Gebete nachtragen', 'Heute (erscheint morgens)', 'gestern vergessen', () => goTo({prayers:1})],
+  ['🌙', 'Ich faste heute (Suhur, Iftar-Countdown)', 'Mehr', 'fasten iftar suhur nachholfasten ramadan', () => setFast('nafl')],
+  ['💫', 'Näher zu Allah – 7 Minuten mit Allah', 'Heute', 'herz trost traurig sorge', () => startQurb()],
+  ['🧎', 'Gebets-Anleitung (Wudu, Rak’at, Witr, Janaza, Eid, Reise)', 'Lernen', 'wudu rakat witr qunut janaza totengebet eid reise', () => openGuide()],
+  ['🌅', 'Morgen-Adhkar', 'Dhikr', 'morgen adhkar', () => goTo({seg:'m'})],
+  ['🌇', 'Abend-Adhkar', 'Dhikr', 'abend adhkar', () => goTo({seg:'e'})],
+  ['😴', 'Schlaf-Adhkar', 'Dhikr', 'schlafen nacht', () => goTo({seg:'s'})],
+  ['📿', 'Dhikr-Zähler', 'Dhikr', 'zähler subhanallah salawat istighfar tasbih', () => goTo({seg:'quick'})],
+  ['🤲', 'Du’a-Sammlung (51 Du’as, mit Rezitation)', 'Dhikr → Du’as', 'dua bittgebet rabbana', () => goTo({seg:'du'})],
+  ['🧠', 'Du’as auswendig lernen', 'Dhikr → Du’as', 'lernkarten', () => { goTo({seg:'du'}); openDLearn(); }],
+  ['👥', 'Für andere beten', 'Dhikr → Du’as', 'eltern freundin freunde', () => { goTo({seg:'du'}); setTimeout(() => flash($('#prayfor')), 80); }],
+  ['📝', 'Meine Du’as & erhörte Du’as', 'Dhikr → Du’as', 'anliegen erhört', () => { goTo({seg:'du'}); setTimeout(() => flash($('#duas')), 80); }],
+  ['🤲', 'Der Du’a-Meister (Adab, beste Zeiten, vollständige Du’a)', 'Mehr', 'wie mache ich dua zeiten', () => openDM()],
+  ['📒', 'Register: Was sage ich wann?', 'Dhikr → Du’as', 'regen essen reise wut toilette', () => openReg()],
+  ['🧭', 'Istikhara (Entscheidungsgebet)', 'Mehr', 'entscheidung', () => openIst()],
+  ['🤍', 'Neuanfang: Tawba, Sünde & Sucht, Notfall', 'Mehr', 'reue sucht sünde notfall', () => renderTawba()],
+  ['🌙', 'Abend-Rückblick (Dankbarkeit)', 'Mehr', 'dankbarkeit journal muhasaba', () => openJournal()],
+  ['📖', 'Quran lesen & hören', 'Lernen', 'quran lesen kahf mulk yasin', () => openQList()],
+  ['🎧', 'Quran-Playlists (Ruqya, Schlafen, al-Kahf)', 'Lernen', 'ruqya schlafen hören audio', () => openPl()],
+  ['🧠', 'Suren auswendig & Auswendig-Training', 'Lernen', 'hifz auswendig', () => { showPage('info'); showK('hifz'); }],
+  ['🎯', 'Khatm-Plan (ganzer Quran)', 'Fortschritt → Quran', 'khatm', hs('quran')],
+  ['🧩', 'Quiz (auch zu zweit)', 'Lernen', 'quiz spiel', () => openQuiz()],
+  ['🎓', 'Wissens-Pfad (40 Hadith)', 'Lernen', 'nawawi hadith lernen', () => goTo({hpath:1})],
+  ['🌟', '99 Namen Allahs', 'Lernen', 'namen asma', () => goTo({names:1})],
+  ['📚', 'Hadith-Bibliothek', 'Lernen', 'bukhari muslim sunan', () => libOpen()],
+  ['🔎', 'Alles durchsuchen (Hadith, Du’as, Suren)', 'Lernen', 'suche', () => { showPage('info'); setTimeout(() => $('#search').focus(), 50); }],
+  ['🧭', 'Qibla-Kompass', 'Mehr', 'qibla richtung mekka', () => openQibla()],
+  ['🕌', 'Gebetszeiten', 'Mehr', 'zeiten', () => { showPage('set'); showM('ptimes'); }],
+  ['📍', 'Standort & Berechnung', 'Mehr', 'standort stadt methode', () => { showPage('set'); showM('pset'); }],
+  ['🔔', 'Erinnerungen über den Kalender', 'Mehr', 'erinnerung wecker benachrichtigung', () => openRemind()],
+  ['📅', 'Besondere Tage (Ramadan, Eid …)', 'Mehr', 'ramadan eid arafa', () => { showPage('set'); showM('events'); }],
+  ['💰', 'Zakat-Rechner', 'Mehr', 'zakat', () => { showPage('set'); showM('zakat'); }],
+  ['🕌', 'Moschee in der Nähe', 'Mehr', 'moschee karte', () => window.open('https://maps.apple.com/?q=Moschee', '_blank', 'noopener')],
+  ['🏆', 'Rang & XP', 'Fortschritt', 'rang xp level', hs('rank')],
+  ['🌴', 'Garten im Paradies', 'Fortschritt', 'garten', hs('garden')],
+  ['👥', 'Zusammen (Partner, Challenges)', 'Fortschritt', 'freundin partner challenge teilen', hs('coop')],
+  ['📊', 'Statistik (pro Gebet, Kalender)', 'Fortschritt', 'statistik', hs('over')],
+  ['🏅', 'Abzeichen', 'Fortschritt', 'abzeichen', hs('badges')],
+  ['🔁', 'Nachholen (Qada)', 'Fortschritt', 'qada nachholen', hs('qada')],
+  ['💝', 'Sadaqa-Tagebuch', 'Fortschritt', 'spende sadaqa', hs('sadaqa')],
+  ['✨', 'Rückblick (Woche, Monat, Jahr)', 'Fortschritt', 'wrapped rückblick', () => openWrap('week')],
+  ['💾', 'Backup sichern', 'Mehr', 'sichern daten', () => { showPage('set'); showM('data'); }],
+  ['🎨', 'Anzeige (Design, Schrift, Arabisch)', 'Mehr', 'dunkel hell schrift arabisch', () => { showPage('set'); showM('disp'); }],
+  ['✎', 'Startseite anpassen', 'Heute (ganz unten)', 'karten ausblenden', () => openTcfg()],
+];
+function finderHTML(q){
+  const w = norm(q).trim().split(/\s+/).filter(Boolean);
+  const hit = FINDER.map((f, i) => [f, i]).filter(([f]) => !w.length || w.every(x => norm(f[1] + ' ' + f[2] + ' ' + f[3]).includes(x)));
+  return hit.length ? hit.map(([[ic, n, where], i]) => `<button class="tsb fnd" data-fnd="${i}"><span>${ic}</span><div><b>${esc(n)}</b><small>${esc(where)}</small></div><i>›</i></button>`).join('')
+    : '<p class="sub">Nichts gefunden – versuch ein anderes Wort, z. B. „Fasten“, „Qibla“ oder „Witr“.</p>';
+}
+document.addEventListener('input', e => { if (e.target.id === 'fsearch') $('#fres').innerHTML = finderHTML(e.target.value); });
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-fnd],[data-tcfg],[data-finder]'); if (!b) return;
+  if (b.dataset.tcfg) return openTcfg();
+  if (b.dataset.finder) { openHelp(); setTimeout(() => { const i = $('#fsearch'); if (i) i.focus(); }, 60); return; }
+  $('#help').hidden = true; FINDER[+b.dataset.fnd][4]();
+});
+$('#tcfg').addEventListener('click', e => { if (e.target.closest('#tcfg-close')) $('#tcfg').hidden = true; });
 
 // ---------- Interaktion ----------
 function setCount(id, v){
