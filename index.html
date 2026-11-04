@@ -695,6 +695,9 @@ a.mrow{text-decoration:none;color:inherit}
 .pst .bar{flex:1;margin:0}
 .pst b{width:44px;text-align:right;flex:none;font-variant-numeric:tabular-nums}
 #ycheck .li .mbtn{flex:none;margin-left:4px}
+.fastc{border-color:var(--gold)}
+.fc-big{font-size:1.02rem;margin:4px 0 6px}
+.fastc .mh span{color:var(--gold)}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -716,6 +719,7 @@ a.mrow{text-decoration:none;color:inherit}
     <div class="card" id="sday"></div>
     <div id="prayers"></div>
     <div class="card" id="ycheck" hidden></div>
+    <div class="card fastc" id="fastcard" hidden></div>
     <div class="card qcard" id="qurb"></div>
     <div id="prayer"></div>
     <div class="card" id="missions"></div>
@@ -813,12 +817,12 @@ a.mrow{text-decoration:none;color:inherit}
     <div class="ptitle"><b>☰ Mehr</b><span>Werkzeuge, Einstellungen &amp; Daten</span></div>
     <div id="mlist">
       <h2>Werkzeuge</h2>
-      <div class="mgrp"><button class="mrow" data-qurb="1"><span>💫</span><div><b>Näher zu Allah</b><small>7 Minuten mit Allah · Licht · Schatzkammer</small></div><i>›</i></button><button class="mrow" data-qibla="1"><span>🧭</span><div><b>Qibla-Kompass</b><small>Richtung nach Mekka</small></div><i>›</i></button><button class="mrow" data-mk="ptimes"><span>🕌</span><div><b>Gebetszeiten</b><small>Heute und morgen</small></div><i>›</i></button><button class="mrow" data-mk="events"><span>📅</span><div><b>Besondere Tage</b><small>Fasten, Ramadan, Eid …</small></div><i>›</i></button><button class="mrow" data-dm="1"><span>🤲</span><div><b>Der Du’a-Meister</b><small>Adab, Zeiten, vollständige Du’a</small></div><i>›</i></button><button class="mrow" data-ist="1"><span>🧭</span><div><b>Istikhara</b><small>Wenn du dich entscheiden musst</small></div><i>›</i></button><button class="mrow" data-remind="1"><span>🔔</span><div><b>Erinnerungen</b><small>al-Kahf, Fasten, weiße Tage – über den iPhone-Kalender</small></div><i>›</i></button><a class="mrow" href="https://maps.apple.com/?q=Moschee" target="_blank" rel="noopener"><span>🕌</span><div><b>Moschee in der Nähe</b><small>Öffnet die Karten-App</small></div><i>↗</i></a><button class="mrow" data-jr="1"><span>🌙</span><div><b>Abend-Rückblick</b><small>Dankbarkeit & Muhasaba</small></div><i>›</i></button><button class="mrow" data-tawba="1"><span>🤍</span><div><b>Neuanfang</b><small>Tawba, Sünde & Sucht, Notfall-Hilfe</small></div><i>›</i></button><button class="mrow" data-mk="zakat"><span>💰</span><div><b>Zakat-Rechner</b><small>2,5 % · Nisab</small></div><i>›</i></button></div>
+      <div class="mgrp"><button class="mrow" data-qurb="1"><span>💫</span><div><b>Näher zu Allah</b><small>7 Minuten mit Allah · Licht · Schatzkammer</small></div><i>›</i></button><button class="mrow" data-qibla="1"><span>🧭</span><div><b>Qibla-Kompass</b><small>Richtung nach Mekka</small></div><i>›</i></button><button class="mrow" data-mk="ptimes"><span>🕌</span><div><b>Gebetszeiten</b><small>Heute und morgen</small></div><i>›</i></button><button class="mrow" data-mk="events"><span>📅</span><div><b>Besondere Tage</b><small>Fasten, Ramadan, Eid …</small></div><i>›</i></button><button class="mrow" data-dm="1"><span>🤲</span><div><b>Der Du’a-Meister</b><small>Adab, Zeiten, vollständige Du’a</small></div><i>›</i></button><button class="mrow" data-ist="1"><span>🧭</span><div><b>Istikhara</b><small>Wenn du dich entscheiden musst</small></div><i>›</i></button><button class="mrow" data-fast="nafl"><span>🌙</span><div><b>Ich faste heute</b><small>Iftar-Countdown, Suhur-Ende, Du’as – auch Nachholfasten</small></div><i>›</i></button><button class="mrow" data-remind="1"><span>🔔</span><div><b>Erinnerungen</b><small>al-Kahf, Fasten, weiße Tage – über den iPhone-Kalender</small></div><i>›</i></button><a class="mrow" href="https://maps.apple.com/?q=Moschee" target="_blank" rel="noopener"><span>🕌</span><div><b>Moschee in der Nähe</b><small>Öffnet die Karten-App</small></div><i>↗</i></a><button class="mrow" data-jr="1"><span>🌙</span><div><b>Abend-Rückblick</b><small>Dankbarkeit & Muhasaba</small></div><i>›</i></button><button class="mrow" data-tawba="1"><span>🤍</span><div><b>Neuanfang</b><small>Tawba, Sünde & Sucht, Notfall-Hilfe</small></div><i>›</i></button><button class="mrow" data-mk="zakat"><span>💰</span><div><b>Zakat-Rechner</b><small>2,5 % · Nisab</small></div><i>›</i></button></div>
       <h2>Einstellungen</h2>
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 41 (4.11.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 42 (4.11.2026)</p>
     </div>
     <div class="mp" data-m="ptimes" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>🕌 Gebetszeiten</h2><div class="card" id="ptable"></div></div>
     <div class="mp" data-m="events" hidden><button class="kback" data-mk="">‹ Mehr</button><h2>📅 Kommende besondere Tage</h2><div class="card" id="events"></div></div>
@@ -1511,7 +1515,7 @@ function render(){
   if (pg === 'today') renderToday(); else staleToday = true;
   if (pg === 'quick') { staleQuick = false; renderQuick(); renderAdhkar(); } else staleQuick = true;
 }
-function renderToday(){ staleToday = false; renderYCheck(); renderCoopCard(); renderGardenCard(); renderWrapTeaser(); renderPrayersTop(); renderHelpBanner(); renderList(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); renderQurbCard(); $('#now').hidden = true; }
+function renderToday(){ staleToday = false; renderYCheck(); renderFast(); renderCoopCard(); renderGardenCard(); renderWrapTeaser(); renderPrayersTop(); renderHelpBanner(); renderList(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); renderQurbCard(); $('#now').hidden = true; }
 
 // ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
 const SPECIAL = [
@@ -2424,6 +2428,13 @@ const GUIDE = [
     <p><b>Ab wann bin ich Reisender?</b> Nach der Mehrheit der Gelehrten ab etwa 80 km, sobald du deinen Wohnort verlassen hast. Wer länger an einem Ort bleibt (nach vielen Gelehrten mehr als 4 Tage, nach den Hanafiten 15 Tage), betet wieder vollständig. Die Rechtsschulen unterscheiden sich hier – im Zweifel frag deinen Imam.</p>
     <p><b>Sunnah-Gebete:</b> Die Rawatib lässt man auf Reisen meist weg – die 2 Rak’at vor Fajr und das Witr betete der Prophet ﷺ aber auch auf Reisen.</p>
     <p class="sub">„Allah liebt es, dass Seine Erleichterungen angenommen werden, so wie Er es verabscheut, dass Ungehorsam begangen wird.“ ${G_REF('Ahmad 5866 – sahih')}</p>`],
+  ['🌙 Witr & Nachtgebet (Qiyam)', `
+    <p><b>Witr</b> ist das ungerade Abschlussgebet der Nacht – nach Isha bis Fajr. „Macht das Witr zum letzten eurer Gebete in der Nacht.“ ${G_REF('Bukhari 998, Muslim 751')}</p>
+    <p><b>Wie viele Rak’at?</b> 1, 3, 5 … – auch eine einzige Rak’a ist Sunnah. Das Nachtgebet betet man in Zweiergruppen: „Das Gebet der Nacht ist zwei und zwei; wenn einer von euch den Fajr fürchtet, betet er eine Rak’a, die ihm das Gebetete ungerade macht.“ ${G_REF('Bukhari 990, Muslim 749')} Der Prophet ﷺ betete meist 11 Rak’at. ${G_REF('Bukhari 1147, Muslim 738')}</p>
+    <p><b>3 Rak’at Witr:</b> zum Beispiel 2 Rak’at mit Salam, dann 1 Rak’a. In der hanafitischen Schule: 3 Rak’at mit Taschahhud nach der zweiten und Qunut in der dritten – folge deinem Imam.</p>
+    <p><b>Du’a al-Qunūt</b> in der letzten Rak’a: <i>Allāhummahdinī fīman hadayt, wa ‘āfinī fīman ‘āfayt, wa tawallanī fīman tawallayt, wa bārik lī fīmā a‘tayt, wa qinī scharra mā qadayt, fa-innaka taqdī wa lā yuqdā ‘alayk, wa innahū lā yadhillu man wālayt, tabārakta rabbanā wa ta‘ālayt</i> – „O Allah, leite mich recht unter denen, die Du rechtgeleitet hast, gewähre mir Wohlergehen unter denen, denen Du es gewährt hast, nimm mich in Deine Obhut unter denen, die Du in Deine Obhut genommen hast, segne mir, was Du mir gegeben hast, und bewahre mich vor dem Übel dessen, was Du bestimmt hast. Denn Du bestimmst, und über Dich wird nicht bestimmt. Wer Dich zum Beschützer hat, wird nicht erniedrigt. Gesegnet bist Du, unser Herr, und erhaben.“ ${G_REF('Abu Dawud 1425, Tirmidhi 464 – sahih')}</p>
+    <p><b>Wann?</b> Wer fürchtet, nicht aufzuwachen, betet Witr vor dem Schlafen. Wer sicher ist, betet es am Ende der Nacht – „denn das Gebet am Ende der Nacht wird bezeugt, und das ist besser.“ ${G_REF('Muslim 755')}</p>
+    <p><b>Nach dem Witr</b> sagte er ﷺ dreimal: <i>Subhānal-malikil-quddūs</i> – „Gepriesen sei der König, der Heilige.“ ${G_REF('Abu Dawud 1430 – sahih')}</p>`],
 ];
 function openGuide(){
   $('#guide-body').innerHTML = GUIDE.map(([t, html], i) => `<details class="gd" ${i === 0 ? 'open' : ''}><summary>${t}</summary><div class="gb">${html}</div></details>`).join('')
@@ -2529,7 +2540,7 @@ function missionsFor(k){
 function dayXPRaw(k){
   const x = day(k), s = dayStats(k), m = missionsFor(k).filter(([, ok]) => ok(x)).length;
   // Sofort-Feedback: jedes Gebet und jede Quran-Seite zählt einzeln
-  return (s.done + (s.bonus || 0)) * 10 + (x.jr ? 15 : 0) + (x.qb ? 30 : 0) + (x.qt ? 20 : 0) + (x.qz || 0) * 2 + Math.floor(s.taps / 10) + (x.fard || 0) * 10 + (x.jamaa || 0) * 5 + ((x.fard || 0) >= 5 ? 20 : 0) + (x.quran || 0) * 5 + m * 15 + (m === 3 ? 25 : 0);
+  return (s.done + (s.bonus || 0)) * 10 + (x.jr ? 15 : 0) + (x.qb ? 30 : 0) + (x.qt ? 20 : 0) + (x.qz || 0) * 2 + (x.fast ? 20 : 0) + Math.floor(s.taps / 10) + (x.fard || 0) * 10 + (x.jamaa || 0) * 5 + ((x.fard || 0) >= 5 ? 20 : 0) + (x.quran || 0) * 5 + m * 15 + (m === 3 ? 25 : 0);
 }
 const dayXP = k => k < today ? (XC[k] ?? (XC[k] = dayXPRaw(k))) : dayXPRaw(k);
 function totalXP(){
@@ -4172,7 +4183,7 @@ const anyOf = (x, ks) => ks.some(k => (x[k] || 0) > 0);
 // [id, Icon, Name, offen?, Text, Quelle, Weg dorthin, Zusatz]
 const DOORS = [
   ['fard', '🕌', 'Pflichtgebete', x => (x.fard || 0) >= 5, '„Mein Diener nähert sich Mir mit nichts, das Mir lieber ist, als mit dem, was Ich ihm zur Pflicht gemacht habe.“', 'Bukhari 6502', {prayers:1}, x => `${x.fard || 0}/5`],
-  ['nafl', '✨', 'Freiwilliges Gebet & Fasten', x => anyOf(x, ['rawatib', 'fajrsunna', 'duha', 'wudu', 'qiyam', 's_tarawih', 's_monthu', 's_white', 's_arafa', 's_ashura', 's_tasua', 's_muharram', 's_shawwal', 's_dhulhijja']), '„… und Mein Diener nähert sich Mir weiter mit freiwilligen Taten, bis Ich ihn liebe.“', 'Bukhari 6502', {deed:'duha'}],
+  ['nafl', '✨', 'Freiwilliges Gebet & Fasten', x => anyOf(x, ['rawatib', 'fajrsunna', 'duha', 'wudu', 'qiyam', 's_tarawih', 's_monthu', 's_white', 's_arafa', 's_ashura', 's_tasua', 's_muharram', 's_shawwal', 's_dhulhijja']) || !!x.fast, '„… und Mein Diener nähert sich Mir weiter mit freiwilligen Taten, bis Ich ihn liebe.“', 'Bukhari 6502', {deed:'duha'}],
   ['dhikr', '📿', 'Gedenken', x => dhikrCount(x) >= 33, '„So gedenkt Meiner, dann gedenke Ich euer.“', 'Quran 2:152', {quick:'q_subhan'}],
   ['quran', '📖', 'Quran', x => anyOf(x, ['quran', 'ikhlas', 'kursi', 'baqara', 's_kahf', 'q:q_ikhlas', 'hzt']), '„Lest den Quran, denn er wird am Tag der Auferstehung als Fürsprecher für seine Leute kommen.“', 'Muslim 804', {deed:'quran'}],
   ['dua', '🤲', 'Du’a', x => Object.keys(x).some(k => k.startsWith('d:') && x[k] > 0) || anyOf(x, ['rizq1', 'rizq2', 'rizq3', 'rizq4']), '„Wenn dich Meine Diener nach Mir fragen: Ich bin nahe. Ich erhöre den Ruf des Rufenden, wenn er Mich anruft.“', 'Quran 2:186', {dua:1}],
@@ -5163,6 +5174,56 @@ document.addEventListener('click', e => {
   const b = e.target.closest('[data-ych]'); if (!b) return;
   const [act, k] = b.dataset.ych.split(':'); yHandle(act, k);
 });
+
+// ---------- 🌙 Fasten-Modus: Suhur, Iftar-Countdown, Du’as ----------
+const FTYPES = {sunnah:'Sunnah-Fasten', nafl:'Freiwillig', qada:'Nachholen (Ramadan)', ramadan:'Ramadan'};
+const fastSp = () => specialsFor(today).filter(s => FASTS.includes(s.id));
+const dur = ms => { const m = Math.max(0, Math.round(ms / 6e4)), h = Math.floor(m / 60); return h ? `${h} Std ${m % 60} Min` : `${m} Min`; };
+function renderFast(){
+  const el = $('#fastcard'); if (!el) return;
+  const x = day(today), sp = fastSp();
+  if (!x.fast) {
+    if (!sp.length || x.fastNo) { el.hidden = true; el.innerHTML = ''; return; }
+    el.hidden = false;
+    el.innerHTML = `<div class="mh"><b>🌙 Heute: ${esc(sp.map(s => s.title).join(' · '))}</b><button class="lnk" data-fast="no">heute nicht</button></div>
+      <p class="sub" style="margin:0 0 8px">Fastest du heute? Dann zeigt dir die App den Iftar-Countdown und die passenden Du’as.</p>
+      <button class="btn p" data-fast="${sp.some(s => s.id === 's_ramfast') ? 'ramadan' : 'sunnah'}" style="margin:0">🌙 Ja, ich faste heute</button>`;
+    return;
+  }
+  const now = new Date(), t = times(now), iftar = SITU.find(s => s.id === 'iftar');
+  let body;
+  if (!t) body = '<p>📍 Lege unter Mehr → Standort deinen Ort fest, dann siehst du Suhur-Ende und Iftar-Zeit.</p>';
+  else if (now < t.fajr) body = `<p class="fc-big">🍽️ Suhur – noch <b>${dur(t.fajr - now)}</b></p><p class="sub">Essen und Trinken bis Fajr um ${hm(t.fajr)}. „Nehmt das Suhur, denn im Suhur liegt Segen.“ <span class="gref">Bukhari 1923, Muslim 1095</span></p>`;
+  else if (now < t.maghrib) {
+    const p = Math.min(100, (now - t.fajr) / (t.maghrib - t.fajr) * 100);
+    body = `<p class="fc-big">⏳ Iftar um <b>${hm(t.maghrib)}</b> · noch ${dur(t.maghrib - now)}</p><div class="bar"><i style="width:${p.toFixed(1)}%;background:var(--gold)"></i></div>
+      <p class="sub">„Der Fastende hat zwei Freuden: wenn er das Fasten bricht, und wenn er seinem Herrn begegnet.“ <span class="gref">Bukhari 1904, Muslim 1151</span></p>`;
+  } else body = `<p class="fc-big">🎉 Iftar! Brich das Fasten mit Datteln oder Wasser.</p>
+      ${iftar ? `<div class="say"><div class="tr">${esc(iftar.tr)}</div><div class="de">„${esc(iftar.de)}“</div></div><span class="gref">${esc(iftar.ref)}</span>` : ''}
+      <p class="sub">„Die Menschen bleiben im Guten, solange sie das Fastenbrechen nicht hinauszögern.“ <span class="gref">Bukhari 1957, Muslim 1098</span></p>
+      ${x.fastDone ? '<p>✓ Geschafft – Alhamdulillah, möge Allah es annehmen.</p>' : `<button class="btn p" data-fast="done">✓ Fasten geschafft</button>`}`;
+  el.hidden = false;
+  el.innerHTML = `<div class="mh"><b>🌙 Du fastest heute</b><span>${FTYPES[x.fast] || 'Fasten'}</span></div>${body}
+    <div class="chips" style="margin-top:8px">${Object.entries(FTYPES).map(([k, n]) => `<button class="chip ${x.fast === k ? 'on' : ''}" data-fast="${k}">${n}</button>`).join('')}</div>
+    <button class="lnk" data-fast="off">Ich faste heute doch nicht</button>`;
+}
+function setFast(a){
+  const x = db.days[today] = db.days[today] || {};
+  if (a === 'no') { x.fastNo = 1; save(); return renderFast(); }
+  if (a === 'off') { delete x.fast; delete x.fastDone; x.fastNo = 1; save(); render(); return; }
+  if (a === 'done') {
+    x.fastDone = 1;
+    if (x.fast === 'qada' && (db.qada.fast || 0) > 0) { db.qada.fast--; toast('✓ Nachholfasten erledigt – ein Tag weniger offen'); }
+    else toast('🌙 MāschāAllāh – möge Allah dein Fasten annehmen');
+    save(); buzz([40, 60, 40, 60, 120]); render(); return;
+  }
+  const first = !x.fast; x.fast = a; delete x.fastNo; save();
+  if (first) { for (const s of fastSp()) if ((x[s.id] || 0) < s.target) setCount(s.id, s.target); toast('🌙 Möge Allah es dir leicht machen und annehmen'); buzz(20); }
+  showPage('today'); render();
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-fast]'); if (b) setFast(b.dataset.fast); });
+// Countdown aktuell halten, solange „Heute“ offen ist
+setInterval(() => { if ((document.body.dataset.page || 'today') === 'today' && !document.hidden && day(today).fast) renderFast(); }, 30000);
 
 // ---------- Interaktion ----------
 function setCount(id, v){
