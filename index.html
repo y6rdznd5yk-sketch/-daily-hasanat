@@ -827,7 +827,93 @@ a.mrow{text-decoration:none;color:inherit}
 .fletter p{margin:4px 0;font-style:italic;overflow-wrap:anywhere}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .fmoods button,.fquick button{background:rgba(255,255,255,.06);border-color:#6b2a47;color:#ffc1d8}:root:not([data-theme="light"]) .fmoods button.on{background:#e0457b;color:#fff}:root:not([data-theme="light"]) .fact,.fgi,.fmem{background:rgba(255,255,255,.07)}:root:not([data-theme="light"]) .ftph i{background:#4a1d31;color:#ffb3cf}:root:not([data-theme="light"]) .ftph i.on{background:#e0457b;color:#fff}:root:not([data-theme="light"]) .ftap{background:radial-gradient(circle at 50% 50%,#c2185b 0 62%,transparent 63%),conic-gradient(#ff6fa3 calc(var(--p)*1%),#4a1d31 0)}:root:not([data-theme="light"]) .ftap.done{background:radial-gradient(circle at 50% 50%,#ad1457 0 62%,transparent 63%),conic-gradient(#ff6fa3 100%,#4a1d31 0)}:root:not([data-theme="light"]) .fann{background:linear-gradient(135deg,#5a1f38,#2e1220)}:root:not([data-theme="light"]) .fbig2{color:#ff8fb8!important}:root:not([data-theme="light"]) .fgoal{background:rgba(255,255,255,.04);border-color:#6b2a47}:root:not([data-theme="light"]) .fgoal small{color:#e7a6c0!important}:root:not([data-theme="light"]) .fgoal.on{background:rgba(224,69,123,.2);border-color:#e0457b}:root:not([data-theme="light"]) .fper,.fletter{border-color:#6b2a47}}
 :root[data-theme="dark"] .fmoods button,.fquick button{background:rgba(255,255,255,.06);border-color:#6b2a47;color:#ffc1d8}:root[data-theme="dark"] .fmoods button.on{background:#e0457b;color:#fff}:root[data-theme="dark"] .fact,.fgi,.fmem{background:rgba(255,255,255,.07)}:root[data-theme="dark"] .ftph i{background:#4a1d31;color:#ffb3cf}:root[data-theme="dark"] .ftph i.on{background:#e0457b;color:#fff}:root[data-theme="dark"] .ftap{background:radial-gradient(circle at 50% 50%,#c2185b 0 62%,transparent 63%),conic-gradient(#ff6fa3 calc(var(--p)*1%),#4a1d31 0)}:root[data-theme="dark"] .ftap.done{background:radial-gradient(circle at 50% 50%,#ad1457 0 62%,transparent 63%),conic-gradient(#ff6fa3 100%,#4a1d31 0)}:root[data-theme="dark"] .fann{background:linear-gradient(135deg,#5a1f38,#2e1220)}:root[data-theme="dark"] .fbig2{color:#ff8fb8!important}:root[data-theme="dark"] .fgoal{background:rgba(255,255,255,.04);border-color:#6b2a47}:root[data-theme="dark"] .fgoal small{color:#e7a6c0!important}:root[data-theme="dark"] .fgoal.on{background:rgba(224,69,123,.2);border-color:#e0457b}:root[data-theme="dark"] .fper,.fletter{border-color:#6b2a47}
-@media (prefers-reduced-motion:reduce){.fatbtn,.fenv-ic,.fbig span,#fhearts span,.fjar-g i{animation:none}}
+.jgo{position:fixed;inset:0;z-index:58;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:linear-gradient(180deg,#fff3f8,#ffe0ec);color:#5a2340;padding-bottom:calc(env(safe-area-inset-bottom) + 24px)}
+.jgo[hidden]{display:none}
+.jg-top{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:8px;padding:calc(env(safe-area-inset-top) + 10px) 14px 10px;background:rgba(255,227,238,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.jg-top b{flex:1;color:#c2185b;font-size:1.1rem}
+.jg-scene{position:relative;z-index:0;height:min(56vh,470px);min-height:300px;overflow:hidden;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.jg-sky{position:absolute;inset:0;overflow:hidden}
+.jg-dawn{background:linear-gradient(180deg,#f9a8c9 0%,#ffcfa8 35%,#fff0d9 55%)}
+.jg-day{background:linear-gradient(180deg,#8fd3ff 0%,#c8ecff 32%,#ffe6f1 55%)}
+.jg-dusk{background:linear-gradient(180deg,#4b2f7c 0%,#d9467e 32%,#ffb38a 55%)}
+.jg-night{background:linear-gradient(180deg,#0d0b26 0%,#24154a 32%,#4a2468 55%)}
+.jg-land{position:absolute;inset:0;width:100%;height:100%}
+.jg-shim{animation:jgshim 6s linear infinite}
+@keyframes jgshim{to{stroke-dashoffset:-48}}
+.jg-items{position:absolute;inset:0}
+.jgi,.jg-h{position:absolute;transform:translate(-50%,-100%);transform-origin:50% 100%;line-height:1}
+.jgi i,.jg-h i{display:block;font-style:normal;transform-origin:50% 100%}
+.jg-p i{animation:jgsway 5s ease-in-out infinite}
+.jg-k i{animation:jgglint 2.6s ease-in-out infinite;filter:drop-shadow(0 0 4px rgba(255,255,255,.9))}
+.jgi.new{animation:jggrow .7s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes jggrow{0%{transform:translate(-50%,-100%) scale(0)}100%{transform:translate(-50%,-100%) scale(1)}}
+@keyframes jgsway{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(2.5deg)}}
+@keyframes jgglint{0%,100%{opacity:.8;transform:scale(.92)}50%{opacity:1;transform:scale(1.08)}}
+.jg-h{font-size:1.5rem;z-index:1}
+.jg-h i{filter:drop-shadow(0 0 6px rgba(255,236,170,.95))}
+.jg-star{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;box-shadow:0 0 4px #fff;animation:jgtw 3s ease-in-out infinite}
+@keyframes jgtw{50%{opacity:.25}}
+.jg-moon{position:absolute;right:16%;top:27%;width:30px;height:30px;border-radius:50%;box-shadow:9px -5px 0 0 #fff4c8;filter:drop-shadow(0 0 10px rgba(255,244,200,.6))}
+.jg-sun{position:absolute;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle,#fff7d1 0 38%,#ffd36b 58%,rgba(255,211,107,0) 72%)}
+.jg-sun-dawn{left:10%;top:31%}
+.jg-sun-day{right:10%;top:25%}
+.jg-sun-dusk{right:10%;top:32%;background:radial-gradient(circle,#ffe0b5 0 36%,#ff8a65 58%,rgba(255,138,101,0) 72%)}
+.jg-fly{position:absolute;width:4px;height:4px;border-radius:50%;background:#fff59d;box-shadow:0 0 8px 2px #fff59d;animation:jgfly 7s ease-in-out infinite alternate;z-index:900}
+@keyframes jgfly{0%{transform:translate(0,0);opacity:.15}50%{opacity:1}100%{transform:translate(26px,-30px);opacity:.3}}
+.jg-cloud{position:absolute;left:-20%;font-style:normal;font-size:2.2rem;opacity:.85;animation:jgcloud linear infinite}
+@keyframes jgcloud{to{transform:translateX(140vw)}}
+.jg-bf{position:absolute;font-style:normal;font-size:1rem;z-index:990;animation:jgbf 9s ease-in-out infinite}
+@keyframes jgbf{0%,100%{transform:translate(0,0) rotate(-8deg)}25%{transform:translate(30px,-26px) rotate(8deg)}50%{transform:translate(-14px,-44px) rotate(-6deg)}75%{transform:translate(-30px,-12px) rotate(6deg)}}
+.jg-bird{position:absolute;top:20%;left:105%;font-style:normal;font-size:1.1rem;animation:jgbird 24s linear infinite}
+@keyframes jgbird{0%{transform:translate(0,0)}50%{transform:translate(-60vw,-18px)}100%{transform:translate(-130vw,8px)}}
+.jg-petal{position:absolute;top:-6%;font-style:normal;font-size:.75rem;opacity:.75;animation:jgpetal linear infinite;z-index:995}
+@keyframes jgpetal{0%{transform:translate(0,0) rotate(0)}100%{transform:translate(-40px,520px) rotate(360deg)}}
+.jg-cap{position:absolute;left:12px;right:12px;top:10px;z-index:1000;color:#fff;background:rgba(40,10,30,.32);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-radius:14px;padding:8px 12px;font-size:.84rem;font-style:italic;line-height:1.4;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.jg-cap:empty{display:none}
+.jg-cap small{display:block;font-style:normal;font-weight:700;opacity:.85;font-size:.72rem;margin-top:2px}
+.jg-cap.in{animation:jgfade .8s ease-out}
+@keyframes jgfade{from{opacity:0;transform:translateY(-4px)}}
+.jg-sign{position:absolute;left:10px;bottom:46px;z-index:1001;background:#8d5a3b;color:#fff3e0;font-size:.72rem;font-weight:700;padding:4px 8px;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.jg-empty{position:absolute;left:50%;top:76%;transform:translate(-50%,-50%);text-align:center;z-index:999;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.45);width:80%}
+.jg-empty span{display:block;font-size:2.2rem;animation:fbeat 1.8s infinite}
+.jg-empty p{margin:4px 0 0;font-weight:700;font-size:.85rem}
+.jg-spark{position:absolute;transform:translate(-50%,-120%);z-index:2000;font-size:1.3rem;pointer-events:none;animation:jgspark .9s ease-out forwards}
+@keyframes jgspark{0%{opacity:0;transform:translate(-50%,-80%) scale(.4)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,-260%) scale(1.3)}}
+.jg-intro{position:absolute;inset:0;z-index:3000;display:flex;align-items:center;justify-content:center;padding:14px;background:rgba(30,8,24,.45);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);overflow-y:auto}
+.jg-intro>div{background:rgba(255,245,250,.97);color:#5a2340;border-radius:20px;padding:14px 16px;max-width:420px;box-shadow:0 10px 30px rgba(0,0,0,.25);margin:auto}
+.jg-intro small{color:#c2416f;font-weight:700}
+.jg-intro p{line-height:1.45;margin:8px 0;font-size:.88rem}
+.jg-panel{position:relative;z-index:1;padding:0 14px 12px;max-width:640px;margin:0 auto}
+.jg-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:-34px}
+.jg-stats span{background:#fff;border:1px solid #f6c3d6;border-radius:14px;padding:6px 2px;text-align:center;font-size:1.05rem;box-shadow:0 4px 12px rgba(224,69,123,.15)}
+.jg-stats b{display:block;font-size:.85rem;color:#8e2450}
+.jg-today{text-align:center;margin:10px 0 8px}
+.jgb{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;border-radius:18px;padding:12px;margin-bottom:8px;font:inherit;color:#fff;background:linear-gradient(100deg,#f06292,#e0457b);box-shadow:0 6px 16px rgba(224,69,123,.3);touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.jgb:active{transform:scale(.97)}
+.jgb-i{font-size:1.9rem;flex:none}
+.jgb div{flex:1;min-width:0}
+.jgb b{display:block;font-size:.92rem;line-height:1.3}
+.jgb small{display:block;opacity:.92;font-size:.75rem;line-height:1.3;margin-top:2px}
+.jgb em{font-style:normal;font-weight:800;font-size:1.05rem;background:rgba(255,255,255,.25);border-radius:12px;padding:4px 8px;min-width:34px;text-align:center;flex:none}
+.jg-undo{display:block;margin:0 auto 10px}
+.jg-undo[hidden]{display:none}
+.fbtn2.on{background:#fff;color:#e0457b;box-shadow:inset 0 0 0 1px #e0457b}
+.jg-why summary{cursor:pointer;list-style:none}
+.jg-why summary::-webkit-details-marker{display:none}
+.jg-snd{text-align:center}
+.fjgp{display:block;padding:0;overflow:hidden;cursor:pointer}
+.jg-mini{position:relative;height:150px;overflow:hidden;pointer-events:none}
+.jg-mini .jg-sun{width:36px;height:36px}
+.jg-mini .jg-sun-day{top:10%}
+.jg-mini .jg-moon{top:10%}
+.jg-mini .jg-moon{width:18px;height:18px;box-shadow:5px -3px 0 0 #fff4c8}
+.fjgp-t{display:flex;align-items:center;gap:8px;padding:10px 14px}
+.fjgp-t div{flex:1;min-width:0}
+.fjgp-t small{display:block;font-weight:400!important;color:#a35577!important;margin-top:2px}
+.fjgp-t i{font-style:normal;font-size:1.5rem;color:#e0457b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .jgo{background:linear-gradient(180deg,#2a1020,#1c0c15);color:#ffe6f0}:root:not([data-theme="light"]) .jg-top{background:rgba(58,21,38,.94)}:root:not([data-theme="light"]) .jg-top b{color:#ff8fb8}:root:not([data-theme="light"]) .jg-stats span{background:#3a1526;border-color:#6b2a47}:root:not([data-theme="light"]) .jg-stats b{color:#ffb3cf}:root:not([data-theme="light"]) .jg-intro>div{background:rgba(42,16,32,.97);color:#ffe6f0}:root:not([data-theme="light"]) .jg-intro small{color:#ff8fb8}:root:not([data-theme="light"]) .fbtn2.on{background:transparent;color:#ff8fb8}:root:not([data-theme="light"]) .fjgp-t small{color:#e7a6c0!important}}
+:root[data-theme="dark"] .jgo{background:linear-gradient(180deg,#2a1020,#1c0c15);color:#ffe6f0}:root[data-theme="dark"] .jg-top{background:rgba(58,21,38,.94)}:root[data-theme="dark"] .jg-top b{color:#ff8fb8}:root[data-theme="dark"] .jg-stats span{background:#3a1526;border-color:#6b2a47}:root[data-theme="dark"] .jg-stats b{color:#ffb3cf}:root[data-theme="dark"] .jg-intro>div{background:rgba(42,16,32,.97);color:#ffe6f0}:root[data-theme="dark"] .jg-intro small{color:#ff8fb8}:root[data-theme="dark"] .fbtn2.on{background:transparent;color:#ff8fb8}:root[data-theme="dark"] .fjgp-t small{color:#e7a6c0!important}
+@media (prefers-reduced-motion:reduce){.fatbtn,.fenv-ic,.fbig span,#fhearts span,.fjar-g i,.jgo *,.jg-mini *{animation:none!important}}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .fsheet{background:linear-gradient(170deg,#3a1526 0%,#24101b 50%,#1c0c15 100%);color:#ffe6f0}:root:not([data-theme="light"]) .fsheet .sheet-h{background:#3a1526}:root:not([data-theme="light"]) .fsheet .sheet-h h3{color:#ff8fb8}:root:not([data-theme="light"]) .ftabs button{background:rgba(255,255,255,.06);border-color:#6b2a47;color:#ffc1d8}:root:not([data-theme="light"]) .ftabs button.on{background:#e0457b;border-color:#e0457b;color:#fff}:root:not([data-theme="light"]) .fcard{background:rgba(255,255,255,.06);border-color:#6b2a47}:root:not([data-theme="light"]) .fcard b{color:#ffb3cf}:root:not([data-theme="light"]) .fcard small{color:#ff8fb8}:root:not([data-theme="light"]) .fmsg{background:linear-gradient(135deg,#5a1f38,#2e1220)}:root:not([data-theme="light"]) .fde{color:#e7b6c9}:root:not([data-theme="light"]) .fsub{color:#ff9cc0}:root:not([data-theme="light"]) .fstar{background:rgba(224,69,123,.15)}:root:not([data-theme="light"]) .fenv{background:rgba(255,255,255,.05);color:#ffc1d8}:root:not([data-theme="light"]) .fenv small{color:#ff8fb8}:root:not([data-theme="light"]) .ftext{background:#2a1520;border-color:#6b2a47}:root:not([data-theme="light"]) .fsheet .gref{background:#4a1d31;color:#ffb3cf}:root:not([data-theme="light"]) .fatbtn{background:#4a1d31;border-color:#8a3358}:root:not([data-theme="light"]) .fpcard{background:#3a1526;border-color:#6b2a47}}
 :root[data-theme="dark"] .fsheet{background:linear-gradient(170deg,#3a1526 0%,#24101b 50%,#1c0c15 100%);color:#ffe6f0}:root[data-theme="dark"] .fsheet .sheet-h{background:#3a1526}:root[data-theme="dark"] .fsheet .sheet-h h3{color:#ff8fb8}:root[data-theme="dark"] .ftabs button{background:rgba(255,255,255,.06);border-color:#6b2a47;color:#ffc1d8}:root[data-theme="dark"] .ftabs button.on{background:#e0457b;border-color:#e0457b;color:#fff}:root[data-theme="dark"] .fcard{background:rgba(255,255,255,.06);border-color:#6b2a47}:root[data-theme="dark"] .fcard b{color:#ffb3cf}:root[data-theme="dark"] .fcard small{color:#ff8fb8}:root[data-theme="dark"] .fmsg{background:linear-gradient(135deg,#5a1f38,#2e1220)}:root[data-theme="dark"] .fde{color:#e7b6c9}:root[data-theme="dark"] .fsub{color:#ff9cc0}:root[data-theme="dark"] .fstar{background:rgba(224,69,123,.15)}:root[data-theme="dark"] .fenv{background:rgba(255,255,255,.05);color:#ffc1d8}:root[data-theme="dark"] .fenv small{color:#ff8fb8}:root[data-theme="dark"] .ftext{background:#2a1520;border-color:#6b2a47}:root[data-theme="dark"] .fsheet .gref{background:#4a1d31;color:#ffb3cf}:root[data-theme="dark"] .fatbtn{background:#4a1d31;border-color:#8a3358}:root[data-theme="dark"] .fpcard{background:#3a1526;border-color:#6b2a47}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
@@ -972,7 +1058,7 @@ a.mrow{text-decoration:none;color:inherit}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-finder="1"><span>🧭</span><div><b>Wo finde ich was?</b><small>Alle Funktionen durchsuchen</small></div><i>›</i></button><button class="mrow" data-tcfg="1"><span>✎</span><div><b>Startseite anpassen</b><small>Karten ein- und ausblenden</small></div><i>›</i></button><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 48 (5.11.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 49 (5.11.2026)</p>
     </div>
     <div class="mp" data-m="pset" hidden><button class="kback" data-mk="">‹ Einstellungen</button><h2>📍 Standort &amp; Berechnung</h2>
     <button class="btn p" data-loc="1">📍 Aktuellen Standort verwenden</button>
@@ -1235,6 +1321,11 @@ a.mrow{text-decoration:none;color:inherit}
     <div class="sheet-h"><h3 id="fat-title">💗 Für Fatema</h3><button class="x" id="fat-close" aria-label="schließen">✕</button></div>
     <div id="fat-body"></div>
   </div>
+</div>
+<div class="jgo" id="fjg" hidden>
+  <div class="jg-top"><b>🌴 Dein Garten im Paradies</b><button class="x" id="jg-close" aria-label="schließen">✕</button></div>
+  <div class="jg-scene" id="jg-scene"></div>
+  <div class="jg-panel" id="jg-panel"></div>
 </div>
 <script src="prayer.js"></script>
 
@@ -1525,7 +1616,7 @@ function dayStatsRaw(k){
   return {has, done, bonus, rizq, taps, total, rizqTotal:core.filter(d => d.rizq).length};
 }
 // ein Tag zählt für die Serie, sobald irgendetwas getan wurde – auch ein einzelnes Gebet oder eine Quran-Seite
-const active = k => { const s = dayStats(k), x = day(k); return s.done > 0 || s.bonus > 0 || s.taps > 0 || (x.fard || 0) > 0 || (x.quran || 0) > 0 || !!x.qb || !!x.haid; };
+const active = k => { const s = dayStats(k), x = day(k); return s.done > 0 || s.bonus > 0 || s.taps > 0 || (x.fard || 0) > 0 || (x.quran || 0) > 0 || !!x.qb || !!x.haid || !!x.jg; };
 function streak(){
   // Serie bis gestern ist für heute fest – einmal rechnen, dann merken
   let c = pastCache(), base = c && c.streak != null ? c.streak : null;
@@ -2708,7 +2799,7 @@ function missionsFor(k){
 function dayXPRaw(k){
   const x = day(k), s = dayStats(k), m = missionsFor(k).filter(([, ok]) => ok(x)).length;
   // Sofort-Feedback: jedes Gebet und jede Quran-Seite zählt einzeln
-  return (s.done + (s.bonus || 0)) * 10 + (x.jr ? 15 : 0) + (x.qb ? 30 : 0) + (x.qt ? 20 : 0) + (x.qz || 0) * 2 + (x.fast ? 20 : 0) + (x.fh ? 5 : 0) + (x.fg ? 10 : 0) + Math.floor(s.taps / 10) + (x.fard || 0) * 10 + (x.jamaa || 0) * 5 + ((x.fard || 0) >= 5 ? 20 : 0) + (x.quran || 0) * 5 + m * 15 + (m === 3 ? 25 : 0);
+  return (s.done + (s.bonus || 0)) * 10 + (x.jr ? 15 : 0) + (x.qb ? 30 : 0) + (x.qt ? 20 : 0) + (x.qz || 0) * 2 + (x.fast ? 20 : 0) + (x.fh ? 5 : 0) + (x.fg ? 10 : 0) + (jgSum(x) >= 10 ? 10 : 0) + Math.floor(s.taps / 10) + (x.fard || 0) * 10 + (x.jamaa || 0) * 5 + ((x.fard || 0) >= 5 ? 20 : 0) + (x.quran || 0) * 5 + m * 15 + (m === 3 ? 25 : 0);
 }
 const dayXP = k => k < today ? (XC[k] ?? (XC[k] = dayXPRaw(k))) : dayXPRaw(k);
 function totalXP(){
@@ -3428,7 +3519,7 @@ function myStatus(){
   const ch = db.challenge;
   return {v:1, n:(db.settings.name || 'Ich').slice(0, 20), d:today, xp:totalXP(), wx:weekXP(), ws:weekStart(today), r:db.rank || 0, s:streak(),
     h:Object.keys(db.hadith).length, nm:Object.keys(db.names).length, td:dayStats(today).done, tt:dayStats(today).total,
-    ch:ch ? {id:ch.id, st:ch.start, m:ch.mode, val:metricSum(CHALLENGES[ch.id].metric, ch.start, 7)} : null, lv:db.fatema && db.fatema.msg ? db.fatema.msg.slice(0, 400) : undefined};
+    ch:ch ? {id:ch.id, st:ch.start, m:ch.mode, val:metricSum(CHALLENGES[ch.id].metric, ch.start, 7)} : null, lv:db.fatema && db.fatema.msg ? db.fatema.msg.slice(0, 400) : undefined, jg:jgTotal() || undefined};
 }
 const b64e = o => btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 const b64d = t => JSON.parse(decodeURIComponent(escape(atob(t.replace(/-/g, '+').replace(/_/g, '/')))));
@@ -5502,6 +5593,7 @@ const FINDER = [
   ['💾', 'Backup sichern', 'Ich → ⚙️ Einstellungen', 'sichern daten', () => { showPage('set'); showM('data'); }],
   ['🎨', 'Anzeige (Design, Schrift, Arabisch)', 'Ich → ⚙️ Einstellungen', 'dunkel hell schrift arabisch', () => { showPage('set'); showM('disp'); }],
   ['💗', `Für ${db.fatema && db.fatema.name || 'Fatema'} – ihr eigener Bereich`, 'Heute → 💗 oben', 'fatema frau freundin liebe periode tage pause frauen dankbar stimmung herz tasbih fatima jahrestag ziele pflege honig', () => openFatema()],
+  ['🌴', 'Garten im Paradies – Dhikr pflanzt Palmen', 'Heute → 💗 → Für dich', 'garten paradies jannah palme baum schatz dhikr subhanallah haus pflanzen', () => openJG()],
   ['✎', 'Startseite anpassen', 'Heute (ganz unten)', 'karten ausblenden', () => openTcfg()],
 ];
 function finderHTML(q){
@@ -5676,12 +5768,6 @@ function fPeriods(){
   return out;
 }
 const fRamadanDays = () => fdays().filter(k => dayInfo(k).hm === 9);
-function fGarden(){
-  let n = Object.values(db.fgrat).reduce((a, l) => a + l.length, 0);
-  for (const x of Object.values(db.days)) n += (x.fh ? 1 : 0) + ((x.stasbih || 0) >= 100 ? 1 : 0);
-  for (const w of Object.values(db.fgoals)) n += Object.keys(w).length;
-  return n;
-}
 const fdate = (k, o = {day:'numeric', month:'short'}) => new Date(k + 'T12:00').toLocaleDateString('de-DE', o);
 function fArchive(msg, from){ if (msg && !db.fatema.box.some(b => b.m === msg)) { db.fatema.box.unshift({m:msg, f:from || '', d:today}); db.fatema.box = db.fatema.box.slice(0, 60); save(); } }
 const FTS = ['🤍 SubhānAllāh', '🤍 Alhamdulillāh', '🤍 Allāhu akbar'];
@@ -5740,8 +5826,8 @@ function fDaysExtra(){
   return h;
 }
 function fLoveExtra(){
-  const box = db.fatema.box, g = fGarden();
-  return `<div class="fcard fgarden"><small>🌷 Dein Herzensgarten</small><div class="fjar-g">${Array.from({length:Math.min(g, 30)}, (_, i) => `<i style="animation-delay:${(i % 10) * .1}s">${['🌷', '🌸', '🌹', '🌼', '💐'][i % 5]}</i>`).join('') || '<p class="sub">Jeder Herz-Check, jede Dankbarkeit, jedes Tasbīh und jedes gemeinsame Ziel lässt hier eine Blume wachsen.</p>'}</div><b>${g} ${g === 1 ? 'Blume' : 'Blumen'}</b></div>
+  const box = db.fatema.box, {tot} = jgList(), all = tot.p + tot.t + tot.k, n = jgSum(day(today));
+  return `<div class="fcard fjgp" data-jgopen="1" role="button" tabindex="0"><div class="jg-mini">${jgScene(true)}</div><div class="fjgp-t"><div><b>🌴 Dein Garten im Paradies</b><small>${all || tot.h ? `${fmt(all)} ${all === 1 ? 'Pflanze' : 'Pflanzen'}${tot.h ? ` · ${tot.h} 🏡` : ''}${n ? ` · heute ${n}` : ''} – jeder Dhikr pflanzt mehr` : 'Mit jedem Dhikr wächst hier dein Garten – tippe zum Betreten'}</small></div><i>›</i></div></div>
     <div class="fquick"><button data-ftab="heute"><span>☀️</span>Herz-Check</button><button data-ftab="grat"><span>🌷</span>Dankbar</button><button data-ftab="heute" data-fscroll="ftasbih"><span>📿</span>Tasbīh</button></div>
     ${box.length ? `<details class="fcard fbox"><summary><b>📬 Deine Briefe (${box.length})</b></summary>${box.map(b => `<div class="fletter"><small>${fdate(b.d, {day:'numeric', month:'long', year:'numeric'})}${b.f ? ` · von ${esc(b.f)}` : ''}</small><p>${esc(b.m)}</p></div>`).join('')}</details>` : ''}`;
 }
@@ -5774,6 +5860,145 @@ document.addEventListener('click', e => {
   else if (d.fqada) { const n = +d.fqada; db.qada.fast = (db.qada.fast || 0) + n; db.fatema.rq = (db.fatema.rq || 0) + n; save(); toast(`✓ ${n} ${n === 1 ? 'Fastentag' : 'Fastentage'} bei „Nachholen“ eingetragen`); renderFatema(); if (typeof renderQada === 'function') renderQada(); }
 });
 document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'fg-in') { e.preventDefault(); const b = document.querySelector('[data-fgadd]'); if (b) b.click(); } });
+// ---------- 🌴 Dein Garten im Paradies ----------
+const JG_T = {
+  p:{ic:'🌴', n:['Palme', 'Palmen'], say:'SubhānAllāhil-‘Azīm wa bihamdih', de:'Gepriesen sei Allah, der Gewaltige, und Ihm gebührt das Lob.', why:'„Wer sagt: SubhānAllāhil-‘Azīm wa bihamdih, für den wird eine Palme im Paradies gepflanzt.“', ref:'Tirmidhi 3464 – sahih'},
+  t:{ic:'🌳', n:['Pflanze', 'Pflanzen'], say:'SubhānAllāh, walhamdulillāh, wa lā ilāha illallāh, wallāhu akbar', de:'Gepriesen sei Allah, alles Lob gebührt Allah, es gibt keinen Gott außer Allah, Allah ist größer.', why:'Ibrāhīm ﷺ: „… und seine Pflanzen sind: SubhānAllāh, walhamdulillāh, wa lā ilāha illallāh, wallāhu akbar.“', ref:'Tirmidhi 3462 – hasan'},
+  k:{ic:'💎', n:['Schatz', 'Schätze'], say:'Lā hawla wa lā quwwata illā billāh', de:'Es gibt keine Macht und keine Kraft außer bei Allah.', why:'„Soll ich dich nicht auf einen Schatz von den Schätzen des Paradieses hinweisen? Lā hawla wa lā quwwata illā billāh.“', ref:'Bukhari 6384, Muslim 2704'},
+};
+const JG_V = [
+  ['Tretet ins Paradies ein, ihr und eure Gattinnen – voller Freude.', 'Quran 43:70'],
+  ['Darin sind Flüsse von Wasser, das nicht schal wird, Flüsse von Milch, deren Geschmack sich nicht ändert … und Flüsse von geläutertem Honig.', 'Quran 47:15'],
+  ['Keine Seele weiß, welche Freude der Augen für sie im Verborgenen bereitgehalten wird.', 'Quran 32:17'],
+  ['Ich habe für Meine rechtschaffenen Diener bereitet, was kein Auge gesehen, kein Ohr gehört hat und keinem Menschen in den Sinn gekommen ist.', 'Bukhari 3244, Muslim 2824'],
+  ['Sie hören darin kein leeres Gerede, nur das Wort: Salām, Salām.', 'Quran 56:25–26'],
+];
+const JG_CAP = 140, JG_TREES = ['🌳', '🌸', '🌷', '🌳', '🌼', '🌺'];
+const JG_HOUSE = [[70, 49.5], [80, 48.5], [61, 50.5], [89, 48], [52, 50], [44, 49], [35, 48.5], [26, 47.5], [17, 47]];
+function jgSum(x){ return x && x.jg ? (x.jg.p || 0) + (x.jg.t || 0) + (x.jg.k || 0) : 0; }
+function jgTotal(){ let n = 0; for (const k in db.days) n += jgSum(db.days[k]); return n; }
+function jgList(){
+  const out = [], tot = {p:0, t:0, k:0, h:0};
+  for (const k of Object.keys(db.days).sort()) {
+    const x = db.days[k]; if ((x.rawatib || 0) >= 12) tot.h++;
+    if (x.jg) for (const t of ['p', 't', 'k']) for (let i = 0; i < (x.jg[t] || 0); i++) { out.push([t, k]); tot[t]++; }
+  }
+  return {out, tot};
+}
+const jgSlot = s => ({x:((s * 0.6180339 + 0.13) % 1) * 88 + 6, y:64 + ((s * 0.7548777 + 0.37) % 1) * 27});
+function jgItem(i, t, mini, isNew){
+  const {x, y} = jgSlot(i % JG_CAP), d = (y - 64) / 27, fs = (t === 'k' ? 0.75 : 1) * (0.95 + d * 1.25) * (mini ? 0.5 : 1);
+  const ic = t === 'p' ? '🌴' : t === 'k' ? '💎' : JG_TREES[i % JG_TREES.length];
+  return `<span class="jgi jg-${t}${isNew ? ' new' : ''}" data-slot="${i % JG_CAP}"${mini ? '' : ` data-jgi="${i}"`} style="left:${x.toFixed(1)}%;top:${y.toFixed(1)}%;font-size:${fs.toFixed(2)}rem;z-index:${Math.round(y * 10)}"><i style="animation-delay:-${(i % 7) * 0.6}s">${ic}</i></span>`;
+}
+function jgPhase(){
+  const now = new Date(); let t = null; try { t = times(now); } catch(e) {}
+  if (t && t.fajr) {
+    const m = 6e4;
+    if (now < t.fajr || now > t.isha) return 'night';
+    if (now < new Date(+t.sunrise + 45 * m)) return 'dawn';
+    if (now < new Date(+t.maghrib - 40 * m)) return 'day';
+    return 'dusk';
+  }
+  const h = now.getHours(); return h < 5 || h >= 21 ? 'night' : h < 8 ? 'dawn' : h < 17 ? 'day' : 'dusk';
+}
+const JG_COL = {
+  dawn:{hill:'#b7d79b', g1:'#a6d891', g2:'#5fae63', riv:'#ffd1e0'},
+  day:{hill:'#a8dba0', g1:'#95d68d', g2:'#4fa35a', riv:'#8fd8ff'},
+  dusk:{hill:'#8d7c97', g1:'#7aa774', g2:'#3e6b47', riv:'#ffa3c4'},
+  night:{hill:'#22402f', g1:'#1f3b2a', g2:'#10221a', riv:'#5a6fc0'},
+};
+function jgScene(mini){
+  const ph = jgPhase(), C = JG_COL[ph], {out, tot} = jgList(), N = out.length, from = Math.max(0, N - JG_CAP);
+  let amb = '';
+  if (ph === 'night') amb += Array.from({length:mini ? 14 : 40}, (_, i) => `<b class="jg-star" style="left:${(i * 37.7 + 5) % 98}%;top:${(i * 23.3 + 3) % 42}%;animation-delay:-${(i % 9) * 0.5}s"></b>`).join('') + '<b class="jg-moon"></b>'
+    + (mini ? '' : Array.from({length:9}, (_, i) => `<b class="jg-fly" style="left:${(i * 11 + 6) % 92}%;top:${60 + (i * 7) % 30}%;animation-delay:-${i * 1.3}s;animation-duration:${6 + i % 4}s"></b>`).join(''));
+  else amb += `<b class="jg-sun jg-sun-${ph}"></b>` + (mini ? '' : `<i class="jg-cloud" style="top:12%;animation-duration:70s">☁️</i><i class="jg-cloud" style="top:24%;animation-duration:95s;animation-delay:-40s;font-size:1.6rem">☁️</i>`
+    + Array.from({length:3}, (_, i) => `<i class="jg-bf" style="left:${20 + i * 28}%;top:${58 + i * 9}%;animation-delay:-${i * 2.7}s">🦋</i>`).join('')
+    + `<i class="jg-bird">🕊️</i>` + Array.from({length:6}, (_, i) => `<i class="jg-petal" style="left:${(i * 17 + 8) % 95}%;animation-delay:-${i * 2.2}s;animation-duration:${9 + i % 4}s">🌸</i>`).join(''));
+  const houses = JG_HOUSE.slice(0, Math.min(tot.h, JG_HOUSE.length)).map(([x, y], i) => `<span class="jg-h" style="left:${x}%;top:${y}%;${mini ? 'font-size:.8rem;' : ''}"><i>🏡</i></span>`).join('');
+  let items = ''; for (let i = from; i < N; i++) items += jgItem(i, out[i][0], mini);
+  return `<div class="jg-sky jg-${ph}">${amb}</div>
+    <svg class="jg-land" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="jgg${mini ? 'm' : ''}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C.g1}"/><stop offset="1" stop-color="${C.g2}"/></linearGradient></defs>
+      <path d="M0 52 Q12 41 26 49 T52 47 T78 45 T100 44 L100 100 L0 100Z" fill="${C.hill}"/>
+      <path d="M0 57 Q22 53 48 57 T100 56 L100 100 L0 100Z" fill="url(#jgg${mini ? 'm' : ''})"/>
+      <path d="M-5 61 C18 57 32 66 54 61 S86 57 105 63" fill="none" stroke="${C.riv}" stroke-width="2.6" stroke-linecap="round" opacity=".95"/>
+      <path class="jg-shim" d="M-5 61 C18 57 32 66 54 61 S86 57 105 63" fill="none" stroke="#fff" stroke-width=".7" stroke-linecap="round" stroke-dasharray="3 9" opacity=".7"/></svg>
+    ${houses}<div class="jg-items">${items}</div>
+    ${N || tot.h ? '' : `<div class="jg-empty"><span>🌱</span>${mini ? '' : '<p>Deine Erde wartet auf ihre erste Palme</p>'}</div>`}`;
+}
+let JG = {last:[], vt:null, vi:0};
+function openJG(){
+  $('#fjg').hidden = false; $('#fjg').scrollTop = 0; renderJG();
+  clearInterval(JG.vt); JG.vi = Math.floor(Math.random() * JG_V.length); jgVerse();
+  JG.vt = setInterval(() => { if ($('#fjg').hidden) return clearInterval(JG.vt); JG.vi = (JG.vi + 1) % JG_V.length; jgVerse(); }, 9000);
+}
+function jgVerse(){ const c = $('#jg-cap'); if (!c) return; const [t, r] = JG_V[JG.vi]; c.classList.remove('in'); void c.offsetWidth; c.innerHTML = `„${esc(t)}“<small>${esc(r)}</small>`; c.classList.add('in'); }
+function renderJG(){
+  const intro = !db.fatema.jgi;
+  $('#jg-scene').innerHTML = jgScene(false) + `<div class="jg-cap in" id="jg-cap"></div><div class="jg-sign">🪧 Garten von ${esc(FL())}</div>`
+    + (intro ? `<div class="jg-intro"><div><small>🕊️ Ein Gruß von Ibrāhīm ﷺ</small><p>In der Nacht der Himmelsreise sagte Ibrāhīm ﷺ zum Propheten ﷺ: <i>„Richte deiner Umma meinen Salām aus und sag ihnen: Das Paradies hat reine Erde und süßes Wasser, und es ist eine weite Ebene – und seine Pflanzen sind SubhānAllāh, walhamdulillāh, wa lā ilāha illallāh, wallāhu akbar.“</i></p><span class="gref">Tirmidhi 3462 – hasan</span><button class="fbtn2" data-jgintro="1">🌱 Bismillah – ich pflanze</button></div></div>` : '');
+  jgPanel(); if (!intro) jgVerse();
+}
+function jgPanel(){
+  const {tot} = jgList(), x = day(today), n = jgSum(x), P = db.partner, mine = tot.p + tot.t + tot.k, haid = !!(db.haid && db.haid.on);
+  $('#jg-panel').innerHTML = `<div class="jg-stats"><span>🌴 <b>${fmt(tot.p)}</b></span><span>🌳 <b>${fmt(tot.t)}</b></span><span>💎 <b>${fmt(tot.k)}</b></span><span>🏡 <b>${tot.h}</b></span></div>
+    <p class="fsub jg-today">${n ? `Heute ${n}× gepflanzt${n >= 10 ? ' · +10 XP ✓' : ` · noch ${10 - n} bis +10 XP`}` : 'Tippe einen Dhikr – sprich ihn – und sieh zu, wie dein Garten wächst.'}</p>
+    ${['p', 't', 'k'].map(t => { const T = JG_T[t]; return `<button class="jgb" data-jgp="${t}"><span class="jgb-i">${T.ic}</span><div><b>${T.say}</b><small>${T.de}</small></div><em id="jgc-${t}">${(x.jg && x.jg[t]) || 0}</em></button>`; }).join('')}
+    <button class="x jg-undo" data-jgundo="1" ${JG.last.length ? '' : 'hidden'}>↶ Rückgängig</button>
+    <div class="fcard jg-house"><b>🏡 Ein Haus im Paradies</b><p>„Wer an einem Tag zwölf Rak’a freiwillig betet, dem baut Allah dafür ein Haus im Paradies.“ <span class="gref">Muslim 728</span></p>
+      <p class="ftr">Rabbibni lī ‘indaka baytan fil-dschannah</p><p class="fde">„Mein Herr, bau mir bei Dir ein Haus im Paradies.“ – das Du’a von Āsiya <span class="gref">Quran 66:11</span></p>
+      ${haid ? '<p class="fsub">🌙 An deinen Tagen wächst dein Garten weiter – Dhikr ist immer erlaubt 🌸</p>' : `<button class="fbtn2 ${(x.rawatib || 0) >= 12 ? 'on' : ''}" data-jg12="1">${(x.rawatib || 0) >= 12 ? '✓ Heute 12 Rak’a gebetet – rückgängig' : `🏡 Heute 12 Rak’a Sunnah gebetet${x.rawatib ? ` (bisher ${x.rawatib})` : ''}`}</button>`}</div>
+    ${P && P.jg ? `<div class="fcard jg-duo"><b>💞 ${esc(P.n)} pflanzt mit</b><p>${esc(P.n)}: ${fmt(P.jg)} · du: ${fmt(mine)} – zusammen <b>${fmt(P.jg + mine)}</b> Pflanzen.</p><p class="fq">„Tretet ins Paradies ein, ihr und eure Gattinnen – voller Freude.“</p><span class="gref">Quran 43:70</span></div>` : ''}
+    <details class="fcard jg-why"><summary><b>📜 Woher wissen wir das?</b></summary>${['p', 't', 'k'].map(t => `<p>${JG_T[t].ic} ${esc(JG_T[t].why)} <span class="gref">${JG_T[t].ref}</span></p>`).join('')}<p class="sub">Der Himmel deines Gartens folgt deinen Gebetszeiten: Morgenrot nach Fajr, Abendrot vor Maghrib, Sterne nach Ischa.</p></details>
+    <div class="jg-snd"><button class="x" data-jgsnd="1">${db.settings.jgSound === false ? '🔕 Klang aus' : '🔔 Klang an'}</button></div>`;
+}
+let JAC = null;
+function jgChime(t){
+  if (db.settings.jgSound === false) return;
+  try {
+    JAC = JAC || new (window.AudioContext || window.webkitAudioContext)(); if (JAC.state === 'suspended') JAC.resume();
+    const PENTA = [523.25, 587.33, 659.25, 783.99, 880, 1046.5], t0 = JAC.currentTime;
+    const notes = t === 'k' ? [1046.5, 1318.5, 1568] : t === 'h' ? [523.25, 659.25, 783.99, 1046.5] : [PENTA[Math.floor(Math.random() * PENTA.length)] * (t === 'p' ? 1 : 1.5)];
+    notes.forEach((f, i) => {
+      const o = JAC.createOscillator(), g = JAC.createGain(), s = t0 + i * 0.09;
+      o.type = 'sine'; o.frequency.value = f; g.gain.setValueAtTime(0.0001, s); g.gain.exponentialRampToValueAtTime(0.07, s + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, s + 1.3);
+      o.connect(g); g.connect(JAC.destination); o.start(s); o.stop(s + 1.35);
+    });
+  } catch(e) {}
+}
+function jgSparkle(i){
+  const {x, y} = jgSlot(i % JG_CAP), el = document.createElement('b'); el.className = 'jg-spark'; el.style.left = x + '%'; el.style.top = y + '%'; el.textContent = '✨';
+  $('#jg-scene').appendChild(el); setTimeout(() => el.remove(), 900);
+}
+function jgPlant(t){
+  const x = db.days[today] = db.days[today] || {}, before = jgTotal();
+  x.jg = x.jg || {}; x.jg[t] = (x.jg[t] || 0) + 1; save(); JG.last.push(t);
+  const i = before, L = $('#jg-scene .jg-items');
+  if (L) { const old = L.querySelector(`[data-slot="${i % JG_CAP}"]`); if (old) old.remove(); L.insertAdjacentHTML('beforeend', jgItem(i, t, false, true)); }
+  const em = $('#jg-scene .jg-empty'); if (em) em.remove();
+  jgSparkle(i); jgChime(t); buzz(t === 'k' ? [8, 30, 8] : 8);
+  const tot = before + 1;
+  if ([10, 33, 100, 333, 1000, 3333, 10000].includes(tot)) { fBurst(); toast(`🌴 MāschāAllāh – ${fmt(tot)} Pflanzen in deinem Garten im Paradies!`); }
+  if (jgSum(x) === 10) toast('✓ 10 Dhikr heute im Garten – +10 XP');
+  jgPanel(); render();
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-jgopen],[data-jgp],[data-jgundo],[data-jg12],[data-jgintro],[data-jgsnd],[data-jgi],#jg-close'); if (!b) return;
+  const d = b.dataset, x = db.days[today] = db.days[today] || {};
+  if (b.id === 'jg-close') { $('#fjg').hidden = true; clearInterval(JG.vt); JG.last = []; if (!$('#fat').hidden) renderFatema(); return; }
+  if (d.jgopen) { JG.last = []; openJG(); buzz(6); }
+  else if (d.jgp) jgPlant(d.jgp);
+  else if (d.jgundo) { const t = JG.last.pop(); if (t && x.jg && x.jg[t]) { x.jg[t]--; if (!jgSum(x)) delete x.jg; save(); renderJG(); render(); } }
+  else if (d.jg12) {
+    const done = (x.rawatib || 0) >= 12; setCount('rawatib', done ? 0 : 12);
+    if (!done) { fBurst(); jgChime('h'); toast('🏡 Ein Haus im Paradies – möge Allah es dir bauen 🤲'); }
+    renderJG();
+  }
+  else if (d.jgintro) { db.fatema.jgi = 1; save(); const o = $('#jg-scene .jg-intro'); if (o) o.remove(); jgVerse(); buzz(10); }
+  else if (d.jgsnd) { db.settings.jgSound = db.settings.jgSound === false; save(); jgPanel(); if (db.settings.jgSound) jgChime('p'); }
+  else if (d.jgi) { const {out} = jgList(), it = out[+d.jgi]; if (it) toast(`${JG_T[it[0]].ic} ${JG_T[it[0]].n[0]} · gepflanzt am ${fdate(it[1], {weekday:'short', day:'numeric', month:'long'})}`); }
+});
 let FT = 'love';
 function openFatema(){
   const first = db.fatema.seen !== today;
