@@ -742,6 +742,49 @@ a.mrow{text-decoration:none;color:inherit}
 .dtag summary b{color:var(--ink)}
 .dcount{margin:2px 0 8px}
 .dlrn{margin-top:0}
+.fatbtn{color:#e0457b;border-color:#f3a6c2;background:#ffe8f0;animation:fbeat 1.8s ease-in-out infinite;margin-left:auto;margin-right:8px}
+@keyframes fbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.15)}28%{transform:scale(1)}42%{transform:scale(1.1)}56%{transform:scale(1)}}
+.fsheet{background:linear-gradient(170deg,#ffe0ec 0%,#fff3f8 45%,#fde4ef 100%);color:#5a2340}
+.fsheet .sheet-h{background:#ffe3ee}
+.fsheet .sheet-h h3{color:#c2185b}
+#fhearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+#fhearts span{position:absolute;bottom:-40px;opacity:0;animation-name:frise;animation-timing-function:linear;animation-iteration-count:infinite}
+@keyframes frise{0%{transform:translateY(0) rotate(0);opacity:0}12%{opacity:.75}100%{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+.fsheet .wrap{position:relative;z-index:1}
+#fburst{position:fixed;left:50%;top:42%;z-index:60;pointer-events:none}
+#fburst span{position:absolute;font-size:1.6rem;opacity:0}
+#fburst.on span{animation:fb .9s ease-out forwards}
+@keyframes fb{0%{opacity:1;transform:rotate(var(--a)) translateY(0) scale(.6)}100%{opacity:0;transform:rotate(var(--a)) translateY(-130px) scale(1.25)}}
+.ftabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+.ftabs button{border:1px solid #f6b9cf;background:#fff5f9;color:#9b2c5a;border-radius:14px;padding:8px 4px;font:inherit;font-size:.8rem;font-weight:700}
+.ftabs button span{display:block;font-size:1.2rem}
+.ftabs button.on{background:#e0457b;border-color:#e0457b;color:#fff}
+.fcard{background:rgba(255,255,255,.82);border:1px solid #f6c3d6;border-radius:18px;padding:14px;margin-bottom:10px;box-shadow:0 4px 14px rgba(224,69,123,.08)}
+.fcard small{color:#c2416f;font-weight:700}
+.fcard b{color:#8e2450}
+.fcard p{line-height:1.5;margin:6px 0}
+.fmsg{background:linear-gradient(135deg,#ffd3e4,#fff0f6)}
+.fmsg p{font-size:1.06rem;font-style:italic}
+.fq{font-size:1.02rem;font-style:italic}
+.ftr{font-weight:700}
+.fde{font-style:italic;color:#7a4a60}
+.fstar{border-color:#e0457b;background:#fff0f6}
+.fbig{display:block;width:100%;border:0;border-radius:20px;padding:16px;font:inherit;font-weight:800;color:#fff;background:linear-gradient(90deg,#f06292,#e0457b);box-shadow:0 6px 20px rgba(224,69,123,.35);margin:6px 0 10px}
+.fbig span{display:block;font-size:2rem;animation:fbeat 1.8s infinite}
+.fbtn2{border:0;border-radius:14px;padding:10px 14px;font:inherit;font-weight:700;background:#e0457b;color:#fff;margin-top:6px}
+.fsub{color:#a2436c;font-size:.9rem;margin:0 0 10px}
+.fenv{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;border:2px dashed #f3a6c2;background:#fff5f9;border-radius:24px;padding:44px 16px;margin-top:30px;font:inherit;color:#8e2450}
+.fenv-ic{font-size:4.2rem;animation:fbeat 1.8s infinite}
+.fenv b{font-size:1.45rem}
+.fenv small{color:#c2416f}
+.ftext{width:100%;box-sizing:border-box;min-height:110px;border:1px solid #f6b9cf;border-radius:12px;padding:10px;font:inherit;font-size:16px;background:#fff;color:inherit}
+.fpop{animation:fpop .4s ease-out}
+@keyframes fpop{from{transform:scale(.85);opacity:0}}
+.fsheet .gref{background:#ffe0ec;color:#b03a68}
+.fpcard{border-color:#f3a6c2;background:#fff0f6}
+@media (prefers-reduced-motion:reduce){.fatbtn,.fenv-ic,.fbig span,#fhearts span{animation:none}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .fsheet{background:linear-gradient(170deg,#3a1526 0%,#24101b 50%,#1c0c15 100%);color:#ffe6f0}:root:not([data-theme="light"]) .fsheet .sheet-h{background:#3a1526}:root:not([data-theme="light"]) .fsheet .sheet-h h3{color:#ff8fb8}:root:not([data-theme="light"]) .ftabs button{background:rgba(255,255,255,.06);border-color:#6b2a47;color:#ffc1d8}:root:not([data-theme="light"]) .ftabs button.on{background:#e0457b;border-color:#e0457b;color:#fff}:root:not([data-theme="light"]) .fcard{background:rgba(255,255,255,.06);border-color:#6b2a47}:root:not([data-theme="light"]) .fcard b{color:#ffb3cf}:root:not([data-theme="light"]) .fcard small{color:#ff8fb8}:root:not([data-theme="light"]) .fmsg{background:linear-gradient(135deg,#5a1f38,#2e1220)}:root:not([data-theme="light"]) .fde{color:#e7b6c9}:root:not([data-theme="light"]) .fsub{color:#ff9cc0}:root:not([data-theme="light"]) .fstar{background:rgba(224,69,123,.15)}:root:not([data-theme="light"]) .fenv{background:rgba(255,255,255,.05);color:#ffc1d8}:root:not([data-theme="light"]) .fenv small{color:#ff8fb8}:root:not([data-theme="light"]) .ftext{background:#2a1520;border-color:#6b2a47}:root:not([data-theme="light"]) .fsheet .gref{background:#4a1d31;color:#ffb3cf}:root:not([data-theme="light"]) .fatbtn{background:#4a1d31;border-color:#8a3358}:root:not([data-theme="light"]) .fpcard{background:#3a1526;border-color:#6b2a47}}
+:root[data-theme="dark"] .fsheet{background:linear-gradient(170deg,#3a1526 0%,#24101b 50%,#1c0c15 100%);color:#ffe6f0}:root[data-theme="dark"] .fsheet .sheet-h{background:#3a1526}:root[data-theme="dark"] .fsheet .sheet-h h3{color:#ff8fb8}:root[data-theme="dark"] .ftabs button{background:rgba(255,255,255,.06);border-color:#6b2a47;color:#ffc1d8}:root[data-theme="dark"] .ftabs button.on{background:#e0457b;border-color:#e0457b;color:#fff}:root[data-theme="dark"] .fcard{background:rgba(255,255,255,.06);border-color:#6b2a47}:root[data-theme="dark"] .fcard b{color:#ffb3cf}:root[data-theme="dark"] .fcard small{color:#ff8fb8}:root[data-theme="dark"] .fmsg{background:linear-gradient(135deg,#5a1f38,#2e1220)}:root[data-theme="dark"] .fde{color:#e7b6c9}:root[data-theme="dark"] .fsub{color:#ff9cc0}:root[data-theme="dark"] .fstar{background:rgba(224,69,123,.15)}:root[data-theme="dark"] .fenv{background:rgba(255,255,255,.05);color:#ffc1d8}:root[data-theme="dark"] .fenv small{color:#ff8fb8}:root[data-theme="dark"] .ftext{background:#2a1520;border-color:#6b2a47}:root[data-theme="dark"] .fsheet .gref{background:#4a1d31;color:#ffb3cf}:root[data-theme="dark"] .fatbtn{background:#4a1d31;border-color:#8a3358}:root[data-theme="dark"] .fpcard{background:#3a1526;border-color:#6b2a47}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -749,7 +792,7 @@ a.mrow{text-decoration:none;color:inherit}
 <body data-page="today">
 <main id="scroller"><div class="wrap">
   <header>
-    <div class="hrow"><h1>Daily Hasanat ☪︎</h1><button class="hbtn" data-help="1" aria-label="Hilfe: Wo finde ich was? So sammelst du XP">?</button></div>
+    <div class="hrow"><h1>Daily Hasanat ☪︎</h1><button class="hbtn fatbtn" id="fatbtn" data-fat="1" aria-label="Für Fatema">💗</button><button class="hbtn" data-help="1" aria-label="Hilfe: Wo finde ich was? So sammelst du XP">?</button></div>
     <div class="sub" id="date"></div>
     <div class="np" id="nextp"></div>
     <div class="np" id="ramadan" style="color:var(--gold)"></div>
@@ -884,7 +927,7 @@ a.mrow{text-decoration:none;color:inherit}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-finder="1"><span>🧭</span><div><b>Wo finde ich was?</b><small>Alle Funktionen durchsuchen</small></div><i>›</i></button><button class="mrow" data-tcfg="1"><span>✎</span><div><b>Startseite anpassen</b><small>Karten ein- und ausblenden</small></div><i>›</i></button><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 46 (5.11.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 47 (5.11.2026)</p>
     </div>
     <div class="mp" data-m="pset" hidden><button class="kback" data-mk="">‹ Einstellungen</button><h2>📍 Standort &amp; Berechnung</h2>
     <button class="btn p" data-loc="1">📍 Aktuellen Standort verwenden</button>
@@ -1140,6 +1183,13 @@ a.mrow{text-decoration:none;color:inherit}
   <div id="wz-bars"></div>
   <div id="wz-body"></div>
   <div class="dmg-nav wz-nav"><button id="wz-back">‹ Zurück</button><button id="wz-next">Weiter ›</button></div>
+</div>
+<div class="sheet fsheet" id="fat" hidden>
+  <div id="fhearts" aria-hidden="true"></div><div id="fburst" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="sheet-h"><h3 id="fat-title">💗 Für Fatema</h3><button class="x" id="fat-close" aria-label="schließen">✕</button></div>
+    <div id="fat-body"></div>
+  </div>
 </div>
 <script src="prayer.js"></script>
 
@@ -1430,7 +1480,7 @@ function dayStatsRaw(k){
   return {has, done, bonus, rizq, taps, total, rizqTotal:core.filter(d => d.rizq).length};
 }
 // ein Tag zählt für die Serie, sobald irgendetwas getan wurde – auch ein einzelnes Gebet oder eine Quran-Seite
-const active = k => { const s = dayStats(k), x = day(k); return s.done > 0 || s.bonus > 0 || s.taps > 0 || (x.fard || 0) > 0 || (x.quran || 0) > 0 || !!x.qb; };
+const active = k => { const s = dayStats(k), x = day(k); return s.done > 0 || s.bonus > 0 || s.taps > 0 || (x.fard || 0) > 0 || (x.quran || 0) > 0 || !!x.qb || !!x.haid; };
 function streak(){
   // Serie bis gestern ist für heute fest – einmal rechnen, dann merken
   let c = pastCache(), base = c && c.streak != null ? c.streak : null;
@@ -1585,7 +1635,7 @@ function render(){
   if (pg === 'today') renderToday(); else staleToday = true;
   if (pg === 'quick') { staleQuick = false; renderQuick(); renderAdhkar(); } else staleQuick = true;
 }
-function renderToday(){ staleToday = false; renderYCheck(); renderFast(); renderCoopCard(); renderGardenCard(); renderWrapTeaser(); renderPrayersTop(); renderHelpBanner(); renderList(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); renderQurbCard(); $('#now').hidden = true; renderLHead(); applyCards(); }
+function renderToday(){ staleToday = false; haidMark(); renderYCheck(); renderFast(); renderCoopCard(); renderGardenCard(); renderWrapTeaser(); renderPrayersTop(); renderHelpBanner(); renderList(); renderPrayer(); renderNow(); renderDaily(); renderTomorrow(); renderIntro(); renderRamadanCard(); renderSitu(); renderSunnahCard(); renderQurbCard(); $('#now').hidden = true; renderLHead(); applyCards(); }
 
 // ---------- Besondere Tage (nach Wochentag & Hijri-Datum) ----------
 const SPECIAL = [
@@ -2168,6 +2218,7 @@ function cyclePrayer(k){
 }
 function prayerCard(){
   const x = day(today), now = new Date(), t = times(now);
+  if (x.haid) return `<div class="deed fpcard"><b>🌙 Pause-Modus – deine Gebete ruhen heute</b><p class="sub" style="margin:4px 0 0">Deine Serien bleiben erhalten. Dhikr, Du’as und Quran hören zählen weiter. <button class="lnk" data-fat="1">💗 Meine Tage</button></p></div>`;
   const tiles = PRAYERS.map(k => {
     const v = prState(x, k), due = t && t[k] <= now && !v;
     return `<button class="pwb s${v} ${due ? 'due' : ''}" data-pr="${k}"><span>${PNAMES[k]}</span><b>${v === 2 ? '👥' : v === 1 ? '✓' : '○'}</b><small>${t ? hm(t[k]) : ''}</small></button>`;
@@ -3332,7 +3383,7 @@ function myStatus(){
   const ch = db.challenge;
   return {v:1, n:(db.settings.name || 'Ich').slice(0, 20), d:today, xp:totalXP(), wx:weekXP(), ws:weekStart(today), r:db.rank || 0, s:streak(),
     h:Object.keys(db.hadith).length, nm:Object.keys(db.names).length, td:dayStats(today).done, tt:dayStats(today).total,
-    ch:ch ? {id:ch.id, st:ch.start, m:ch.mode, val:metricSum(CHALLENGES[ch.id].metric, ch.start, 7)} : null};
+    ch:ch ? {id:ch.id, st:ch.start, m:ch.mode, val:metricSum(CHALLENGES[ch.id].metric, ch.start, 7)} : null, lv:db.fatema && db.fatema.msg ? db.fatema.msg.slice(0, 400) : undefined};
 }
 const b64e = o => btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 const b64d = t => JSON.parse(decodeURIComponent(escape(atob(t.replace(/-/g, '+').replace(/_/g, '/')))));
@@ -3737,7 +3788,8 @@ function prayerStreak(k){
   if (!PSC || PSC.k !== today || PSC.n !== n0) PSC = {k:today, n:n0, v:{}};
   if (PSC.v[k] == null) {
     let n = 0; const d = new Date(); d.setDate(d.getDate() - 1);
-    while (prState(day(dkey(d)), k) >= 1) { n++; d.setDate(d.getDate() - 1); if (n > 999) break; }
+    let guard = 0;
+    while (prState(day(dkey(d)), k) >= 1 || day(dkey(d)).haid) { if (prState(day(dkey(d)), k) >= 1) n++; d.setDate(d.getDate() - 1); if (++guard > 1500) break; }
     PSC.v[k] = n;
   }
   return PSC.v[k] + (prState(day(today), k) >= 1 ? 1 : 0);
@@ -5224,6 +5276,7 @@ function yMissing(){
   if (!Object.keys(db.days).some(k => k < y)) return null;          // neue Nutzer: nichts fragen
   if (db.ych && db.ych.k === today && db.ych.off) return null;
   const x = day(y), h = db.ych && db.ych.k === today ? db.ych.h : {};
+  if (x.haid) return null;
   const miss = PRAYERS.filter(k => !prState(x, k) && !h[k]);
   return {y, miss, h};
 }
@@ -5265,7 +5318,7 @@ const PTIPS = {
 function renderPStat(){
   const el = $('#pstat'); if (!el) return;
   const keys = Object.keys(db.days).sort(), first = keys[0];
-  const days = []; for (let i = 1; i <= 30; i++) { const k = addDays(today, -i); if (first && k >= first) days.push(k); }
+  const days = []; for (let i = 1; i <= 30; i++) { const k = addDays(today, -i); if (first && k >= first && !day(k).haid) days.push(k); }
   if (days.length < 3) { el.innerHTML = '<p class="sub">Nach ein paar Tagen siehst du hier, welche Gebetszeit dir am leichtesten fällt – und welche am schwersten.</p>'; return; }
   const S = PRAYERS.map(k => { let n = 0, j = 0; for (const d of days) { const v = prState(day(d), k); if (v >= 1) n++; if (v === 2) j++; } return {k, p:Math.round(n / days.length * 100), j}; });
   const weak = [...S].sort((a, b) => a.p - b.p)[0], all = S.every(s => s.p === 100);
@@ -5403,6 +5456,7 @@ const FINDER = [
   ['✨', 'Rückblick (Woche, Monat, Jahr)', 'Ich', 'wrapped rückblick', () => openWrap('week')],
   ['💾', 'Backup sichern', 'Ich → ⚙️ Einstellungen', 'sichern daten', () => { showPage('set'); showM('data'); }],
   ['🎨', 'Anzeige (Design, Schrift, Arabisch)', 'Ich → ⚙️ Einstellungen', 'dunkel hell schrift arabisch', () => { showPage('set'); showM('disp'); }],
+  ['💗', `Für ${db.fatema && db.fatema.name || 'Fatema'} – ihr eigener Bereich`, 'Heute → 💗 oben', 'fatema frau freundin liebe periode tage pause frauen', () => openFatema()],
   ['✎', 'Startseite anpassen', 'Heute (ganz unten)', 'karten ausblenden', () => openTcfg()],
 ];
 function finderHTML(q){
@@ -5479,6 +5533,112 @@ function renderLHead(){
 }
 function setListOpen(on){ db.settings.listOpen = on; save(); renderLHead(); }
 document.addEventListener('click', e => { if (e.target.closest('#lhead')) { setListOpen(!db.settings.listOpen); buzz(6); } });
+
+// ---------- 💗 Für Fatema: ihr eigener, liebevoller Bereich ----------
+db.fatema = db.fatema || {name:'Fatema', from:'', msg:''};
+const FL = () => db.fatema.name || 'Fatema';
+const LOVE = [
+  ['Und zu Seinen Zeichen gehört es, dass Er euch aus euch selbst Gattinnen erschaffen hat, damit ihr bei ihnen Ruhe findet; und Er hat zwischen euch Zuneigung und Barmherzigkeit gesetzt.', 'Quran 30:21'],
+  ['Allah ist schön und liebt die Schönheit.', 'Muslim 91'],
+  ['Allah schaut nicht auf eure Gestalt und euren Besitz, sondern auf eure Herzen und eure Taten.', 'Muslim 2564'],
+  ['Die Welt ist ein Genuss, und der beste Genuss der Welt ist eine rechtschaffene Frau.', 'Muslim 1467'],
+  ['Sie sind euch ein Gewand, und ihr seid ihnen ein Gewand.', 'Quran 2:187'],
+  ['Der Beste von euch ist der Beste zu seiner Familie, und ich bin der Beste von euch zu meiner Familie.', 'Tirmidhi 3895 – sahih'],
+  ['Die Vollkommensten der Gläubigen im Glauben sind die mit dem besten Charakter – und die Besten von euch sind die Besten zu ihren Frauen.', 'Tirmidhi 1162 – hasan sahih'],
+  ['Fātima ist ein Teil von mir.', 'Bukhari 3767'],
+  ['Allah ist sanft und liebt die Sanftheit in allen Dingen.', 'Bukhari 6927, Muslim 2165'],
+  ['Dein Herr hat dich weder verlassen noch verabscheut.', 'Quran 93:3'],
+  ['Gewiss, mit der Schwierigkeit kommt Erleichterung.', 'Quran 94:6'],
+  ['Selbst der Bissen, den du deiner Frau in den Mund legst, ist eine Sadaqa.', 'Bukhari 56'],
+  ['Wahrlich, im Gedenken Allahs finden die Herzen Ruhe.', 'Quran 13:28'],
+  ['Wenn eine Frau ihre fünf Gebete betet, ihren Monat fastet, ihre Keuschheit bewahrt und ihrem Mann folgt, wird ihr gesagt: Tritt ins Paradies ein, durch welches Tor du willst.', 'Ahmad 1661 – hasan (al-Albani)'],
+];
+const FWOMEN = [
+  ['🌹', 'Fātima az-Zahrā’ – dein Name', 'Die jüngste Tochter des Propheten ﷺ. Wenn sie zu ihm kam, stand er auf, nahm ihre Hand, küsste sie und setzte sie auf seinen Platz. Er nannte sie „die Herrin der Frauen der Bewohner des Paradieses“. Als sie müde von der Hausarbeit um eine Hilfe bat, schenkte er ihr etwas Besseres: vor dem Schlafen 33× SubhānAllāh, 33× Alhamdulillāh und 34× Allāhu akbar.', 'Abu Dawud 5217 – sahih · Bukhari 3624 · Bukhari 3705, Muslim 2727'],
+  ['🕊️', 'Khadīja bint Khuwaylid', 'Die erste Muslima, die den Propheten ﷺ tröstete, als alle zweifelten. Jibril überbrachte ihr den Gruß ihres Herrn und ein Haus im Paradies ohne Lärm und ohne Mühsal. Der Prophet ﷺ liebte sie noch Jahre nach ihrem Tod und beschenkte ihre Freundinnen.', 'Bukhari 3820, Muslim 2432 · Bukhari 3818'],
+  ['🌙', 'Maryam bint ‘Imrān', 'Allah sagt: „O Maryam, Allah hat dich auserwählt und rein gemacht und dich vor den Frauen der Welten auserwählt.“ Eine ganze Sure trägt ihren Namen. In ihrem schwersten Moment tröstete Allah sie: „Sei nicht traurig.“', 'Quran 3:42 · Quran 19:24'],
+  ['🏡', 'Āsiya, die Frau Pharaos', 'Sie blieb gläubig im Palast des größten Tyrannen und bat: „Mein Herr, bau mir bei Dir ein Haus im Paradies.“ Der Prophet ﷺ zählte sie zu den vollkommenen Frauen.', 'Quran 66:11 · Bukhari 3411'],
+  ['📚', '‘Ā’ischa bint Abī Bakr', 'Eine der größten Gelehrten des Islam – Tausende Hadithe kommen von ihr. Der Prophet ﷺ lief mit ihr um die Wette, trank aus dem Becher genau dort, wo sie getrunken hatte, und nannte sie den Menschen, den er am meisten liebte.', 'Abu Dawud 2578 – sahih · Muslim 300 · Bukhari 3662'],
+];
+const FDUAS = [
+  ['Schöner Charakter', 'Allāhumma kamā hassanta khalqī fa-hassin khuluqī', 'O Allah, wie Du meine äußere Gestalt schön gemacht hast, so mach auch meinen Charakter schön.', 'Ahmad 3823 – sahih (al-Albani)'],
+  ['Gegen Sorgen & Traurigkeit', 'Allāhumma innī a‘ūdhu bika minal-hammi wal-hazan, wal-‘adschzi wal-kasal', 'O Allah, ich suche Zuflucht bei Dir vor Sorge und Trauer, vor Schwäche und Faulheit.', 'Bukhari 6369'],
+  ['Ein festes Herz', 'Yā muqallibal-qulūb, thabbit qalbī ‘alā dīnik', 'O Du, der die Herzen wendet, festige mein Herz auf Deiner Religion.', 'Tirmidhi 2140 – sahih'],
+  ['Familie, die das Auge erfreut', 'Rabbanā hab lanā min azwādschinā wa dhurriyyātinā qurrata a‘yunin wadsch‘alnā lil-muttaqīna imāmā', 'Unser Herr, schenke uns an unseren Ehepartnern und Nachkommen Freude der Augen, und mach uns zu einem Vorbild für die Gottesfürchtigen.', 'Quran 25:74'],
+  ['Gute Kinder (Zakariyya)', 'Rabbi hab lī min ladunka dhurriyyatan tayyibah, innaka samī‘ud-du‘ā’', 'Mein Herr, schenke mir von Dir aus gute Nachkommenschaft. Du bist ja der Erhörer des Du’a.', 'Quran 3:38'],
+  ['Für ein Kind im Bauch (Mutter der Maryam)', 'Rabbi innī nadhartu laka mā fī batnī muharraran fa-taqabbal minnī, innaka antas-samī‘ul-‘alīm', 'Mein Herr, ich gelobe Dir, was in meinem Leib ist, Dir geweiht – so nimm es von mir an. Du bist der Allhörende, der Allwissende.', 'Quran 3:35'],
+  ['Ein Haus im Paradies (Āsiya)', 'Rabbibni lī ‘indaka baytan fil-dschannah', 'Mein Herr, bau mir bei Dir ein Haus im Paradies.', 'Quran 66:11'],
+  ['Wenn alles zu viel ist (Musa)', 'Rabbischrah lī sadrī, wa yassir lī amrī', 'Mein Herr, weite mir meine Brust und erleichtere mir meine Angelegenheit.', 'Quran 20:25–26'],
+  ['In Not (Yunus)', 'Lā ilāha illā anta subhānaka innī kuntu minaz-zālimīn', 'Es gibt keinen Gott außer Dir. Gepriesen seist Du. Ich gehörte zu den Ungerechten.', 'Quran 21:87'],
+  ['Das Tasbīh der Fātima – vor dem Schlafen', '33× SubhānAllāh · 33× Alhamdulillāh · 34× Allāhu akbar', 'Der Prophet ﷺ schenkte es seiner Tochter Fātima: „Das ist besser für euch als eine Dienerin.“', 'Bukhari 3705, Muslim 2727'],
+];
+const FLOVE2 = [
+  ['💞', 'Zuneigung & Barmherzigkeit', '„… und Er hat zwischen euch Zuneigung und Barmherzigkeit gesetzt.“ Liebe ist ein Zeichen Allahs – in der Ehe wird sie zum Gottesdienst.', 'Quran 30:21'],
+  ['🏃‍♀️', 'Der Prophet ﷺ spielte mit seiner Frau', '‘Ā’ischa lief mit ihm um die Wette und gewann – später gewann er und sagte lachend: „Das ist für damals.“', 'Abu Dawud 2578 – sahih'],
+  ['🥛', 'Kleine Gesten zählen', 'Er trank vom Becher genau an der Stelle, an der sie getrunken hatte. Und: Selbst der Bissen, den man seiner Frau in den Mund legt, ist Sadaqa.', 'Muslim 300 · Bukhari 56'],
+  ['🧺', 'Er half im Haus', '‘Ā’ischa wurde gefragt, was er zu Hause tat: „Er war im Dienst seiner Familie.“', 'Bukhari 676'],
+  ['🤍', 'Gut zueinander sein', '„… und geht mit ihnen in guter Weise um.“ – „Die Besten von euch sind die Besten zu ihren Frauen.“', 'Quran 4:19 · Tirmidhi 1162 – hasan sahih'],
+  ['👗', 'Ein Gewand füreinander', '„Sie sind euch ein Gewand, und ihr seid ihnen ein Gewand“ – Schutz, Wärme, Nähe und Würde.', 'Quran 2:187'],
+];
+let FT = 'love';
+function openFatema(){
+  const first = db.fatema.seen !== today;
+  $('#fat').hidden = false; $('#fat').scrollTop = 0; fHearts(true);
+  if (first) { $('#fat-body').innerHTML = `<button class="fenv" data-fenv="1"><span class="fenv-ic">💌</span><b>Für ${esc(FL())}</b><small>Tippe, um deinen Brief zu öffnen</small></button>`; return; }
+  renderFatema();
+}
+function fHearts(on){
+  const el = $('#fhearts'); if (!on) { el.innerHTML = ''; return; }
+  const ic = ['💗', '💕', '🌸', '💖', '🤍', '🌷'];
+  el.innerHTML = Array.from({length:14}, (_, i) => `<span style="left:${(i * 7.3 + 3) % 96}%;animation-delay:${(i * 0.9) % 8}s;animation-duration:${7 + (i % 5)}s;font-size:${1 + (i % 3) * 0.35}rem">${ic[i % ic.length]}</span>`).join('');
+}
+function fBurst(){
+  const el = $('#fburst'); el.innerHTML = Array.from({length:12}, (_, i) => `<span style="--a:${i * 30}deg">${['💗', '💖', '💕'][i % 3]}</span>`).join('');
+  el.classList.remove('on'); void el.offsetWidth; el.classList.add('on'); buzz([10, 30, 10]);
+}
+function renderFatema(){
+  const F = db.fatema, P = db.partner, n = Math.floor(new Date(today + 'T12:00') / 864e5), L = LOVE[n % LOVE.length];
+  const tabs = [['love', '💌', 'Für dich'], ['women', '🌸', 'Vorbilder'], ['duas', '🤲', 'Du’as'], ['days', '🌙', 'Meine Tage'], ['ehe', '💞', 'Liebe'], ['edit', '✎', 'Nachricht']];
+  const msg = F.msg || (P && P.lv) || '', from = F.msg ? (F.from || '') : (P && P.lv ? P.n : '');
+  let h = `<div class="ftabs">${tabs.map(([k, i, t]) => `<button class="${FT === k ? 'on' : ''}" data-ftab="${k}"><span>${i}</span>${t}</button>`).join('')}</div>`;
+  if (FT === 'love') h += `<div class="fcard fmsg"><small>💌 ${from ? `Von ${esc(from)}` : 'Für dich'}</small><p>${msg ? esc(msg) : `Möge Allah dein Herz mit Ruhe füllen, dein Lächeln bewahren und dich zu den Bewohnern des Paradieses zählen. 💗`}</p></div>
+      <div class="fcard"><small>✨ Botschaft des Tages</small><p class="fq">„${esc(L[0])}“</p><span class="gref">${esc(L[1])}</span></div>
+      <button class="fbig" data-flove="1"><span>💗</span>Tippe für eine Liebesbotschaft</button><div id="flove"></div>`;
+  if (FT === 'women') h += `<p class="fsub">Die großen Frauen des Islam – Vorbilder für dein Herz.</p>` + FWOMEN.map(([i, t, d, r], k) => `<div class="fcard ${k ? '' : 'fstar'}"><b>${i} ${esc(t)}</b><p>${esc(d)}</p><span class="gref">${esc(r)}</span></div>`).join('');
+  if (FT === 'duas') h += `<p class="fsub">Du’as aus Quran & Sunnah – für dich ausgesucht.</p>` + FDUAS.map(([t, tr, de, r]) => `<div class="fcard"><b>${esc(t)}</b><p class="ftr">${esc(tr)}</p><p class="fde">„${esc(de)}“</p><span class="gref">${esc(r)}</span>${qAudioBtn(r) ? `<div style="margin-top:6px">${qAudioBtn(r)}</div>` : ''}</div>`).join('');
+  if (FT === 'days') { const on = !!(db.haid && db.haid.on); h += `<div class="fcard fpause"><b>🌙 Pause-Modus ${on ? 'ist an' : ''}</b><p>${on ? `Seit ${new Date(db.haid.since + 'T12:00').toLocaleDateString('de-DE', {day:'numeric', month:'long'})}. Deine Gebets-Serien bleiben erhalten, und diese Tage zählen nicht als verpasst.` : 'Während deiner Tage ruhen die Gebete. Schalte den Pause-Modus ein – dann brechen deine Serien nicht, und die Statistik zählt diese Tage nicht als verpasst.'}</p>
+      <button class="fbtn2" data-fhaid="${on ? 'off' : 'on'}">${on ? '✓ Meine Tage sind vorbei' : '🌙 Pause-Modus einschalten'}</button></div>
+    <div class="fcard"><b>Was gilt in diesen Tagen?</b><p>Du betest nicht und fastest nicht – das ist eine Erleichterung von Allah, keine Schwäche. „Ist es nicht so, dass sie, wenn sie ihre Tage hat, nicht betet und nicht fastet?“ <span class="gref">Bukhari 304</span></p><p>Die Gebete werden <b>nicht</b> nachgeholt, verpasste Ramadan-Fastentage schon. <span class="gref">Muslim 335</span></p><p>Wenn sie vorbei sind: Ghusl machen und wieder beten. <span class="gref">Bukhari 320</span></p></div>
+    <div class="fcard"><b>💗 Was du weiter tun kannst – und was zählt</b><p>Dhikr, Istighfar, Salawat, Du’as – auch die Morgen- und Abend-Adhkar · Quran anhören · Wissen lernen · Sadaqa · gute Worte und ein Lächeln. Dein Lohn hört nicht auf.</p><p class="sub">Ob man den Quran in dieser Zeit aus dem Gedächtnis rezitieren darf, darüber sind sich die Gelehrten uneinig – folge deiner Rechtsschule. Zuhören ist für alle erlaubt.</p>
+      <button class="fbtn2" data-fgo="dhikr">📿 Zu Dhikr & Du’as</button> <button class="fbtn2" data-fgo="quran">🎧 Quran hören</button></div>`; }
+  if (FT === 'ehe') h += `<p class="fsub">Liebe, wie Allah sie liebt – mit Zuneigung, Barmherzigkeit und Würde.</p>` + FLOVE2.map(([i, t, d, r]) => `<div class="fcard"><b>${i} ${esc(t)}</b><p>${esc(d)}</p><span class="gref">${esc(r)}</span></div>`).join('');
+  if (FT === 'edit') h += `<div class="fcard"><b>✎ Persönliche Nachricht</b><p class="sub">Schreib hier eine Nachricht – sie steht ganz oben unter „Für dich“. Über „Zusammen“ (Stand teilen) kommt sie auch auf ihr Handy.</p>
+      <div class="inp"><input id="f-name" value="${esc(F.name || '')}" placeholder="Ihr Name" maxlength="20" autocomplete="off"></div>
+      <div class="inp"><input id="f-from" value="${esc(F.from || db.settings.name || '')}" placeholder="Von (dein Name)" maxlength="20" autocomplete="off"></div>
+      <textarea id="f-msg" class="ftext" maxlength="400" placeholder="z. B. Du bist das schönste Geschenk, das Allah mir gemacht hat …">${esc(F.msg || '')}</textarea>
+      <button class="fbtn2" data-fsave="1">💗 Speichern</button></div>`;
+  $('#fat-body').innerHTML = h;
+  $('#fat-title').textContent = `💗 Für ${FL()}`;
+}
+// Pause-Modus: jeder Tag mit ihren Tagen wird markiert
+function haidMark(){ if (db.haid && db.haid.on) { const x = db.days[today] = db.days[today] || {}; if (!x.haid) { x.haid = 1; save(); } } }
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-fat],[data-fenv],[data-ftab],[data-flove],[data-fhaid],[data-fsave],[data-fgo]'); if (!b) return;
+  const d = b.dataset;
+  if (d.fat) openFatema();
+  else if (d.fenv) { db.fatema.seen = today; save(); fBurst(); renderFatema(); }
+  else if (d.ftab) { FT = d.ftab; renderFatema(); $('#fat').scrollTop = 0; buzz(5); }
+  else if (d.flove) { const L = LOVE[Math.floor(Math.random() * LOVE.length)]; $('#flove').innerHTML = `<div class="fcard fpop"><p class="fq">„${esc(L[0])}“</p><span class="gref">${esc(L[1])}</span></div>`; fBurst(); }
+  else if (d.fhaid) {
+    if (d.fhaid === 'on') { db.haid = {on:true, since:today}; haidMark(); toast('🌙 Pause-Modus an – möge Allah es dir leicht machen'); }
+    else { db.haid = {on:false}; const x = db.days[today]; if (x && x.haid) delete x.haid; toast('✓ Willkommen zurück – Ghusl und dann Bismillah 💗'); }
+    save(); clearStats(); PSC = null; render(); renderFatema();
+  }
+  else if (d.fsave) { Object.assign(db.fatema, {name:($('#f-name').value || '').trim().slice(0, 20) || 'Fatema', from:($('#f-from').value || '').trim().slice(0, 20), msg:($('#f-msg').value || '').trim().slice(0, 400)}); save(); fBurst(); toast('💗 Gespeichert'); FT = 'love'; renderFatema(); renderFatBtn(); }
+  else if (d.fgo) { $('#fat').hidden = true; fHearts(false); if (d.fgo === 'dhikr') goTo({seg:'du'}); else openPl(); }
+});
+$('#fat').addEventListener('click', e => { if (e.target.closest('#fat-close')) { $('#fat').hidden = true; fHearts(false); } });
+function renderFatBtn(){ const b = $('#fatbtn'); if (b) b.setAttribute('aria-label', `Für ${FL()}`); }
 
 // ---------- Interaktion ----------
 function setCount(id, v){
@@ -5666,6 +5826,8 @@ $('#b-import').onchange = async e => {
     if (data.struggle && !db.struggle) db.struggle = data.struggle;
     for (const k of ['qread', 'qmark', 'istikhara', 'remind']) if (data[k] && !db[k]) db[k] = data[k];
     if (data.quiz && !db.quiz.rounds) db.quiz = data.quiz;
+    if (data.fatema && !db.fatema.msg) db.fatema = {...db.fatema, ...data.fatema};
+    if (data.haid && !db.haid) db.haid = data.haid;
     if (data.dfav) db.dfav = {...data.dfav, ...db.dfav};
     if (data.dlearn) db.dlearn = {...data.dlearn, ...db.dlearn};
     if (Array.isArray(data.pray)) db.pray = [...db.pray, ...data.pray.filter(p => !db.pray.some(o => o.id === p.id))];
