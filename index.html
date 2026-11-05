@@ -913,6 +913,49 @@ a.mrow{text-decoration:none;color:inherit}
 .fjgp-t i{font-style:normal;font-size:1.5rem;color:#e0457b}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .jgo{background:linear-gradient(180deg,#2a1020,#1c0c15);color:#ffe6f0}:root:not([data-theme="light"]) .jg-top{background:rgba(58,21,38,.94)}:root:not([data-theme="light"]) .jg-top b{color:#ff8fb8}:root:not([data-theme="light"]) .jg-stats span{background:#3a1526;border-color:#6b2a47}:root:not([data-theme="light"]) .jg-stats b{color:#ffb3cf}:root:not([data-theme="light"]) .jg-intro>div{background:rgba(42,16,32,.97);color:#ffe6f0}:root:not([data-theme="light"]) .jg-intro small{color:#ff8fb8}:root:not([data-theme="light"]) .fbtn2.on{background:transparent;color:#ff8fb8}:root:not([data-theme="light"]) .fjgp-t small{color:#e7a6c0!important}}
 :root[data-theme="dark"] .jgo{background:linear-gradient(180deg,#2a1020,#1c0c15);color:#ffe6f0}:root[data-theme="dark"] .jg-top{background:rgba(58,21,38,.94)}:root[data-theme="dark"] .jg-top b{color:#ff8fb8}:root[data-theme="dark"] .jg-stats span{background:#3a1526;border-color:#6b2a47}:root[data-theme="dark"] .jg-stats b{color:#ffb3cf}:root[data-theme="dark"] .jg-intro>div{background:rgba(42,16,32,.97);color:#ffe6f0}:root[data-theme="dark"] .jg-intro small{color:#ff8fb8}:root[data-theme="dark"] .fbtn2.on{background:transparent;color:#ff8fb8}:root[data-theme="dark"] .fjgp-t small{color:#e7a6c0!important}
+.fday-top{display:flex;gap:12px;align-items:center}
+.fheart{width:84px;height:78px;flex:none;filter:drop-shadow(0 4px 10px rgba(224,69,123,.25))}
+.fheart rect{transition:y .8s ease}
+.fday-top b{display:block;font-size:1rem;margin-top:2px}
+.fdchips{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+.fdchips button{border:1px solid #f6b9cf;background:#fff5f9;color:#9b2c5a;border-radius:12px;padding:6px 2px;font:inherit;font-size:.7rem;font-weight:700;line-height:1.2}
+.fdchips button span{display:block;font-size:1.15rem}
+.fdchips button em{display:block;font-style:normal;font-weight:600;font-size:.66rem;opacity:.8}
+.fdchips button.half{background:#ffe6f0}
+.fdchips button.on{background:#e0457b;border-color:#e0457b;color:#fff}
+.fnight{background:linear-gradient(140deg,#2a1b4d,#5a2a6e)!important;border-color:#5a2a6e!important;color:#fbeaff}
+.fnight small{color:#ffb3d9!important}
+.fnight b{color:#fff!important;display:block;margin:2px 0 6px}
+.fnit{display:flex;gap:8px;align-items:center;width:100%;text-align:left;border:0;background:rgba(255,255,255,.1);color:#fbeaff;border-radius:12px;padding:9px 10px;margin-top:5px;font:inherit;font-size:.85rem}
+.fnit span{width:20px;text-align:center;flex:none}
+.fnit.on{background:rgba(255,143,184,.3);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.5)}
+.fnight .x{margin-top:8px}
+.fnight-ok{margin:8px 0 0;font-weight:700;color:#ffb3d9}
+.fwhy{text-align:center}
+.fwhy b{display:block;margin:2px 0}
+.fwhy-j{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;padding:6px 0;font-size:1.1rem}
+.fwhy-j i{font-style:normal;animation:fpop .5s ease-out both}
+.fwhy-r{margin-top:10px;background:#fff0f6;border-radius:14px;padding:12px;font-weight:700;color:#8e2450;overflow-wrap:anywhere}
+.fdeck b{display:block;font-size:1.02rem;margin-top:2px}
+.fdeck-n{display:flex;justify-content:space-between;margin-top:8px}
+.fdeck.fin{animation:fdin .35s ease-out}
+.fdeck.fin2{animation:fdin2 .35s ease-out}
+@keyframes fdin{from{opacity:0;transform:translateX(24px)}}
+@keyframes fdin2{from{opacity:0;transform:translateX(-24px)}}
+.fmrow{display:grid;grid-template-columns:repeat(14,1fr);gap:1px;margin:8px 0 2px;text-align:center}
+.fmrow i{font-style:normal;font-size:1rem;color:#d79ab4;line-height:1.6;border-radius:8px}
+.fmrow i.td{background:#ffe3ee}
+.fwarn{border-color:#f0a35a!important;background:#fff6ec!important}
+.fcyc b,.fwarn b{display:block}
+.fghusl summary{cursor:pointer;list-style:none}
+.fghusl summary::-webkit-details-marker{display:none}
+.fghusl ol{margin:8px 0;padding-left:22px;line-height:1.5}
+.fghusl li{margin:4px 0}
+.fwl{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.fdb{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.fdb .fbtn2{margin-top:0}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .fdchips button{background:rgba(255,255,255,.06);border-color:#6b2a47;color:#ffc1d8}:root:not([data-theme="light"]) .fdchips button.half{background:rgba(224,69,123,.18)}:root:not([data-theme="light"]) .fdchips button.on{background:#e0457b;color:#fff}:root:not([data-theme="light"]) .fwhy-r{background:rgba(255,255,255,.08);color:#ffd1e3}:root:not([data-theme="light"]) .fmrow i.td{background:rgba(224,69,123,.25)}:root:not([data-theme="light"]) .fwarn{background:rgba(240,163,90,.12)!important}}
+:root[data-theme="dark"] .fdchips button{background:rgba(255,255,255,.06);border-color:#6b2a47;color:#ffc1d8}:root[data-theme="dark"] .fdchips button.half{background:rgba(224,69,123,.18)}:root[data-theme="dark"] .fdchips button.on{background:#e0457b;color:#fff}:root[data-theme="dark"] .fwhy-r{background:rgba(255,255,255,.08);color:#ffd1e3}:root[data-theme="dark"] .fmrow i.td{background:rgba(224,69,123,.25)}:root[data-theme="dark"] .fwarn{background:rgba(240,163,90,.12)!important}
 .gmini2{display:flex;align-items:center;gap:12px;border:1px solid #7cc48b;background:var(--card);color:var(--ink);border-radius:16px;padding:8px;margin-top:10px;cursor:pointer}
 .gmini2 .fjgp-t{padding:0;flex:1;min-width:0}
 .gmini2 .fjgp-t b{color:var(--ink)}
@@ -1069,7 +1112,7 @@ a.mrow{text-decoration:none;color:inherit}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-finder="1"><span>🧭</span><div><b>Wo finde ich was?</b><small>Alle Funktionen durchsuchen</small></div><i>›</i></button><button class="mrow" data-tcfg="1"><span>✎</span><div><b>Startseite anpassen</b><small>Karten ein- und ausblenden</small></div><i>›</i></button><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 50 (5.11.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 51 (5.11.2026)</p>
     </div>
     <div class="mp" data-m="pset" hidden><button class="kback" data-mk="">‹ Einstellungen</button><h2>📍 Standort &amp; Berechnung</h2>
     <button class="btn p" data-loc="1">📍 Aktuellen Standort verwenden</button>
@@ -3530,7 +3573,7 @@ function myStatus(){
   const ch = db.challenge;
   return {v:1, n:(db.settings.name || 'Ich').slice(0, 20), d:today, xp:totalXP(), wx:weekXP(), ws:weekStart(today), r:db.rank || 0, s:streak(),
     h:Object.keys(db.hadith).length, nm:Object.keys(db.names).length, td:dayStats(today).done, tt:dayStats(today).total,
-    ch:ch ? {id:ch.id, st:ch.start, m:ch.mode, val:metricSum(CHALLENGES[ch.id].metric, ch.start, 7)} : null, lv:db.fatema && db.fatema.msg ? db.fatema.msg.slice(0, 400) : undefined, jg:jgTotal() || undefined};
+    ch:ch ? {id:ch.id, st:ch.start, m:ch.mode, val:metricSum(CHALLENGES[ch.id].metric, ch.start, 7)} : null, lv:db.fatema && db.fatema.msg ? db.fatema.msg.slice(0, 400) : undefined, jg:jgTotal() || undefined, lw:db.fatema && db.fatema.why && db.fatema.why.length ? db.fatema.why.slice(0, 30) : undefined};
 }
 const b64e = o => btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 const b64d = t => JSON.parse(decodeURIComponent(escape(atob(t.replace(/-/g, '+').replace(/_/g, '/')))));
@@ -4058,6 +4101,7 @@ function gardenAdd(G, x){
     G.palm += x['q:q_palm'] || 0;
     G.plant += (x['q:q_subhan'] || 0) + (x.subhan100 || 0) + (x['q:q_hamd'] || 0) + (x['q:q_four'] || 0) * 4 + (x['q:q_tahlil10'] || 0) + (x.tahlil100 || 0);
     for (const key in x) if (key.startsWith('a:') && key.endsWith(':subhan')) G.plant += x[key];
+    G.plant += x['a:s:stasbih'] || 0;
     G.treasure += (x['q:q_hawqala'] || 0) + (x.hawqala || 0);
     if ((x.rawatib || 0) >= 12) G.house++;
     if ((x.ikhlas || 0) + (x['q:q_ikhlas'] || 0) >= 10) G.ikhlas++;
@@ -5600,7 +5644,7 @@ const FINDER = [
   ['✨', 'Rückblick (Woche, Monat, Jahr)', 'Ich', 'wrapped rückblick', () => openWrap('week')],
   ['💾', 'Backup sichern', 'Ich → ⚙️ Einstellungen', 'sichern daten', () => { showPage('set'); showM('data'); }],
   ['🎨', 'Anzeige (Design, Schrift, Arabisch)', 'Ich → ⚙️ Einstellungen', 'dunkel hell schrift arabisch', () => { showPage('set'); showM('disp'); }],
-  ['💗', `Für ${db.fatema && db.fatema.name || 'Fatema'} – ihr eigener Bereich`, 'Heute → 💗 oben', 'fatema frau freundin liebe periode tage pause frauen dankbar stimmung herz tasbih fatima jahrestag ziele pflege honig', () => openFatema()],
+  ['💗', `Für ${db.fatema && db.fatema.name || 'Fatema'} – ihr eigener Bereich`, 'Heute → 💗 oben', 'fatema frau freundin liebe periode tage pause frauen dankbar stimmung herz tasbih fatima jahrestag ziele pflege honig ghusl zyklus gründe gute nacht', () => openFatema()],
   ['✎', 'Startseite anpassen', 'Heute (ganz unten)', 'karten ausblenden', () => openTcfg()],
 ];
 function finderHTML(q){
@@ -5779,7 +5823,7 @@ const fdate = (k, o = {day:'numeric', month:'short'}) => new Date(k + 'T12:00').
 function fArchive(msg, from){ if (msg && !db.fatema.box.some(b => b.m === msg)) { db.fatema.box.unshift({m:msg, f:from || '', d:today}); db.fatema.box = db.fatema.box.slice(0, 60); save(); } }
 const FTS = ['🤍 SubhānAllāh', '🤍 Alhamdulillāh', '🤍 Allāhu akbar'];
 function fTasbihHTML(){
-  const c = day(today).stasbih || 0, ph = c < 33 ? 0 : c < 66 ? 1 : 2, inPh = c >= 100 ? 34 : c - ph * 33, tot = ph === 2 ? 34 : 33;
+  const c = day(today)[FTK] || 0, ph = c < 33 ? 0 : c < 66 ? 1 : 2, inPh = c >= 100 ? 34 : c - ph * 33, tot = ph === 2 ? 34 : 33;
   return `<div class="fcard ftb" id="ftasbih"><small>📿 Tasbīh der Fātima · vor dem Schlafen</small>
     <button class="ftap ${c >= 100 ? 'done' : ''}" data-ftap="1" style="--p:${Math.min(100, c)}"><span>${c >= 100 ? '✓' : inPh}</span><em>${c >= 100 ? 'Vollendet 💗' : `${FTS[ph]} · ${inPh}/${tot}`}</em></button>
     <div class="ftph">${FTS.map((t, i) => `<i class="${c >= [33, 66, 100][i] ? 'on' : ph === i ? 'cur' : ''}">${i === 2 ? 34 : 33}</i>`).join('')}</div>
@@ -5791,7 +5835,7 @@ function fHeute(){
   if (M) h += `<div class="fcard fpop"><small>${M[0]} ${esc(M[2])}</small><p class="fq">${esc(M[3])}</p><span class="gref">${esc(M[4])}</span>
       <p class="ftr" style="margin-top:10px">${esc(M[5])}</p><p class="fde">„${esc(M[6])}“</p><span class="gref">${esc(M[7])}</span>${qAudioBtn(M[7]) ? ` ${qAudioBtn(M[7])}` : ''}
       <p class="fact">💡 ${esc(M[8])}</p>${M[9] === 'kursi' ? qAudioBtn('Quran 2:255') : M[9] && M[9] !== 'tasbih' ? `<button class="fbtn2" data-ftab="${M[9]}">${{grat:'🌷 Zum Dankbarkeits-Glas', care:'🍯 Sunnah-Pflege', duas:'🤲 Mehr Du’as'}[M[9]]}</button>` : ''}</div>`;
-  return h + fTasbihHTML();
+  return h + fMoodStrip() + fTasbihHTML();
 }
 function fGrat(){
   const t = db.fgrat[today] || [], all = Object.entries(db.fgrat).sort((a, b) => b[0] < a[0] ? -1 : 1), n = all.reduce((a, [, l]) => a + l.length, 0);
@@ -5843,12 +5887,12 @@ document.addEventListener('click', e => {
   const d = b.dataset, x = db.days[today] = db.days[today] || {};
   if (d.fmood) { const first = !x.fh; x.fh = d.fmood; save(); renderFatema(); if (first) fBurst(); buzz(8); render(); }
   else if (d.ftap) {
-    if ((x.stasbih || 0) >= 100) return;
-    x.stasbih = (x.stasbih || 0) + 1; save(); buzz([33, 66].includes(x.stasbih) ? [20, 40, 20] : 6);
+    if ((x[FTK] || 0) >= 100) return;
+    x[FTK] = (x[FTK] || 0) + 1; save(); buzz([33, 66].includes(x[FTK]) ? [20, 40, 20] : 6);
     const el = $('#ftasbih'); if (el) el.outerHTML = fTasbihHTML();
-    if (x.stasbih >= 100) { fBurst(); toast('📿 Tasbīh der Fātima vollendet – besser als eine Dienerin 💗'); render(); }
+    if (x[FTK] >= 100) { fBurst(); toast('📿 Tasbīh der Fātima vollendet – besser als eine Dienerin 💗'); render(); }
   }
-  else if (d.ftreset) { x.stasbih = 0; save(); $('#ftasbih').outerHTML = fTasbihHTML(); render(); }
+  else if (d.ftreset) { x[FTK] = 0; save(); $('#ftasbih').outerHTML = fTasbihHTML(); render(); }
   else if (d.fgadd) {
     const v = ($('#fg-in').value || '').trim().slice(0, 120); if (!v) return $('#fg-in').focus();
     const l = db.fgrat[today] = db.fgrat[today] || []; l.push(v); x.fg = 1; save(); fBurst(); renderFatema(); render();
@@ -6039,6 +6083,135 @@ document.addEventListener('click', e => {
   }
 });
 document.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.fjgp')) { e.preventDefault(); openJG(); } });
+// ---------- 💗 v51: Fatema 2.0 ----------
+// Tasbīh der Fātima = Schlaf-Adhkar „33 · 33 · 34“ (vorher eigener Schlüssel → übernehmen)
+const FTK = 'a:s:stasbih';
+(() => {
+  let ch = false;
+  for (const k in db.days) { const x = db.days[k]; if (x.stasbih == null) continue; x[FTK] = Math.min(100, Math.max(x[FTK] || 0, x.stasbih)); delete x.stasbih; ch = true; }
+  if (ch) { clearStats(); GC = null; save(); }
+})();
+const fDiff = (a, b) => Math.round((new Date(b + 'T12:00') - new Date(a + 'T12:00')) / 864e5);
+// 💗 Dein Tag mit Allah – ein Herz, das sich füllt
+const FDAY = [
+  ['pr', '🕌', 'Gebete', x => Math.min(5, x.fard || 0) / 5, 'data-fgo="prayers"', x => `${Math.min(5, x.fard || 0)}/5`],
+  ['m', '🌅', 'Morgen', x => adhCount(x, 'm') / adhItems('m').length, 'data-fgo="m"', x => `${adhCount(x, 'm')}/${adhItems('m').length}`],
+  ['e', '🌇', 'Abend', x => adhCount(x, 'e') / adhItems('e').length, 'data-fgo="e"', x => `${adhCount(x, 'e')}/${adhItems('e').length}`],
+  ['fh', '☀️', 'Herz', x => x.fh ? 1 : 0, 'data-ftab="heute"'],
+  ['fg', '🌷', 'Dankbar', x => x.fg ? 1 : 0, 'data-ftab="grat"'],
+  ['du', '🤲', 'Du’a', x => Object.keys(x).some(k => k.startsWith('d:') && x[k] > 0) ? 1 : 0, 'data-ftab="duas"'],
+  ['tf', '📿', 'Tasbīh', x => Math.min(1, (x[FTK] || 0) / 100), 'data-ftab="heute" data-fscroll="ftasbih"', x => `${x[FTK] || 0}/100`],
+];
+let FFULL = false;
+function fDayHeart(){
+  const x = day(today), haid = !!(db.haid && db.haid.on), L = FDAY.filter(f => !(haid && f[0] === 'pr'));
+  const v = L.map(f => Math.min(1, f[3](x) || 0)), pct = Math.round(v.reduce((a, b) => a + b, 0) / L.length * 100);
+  const G = {dawn:'Guten Morgen', day:'Schön, dass du da bist', dusk:'Schönen Abend', night:'Assalāmu ‘alaykum'}[jgPhase()];
+  FFULL = pct === 100;
+  const y = (22 * (1 - pct / 100)).toFixed(2), path = 'M12 21.4l-1.5-1.3C5.4 15.4 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.9-8.5 11.6L12 21.4z';
+  return `<div class="fcard fday"><div class="fday-top"><svg class="fheart" viewBox="0 0 24 22" aria-hidden="true"><defs><clipPath id="fhc"><rect x="0" y="${y}" width="24" height="22"/></clipPath><linearGradient id="fhg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8fb8"/><stop offset="1" stop-color="#e0457b"/></linearGradient></defs>
+      <path d="${path}" fill="rgba(224,69,123,.12)" stroke="#e0457b" stroke-width=".9"/><path d="${path}" fill="url(#fhg)" clip-path="url(#fhc)"/><text x="12" y="13.2" text-anchor="middle" font-size="5" font-weight="800" fill="${pct >= 55 ? '#fff' : '#c2185b'}">${pct}%</text></svg>
+    <div><small>${G}, ${esc(FL())} 💗</small><b>${pct === 100 ? 'Dein Herz ist heute voll – MāschāAllāh!' : pct ? 'Dein Tag mit Allah füllt dein Herz' : 'Dein Tag mit Allah beginnt'}</b><p class="sub" style="margin:2px 0 0">${haid ? '🌙 Pause-Modus: Gebete ruhen, alles andere zählt weiter.' : 'Jeder Punkt füllt dein Herz ein Stück.'}</p></div></div>
+    <div class="fdchips">${L.map((f, i) => `<button class="${v[i] >= 1 ? 'on' : v[i] > 0 ? 'half' : ''}" ${f[4]}><span>${f[1]}</span>${f[2]}<em>${v[i] >= 1 ? '✓' : f[5] ? f[5](x) : '–'}</em></button>`).join('')}</div></div>`;
+}
+// 🌙 Gute-Nacht-Routine (nach Ischa)
+const FNIGHT = ['skursi', 'sbaqara', 'squls', 'stasbih', 'sbara', 'sbismika'];
+function fNight(){
+  if (jgPhase() !== 'night') return '';
+  const x = day(today), its = FNIGHT.map(id => ADHKAR.find(a => a.id === id)).filter(Boolean), ok = a => (x[`a:s:${a.id}`] || 0) >= a.target, done = its.filter(ok).length;
+  return `<div class="fcard fnight"><small>🌙 Gute Nacht, ${esc(FL())}</small><b>Deine Sunnah vor dem Schlafen · ${done}/${its.length}</b>
+    ${its.map(a => `<button class="fnit ${ok(a) ? 'on' : ''}" data-fnight="${a.id}"><span>${ok(a) ? '✓' : a.id === 'stasbih' ? '📿' : '○'}</span>${esc(a.title)}</button>`).join('')}
+    ${done === its.length ? '<p class="fnight-ok">MāschāAllāh – schlaf in Allahs Schutz 💗</p>' : ''}<button class="x" data-fgo="s">📖 Texte & Bedeutung</button></div>`;
+}
+// 🫙 Glas der Liebe – Gründe, die über „Zusammen“ auf ihr Handy kommen
+function fReasons(){
+  const P = db.partner;
+  if (P && Array.isArray(P.lw) && P.lw.length) return {l:P.lw, txt:`Gründe, warum ${esc(P.n)} dich liebt`};
+  const own = db.fatema.why || [];
+  return {l:own, txt:`Vorschau: deine Gründe für ${esc(FL())}`, own:true};
+}
+let FWL = -1;
+function fWhy(){
+  const R = fReasons(); if (!R.l.length) return '';
+  return `<div class="fcard fwhy"><small>🫙 Glas der Liebe</small><b>${R.l.length} ${R.txt}</b><div class="fwhy-j">${Array.from({length:Math.min(R.l.length, 24)}, (_, i) => `<i style="animation-delay:${(i % 8) * .12}s">${['💗', '💌', '💕', '🌸'][i % 4]}</i>`).join('')}</div>
+    <button class="fbtn2" data-fwhy="1">💗 Einen Grund ziehen</button><div id="fwhy-o"></div></div>`;
+}
+// ✨ Wer du für Allah bist – Zusagen aus dem Quran
+const FDECK = [
+  ['Du bist schön erschaffen', 'Wir haben den Menschen in schönster Gestalt erschaffen.', 'Quran 95:4'],
+  ['Keine Tat von dir geht verloren', 'Ich lasse kein Werk eines Wirkenden unter euch verloren gehen, sei es von Mann oder Frau.', 'Quran 3:195'],
+  ['Dir ist ein gutes Leben versprochen', 'Wer rechtschaffen handelt, ob Mann oder Frau, und dabei gläubig ist, dem werden Wir ganz gewiss ein gutes Leben gewähren.', 'Quran 16:97'],
+  ['Allah ist dir ganz nah', 'Und Wir sind ihm näher als seine Halsschlagader.', 'Quran 50:16'],
+  ['Er gedenkt deiner', 'So gedenkt Meiner, dann gedenke Ich eurer.', 'Quran 2:152'],
+  ['Er ist bei dir, wenn es schwer ist', 'Gewiss, Allah ist mit den Standhaften.', 'Quran 2:153'],
+  ['Du trägst nie zu viel', 'Allah erlegt keiner Seele mehr auf, als sie zu leisten vermag.', 'Quran 2:286'],
+  ['Es ist nie zu spät', 'Verliert nicht die Hoffnung auf Allahs Barmherzigkeit. Gewiss, Allah vergibt alle Sünden.', 'Quran 39:53'],
+  ['Er liebt, wer zu Ihm zurückkehrt', 'Gewiss, Allah liebt die sich reumütig Ihm Zuwendenden, und Er liebt die sich Reinigenden.', 'Quran 2:222'],
+  ['Dein Gutes wird gesehen', 'Gewiss, Allah lässt den Lohn der Gutes Tuenden nicht verloren gehen.', 'Quran 9:120'],
+  ['Für dich ist großer Lohn bereitet', 'Für die muslimischen Männer und Frauen, die gläubigen Männer und Frauen … hat Allah Vergebung und gewaltigen Lohn bereitet.', 'Quran 33:35'],
+  ['Er hört dich', 'Ruft Mich an, so erhöre Ich euch.', 'Quran 40:60'],
+];
+let FDK = null;
+function fDeckCard(){
+  if (FDK == null) FDK = Math.floor(new Date(today + 'T12:00') / 864e5) % FDECK.length;
+  const [t, v, r] = FDECK[FDK];
+  return `<div class="fcard fdeck" id="fdeck"><small>✨ Wer du für Allah bist · ${FDK + 1}/${FDECK.length}</small><b>${esc(t)}</b><p class="fq">„${esc(v)}“</p><span class="gref">${esc(r)}</span>
+    <div class="fdeck-n"><button class="x" data-fdeck="-1" aria-label="vorherige">‹</button><button class="x" data-fdeck="1" aria-label="nächste">Nächste ›</button></div></div>`;
+}
+// ☀️ Stimmungs-Verlauf (14 Tage)
+function fMoodStrip(){
+  const ds = Array.from({length:14}, (_, i) => addDays(today, i - 13)), M = ds.map(k => (db.days[k] || {}).fh), cnt = {};
+  M.forEach(m => { if (m) cnt[m] = (cnt[m] || 0) + 1; });
+  const n = Object.values(cnt).reduce((a, b) => a + b, 0); if (!n) return '';
+  const top = Object.entries(cnt).sort((a, b) => b[1] - a[1])[0];
+  return `<div class="fcard fmoodh"><small>📅 Dein Herz in den letzten 14 Tagen</small><div class="fmrow">${ds.map((k, i) => `<i class="${k === today ? 'td' : ''}" title="${fdate(k)}">${M[i] ? FMOODS[M[i]][0] : '·'}</i>`).join('')}</div>
+    ${n >= 3 ? `<p class="fsub">Meistens: ${FMOODS[top[0]][0]} ${FMOODS[top[0]][1]}${['sad', 'stress', 'scared', 'tired'].includes(top[0]) ? ' – sprich mit jemandem, dem du vertraust, und mit Allah. Du bist nicht allein 💗' : ' – Alhamdulillah 💗'}</p>` : ''}</div>`;
+}
+// 🌙 Zyklus: Schätzung, Istihāda-Hinweis, Ghusl
+function fCycle(){
+  const P = fPeriods(), on = !!(db.haid && db.haid.on), starts = P.map(p => p.s), gaps = [];
+  let h = '';
+  if (on) { const n = fDiff(db.haid.since, today) + 1; if (n > 10) h += `<div class="fcard fwarn"><b>💭 Schon ${n} Tage</b><p>Dauert die Blutung ungewöhnlich lange, kann es Istihāda sein – dann betest du wieder; die Einzelheiten unterscheiden sich je nach Rechtsschule. Frag am besten eine Lehrerin oder Gelehrte, der du vertraust.</p><span class="gref">Bukhari 306</span></div>`; }
+  for (let i = 1; i < starts.length; i++) { const g = fDiff(starts[i - 1], starts[i]); if (g >= 15 && g <= 60) gaps.push(g); }
+  if (gaps.length && !on) {
+    const avg = Math.round(gaps.reduce((a, b) => a + b, 0) / gaps.length), nx = addDays(starts[starts.length - 1], avg), left = fDiff(today, nx);
+    h += `<div class="fcard fcyc"><b>🔮 Deine nächsten Tage</b><p>${left > 1 ? `Voraussichtlich ab <b>${fdate(nx, {weekday:'short', day:'numeric', month:'long'})}</b> – in ${left} Tagen.` : left >= 0 ? `Voraussichtlich ${left ? 'morgen' : 'heute'} (${fdate(nx)}).` : `Laut Schnitt um den ${fdate(nx)} – Zyklen schwanken oft um ein paar Tage.`}</p>
+      <p class="sub">Ø ${avg}-Tage-Zyklus aus ${gaps.length + 1} Zeiträumen · nur eine Schätzung, kein medizinischer Rat. Tipp: Plane freiwilliges Fasten oder ein Quran-Ziel gern davor.</p></div>`;
+  }
+  return h;
+}
+function fGhusl(){
+  const on = !!(db.haid && db.haid.on);
+  return `<details class="fcard fghusl"${on ? ' open' : ''}><summary><b>🚿 Ghusl nach deinen Tagen – Schritt für Schritt</b></summary><ol>
+      <li><b>Absicht</b> im Herzen: Ich reinige mich für Allah. <span class="gref">Bukhari 1</span></li>
+      <li><b>Bismillah</b> – dann die Hände waschen.</li>
+      <li>Den <b>Intimbereich</b> waschen.</li>
+      <li><b>Wudu</b> machen wie zum Gebet.</li>
+      <li>Dreimal Wasser über den <b>Kopf</b> gießen und mit den Fingern bis an die Haarwurzeln reiben.</li>
+      <li>Den <b>ganzen Körper</b> waschen, rechts beginnend – keine Stelle bleibt trocken.</li></ol>
+    <p class="sub">So beschreiben ‘Ā’ischa und Maymūna den Ghusl des Propheten ﷺ. <span class="gref">Bukhari 248, Muslim 316</span> Nach den Tagen empfahl er einer Frau zusätzlich ein parfümiertes Stück Stoff zur Reinigung – schön, aber keine Pflicht. <span class="gref">Bukhari 314, Muslim 332</span></p>
+    ${on ? '<button class="fbtn2" data-fhaid="off">✓ Ghusl gemacht – Pause beenden</button>' : ''}</details>`;
+}
+const FWLINK = ['<button class="fbtn2" data-ftab="heute" data-fscroll="ftasbih">📿 Ihr Tasbīh beten</button>', '', '<button class="fbtn2" data-fqr="19">📖 Sure Maryam lesen</button>', () => qAudioBtn('Quran 66:11'), ''];
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-fnight],[data-fwhy],[data-fdeck],[data-fdsay],[data-fqr]'); if (!b) return;
+  const d = b.dataset, x = db.days[today] = db.days[today] || {};
+  if (d.fnight) {
+    if (d.fnight === 'stasbih') { FT = 'heute'; renderFatema(); const t = $('#ftasbih'); if (t) t.scrollIntoView({block:'center'}); return; }
+    const a = ADHKAR.find(z => z.id === d.fnight), k = `a:s:${a.id}`, was = (x[k] || 0) >= a.target;
+    x[k] = was ? 0 : a.target; save(); render(); buzz(was ? 5 : 12); renderFatema();
+    const its = FNIGHT.map(id => ADHKAR.find(z => z.id === id)).filter(Boolean);
+    if (!was && its.every(z => (x[`a:s:${z.id}`] || 0) >= z.target)) { fBurst(); toast('🌙 Alles vor dem Schlafen erledigt – schlaf in Allahs Schutz 💗'); }
+  }
+  else if (d.fwhy) {
+    const L = fReasons().l; if (!L.length) return;
+    let i = Math.floor(Math.random() * L.length); if (L.length > 1 && i === FWL) i = (i + 1) % L.length; FWL = i;
+    $('#fwhy-o').innerHTML = `<div class="fpop fwhy-r">💗 ${esc(L[i])}</div>`; fBurst();
+  }
+  else if (d.fdeck) { FDK = (FDK + +d.fdeck + FDECK.length) % FDECK.length; const el = $('#fdeck'); if (el) { el.outerHTML = fDeckCard(); const n = $('#fdeck'); n.classList.add(+d.fdeck > 0 ? 'fin' : 'fin2'); } buzz(5); }
+  else if (d.fdsay) { const k = 'd:fd' + d.fdsay; x[k] = (x[k] || 0) + 1; save(); render(); b.textContent = `🤲 Gesprochen (${x[k]}×)`; b.classList.add('on'); buzz(10); if (x[k] === 1) toast('🤲 Āmīn – möge Allah es dir erfüllen'); }
+  else if (d.fqr) openQr(d.fqr);
+});
 let FT = 'love';
 function openFatema(){
   const first = db.fatema.seen !== today;
@@ -6062,28 +6235,32 @@ function renderFatema(){
   fArchive(F.msg || (P && P.lv) || '', F.msg ? (F.from || '') : (P && P.lv ? P.n : ''));
   const msg = F.msg || (P && P.lv) || '', from = F.msg ? (F.from || '') : (P && P.lv ? P.n : '');
   let h = `<div class="ftabs">${tabs.map(([k, i, t]) => `<button class="${FT === k ? 'on' : ''}" data-ftab="${k}"><span>${i}</span>${t}</button>`).join('')}</div>`;
-  if (FT === 'love') h += `<div class="fcard fmsg"><small>💌 ${from ? `Von ${esc(from)}` : 'Für dich'}</small><p>${msg ? esc(msg) : `Möge Allah dein Herz mit Ruhe füllen, dein Lächeln bewahren und dich zu den Bewohnern des Paradieses zählen. 💗`}</p></div>
+  if (FT === 'love') h += fDayHeart() + fNight() + `<div class="fcard fmsg"><small>💌 ${from ? `Von ${esc(from)}` : 'Für dich'}</small><p>${msg ? esc(msg) : `Möge Allah dein Herz mit Ruhe füllen, dein Lächeln bewahren und dich zu den Bewohnern des Paradieses zählen. 💗`}</p></div>
       <div class="fcard"><small>✨ Botschaft des Tages</small><p class="fq">„${esc(L[0])}“</p><span class="gref">${esc(L[1])}</span></div>
-      <button class="fbig" data-flove="1"><span>💗</span>Tippe für eine Liebesbotschaft</button><div id="flove"></div>` + fLoveExtra();
+      <button class="fbig" data-flove="1"><span>💗</span>Tippe für eine Liebesbotschaft</button><div id="flove"></div>` + fWhy() + fDeckCard() + fLoveExtra();
   if (FT === 'heute') h += fHeute();
   if (FT === 'grat') h += fGrat();
   if (FT === 'wir') h += fWir();
   if (FT === 'care') h += fCare();
-  if (FT === 'women') h += `<p class="fsub">Die großen Frauen des Islam – Vorbilder für dein Herz.</p>` + FWOMEN.map(([i, t, d, r], k) => `<div class="fcard ${k ? '' : 'fstar'}"><b>${i} ${esc(t)}</b><p>${esc(d)}</p><span class="gref">${esc(r)}</span></div>`).join('');
-  if (FT === 'duas') h += `<p class="fsub">Du’as aus Quran & Sunnah – für dich ausgesucht.</p>` + FDUAS.map(([t, tr, de, r]) => `<div class="fcard"><b>${esc(t)}</b><p class="ftr">${esc(tr)}</p><p class="fde">„${esc(de)}“</p><span class="gref">${esc(r)}</span>${qAudioBtn(r) ? `<div style="margin-top:6px">${qAudioBtn(r)}</div>` : ''}</div>`).join('');
+  if (FT === 'women') h += `<p class="fsub">Die großen Frauen des Islam – Vorbilder für dein Herz.</p>` + FWOMEN.map(([i, t, d, r], k) => { const L = typeof FWLINK[k] === 'function' ? FWLINK[k]() : FWLINK[k] || ''; return `<div class="fcard ${k ? '' : 'fstar'}"><b>${i} ${esc(t)}</b><p>${esc(d)}</p><span class="gref">${esc(r)}</span>${L ? `<div class="fwl">${L}</div>` : ''}</div>`; }).join('');
+  if (FT === 'duas') { const x = day(today); h += `<p class="fsub">Du’as aus Quran & Sunnah – für dich ausgesucht.</p>` + FDUAS.map(([t, tr, de, r], i) => { const c = x['d:fd' + i] || 0, au = qAudioBtn(r); return `<div class="fcard"><b>${esc(t)}</b><p class="ftr">${esc(tr)}</p><p class="fde">„${esc(de)}“</p><span class="gref">${esc(r)}</span><div class="fdb"><button class="fbtn2 ${c ? 'on' : ''}" data-fdsay="${i}">🤲 Gesprochen${c ? ` (${c}×)` : ''}</button>${au}</div></div>`; }).join(''); }
   if (FT === 'days') { const on = !!(db.haid && db.haid.on); h += `<div class="fcard fpause"><b>🌙 Pause-Modus ${on ? 'ist an' : ''}</b><p>${on ? `Seit ${new Date(db.haid.since + 'T12:00').toLocaleDateString('de-DE', {day:'numeric', month:'long'})}. Deine Gebets-Serien bleiben erhalten, und diese Tage zählen nicht als verpasst.` : 'Während deiner Tage ruhen die Gebete. Schalte den Pause-Modus ein – dann brechen deine Serien nicht, und die Statistik zählt diese Tage nicht als verpasst.'}</p>
       <button class="fbtn2" data-fhaid="${on ? 'off' : 'on'}">${on ? '✓ Meine Tage sind vorbei' : '🌙 Pause-Modus einschalten'}</button></div>
     <div class="fcard"><b>Was gilt in diesen Tagen?</b><p>Du betest nicht und fastest nicht – das ist eine Erleichterung von Allah, keine Schwäche. „Ist es nicht so, dass sie, wenn sie ihre Tage hat, nicht betet und nicht fastet?“ <span class="gref">Bukhari 304</span></p><p>Die Gebete werden <b>nicht</b> nachgeholt, verpasste Ramadan-Fastentage schon. <span class="gref">Muslim 335</span></p><p>Wenn sie vorbei sind: Ghusl machen und wieder beten. <span class="gref">Bukhari 320</span></p></div>
     <div class="fcard"><b>💗 Was du weiter tun kannst – und was zählt</b><p>Dhikr, Istighfar, Salawat, Du’as – auch die Morgen- und Abend-Adhkar · Quran anhören · Wissen lernen · Sadaqa · gute Worte und ein Lächeln. Dein Lohn hört nicht auf.</p><p class="sub">Ob man den Quran in dieser Zeit aus dem Gedächtnis rezitieren darf, darüber sind sich die Gelehrten uneinig – folge deiner Rechtsschule. Zuhören ist für alle erlaubt.</p>
-      <button class="fbtn2" data-fgo="dhikr">📿 Zu Dhikr & Du’as</button> <button class="fbtn2" data-fgo="quran">🎧 Quran hören</button></div>` + fDaysExtra(); }
+      <button class="fbtn2" data-fgo="dhikr">📿 Zu Dhikr & Du’as</button> <button class="fbtn2" data-fgo="quran">🎧 Quran hören</button></div>` + fCycle() + fGhusl() + fDaysExtra(); }
   if (FT === 'edit') h += `<div class="fcard"><b>✎ Persönliche Nachricht</b><p class="sub">Schreib hier eine Nachricht – sie steht ganz oben unter „Für dich“. Über „Zusammen“ (Stand teilen) kommt sie auch auf ihr Handy.</p>
       <div class="inp"><input id="f-name" value="${esc(F.name || '')}" placeholder="Ihr Name" maxlength="20" autocomplete="off"></div>
       <div class="inp"><input id="f-from" value="${esc(F.from || db.settings.name || '')}" placeholder="Von (dein Name)" maxlength="20" autocomplete="off"></div>
       <label class="fsub" for="f-ann" style="display:block;margin:6px 0 2px">💞 Euer besonderer Tag (Kennenlernen / Nikah)</label><div class="inp"><input id="f-ann" type="date" value="${esc(F.ann || '')}" max="${today}"></div>
       <textarea id="f-msg" class="ftext" maxlength="400" placeholder="z. B. Du bist das schönste Geschenk, das Allah mir gemacht hat …">${esc(F.msg || '')}</textarea>
+      <label class="fsub" for="f-why" style="display:block;margin:10px 0 2px">🫙 Warum ich dich liebe – ein Grund pro Zeile</label>
+      <textarea id="f-why" class="ftext" maxlength="4000" placeholder="dein Lachen&#10;wie du für deine Familie betest&#10;…">${esc((F.why || []).join('\n'))}</textarea>
+      <p class="sub">Erscheinen bei ihr als „Glas der Liebe“ – sie zieht jeden Tag einen Grund. Über „Zusammen“ kommen Nachricht und Gründe auf ihr Handy.</p>
       <button class="fbtn2" data-fsave="1">💗 Speichern</button></div>`;
   $('#fat-body').innerHTML = h;
   $('#fat-title').textContent = `💗 Für ${FL()}`;
+  if (FT === 'love' && FFULL && F.full !== today) { F.full = today; save(); setTimeout(() => { fBurst(); toast('💗 Dein Herz ist heute voll – MāschāAllāh!'); }, 350); }
 }
 // Pause-Modus: jeder Tag mit ihren Tagen wird markiert
 function haidMark(){ if (db.haid && db.haid.on) { const x = db.days[today] = db.days[today] || {}; if (!x.haid) { x.haid = 1; save(); } } }
@@ -6099,8 +6276,8 @@ document.addEventListener('click', e => {
     else { db.haid = {on:false}; const x = db.days[today]; if (x && x.haid) delete x.haid; toast('✓ Willkommen zurück – Ghusl und dann Bismillah 💗'); }
     save(); clearStats(); PSC = null; render(); renderFatema();
   }
-  else if (d.fsave) { Object.assign(db.fatema, {name:($('#f-name').value || '').trim().slice(0, 20) || 'Fatema', from:($('#f-from').value || '').trim().slice(0, 20), msg:($('#f-msg').value || '').trim().slice(0, 400), ann:/^\d{4}-\d\d-\d\d$/.test($('#f-ann').value) ? $('#f-ann').value : ''}); fArchive(db.fatema.msg, db.fatema.from); save(); fBurst(); toast('💗 Gespeichert'); FT = 'love'; renderFatema(); renderFatBtn(); }
-  else if (d.fgo) { $('#fat').hidden = true; fHearts(false); if (d.fgo === 'dhikr') goTo({seg:'du'}); else openPl(); }
+  else if (d.fsave) { Object.assign(db.fatema, {name:($('#f-name').value || '').trim().slice(0, 20) || 'Fatema', from:($('#f-from').value || '').trim().slice(0, 20), msg:($('#f-msg').value || '').trim().slice(0, 400), ann:/^\d{4}-\d\d-\d\d$/.test($('#f-ann').value) ? $('#f-ann').value : '', why:($('#f-why').value || '').split('\n').map(l => l.trim().slice(0, 140)).filter(Boolean).slice(0, 30)}); fArchive(db.fatema.msg, db.fatema.from); save(); fBurst(); toast('💗 Gespeichert'); FT = 'love'; renderFatema(); renderFatBtn(); }
+  else if (d.fgo) { $('#fat').hidden = true; fHearts(false); const g = d.fgo; if (g === 'dhikr') goTo({seg:'du'}); else if (g === 'quran') openPl(); else if (g === 'prayers') goTo({prayers:1}); else goTo({seg:g}); }
 });
 $('#fat').addEventListener('click', e => { if (e.target.closest('#fat-close')) { $('#fat').hidden = true; fHearts(false); } });
 function renderFatBtn(){ const b = $('#fatbtn'); if (b) b.setAttribute('aria-label', `Für ${FL()}`); }
