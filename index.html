@@ -724,6 +724,24 @@ a.mrow{text-decoration:none;color:inherit}
 .wz-nav{width:100%;max-width:520px}
 #wz-back{background:var(--card);color:var(--ink);border:1px solid var(--line)}
 #wz-next{background:var(--accent);color:#fff}
+.dtabs{margin:10px 0}
+.dtabs .sg{position:relative}
+.dbadge{position:absolute;top:4px;right:6px;min-width:18px;height:18px;border-radius:9px;background:var(--accent);color:#fff;font-size:.65rem;line-height:18px;padding:0 4px}
+#duac details.dua{padding:0}
+#duac details.dua summary{list-style:none;padding:9px 12px;cursor:pointer;color:var(--ink)}
+#duac details.dua summary .dua-h b{font-size:.95rem}
+#duawrap .dua-b{flex-wrap:wrap;row-gap:6px}
+#duac details.dua summary::-webkit-details-marker{display:none}
+#duac details.dua summary .dua-h{margin:0}
+#duac details.dua[open] summary{border-bottom:1px solid var(--line)}
+#duac details.dua > :not(summary){margin-left:14px;margin-right:14px}
+#duac details.dua .dua-b{margin-bottom:12px}
+.dtag summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.dtag summary::-webkit-details-marker{display:none}
+.dtag summary em{font-style:normal;font-size:.75rem;color:var(--accent)}
+.dtag summary b{color:var(--ink)}
+.dcount{margin:2px 0 8px}
+.dlrn{margin-top:0}
 .toast{z-index:60;position:fixed;width:max-content;max-width:calc(100% - 32px);text-align:center;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.on{opacity:1}
 </style>
@@ -792,15 +810,20 @@ a.mrow{text-decoration:none;color:inherit}
     <div class="card" id="cust"></div>
     </div>
     <div id="duawrap" hidden>
-      <button class="tsb" data-dm="1" style="border-color:var(--gold)"><span>🤲</span><div><b>Der Du’a-Meister</b><small>So geht Du’a · beste Zeiten · die vollständige Du’a Schritt für Schritt · Propheten · Gelehrte</small></div><i>›</i></button>
-      <button class="tsb" data-tawba="1" style="border-color:var(--accent);background:var(--accent-soft)"><span>🤍</span><div><b>Neuanfang: Tawba, Sünde & Sucht</b><small>Wenn du gerade kämpfst oder gefallen bist – Du’as, Schritte, Notfall-Hilfe</small></div><i>›</i></button>
-      <button class="tsb" data-reg="1"><span>📒</span><div><b>Register: Was sage ich wann?</b><small>Aufwachen, Essen, Haus verlassen, Regen, Wut, Sorge, Krankheit …</small></div><i>›</i></button>
-      <h2>🤍 Herz &amp; Seele</h2><div class="mgrp"><button class="mrow" data-qurb="1"><span>💫</span><div><b>Näher zu Allah</b><small>7 Minuten mit Allah · Licht · Schatzkammer</small></div><i>›</i></button><button class="mrow" data-ist="1"><span>🧭</span><div><b>Istikhara</b><small>Wenn du dich entscheiden musst</small></div><i>›</i></button><button class="mrow" data-jr="1"><span>🌙</span><div><b>Abend-Rückblick</b><small>Dankbarkeit & Muhasaba</small></div><i>›</i></button></div>
       <div id="dextra"></div>
-      <h2>🤲 Du’a-Sammlung aus Quran &amp; Sunnah</h2><div class="card" id="duac"></div>
-      <h2>📝 Meine Du’as</h2><div class="card" id="duas"></div>
-      <h2>👥 Für andere beten</h2><div class="card" id="prayfor"></div>
-    <h2>Wann Du’a besonders erhört wird</h2>
+      <div class="segc c4 dtabs" id="dtabs"></div>
+      <div class="dpn" data-dp="coll">
+        <div class="inp"><input id="dq" type="search" placeholder="🔎 Du’a suchen: Rizq, Eltern, Sorgen, Prüfung …" autocomplete="off"></div>
+        <div id="duac"></div>
+      </div>
+      <div class="dpn" data-dp="mine" hidden><p class="sub" style="margin-top:0">Deine eigenen Anliegen – sie erscheinen auch in der vollständigen Du’a des Du’a-Meisters.</p><div class="card" id="duas"></div></div>
+      <div class="dpn" data-dp="others" hidden><div class="card" id="prayfor"></div></div>
+      <div class="dpn" data-dp="help" hidden>
+      <button class="tsb" data-dm="1" style="border-color:var(--gold)"><span>🤲</span><div><b>Der Du’a-Meister</b><small>So geht Du’a · beste Zeiten · die vollständige Du’a Schritt für Schritt · Propheten · Gelehrte</small></div><i>›</i></button>
+      <button class="tsb" data-reg="1"><span>📒</span><div><b>Register: Was sage ich wann?</b><small>Aufwachen, Essen, Haus verlassen, Regen, Wut, Sorge, Krankheit …</small></div><i>›</i></button>
+      <button class="tsb" data-tawba="1" style="border-color:var(--accent);background:var(--accent-soft)"><span>🤍</span><div><b>Neuanfang: Tawba, Sünde & Sucht</b><small>Wenn du gerade kämpfst oder gefallen bist – Du’as, Schritte, Notfall-Hilfe</small></div><i>›</i></button>
+      <h2>🤍 Herz &amp; Seele</h2><div class="mgrp"><button class="mrow" data-qurb="1"><span>💫</span><div><b>Näher zu Allah</b><small>7 Minuten mit Allah · Licht · Schatzkammer</small></div><i>›</i></button><button class="mrow" data-ist="1"><span>🧭</span><div><b>Istikhara</b><small>Wenn du dich entscheiden musst</small></div><i>›</i></button><button class="mrow" data-jr="1"><span>🌙</span><div><b>Abend-Rückblick</b><small>Dankbarkeit & Muhasaba</small></div><i>›</i></button></div>
+      <h2>Wann Du’a besonders erhört wird</h2>
     <div class="card"><table>
       <tr><td>Im letzten Drittel der Nacht</td><td>Bukhari 1145, Muslim 758</td></tr>
       <tr><td>In der Niederwerfung (Sujud)</td><td>Muslim 482</td></tr>
@@ -810,6 +833,7 @@ a.mrow{text-decoration:none;color:inherit}
       <tr><td>Du’a des Reisenden, des Unterdrückten und der Eltern</td><td>Tirmidhi 1905 – hasan</td></tr>
     </table>
     <p class="sub">„Euer Du’a wird erhört, solange ihr nicht ungeduldig werdet und sagt: Ich habe gebetet, aber wurde nicht erhört.“ (Bukhari 6340, Muslim 2735)</p></div>
+      </div>
     </div>
   </section>
 
@@ -860,7 +884,7 @@ a.mrow{text-decoration:none;color:inherit}
       <div class="mgrp"><button class="mrow" data-mk="pset"><span>📍</span><div><b>Standort &amp; Berechnung</b><small>Methode, Asr, Moschee-Zeiten, Kalender-Export</small></div><i>›</i></button><button class="mrow" data-mk="cal"><span>🗓️</span><div><b>Hijri-Kalender</b><small>An die Mondsichtung anpassen</small></div><i>›</i></button><button class="mrow" data-mk="disp"><span>🎨</span><div><b>Anzeige</b><small>Design, Schrift, Arabisch, Vibration</small></div><i>›</i></button><button class="mrow" data-mk="plan"><span>📋</span><div><b>Tagesprogramm</b><small>Einsteiger, Fortgeschritten, Alles – oder einzeln</small></div><i>›</i></button></div>
       <h2>Daten &amp; Hilfe</h2>
       <div class="mgrp"><button class="mrow" data-finder="1"><span>🧭</span><div><b>Wo finde ich was?</b><small>Alle Funktionen durchsuchen</small></div><i>›</i></button><button class="mrow" data-tcfg="1"><span>✎</span><div><b>Startseite anpassen</b><small>Karten ein- und ausblenden</small></div><i>›</i></button><button class="mrow" data-mk="data"><span>💾</span><div><b>Backup &amp; Daten</b><small>Sichern, wiederherstellen</small></div><i>›</i></button><button class="mrow" data-help="1"><span>💡</span><div><b>So sammelst du XP</b><small>Anleitung mit „Zeig mir“</small></div><i>›</i></button><button class="mrow" data-mk="refs"><span>📚</span><div><b>Quellenverzeichnis</b><small>Alle Hadith- &amp; Quran-Stellen zum Nachprüfen</small></div><i>›</i></button><button class="mrow" data-mk="about"><span>ℹ️</span><div><b>Über die App &amp; Quellen</b><small>Absicht, Quellen, Schätzungen</small></div><i>›</i></button></div>
-      <p class="sub" style="text-align:center">App-Version 45 (4.11.2026)</p>
+      <p class="sub" style="text-align:center">App-Version 46 (5.11.2026)</p>
     </div>
     <div class="mp" data-m="pset" hidden><button class="kback" data-mk="">‹ Einstellungen</button><h2>📍 Standort &amp; Berechnung</h2>
     <button class="btn p" data-loc="1">📍 Aktuellen Standort verwenden</button>
@@ -2106,6 +2130,7 @@ function renderHistMore(){
 // ---------- Meine Du'as ----------
 db.duas = db.duas || [];
 function renderDuas(){
+  renderDTabs();
   const open = db.duas.filter(d => !d.done), done = db.duas.filter(d => d.done);
   const dt = k => new Date(k + 'T12:00').toLocaleDateString('de-DE', {day:'numeric', month:'short'});
   $('#duas').innerHTML = (open.length ? open.map(d => `<div class="li"><span>${esc(d.text)}<small class="sub">${d.k ? ` · seit ${dt(d.k)}` : ''}${d.n ? ` · ${d.n}× gebetet` : ''}${d.last === today ? ' · heute ✓' : ''}</small></span>
@@ -2711,19 +2736,43 @@ const DUAS = [
 ];
 const DUA_CATS = ['Alle', '📖 Aus dem Quran', ...new Set(DUAS.map(d => d.cat))];
 let duaCat = 'Alle';
+db.dfav = db.dfav || {};
+let duaQ = '', duaTab = 'coll';
+const DOPEN = new Set();
+document.addEventListener('toggle', e => { const id = e.target.dataset && e.target.dataset.did; if (id) { if (e.target.open) DOPEN.add(id); else DOPEN.delete(id); } }, true);
+function renderDTabs(){
+  const el = $('#dtabs'); if (!el) return;
+  const open = db.duas.filter(d => !d.done).length, due = db.pray.filter(p => p.last !== today).length;
+  el.innerHTML = [['coll', '📚', 'Sammlung', ''], ['mine', '📝', 'Meine', open], ['others', '👥', 'Für andere', due], ['help', '🧭', 'Hilfen', '']]
+    .map(([k, i, t, n]) => `<button class="sg ${k === duaTab ? 'on' : ''}" data-dtab="${k}"><span>${i}</span>${t}${n ? `<b class="dbadge">${n}</b>` : ''}</button>`).join('');
+  document.querySelectorAll('#duawrap .dpn').forEach(p => { p.hidden = p.dataset.dp !== duaTab; });
+}
 function renderDuaCollection(){
   renderDuaExtras();
-  const x = day(today);
-  $('#duac').innerHTML = `<p class="sub" style="margin-top:0">„Das Du’a ist die Ibada (der Gottesdienst).“ (Abu Dawud 1479, Tirmidhi 2969 – sahih) · Jedes gesprochene Du’a zählt mit.</p>
-    <div class="chips">${DUA_CATS.map(c => `<button class="chip ${c === duaCat ? 'on' : ''}" data-dcat="${esc(c)}">${esc(c)}</button>`).join('')}</div>`
-    + DUAS.filter(d => duaCat === 'Alle' || d.cat === duaCat || (duaCat === '📖 Aus dem Quran' && /^Quran /.test(d.ref))).map(d => {
-      const c = x['d:' + d.id] || 0;
-      return `<div class="dua"><div class="dua-h"><b>${esc(d.title)}</b><small>${esc(d.cat)}</small></div>
+  const x = day(today), w = norm(duaQ).trim().split(/\s+/).filter(Boolean), nf = Object.keys(db.dfav).length, L = DUAS.filter(d => db.dlearn[d.id]).length;
+  const cats = ['Alle', '⭐ Favoriten', ...DUA_CATS.filter(c => c !== 'Alle')];
+  const list = DUAS.filter(d => duaCat === 'Alle' || d.cat === duaCat || (duaCat === '📖 Aus dem Quran' && /^Quran /.test(d.ref)) || (duaCat === '⭐ Favoriten' && db.dfav[d.id]))
+    .filter(d => !w.length || w.every(t => norm(d.title + ' ' + d.cat + ' ' + d.de + ' ' + d.tr + ' ' + (d.note || '')).includes(t)));
+  $('#duac').innerHTML = `<button class="tsb dlrn" data-dlearn="1"><span>🧠</span><div><b>Du’as auswendig lernen</b><small>${L} von ${DUAS.length} gelernt · +5 XP je Du’a</small></div><i>›</i></button>
+    <div class="chips">${cats.map(c => `<button class="chip ${c === duaCat ? 'on' : ''}" data-dcat="${esc(c)}">${esc(c)}${c === '⭐ Favoriten' && nf ? ` (${nf})` : ''}</button>`).join('')}</div>
+    <p class="sub dcount">${list.length} ${list.length === 1 ? 'Du’a' : 'Du’as'} · antippen zum Öffnen</p>`
+    + (list.length ? list.map(d => {
+      const c = x['d:' + d.id] || 0, fav = !!db.dfav[d.id], au = qAudioBtn(d.ref);
+      return `<details class="dua"${DOPEN.has(d.id) || (w.length && list.length <= 3) ? ' open' : ''} data-did="${d.id}"><summary><div class="dua-h"><b>${fav ? '⭐ ' : ''}${esc(d.title)}</b><small>${esc(d.cat)}${au ? ' · 🔊' : ''}${c ? ' · ✓ heute' : ''}</small></div></summary>
         <div class="say"><div class="tr">${esc(d.tr)}</div><div class="de">„${esc(d.de)}“</div></div>
         ${d.note ? `<p class="sub" style="margin:4px 0">${esc(d.note)}</p>` : ''}<span class="gref">${esc(d.ref)}</span>
-        <div class="dua-b"><button class="adhbtn" data-dsay="${d.id}">🤲 Gesprochen${c ? ` (${c}×)` : ''}</button>${qAudioBtn(d.ref)}<button class="x" data-dsave="${d.id}" aria-label="zu Meine Du’as hinzufügen">+ Merken</button></div></div>`;
-    }).join('');
+        <div class="dua-b"><button class="adhbtn" data-dsay="${d.id}">🤲 Gesprochen${c ? ` (${c}×)` : ''}</button>${au}<button class="x" data-dfav="${d.id}" aria-label="${fav ? 'aus Favoriten entfernen' : 'als Favorit merken'}">${fav ? '⭐' : '☆'}</button><button class="x" data-dsave="${d.id}" aria-label="zu Meine Du’as hinzufügen">+ Merken</button></div></details>`;
+    }).join('') : `<p class="sub">${duaCat === '⭐ Favoriten' && !nf ? 'Noch keine Favoriten – tippe bei einem Du’a auf ☆, dann findest du es hier sofort wieder.' : 'Nichts gefunden – versuch ein anderes Wort.'}</p>`)
+    + '<p class="sub" style="margin-top:10px">„Das Du’a ist die Ibada (der Gottesdienst).“ <span class="gref">Abu Dawud 1479, Tirmidhi 2969 – sahih</span></p>';
 }
+document.addEventListener('input', e => { if (e.target.id === 'dq') { duaQ = e.target.value; renderDuaCollection(); } });
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-dtab],[data-dfav]'); if (!b) return;
+  if (b.dataset.dtab) { duaTab = b.dataset.dtab; renderDTabs(); buzz(5); return; }
+  e.preventDefault();
+  const id = b.dataset.dfav; if (db.dfav[id]) delete db.dfav[id]; else { db.dfav[id] = today; toast('⭐ Als Favorit gemerkt'); }
+  save(); renderDuaCollection(); buzz(8);
+});
 
 // ---------- Suche über alle Inhalte ----------
 const norm = t => String(t).normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’‘'`]/g, '').toLowerCase();
@@ -5033,12 +5082,10 @@ db.pray = db.pray || [];
 function renderDuaExtras(){
   const el = $('#dextra'); if (!el) return;
   const n = Math.floor(new Date(today + 'T12:00') / 864e5), d = DUAS[n % DUAS.length], c = day(today)['d:' + d.id] || 0;
-  const L = DUAS.filter(x => db.dlearn[x.id]).length;
-  el.innerHTML = `<div class="card dtag"><div class="dh-k">✨ Du’a des Tages · ${esc(d.cat)}</div><b>${esc(d.title)}</b>
+  el.innerHTML = `<details class="card dtag"${DOPEN.has('_tag') ? ' open' : ''} data-did="_tag"><summary><span class="dh-k">✨ Du’a des Tages</span><b>${esc(d.title)}</b>${c ? '<em>✓ heute</em>' : ''}</summary>
       <div class="say"><div class="tr">${esc(d.tr)}</div><div class="de">„${esc(d.de)}“</div></div>${d.note ? `<p class="sub" style="margin:4px 0">${esc(d.note)}</p>` : ''}<span class="gref">${esc(d.ref)}</span>
-      <div class="dua-b"><button class="adhbtn" data-dsay="${d.id}">🤲 Gesprochen${c ? ` (${c}×)` : ''}</button>${qAudioBtn(d.ref)}</div></div>
-    <button class="tsb" data-dlearn="1"><span>🧠</span><div><b>Du’as auswendig lernen</b><small>${L} von ${DUAS.length} gelernt · +5 XP je Du’a</small></div><i>›</i></button>`;
-  renderPrayFor();
+      <div class="dua-b"><button class="adhbtn" data-dsay="${d.id}">🤲 Gesprochen${c ? ` (${c}×)` : ''}</button>${qAudioBtn(d.ref)}</div></details>`;
+  renderDTabs(); renderPrayFor();
 }
 
 // 🧠 Lernkarten: Bedeutung lesen → auswendig aufsagen → aufdecken
@@ -5068,6 +5115,7 @@ function dlcNext(drop){
 
 // 👥 Für andere beten – der Engel sagt: „Und dir das Gleiche“
 function renderPrayFor(){
+  if (typeof renderDTabs === 'function' && $('#dtabs') && $('#dtabs').innerHTML) setTimeout(renderDTabs);
   const el = $('#prayfor'); if (!el) return;
   const P = db.partner, done = db.pray.filter(p => p.last === today), rest = db.pray.filter(p => p.last !== today).sort((a, b) => (a.last || '').localeCompare(b.last || ''));
   const due = [...done, ...rest].slice(0, Math.max(3, done.length));
@@ -5322,8 +5370,8 @@ const FINDER = [
   ['📿', 'Dhikr-Zähler', 'Dhikr', 'zähler subhanallah salawat istighfar tasbih', () => goTo({seg:'quick'})],
   ['🤲', 'Du’a-Sammlung (51 Du’as, mit Rezitation)', 'Dhikr → Du’as', 'dua bittgebet rabbana', () => goTo({seg:'du'})],
   ['🧠', 'Du’as auswendig lernen', 'Dhikr → Du’as', 'lernkarten', () => { goTo({seg:'du'}); openDLearn(); }],
-  ['👥', 'Für andere beten', 'Dhikr → Du’as', 'eltern freundin freunde', () => { goTo({seg:'du'}); setTimeout(() => flash($('#prayfor')), 80); }],
-  ['📝', 'Meine Du’as & erhörte Du’as', 'Dhikr → Du’as', 'anliegen erhört', () => { goTo({seg:'du'}); setTimeout(() => flash($('#duas')), 80); }],
+  ['👥', 'Für andere beten', 'Dhikr → Du’as', 'eltern freundin freunde', () => { goTo({seg:'du'}); duaTab = 'others'; renderDTabs(); }],
+  ['📝', 'Meine Du’as & erhörte Du’as', 'Dhikr → Du’as', 'anliegen erhört', () => { goTo({seg:'du'}); duaTab = 'mine'; renderDTabs(); }],
   ['🤲', 'Der Du’a-Meister (Adab, beste Zeiten, vollständige Du’a)', 'Dhikr → Du’as', 'wie mache ich dua zeiten', () => openDM()],
   ['📒', 'Register: Was sage ich wann?', 'Dhikr → Du’as', 'regen essen reise wut toilette', () => openReg()],
   ['🧭', 'Istikhara (Entscheidungsgebet)', 'Dhikr → Du’as → Herz & Seele', 'entscheidung', () => openIst()],
@@ -5618,6 +5666,7 @@ $('#b-import').onchange = async e => {
     if (data.struggle && !db.struggle) db.struggle = data.struggle;
     for (const k of ['qread', 'qmark', 'istikhara', 'remind']) if (data[k] && !db[k]) db[k] = data[k];
     if (data.quiz && !db.quiz.rounds) db.quiz = data.quiz;
+    if (data.dfav) db.dfav = {...data.dfav, ...db.dfav};
     if (data.dlearn) db.dlearn = {...data.dlearn, ...db.dlearn};
     if (Array.isArray(data.pray)) db.pray = [...db.pray, ...data.pray.filter(p => !db.pray.some(o => o.id === p.id))];
     if (data.partner && !db.partner) db.partner = data.partner;
